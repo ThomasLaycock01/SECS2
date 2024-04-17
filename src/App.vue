@@ -1,27 +1,25 @@
 <script setup>
 import ResourceTable from "./components/ResourceTable.vue";
 import Buttons from "./components/Buttons.vue";
+import CultistsPanel from "./components/CultistsPanel.vue";
 
-import { useCultistsStore } from "./stores/cultists";
+import { useJobsStore } from "./stores/jobs";
 
-const cultists = useCultistsStore();
+const jobs = useJobsStore()
 
-console.log(cultists.numOfCultists)
 </script>
 
 <template>
   <ResourceTable/>
   <Buttons/>
   <div>Assign menu</div>
+  <CultistsPanel/>
 </template>
 
 <script>
 
 export default {
   methods: {
-    tick() {
-
-    }
   }
 }
 

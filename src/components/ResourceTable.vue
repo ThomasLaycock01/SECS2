@@ -5,12 +5,6 @@ import {useResourcesStore} from "@/stores/resources.js";
 import { storeToRefs } from "pinia";
 
 const resources = useResourcesStore();
-
-console.log(storeToRefs(resources));
-
-for (var resource in storeToRefs(resources)) {
-    console.log(resource);
-}
 </script>
 
 <template>

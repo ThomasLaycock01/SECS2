@@ -2,14 +2,22 @@ import {defineStore} from "pinia";
 
 export const useCultistsStore = defineStore("cultists", {
     state: () => {
-        return []
+        return {regular: [], special: []}
     },
     getters: {
         numOfCultists(state) {
-            if (state.length == undefined) {
-                return 0;
-            }
-            return state.length;
+            return state.regular.length;
+        },
+        regularCultists(state) {
+            return state.regular;
+        },
+        getCultistById: (state) => {
+            return (cultistId) => state.regular.find((cultist) => cultist.id == cultistId);
+        }
+    },
+    actions: {
+        addCultist(cultist) {
+            this.regular.push(cultist);
         }
     }
 });
