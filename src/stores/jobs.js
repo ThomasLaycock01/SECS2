@@ -2,20 +2,27 @@ import {defineStore} from "pinia";
 
 import { useCultistsStore } from "./cultists";
 
+
+
 export const useJobsStore = defineStore("jobs", {
     state: () => {
-        return {miner: {output: 1, name:"Gold Miner", array: []}}
+        return {
+            Gold: {miner: {output: 1, name:"Gold Miner", array: []}
+            }}
     },
     getters: {
         getMiners(state) {
-            return state.miner.array;
+            return state.Gold.miner.array;
+        },
+        getByProdType(state) {
+            return (prodType) => state[prodType];
         }
     },
     actions: {
-        addCultistToJob(cultistId, job) {
+        addCultistToJobArray(cultistId, prodType, job) {
             const cultists = useCultistsStore();
             const cultist = cultists.getCultistById(cultistId);
-            this[job].array.push(cultist);
+            this[prodType][job].array.push(cultist);
         }
     }
 });

@@ -12,6 +12,7 @@ defineProps({
 <template>
     <tr>
         <td>{{ resource }}</td>
-        <td>{{ resources[resource] }}</td>
+        <td>{{ resources.getResourceTotal(resource) }}</td>
+        <td>{{ resources.getResourcePerSec(resource) }}</td>
     </tr>
 </template>

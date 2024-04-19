@@ -1,5 +1,34 @@
+import { useResourcesStore } from "./stores/resources";
 import { useCultistsStore } from "./stores/cultists";
 import { useJobsStore } from "./stores/jobs";
+
+
+//tick system
+export function tick() {
+    const resources = useResourcesStore();
+
+    calculateResource();
+}
+
+//calculating gold output
+export function calculateResource() {
+    const jobs = useJobsStore();
+    const resources = useResourcesStore();
+
+    const arrayOfJobs = jobs.getByProdType("Gold");
+
+
+    var totalResourceOutput = 0;
+    for (var i in arrayOfJobs) {
+        for (var j in arrayOfJobs[i].array) {
+            totalResourceOutput += 1;
+        }
+    }
+
+    console.log(totalResourceOutput);
+    resources.setResourcePerSec("Gold", totalResourceOutput);
+}
+
 
 //creating cultists
 class Cultist {
@@ -39,7 +68,7 @@ export function addCultistToJob(cultistId) {
     const jobs = useJobsStore();
 
     //second - add cultistId to job store
-    jobs.addCultistToJob(cultistId, "miner");
+    jobs.addCultistToJobArray(cultistId, "Gold", "miner");
 
     //third - update cultist to give them job
     const cultist = cultists.getCultistById(cultistId);

@@ -18,8 +18,11 @@ const jobs = useJobsStore()
 
 <script>
 
+import { tick } from "./functions";
+
 export default {
-  methods: {
+  mounted() {
+    setInterval(tick, 1000)
   }
 }
 

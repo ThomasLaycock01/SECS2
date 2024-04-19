@@ -2,9 +2,9 @@
 import Resource from "./Resource.vue";
 
 import {useResourcesStore} from "@/stores/resources.js";
-import { storeToRefs } from "pinia";
 
 const resources = useResourcesStore();
+
 </script>
 
 <template>
@@ -14,7 +14,7 @@ const resources = useResourcesStore();
                 <th>Resources</th>
             </tr>
         </thead>
-            <Resource v-for="(amount, resource) in storeToRefs(resources)" :resource="resource"/>
+            <Resource v-for="(amount, resource) in resources.all" :resource="resource"/>
         <tbody>
             
         </tbody>
