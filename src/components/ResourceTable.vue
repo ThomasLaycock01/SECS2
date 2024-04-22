@@ -14,7 +14,7 @@ const resources = useResourcesStore();
                 <th>Resources</th>
             </tr>
         </thead>
-            <Resource v-for="(amount, resource) in resources.all" :resource="resource"/>
+            <Resource v-for="(amount, resource) in resources.getAll" :resource="resource"/>
         <tbody>
             
         </tbody>

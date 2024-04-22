@@ -1,5 +1,7 @@
 import { useResourcesStore } from "./stores/resources.js";
 
+import { addCultist } from "./functions.js";
+
 export const actions = {
     //actions are stored as objects that then get rendered to the dom
     centralChamber: {
@@ -21,6 +23,17 @@ export const actions = {
                 resources.modifyResource("Evilness", 1);
             },
             condition(){return true},
+        },
+        hireCultist: {
+            id: "hireCultist",
+            name: "Hire Cultist",
+            effect() {
+                addCultist();
+            },
+            condition() {
+                const resources = useResourcesStore();
+                return resources.getResourceTotal("Gold") >= 20;
+            }
         }
     }
 }

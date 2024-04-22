@@ -4,8 +4,11 @@ import Cultist from './Cultist.vue';
 import { addCultist } from "@/functions.js";
 
 import { useCultistsStore } from "@/stores/cultists";
+import { useJobsStore } from '@/stores/jobs';
 
 const cultists = useCultistsStore();
+const jobs = useJobsStore();
+
 </script>
 
 <template>
@@ -21,6 +24,9 @@ const cultists = useCultistsStore();
 import { addCultistToJob } from '@/functions.js';
 
 export default {
+    computed: {
+
+    },
     methods: {
         onChange(event) {
             const id = event.target.value;

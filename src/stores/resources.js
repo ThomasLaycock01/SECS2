@@ -5,7 +5,7 @@ export const useResourcesStore = defineStore("resources", {
         return {Evilness: {total: 0, perSec: 0}, Gold: {total: 0, perSec: 0}, Crystals: {total: 0, perSec: 0}}
     },
     getters: {
-        all(state) {
+        getAll(state) {
             return {Evilness: state.Evilness, Gold: state.Gold, Crystals: state.Crystals};
         },
         getResourceTotal(state) {
