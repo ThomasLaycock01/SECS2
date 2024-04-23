@@ -8,15 +8,18 @@ const resources = useResourcesStore();
 </script>
 
 <template>
-    <table>
-        <thead>
-            <tr>
-                <th>Resources</th>
-            </tr>
-        </thead>
-            <Resource v-for="(amount, resource) in resources.getAll" :resource="resource"/>
-        <tbody>
-            
-        </tbody>
-    </table>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Resources</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <Resource v-for="(amount, resource) in resources.getAll" :resource="resource"/>
+            </tbody>
+        </table>
+    </div>
 </template>

@@ -1,8 +1,6 @@
 <script setup>
 import Cultist from './Cultist.vue';
 
-import { addCultist } from "@/functions.js";
-
 import { useCultistsStore } from "@/stores/cultists";
 import { useJobsStore } from '@/stores/jobs';
 
@@ -12,7 +10,6 @@ const jobs = useJobsStore();
 </script>
 
 <template>
-    <button @click="addCultist">Hire Cultist</button>
     <select @change="onChange($event)">
         <option value="default">Select Cultist</option>
         <option v-for="cultist in cultists.regularCultists" :value="cultist.id">{{ cultist.name }}</option>
