@@ -84,6 +84,11 @@ export function addCultist() {
     const cultist = new Cultist(id, "cultist");
 
     store.addCultist(cultist);
+
+    //removing cost of cultist
+    const resources = useResourcesStore();
+
+    resources.modifyResource("Gold", -20);
     
 }
 

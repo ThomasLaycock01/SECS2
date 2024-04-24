@@ -5,8 +5,9 @@ import { addCultist } from "./functions.js";
 export const actions = {
     //actions are stored as objects that then get rendered to the dom
     centralChamber: {
-        name: "Centeral Chamber",
+        name: "Central Chamber",
         desc: "The Centeral Chamber, in the Heart of your EVIL Lair!",
+        showCondition() {return true},
         buttons : {
             acquireGold: {
                 id: "acquireGold",
@@ -17,6 +18,7 @@ export const actions = {
                     resources.modifyResource("Gold", 1);
                 },
                 condition(){return true},
+                showCondition() {return true}
             },
             beEvil: {
                 id: "beEvil",
@@ -26,7 +28,15 @@ export const actions = {
                     resources.modifyResource("Evilness", 1);
                 },
                 condition(){return true},
-            },
+                showCondition(){return true}
+            }
+        }
+    },
+    humanResources: {
+        name: "Human Resources",
+        desc: "The HR department of your cult",
+        showCondition() {return true},
+        buttons: {
             hireCultist: {
                 id: "hireCultist",
                 name: "Hire Cultist",
@@ -36,7 +46,8 @@ export const actions = {
                 condition() {
                     const resources = useResourcesStore();
                     return resources.getResourceTotal("Gold") >= 20;
-                }
+                },
+                showCondition() {return true}
             }
         }
     }

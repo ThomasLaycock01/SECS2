@@ -5,3 +5,7 @@
 .textLog {
     height: 48vh
 }
+
+.tab-content {
+    padding-left: 0 !important;
+}

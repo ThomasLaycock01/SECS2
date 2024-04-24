@@ -10,10 +10,7 @@ const jobs = useJobsStore();
 </script>
 
 <template>
-    <select @change="onChange($event)">
-        <option value="default">Select Cultist</option>
-        <option v-for="cultist in cultists.regularCultists" :value="cultist.id">{{ cultist.name }}</option>
-    </select>
+    <div class="title is-4 mb-1 segment-title">Cultists</div>
     <Cultist v-for="cultist in cultists.regularCultists" :cultistId="cultist.id"/>
 </template>
 
