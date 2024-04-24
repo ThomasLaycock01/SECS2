@@ -18,6 +18,16 @@ export const useCultistsStore = defineStore("cultists", {
     actions: {
         addCultist(cultist) {
             this.regular.push(cultist);
+        },
+        checkUnemployed() {
+            const array = this.regular;
+            const unEmployedArray = array.filter((obj) => obj.getJob != null);
+            if (unEmployedArray.length == 0) {
+                return false;
+            }
+            else {
+                return true;
+            }
         }
     }
 });

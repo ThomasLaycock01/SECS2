@@ -69,6 +69,10 @@ class Cultist {
         return this.stats[stat];
     }
 
+    getId() {
+        return this.id;
+    }
+
     //setters
     setJob(job) {
         this.job = job;

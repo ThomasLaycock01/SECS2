@@ -8,7 +8,6 @@ export const useJobsStore = defineStore("jobs", {
     state: () => {
         return {
             Gold: {miner: {output: 1, limit: 0, name:"Gold Miner", array: [], stat: "str"}},
-            Evilness: {},
             Crystals: {}
         }
     },

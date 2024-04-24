@@ -1,7 +1,5 @@
 <script setup>
 import {actions} from "@/actions.js";
-
-console.log(actions);
 </script>
 
 <template>

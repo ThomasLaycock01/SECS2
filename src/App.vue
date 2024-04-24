@@ -3,11 +3,7 @@ import ResourceTable from "./components/ResourceTable.vue";
 import LairTab from "./components/LairTab.vue";
 import CultistsPanel from "./components/CultistsPanel.vue";
 import TextLog from "./components/TextLog.vue";
-
-import { useJobsStore } from "./stores/jobs";
-
-const jobs = useJobsStore()
-
+import JobAssigner from "./components/JobAssigner.vue";
 </script>
 
 <template>
@@ -16,7 +12,7 @@ const jobs = useJobsStore()
   <ResourceTable class="column is-one-fifth"/>
   <section class="column is-half">
     <b-tabs v-model="activeTab">
-      <b-tab-item label="Lair" class="pl-0">
+      <b-tab-item label="Lair">
         <LairTab/>
       </b-tab-item>
       <b-tab-item label="Cult">
@@ -26,7 +22,7 @@ const jobs = useJobsStore()
   </section>
   <div class="column is-one-quarter">
     <TextLog/>
-    <div>Assign menu</div>
+    <JobAssigner/>
   </div>
 </template>
 
@@ -35,6 +31,9 @@ const jobs = useJobsStore()
 import { tick } from "./functions";
 
 export default {
+  data() {
+    return {activeTab: 0}
+  },
   mounted() {
     setInterval(tick, 1000)
   }
