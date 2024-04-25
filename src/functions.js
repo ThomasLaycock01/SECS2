@@ -27,7 +27,6 @@ function calculateResource(resource) {
         const associatedStat = jobs.getAssociatedStat(resource, i);
         for (var j in jobs.getArray(resource, i)) {
             //silly way of doing this - come back later and write something better (weird way of grabbing the associated stat)
-            console.log(jobs.getOutput(resource, i))
             totalResourceOutput += jobs.getOutput(resource, i) * jobs.getArray(resource, i)[j].getStat(associatedStat);
         }
     }
@@ -98,15 +97,27 @@ export function addCultist() {
 
 
 //adding cultists to a job
-export function addCultistToJob(cultistId) {
+export function addCultistToJob(cultistId, resource, job) {
     //first - instantiate stores
     const cultists = useCultistsStore();
     const jobs = useJobsStore();
 
     //second - add cultistId to job store
-    jobs.addCultistToJobArray(cultistId, "Gold", "miner");
+    jobs.addCultistToJobArray(cultistId, resource, job);
 
     //third - update cultist to give them job
     const cultist = cultists.getCultistById(cultistId);
     cultist.setJob("Miner");
+}
+
+
+//removing cultists from a job
+export function removeCultistFromJob(cultistId) {
+    const jobs = useJobsStore();
+    const cultists = useCultistsStore();
+
+    jobs.removeCultistfromJob(cultistId);
+
+    const cultist = cultists.getCultistById(cultistId);
+    cultist.setJob(null)
 }

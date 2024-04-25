@@ -7,8 +7,8 @@ import { useCultistsStore } from "./cultists";
 export const useJobsStore = defineStore("jobs", {
     state: () => {
         return {
-            Gold: {miner: {output: 1, limit: 0, name:"Gold Miner", array: [], stat: "str"}},
-            Crystals: {}
+            Gold: {miner: {id: "miner", output: 1, limit: 0, name:"Gold Miner", array: [], stat: "str"}},
+            Crystals: {miner: {id: "miner", output: 1, limit: 0, name: "Crystal Miner", array: [], stat: "str"}}
         }
     },
     getters: {
@@ -41,6 +41,17 @@ export const useJobsStore = defineStore("jobs", {
             }
             else {
                 return false;
+            }
+        },
+        removeCultistfromJob(cultistId) {
+            //doing it like this just cause a cultist can only have 1 job, so just make sure it's not in any of the arrays
+            for (var i in this) {
+                for (var j in this[i]) {
+                    if (this[i][j]["array"]) {
+                        const newArray = this[i][j]["array"].filter((cultist) => cultist.getId() != cultistId);
+                        this[i][j]["array"] = newArray;
+                    }
+                }
             }
         }
     }

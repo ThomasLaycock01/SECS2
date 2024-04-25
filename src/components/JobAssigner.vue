@@ -7,7 +7,9 @@ import JobAssignerTab from './JobAssignerTab.vue';
       <b-tab-item label="Gold">
         <JobAssignerTab :resource="'Gold'"/>
       </b-tab-item>
-      <b-tab-item label="Crystals"></b-tab-item>
+      <b-tab-item label="Crystals">
+        <JobAssignerTab :resource="'Crystals'"/>
+      </b-tab-item>
     </b-tabs>
 </template>
 

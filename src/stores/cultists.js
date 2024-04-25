@@ -13,6 +13,9 @@ export const useCultistsStore = defineStore("cultists", {
         },
         getCultistById: (state) => {
             return (cultistId) => state.regular.find((cultist) => cultist.id == cultistId);
+        },
+        getUnemployed: (state) => {
+            return state.regular.filter((cultist) => cultist.getJob() == null);
         }
     },
     actions: {
@@ -21,7 +24,7 @@ export const useCultistsStore = defineStore("cultists", {
         },
         checkUnemployed() {
             const array = this.regular;
-            const unEmployedArray = array.filter((obj) => obj.getJob != null);
+            const unEmployedArray = array.filter((obj) => obj.getJob() == null);
             if (unEmployedArray.length == 0) {
                 return false;
             }
