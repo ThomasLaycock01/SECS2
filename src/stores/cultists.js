@@ -14,8 +14,11 @@ export const useCultistsStore = defineStore("cultists", {
         getCultistById: (state) => {
             return (cultistId) => state.regular.find((cultist) => cultist.id == cultistId);
         },
-        getUnemployed: (state) => {
+        getUnemployed(state) {
             return state.regular.filter((cultist) => cultist.getJob() == null);
+        },
+        getEmployed(state) {
+            return state.regular.filter((cultist) => cultist.getJob() != null);
         }
     },
     actions: {

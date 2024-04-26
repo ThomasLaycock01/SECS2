@@ -7,11 +7,15 @@ import { useJobsStore } from "./stores/jobs";
 export function tick() {
     const resources = useResourcesStore();
 
+    //adding resources
     for (var i in resources.getAll) {
         calculateResource(i);
     }
 
     updateResources();
+
+    //updating xp for cultists
+    updateCultistXp();
 }
 
 //calculating gold output
@@ -52,7 +56,10 @@ class Cultist {
         this.id = id;
         this.name = name + this.id;
         this.job = null;
-        this.stats = {str: 1, int: 1, agi: 1, cha: 1}
+        this.stats = {str: 1, int: 1, agi: 1, cha: 1};
+        this.currentXp = 0;
+        this.xpNeeded = 20;
+        this.xpIncrement = 1.1;
     }
 
     //getters
@@ -72,9 +79,25 @@ class Cultist {
         return this.id;
     }
 
+    getXp() {
+        return this.currentXp;
+    }
+
+    getXpNeeded() {
+        return this.xpNeeded;
+    }
+
+    getXpIncrement() {
+        return this.xpIncrement;
+    }
+
     //setters
     setJob(job) {
         this.job = job;
+    }
+
+    addXp(amount) {
+        this.currentXp += amount;
     }
 }
 
@@ -120,4 +143,16 @@ export function removeCultistFromJob(cultistId) {
 
     const cultist = cultists.getCultistById(cultistId);
     cultist.setJob(null)
+}
+
+
+//adding xp to cultists with jobs
+function updateCultistXp() {
+    const cultists = useCultistsStore();
+
+    const cultistArray = cultists.getEmployed
+
+    for (var i in cultistArray) {
+        cultistArray[i].addXp(1);
+    }
 }

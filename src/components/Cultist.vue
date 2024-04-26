@@ -49,6 +49,7 @@ const cultist = cultists.getCultistById(cultistId.value)
             </table>
             <div class="is-inline">
                 <div>{{ cultist.getJob() ? cultist.getJob() : "Unemployed" }}</div>
+                <div>{{ cultist.getXp() }} / {{ cultist.getXpNeeded() }}XP</div>
             </div>
         </div>
     </div>
