@@ -6,7 +6,7 @@ import { addCultistToJob } from '@/functions';
 const cultists = useCultistsStore();
 
 const props = defineProps({
-    resource: Object,
+    resource: String,
     job: Object
 })
 

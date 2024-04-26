@@ -2,6 +2,10 @@
     border-bottom: 2px black solid;
 }
 
+.cultist-box {
+    border: 1px black solid;
+}
+
 .textLog {
     height: 48vh
 }
@@ -9,4 +13,8 @@
 .tab-content {
     padding-left: 0 !important;
     padding-right: 0 !important;
+}
+
+.no-bottom-margin {
+    margin-bottom: 0 !important;
 }

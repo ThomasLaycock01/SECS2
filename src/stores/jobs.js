@@ -7,7 +7,7 @@ import { useCultistsStore } from "./cultists";
 export const useJobsStore = defineStore("jobs", {
     state: () => {
         return {
-            Gold: {miner: {id: "miner", output: 1, limit: 0, name:"Gold Miner", array: [], stat: "str"}},
+            Gold: {miner: {id: "miner", output: 1, limit: 0, name:"Gold Miner", array: [], stat: "str"}, alchemist: {id: "alchemist", output: 1, limit: 0, name: "Alchemist", array: [], stat: "int"}},
             Crystals: {miner: {id: "miner", output: 1, limit: 0, name: "Crystal Miner", array: [], stat: "str"}}
         }
     },
@@ -26,6 +26,9 @@ export const useJobsStore = defineStore("jobs", {
         },
         getOutput(state) {
             return (resource, job) => state[resource][job]["output"];
+        },
+        getName(state) {
+            return (resource, job) => state[resource][job]["name"]
         }
     },
     actions: {

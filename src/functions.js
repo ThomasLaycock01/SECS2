@@ -107,7 +107,7 @@ export function addCultistToJob(cultistId, resource, job) {
 
     //third - update cultist to give them job
     const cultist = cultists.getCultistById(cultistId);
-    cultist.setJob("Miner");
+    cultist.setJob(jobs.getName(resource, job));
 }
 
 
