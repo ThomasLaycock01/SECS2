@@ -57,9 +57,11 @@ class Cultist {
         this.name = name + this.id;
         this.job = null;
         this.stats = {str: 1, int: 1, agi: 1, cha: 1};
+        this.level = 1;
         this.currentXp = 0;
         this.xpNeeded = 20;
         this.xpIncrement = 1.1;
+        this.freeStatPoints = 0;
     }
 
     //getters
@@ -91,6 +93,14 @@ class Cultist {
         return this.xpIncrement;
     }
 
+    getLevel() {
+        return this.level;
+    }
+
+    getFreeStatPoints() {
+        return this.freeStatPoints;
+    }
+
     //setters
     setJob(job) {
         this.job = job;
@@ -98,6 +108,26 @@ class Cultist {
 
     addXp(amount) {
         this.currentXp += amount;
+        this.checkLevelUp();
+    }
+
+    checkLevelUp() {
+        if (this.currentXp >= this.xpNeeded) {
+            this.levelUp();
+        }
+    }
+
+    levelUp() {
+        this.currentXp = 0;
+        this.xpNeeded = Math.floor(this.xpNeeded * this.xpIncrement);
+
+        this.level += 1;
+        this.freeStatPoints += Math.round(Math.random() * 3)
+    }
+
+    increaseStat(stat) {
+        this.freeStatPoints -= 1;
+        this.stats[stat] += 1;
     }
 }
 
