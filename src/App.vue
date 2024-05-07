@@ -4,6 +4,12 @@ import LairTab from "./components/LairTab.vue";
 import CultistsPanel from "./components/CultistsPanel.vue";
 import TextLog from "./components/TextLog.vue";
 import JobAssigner from "./components/JobAssigner.vue";
+
+//testing
+import { useExpansionsStore } from "./stores/expansions";
+
+const expansions = useExpansionsStore();
+
 </script>
 
 <template>

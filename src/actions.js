@@ -1,6 +1,7 @@
 import { useResourcesStore } from "./stores/resources.js";
+import { useExpansionsStore } from "./stores/expansions.js";
 
-import { addCultist } from "./functions.js";
+import { addCultist, buildExpansion } from "./functions.js";
 
 export const actions = {
     //actions are stored as objects that then get rendered to the dom
@@ -29,6 +30,21 @@ export const actions = {
                 },
                 condition(){return true},
                 showCondition(){return true}
+            },
+            expansionLaboratory: {
+                id: "expansionLaborator",
+                name: "Expansion: Laboratory",
+                effect(){
+                    buildExpansion("laboratory")
+                },
+                condition(){
+                    const resources = useResourcesStore();
+                    return resources.getResourceTotal("Gold") >= 30;
+                },
+                showCondition() {
+                    const expansions = useExpansionsStore();
+                    return expansions.hasTier0 == false;
+                }
             }
         }
     },

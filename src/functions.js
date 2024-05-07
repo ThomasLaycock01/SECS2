@@ -1,6 +1,7 @@
 import { useResourcesStore } from "./stores/resources";
 import { useCultistsStore } from "./stores/cultists";
 import { useJobsStore } from "./stores/jobs";
+import { useExpansionsStore } from "./stores/expansions";
 
 
 //tick system
@@ -185,4 +186,12 @@ function updateCultistXp() {
     for (var i in cultistArray) {
         cultistArray[i].addXp(1);
     }
+}
+
+
+
+//building expansions
+export function buildExpansion(expansionId) {
+    const expansions = useExpansionsStore();
+    expansions.buildExpansion(expansionId);
 }
