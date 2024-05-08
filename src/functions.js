@@ -2,6 +2,7 @@ import { useResourcesStore } from "./stores/resources";
 import { useCultistsStore } from "./stores/cultists";
 import { useJobsStore } from "./stores/jobs";
 import { useExpansionsStore } from "./stores/expansions";
+import { useMiscStore } from "./stores/misc";
 
 
 //tick system
@@ -146,6 +147,11 @@ export function addCultist() {
     const resources = useResourcesStore();
 
     resources.modifyResource("Gold", -20);
+
+    //incrementing num of cultists to track limit
+    const misc = useMiscStore();
+
+    misc.addCultist();
     
 }
 

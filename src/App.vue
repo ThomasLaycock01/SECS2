@@ -7,8 +7,10 @@ import JobAssigner from "./components/JobAssigner.vue";
 
 //testing
 import { useExpansionsStore } from "./stores/expansions";
+import { useMiscStore } from "./stores/misc";
 
 const expansions = useExpansionsStore();
+const misc = useMiscStore();
 
 </script>
 

@@ -1,5 +1,6 @@
 import { useResourcesStore } from "./stores/resources.js";
 import { useExpansionsStore } from "./stores/expansions.js";
+import { useMiscStore } from "./stores/misc.js";
 
 import { addCultist, buildExpansion } from "./functions.js";
 
@@ -35,7 +36,7 @@ export const actions = {
                 id: "expansionLaborator",
                 name: "Expansion: Laboratory",
                 effect(){
-                    buildExpansion("laboratory")
+                    buildExpansion("laboratory");
                 },
                 condition(){
                     const resources = useResourcesStore();
@@ -61,7 +62,9 @@ export const actions = {
                 },
                 condition() {
                     const resources = useResourcesStore();
-                    return resources.getResourceTotal("Gold") >= 20;
+                    const misc = useMiscStore();
+                    console.log(misc.checkCultistSpace)
+                    return resources.getResourceTotal("Gold") >= 20 && misc.checkCultistSpace;
                 },
                 showCondition() {return true}
             }
