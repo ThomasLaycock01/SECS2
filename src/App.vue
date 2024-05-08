@@ -18,6 +18,14 @@ const misc = useMiscStore();
   
 
   <ResourceTable class="column is-one-fifth"/>
+  <table>
+    <thead>
+      <tr>
+        <td>Cultists</td>
+        <td><span>{{ misc.getCultistOwned }}</span> / <span>{{ misc.getCultistLimit }}</span></td>
+      </tr>
+    </thead>
+  </table>
   <section class="column is-half">
     <b-tabs v-model="activeTab">
       <b-tab-item label="Lair">

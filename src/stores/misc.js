@@ -11,6 +11,9 @@ export const useMiscStore = defineStore("misc", {
         getCultistLimit(state) {
             return state.limits.cultists;
         },
+        getCultistOwned(state) {
+            return state.owned.cultists;
+        },
         getBuildingsLimit(state) {
             return state.limits.cultists;
         },
