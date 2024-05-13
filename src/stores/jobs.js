@@ -42,13 +42,12 @@ export const useJobsStore = defineStore("jobs", {
             const buildings = useBuildingsStore();
 
             const buildingId = this[resource][job]["limitingBuilding"];
-            console.log(buildingId);
 
             const limit = buildings.getBuildingOwnedById(buildingId);
 
             const array = this[resource][job]["array"];
 
-            if(array.length > limit) {
+            if(array.length == limit) {
                 return true;
             }
             else {

@@ -214,10 +214,12 @@ export function buildBuilding(buildingId) {
     const resources = useResourcesStore();
 
     for (var i in costs) {
-        console.log(i);
-        console.log(costs[i]);
         resources.modifyResource(i, posToNeg(costs[i]));
     }
+
+    const jobs = useJobsStore();
+
+    console.log(jobs.checkIfAtLimit("Gold", "miner"))
 }
 
 

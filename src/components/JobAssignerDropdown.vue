@@ -22,7 +22,7 @@ function selectChange(e) {
 
 <template>
     <b-field label="Add Cultist">
-            <b-select placeholder="Add Cultist" value="" @input="selectChange" :disabled="!cultists.checkUnemployed() || !jobs.checkIfAtLimit(props.resource, props.job.id)">
+            <b-select placeholder="Add Cultist" value="" @input="selectChange" :disabled="!cultists.checkUnemployed() || jobs.checkIfAtLimit(props.resource, props.job.id)">
                 <option v-for="j in cultists.getUnemployed" :value="j.getId()">{{ j.getName() }}</option>
             </b-select>
         </b-field>
