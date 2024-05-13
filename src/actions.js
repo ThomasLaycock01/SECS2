@@ -10,6 +10,7 @@ export const actions = {
     centralChamber: {
         name: "Central Chamber",
         desc: "The Centeral Chamber, in the Heart of your EVIL Lair!",
+        tier: "tier0", //stored as a string to make interacting with the expansion store easier
         showCondition() {return true},
         buttons : {
             acquireGold: {
@@ -33,6 +34,21 @@ export const actions = {
                 condition(){return true},
                 showCondition(){return true}
             },
+            expansionMines: {
+                id: "expansionMines",
+                name: "Expansion: Mines",
+                effect() {
+                    buildExpansion("mines");
+                },
+                condition(){
+                    const expansions = useExpansionsStore();
+                    return expansions.checkIfCanAfford("mines");
+                },
+                showCondition() {
+                    const expansions = useExpansionsStore();
+                    return expansions.hasTier1 == false;
+                }
+            },
             expansionLaboratory: {
                 id: "expansionLaborator",
                 name: "Expansion: Laboratory",
@@ -40,12 +56,12 @@ export const actions = {
                     buildExpansion("laboratory");
                 },
                 condition(){
-                    const resources = useResourcesStore();
-                    return resources.getResourceTotal("Gold") >= 30;
+                    const expansions = useExpansionsStore();
+                    return expansions.checkIfCanAfford("laboratory");
                 },
                 showCondition() {
                     const expansions = useExpansionsStore();
-                    return expansions.hasTier0 == false;
+                    return expansions.hasTier1 == false;
                 }
             }
         }
@@ -53,6 +69,7 @@ export const actions = {
     humanResources: {
         name: "Human Resources",
         desc: "The HR department of your cult",
+        tier: "tier0",
         showCondition() {return true},
         buttons: {
             hireCultist: {
@@ -71,9 +88,14 @@ export const actions = {
         }
     },
     mines: {
+        id: "mines",
         name: "Mines",
         desc: "A mineshaft underneath your lair",
-        showCondition() {return true},
+        tier: "tier1",
+        showCondition() {
+            const expansions = useExpansionsStore();
+            return expansions.checkIfBuilt(this.id, this.tier);
+        },
         buttons: {
             goldMine: {
                 id: "goldMine",
@@ -99,6 +121,19 @@ export const actions = {
                 },
                 showCondition() {return true}
             }
+        }
+    },
+    laboratory: {
+        id:"laboratory",
+        name: "Laboratory",
+        desc: "A laboratory for your EVIL experiments >:)",
+        tier: "tier1",
+        showCondition() {
+            const expansions = useExpansionsStore();
+            return expansions.checkIfBuilt(this.id, this.tier);
+        },
+        buttons: {
+
         }
     }
 }

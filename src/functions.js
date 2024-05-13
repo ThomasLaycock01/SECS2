@@ -231,6 +231,6 @@ export function buildBuilding(buildingId) {
 
 //HELPER FUNCTIONS
 //for turning numbers into negatives
-function posToNeg(num) {
+export function posToNeg(num) {
     return -Math.abs(num);
 }
