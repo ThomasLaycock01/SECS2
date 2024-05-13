@@ -8,9 +8,11 @@ import JobAssigner from "./components/JobAssigner.vue";
 //testing
 import { useExpansionsStore } from "./stores/expansions";
 import { useMiscStore } from "./stores/misc";
+import { useBuildingsStore } from "./stores/buildings";
 
 const expansions = useExpansionsStore();
 const misc = useMiscStore();
+const buildings = useBuildingsStore();
 
 </script>
 

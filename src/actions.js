@@ -2,7 +2,8 @@ import { useResourcesStore } from "./stores/resources.js";
 import { useExpansionsStore } from "./stores/expansions.js";
 import { useMiscStore } from "./stores/misc.js";
 
-import { addCultist, buildExpansion } from "./functions.js";
+import { addCultist, buildExpansion, buildBuilding } from "./functions.js";
+import { useBuildingsStore } from "./stores/buildings.js";
 
 export const actions = {
     //actions are stored as objects that then get rendered to the dom
@@ -63,8 +64,38 @@ export const actions = {
                 condition() {
                     const resources = useResourcesStore();
                     const misc = useMiscStore();
-                    console.log(misc.checkCultistSpace)
                     return resources.getResourceTotal("Gold") >= 20 && misc.checkCultistSpace;
+                },
+                showCondition() {return true}
+            }
+        }
+    },
+    mines: {
+        name: "Mines",
+        desc: "A mineshaft underneath your lair",
+        showCondition() {return true},
+        buttons: {
+            goldMine: {
+                id: "goldMine",
+                name: "Gold Mine",
+                effect() {
+                    buildBuilding("goldMine")
+                },
+                condition() {
+                    const resources = useResourcesStore();
+                    const buildings = useBuildingsStore();
+                    
+                    const costs = buildings.getBuildingCostsById("goldMine");
+
+                    var canAfford = true;
+
+                    for (var i in costs) {
+                        if (resources.getResourceTotal(i) < costs[i]) {
+                            canAfford = false;
+                        }
+                    }
+
+                    return canAfford;
                 },
                 showCondition() {return true}
             }

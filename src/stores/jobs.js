@@ -1,14 +1,15 @@
 import {defineStore} from "pinia";
 
 import { useCultistsStore } from "./cultists";
+import { useBuildingsStore } from "./buildings";
 
 
 
 export const useJobsStore = defineStore("jobs", {
     state: () => {
         return {
-            Gold: {miner: {id: "miner", output: 1, limit: 0, name:"Gold Miner", array: [], stat: "str"}, alchemist: {id: "alchemist", output: 1, limit: 0, name: "Alchemist", array: [], stat: "int"}},
-            Crystals: {miner: {id: "miner", output: 1, limit: 0, name: "Crystal Miner", array: [], stat: "str"}}
+            Gold: {miner: {id: "miner", output: 1, limitingBuilding: "goldMine", name:"Gold Miner", array: [], stat: "str"}, alchemist: {id: "alchemist", output: 1, limitingBuilding: "transmuter", name: "Alchemist", array: [], stat: "int"}},
+            Crystals: {miner: {id: "miner", output: 1, limitingBuilding: "crystalMine", name: "Crystal Miner", array: [], stat: "str"}}
         }
     },
     getters: {
@@ -38,8 +39,16 @@ export const useJobsStore = defineStore("jobs", {
             this[prodType][job].array.push(cultist);
         },
         checkIfAtLimit(resource, job) {
+            const buildings = useBuildingsStore();
+
+            const buildingId = this[resource][job]["limitingBuilding"];
+            console.log(buildingId);
+
+            const limit = buildings.getBuildingOwnedById(buildingId);
+
             const array = this[resource][job]["array"];
-            if (array.length > this[resource][job]["limit"]) {
+
+            if(array.length > limit) {
                 return true;
             }
             else {

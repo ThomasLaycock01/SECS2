@@ -3,6 +3,7 @@ import { useCultistsStore } from "./stores/cultists";
 import { useJobsStore } from "./stores/jobs";
 import { useExpansionsStore } from "./stores/expansions";
 import { useMiscStore } from "./stores/misc";
+import { useBuildingsStore } from "./stores/buildings";
 
 
 //tick system
@@ -200,4 +201,34 @@ function updateCultistXp() {
 export function buildExpansion(expansionId) {
     const expansions = useExpansionsStore();
     expansions.buildExpansion(expansionId);
+}
+
+
+//building a building
+export function buildBuilding(buildingId) {
+    const buildings = useBuildingsStore();
+    buildings.buildingBuilding(buildingId)
+
+    const costs = buildings.getBuildingCostsById(buildingId);
+
+    const resources = useResourcesStore();
+
+    for (var i in costs) {
+        console.log(i);
+        console.log(costs[i]);
+        resources.modifyResource(i, posToNeg(costs[i]));
+    }
+}
+
+
+
+
+
+
+
+
+//HELPER FUNCTIONS
+//for turning numbers into negatives
+function posToNeg(num) {
+    return -Math.abs(num);
 }
