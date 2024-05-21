@@ -12,8 +12,6 @@ const props = defineProps({
     job: Object
 })
 
-console.log(jobs.checkIfAtLimit(props.resource, props.job.id));
-
 function selectChange(e) {
     addCultistToJob(e.target.value, props.resource, props.job.id);
     e.target.value = "";
@@ -25,5 +23,5 @@ function selectChange(e) {
             <b-select placeholder="Add Cultist" value="" @input="selectChange" :disabled="!cultists.checkUnemployed() || jobs.checkIfAtLimit(props.resource, props.job.id)">
                 <option v-for="j in cultists.getUnemployed" :value="j.getId()">{{ j.getName() }}</option>
             </b-select>
-        </b-field>
+    </b-field>
 </template>

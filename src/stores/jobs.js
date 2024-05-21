@@ -2,14 +2,15 @@ import {defineStore} from "pinia";
 
 import { useCultistsStore } from "./cultists";
 import { useBuildingsStore } from "./buildings";
+import { useExpansionsStore } from "./expansions";
 
 
 
 export const useJobsStore = defineStore("jobs", {
     state: () => {
         return {
-            Gold: {miner: {id: "miner", output: 1, limitingBuilding: "goldMine", name:"Gold Miner", array: [], stat: "str"}, alchemist: {id: "alchemist", output: 1, limitingBuilding: "transmuter", name: "Alchemist", array: [], stat: "int"}},
-            Crystals: {miner: {id: "miner", output: 1, limitingBuilding: "crystalMine", name: "Crystal Miner", array: [], stat: "str"}}
+            Gold: {miner: {id: "miner", output: 1, limitingBuilding: "goldMine", name:"Gold Miner", array: [], stat: "str", reqExpansion: "mines", tier: "tier1"}, alchemist: {id: "alchemist", output: 1, limitingBuilding: "transmuter", name: "Alchemist", array: [], stat: "int", reqExpansion: "laboratory", tier: "tier1"}},
+            Crystals: {miner: {id: "miner", output: 1, limitingBuilding: "crystalMine", name: "Crystal Miner", array: [], stat: "str", reqExpansion: "mines", tier: "tier1"}}
         }
     },
     getters: {
@@ -29,7 +30,13 @@ export const useJobsStore = defineStore("jobs", {
             return (resource, job) => state[resource][job]["output"];
         },
         getName(state) {
-            return (resource, job) => state[resource][job]["name"]
+            return (resource, job) => state[resource][job]["name"];
+        },
+        getReqExpansion(state) {
+            return (resource, job) => state[resource][job]["reqExpansion"];
+        },
+        getTier(state) {
+            return (resource, job) => state[resource][job]["tier"];
         }
     },
     actions: {
@@ -64,6 +71,15 @@ export const useJobsStore = defineStore("jobs", {
                     }
                 }
             }
+        },
+        checkIfHasReqExapansion(expansion, tier) {
+            const expansions = useExpansionsStore();
+
+            //const expansion = this.getReqExpansion(prodType, jobId);
+            //const tier = this.getTier(prodType, jobId);
+
+            return expansions.checkIfBuilt(expansion, tier);
+
         }
     }
 });
