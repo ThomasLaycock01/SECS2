@@ -12,6 +12,10 @@ export function tick() {
 
     //adding resources
     for (var i in resources.getAll) {
+        if (i == "Evilness") {
+            calculateEvilness();
+            continue;
+        }
         calculateResource(i);
     }
 
@@ -21,7 +25,22 @@ export function tick() {
     updateCultistXp();
 }
 
-//calculating gold output
+
+//calculating evilness output, since its different from other resources
+function calculateEvilness() {
+    const cultists = useCultistsStore();
+    const resources = useResourcesStore();
+
+    var totalEvilnessOutput = 0;
+    for (var i in cultists.regularCultists) {
+        totalEvilnessOutput += cultists.regularCultists[i].getLevel();
+    }
+
+    resources.setResourcePerSec("Evilness", totalEvilnessOutput);
+}
+
+
+//calculating resource output
 function calculateResource(resource) {
     const jobs = useJobsStore();
     const resources = useResourcesStore();
