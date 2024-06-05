@@ -12,6 +12,7 @@ export function tick() {
 
     //adding resources
     for (var i in resources.getAll) {
+        //evilness is calculated differently
         if (i == "Evilness") {
             calculateEvilness();
             continue;
