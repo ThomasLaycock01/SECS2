@@ -164,20 +164,8 @@ export const actions = {
                     buildBuilding("goldMine")
                 },
                 condition() {
-                    const resources = useResourcesStore();
                     const buildings = useBuildingsStore();
-                    
-                    const costs = buildings.getBuildingCostsById("goldMine");
-
-                    var canAfford = true;
-
-                    for (var i in costs) {
-                        if (resources.getResourceTotal(i) < costs[i]) {
-                            canAfford = false;
-                        }
-                    }
-
-                    return canAfford;
+                    return buildings.checkIfCanAfford("goldMine");
                 },
                 showCondition() {return true}
             },
@@ -188,20 +176,8 @@ export const actions = {
                     buildBuilding("crystalMine");
                 },
                 condition() {
-                    const resources = useResourcesStore();
                     const buildings = useBuildingsStore();
-                    
-                    const costs = buildings.getBuildingCostsById("crystalMine");
-
-                    var canAfford = true;
-
-                    for (var i in costs) {
-                        if (resources.getResourceTotal(i) < costs[i]) {
-                            canAfford = false;
-                        }
-                    }
-
-                    return canAfford;
+                    return buildings.checkIfCanAfford("crystalMine");
                 },
                 showCondition() {return true}
             }
