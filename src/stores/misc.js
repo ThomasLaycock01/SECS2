@@ -1,5 +1,7 @@
 import { defineStore } from "pinia";
 
+import { useExpansionsStore } from "./expansions";
+
 export const useMiscStore = defineStore("misc", {
     state: () => {
         return {
@@ -36,6 +38,21 @@ export const useMiscStore = defineStore("misc", {
         },
         removeBuilding() {
             this.owned.buildings -= 1;
+        },
+        calculateCultistLimit() {
+            const expansions = useExpansionsStore();
+
+            var totalLimit = 2;
+
+            for (var i in expansions.getBuilt) {
+                console.log(i);
+                console.log(expansions.getBuilt[i]["cultistLimit"])
+                if (expansions.getBuilt[i]["cultistLimit"] != undefined) {
+                    totalLimit += expansions.getBuilt[i]["cultistLimit"];
+                }
+            }
+
+            this.limits.cultists = totalLimit;
         }
     }
 })

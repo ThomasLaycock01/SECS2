@@ -71,6 +71,15 @@ function updateResources() {
 }
 
 
+//calculating cultist limit
+function calculateLimits() {
+    const misc = useMiscStore();
+
+    misc.calculateCultistLimit();
+
+
+}
+
 
 
 //class for creating cultists - will need expanding
@@ -221,6 +230,10 @@ function updateCultistXp() {
 export function buildExpansion(expansionId) {
     const expansions = useExpansionsStore();
     expansions.buildExpansion(expansionId);
+
+
+    //calculating limits for cultists
+    calculateLimits();
 }
 
 

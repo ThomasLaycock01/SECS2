@@ -12,16 +12,19 @@ export const useExpansionsStore = defineStore("expansions", {
             tier2: {}
         },
         all: [
-            {id: "mines", name: "Mines", tier: "tier1", costs: {Gold: 30}},
-            {id: "laboratory", name: "Laboratory", tier: "tier1", costs: {Gold: 30}},
-            {id: "barracks", name: "Barracks", tier: "tier2", costs: {Gold: 100, Crystals: 100}},
-            {id: "tower", name: "Tower", tier: "tier2", costs: {Gold: 50, Crystals: 200}},
-            {id: "academy", name: "Academy", tier: "tier3", costs: {Gold: 50000, Crystals: 10000}},
-            {id: "dungeons", name: "Dungeons", tier: "tier3", costs: {Gold: 100000, Crystals: 5000}}
+            {id: "mines", name: "Mines", tier: "tier1", costs: {Gold: 30}, cultistLimit: 2},
+            {id: "laboratory", name: "Laboratory", tier: "tier1", costs: {Gold: 30}, cultistLimit: 2},
+            {id: "barracks", name: "Barracks", tier: "tier2", costs: {Gold: 100, Crystals: 100}, cultistLimit: 2},
+            {id: "tower", name: "Tower", tier: "tier2", costs: {Gold: 50, Crystals: 200}, cultistLimit: 2},
+            {id: "academy", name: "Academy", tier: "tier3", costs: {Gold: 50000, Crystals: 10000}, cultistLimit: 2},
+            {id: "dungeons", name: "Dungeons", tier: "tier3", costs: {Gold: 100000, Crystals: 5000}, cultistLimit: 2}
         ]
         }
     },
     getters: {
+        getBuilt(state) {
+            return state.built;
+        },
         getBuiltTier0Id(state) {
             return state.built.tier0.id;
         },
