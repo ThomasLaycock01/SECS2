@@ -13,7 +13,11 @@ export const useExpansionsStore = defineStore("expansions", {
         },
         all: [
             {id: "mines", name: "Mines", tier: "tier1", costs: {Gold: 30}},
-            {id: "laboratory", name: "Laboratory", tier: "tier1", costs: {Gold: 30}}
+            {id: "laboratory", name: "Laboratory", tier: "tier1", costs: {Gold: 30}},
+            {id: "barracks", name: "Barracks", tier: "tier2", costs: {Gold: 100, Crystals: 100}},
+            {id: "tower", name: "Tower", tier: "tier2", costs: {Gold: 50, Crystals: 200}},
+            {id: "academy", name: "Academy", tier: "tier3", costs: {Gold: 50000, Crystals: 10000}},
+            {id: "dungeons", name: "Dungeons", tier: "tier3", costs: {Gold: 100000, Crystals: 5000}}
         ]
         }
     },

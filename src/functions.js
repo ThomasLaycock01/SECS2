@@ -145,7 +145,7 @@ class Cultist {
         this.xpNeeded = Math.floor(this.xpNeeded * this.xpIncrement);
 
         this.level += 1;
-        this.freeStatPoints += Math.round(Math.random() * 3)
+        this.freeStatPoints += Math.ceil(Math.random() * 3)
     }
 
     increaseStat(stat) {

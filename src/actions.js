@@ -50,7 +50,7 @@ export const actions = {
                 }
             },
             expansionLaboratory: {
-                id: "expansionLaborator",
+                id: "expansionLaboratory",
                 name: "Expansion: Laboratory",
                 effect(){
                     buildExpansion("laboratory");
@@ -62,6 +62,66 @@ export const actions = {
                 showCondition() {
                     const expansions = useExpansionsStore();
                     return expansions.hasTier1 == false;
+                }
+            },
+            expansionBarracks: {
+                id: "expansionBarracks",
+                name: "Expansion: Barracks",
+                effect() {
+                    buildExpansion("barracks");
+                },
+                condition() {
+                    const expansions = useExpansionsStore();
+                    return expansions.checkIfCanAfford("barracks");
+                },
+                showCondition() {
+                    const expansions = useExpansionsStore();
+                    return (expansions.hasTier2 == false && expansions.hasTier1)
+                }
+            },
+            expansionTower: {
+                id: "expansionTower",
+                name: "Expansion: Tower",
+                effect() {
+                    buildExpansion("tower");
+                },
+                condition() {
+                    const expansions = useExpansionsStore();
+                    return expansions.checkIfCanAfford("tower");
+                },
+                showCondition() {
+                    const expansions = useExpansionsStore();
+                    return (expansions.hasTier2 == false && expansions.hasTier1)
+                }
+            },
+            expansionAcademy: {
+                id: "expansionAcademy",
+                name: "Expansion: Academy",
+                effect() {
+                    buildExpansion("academy");
+                },
+                condition() {
+                    const expansions = useExpansionsStore();
+                    return expansions.checkIfCanAfford("academy");
+                },
+                showCondition() {
+                    const expansions = useExpansionsStore();
+                    return (expansions.hasTier3 == false && expansions.hasTier2)
+                }
+            },
+            expansionDungeons: {
+                id: "expansionDungeons",
+                name: "Expansion: Dungeons",
+                effect() {
+                    buildExpansion("dungeons");
+                },
+                condition() {
+                    const expansions = useExpansionsStore();
+                    return expansions.checkIfCanAfford("dungeons");
+                },
+                showCondition() {
+                    const expansions = useExpansionsStore();
+                    return (expansions.hasTier3 == false && expansions.hasTier2)
                 }
             }
         }
@@ -108,6 +168,30 @@ export const actions = {
                     const buildings = useBuildingsStore();
                     
                     const costs = buildings.getBuildingCostsById("goldMine");
+
+                    var canAfford = true;
+
+                    for (var i in costs) {
+                        if (resources.getResourceTotal(i) < costs[i]) {
+                            canAfford = false;
+                        }
+                    }
+
+                    return canAfford;
+                },
+                showCondition() {return true}
+            },
+            crystalMine: {
+                id: "crystalMine",
+                name: "Crystal Mine",
+                effect() {
+                    buildBuilding("crystalMine");
+                },
+                condition() {
+                    const resources = useResourcesStore();
+                    const buildings = useBuildingsStore();
+                    
+                    const costs = buildings.getBuildingCostsById("crystalMine");
 
                     var canAfford = true;
 
