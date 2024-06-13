@@ -184,10 +184,62 @@ export const actions = {
         }
     },
     laboratory: {
-        id:"laboratory",
+        id: "laboratory",
         name: "Laboratory",
         desc: "A laboratory for your EVIL experiments >:)",
         tier: "tier1",
+        showCondition() {
+            const expansions = useExpansionsStore();
+            return expansions.checkIfBuilt(this.id, this.tier);
+        },
+        buttons: {
+
+        }
+    },
+    barracks: {
+        id: "barracks",
+        name: "Barracks",
+        desc: "A place to organize your EVIL army >:)",
+        tier: "tier2",
+        showCondition() {
+            const expansions = useExpansionsStore();
+            return expansions.checkIfBuilt(this.id, this.tier);
+        },
+        buttons: {
+
+        }
+    },
+    tower: {
+        id: "tower",
+        name: "Tower",
+        desc: "A place to cast your EVIL spells >:)",
+        tier: "tier2",
+        showCondition() {
+            const expansions = useExpansionsStore();
+            return expansions.checkIfBuilt(this.id, this.tier);
+        },
+        buttons: {
+
+        }
+    },
+    academy: {
+        id: "academy",
+        name: "Academy",
+        desc: "A place to teach your EVIL lessons >:)",
+        tier: "tier3",
+        showCondition() {
+            const expansions = useExpansionsStore();
+            return expansions.checkIfBuilt(this.id, this.tier);
+        },
+        buttons: {
+
+        }
+    },
+    dungeons: {
+        id: "dungeons",
+        name: "Dungeons",
+        desc: "A place to keep your EVIL prisons >:)... no, wait - a place to keep your GOOD prisoners :)",
+        tier: "tier3",
         showCondition() {
             const expansions = useExpansionsStore();
             return expansions.checkIfBuilt(this.id, this.tier);

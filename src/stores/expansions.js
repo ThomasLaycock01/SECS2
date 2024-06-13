@@ -7,9 +7,9 @@ import { posToNeg } from "@/functions";
 export const useExpansionsStore = defineStore("expansions", {
     state: () => {
         return {built: {
-            tier0: {},
             tier1: {},
-            tier2: {}
+            tier2: {},
+            tier3: {}
         },
         all: [
             {id: "mines", name: "Mines", tier: "tier1", costs: {Gold: 30}, cultistLimit: 2},
@@ -26,22 +26,22 @@ export const useExpansionsStore = defineStore("expansions", {
             return state.built;
         },
         getBuiltTier0Id(state) {
-            return state.built.tier0.id;
-        },
-        getBuiltTier1Id(state) {
-            return state.built.id;
+            return state.built.tier1.id;
         },
         getBuiltTier2Id(state) {
             return state.built.tier2.id;
         },
-        hasTier0(state) {
-            return state.built.tier0.id ? true : false;
+        getBuiltTier3Id(state) {
+            return state.built.tier3.id;
         },
         hasTier1(state) {
             return state.built.tier1.id ? true : false;
         },
         hasTier2(state) {
             return state.built.tier2.id ? true : false;
+        },
+        hasTier3(state) {
+            return state.built.tier3.id ? true : false;
         },
         checkIfBuilt(state) {
             return (expansionId, tier) => state.built[tier].id == expansionId ? true : false;
