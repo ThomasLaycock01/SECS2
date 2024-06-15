@@ -2,8 +2,6 @@
 import { removeCultistFromJob } from '@/functions';
 import { useJobsStore } from '@/stores/jobs';
 
-import { watch } from 'vue';
-
 const jobs = useJobsStore();
 
 const props = defineProps({
