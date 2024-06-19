@@ -193,7 +193,18 @@ export const actions = {
             return expansions.checkIfBuilt(this.id, this.tier);
         },
         buttons: {
-
+            transmuter: {
+                id: "transmuter",
+                name: "Transmuter",
+                effect() {
+                    buildBuilding("transmuter");
+                },
+                condition() {
+                    const buildings = useBuildingsStore();
+                    return buildings.checkIfCanAfford("transmuter");
+                },
+                showCondition() {return true}
+            }
         }
     },
     barracks: {
@@ -206,7 +217,18 @@ export const actions = {
             return expansions.checkIfBuilt(this.id, this.tier);
         },
         buttons: {
-
+            drillSquare: {
+                id: "drillSquare",
+                name: "Drill Square",
+                effect() {
+                    buildBuilding("drillSquare");
+                },
+                condition() {
+                    const buildings = useBuildingsStore();
+                    return buildings.checkIfCanAfford("drillSquare");
+                },
+                showCondition() {return true}
+            }
         }
     },
     tower: {
@@ -219,7 +241,18 @@ export const actions = {
             return expansions.checkIfBuilt(this.id, this.tier);
         },
         buttons: {
-
+            infuser: {
+                id: "infuser",
+                name: "Infuser",
+                effect() {
+                    buildBuilding("infuser");
+                },
+                condition() {
+                    const buildings = useBuildingsStore();
+                    return buildings.checkIfCanAfford("infuser");
+                },
+                showCondition() {return true}
+            }
         }
     },
     academy: {
@@ -232,7 +265,18 @@ export const actions = {
             return expansions.checkIfBuilt(this.id, this.tier);
         },
         buttons: {
-
+            lectureHall: {
+                id: "lectureHall",
+                name: "Lecture Hall",
+                effect() {
+                    buildBuilding("lectureHall");
+                },
+                condition() {
+                    const buildings = useBuildingsStore();
+                    return buildings.checkIfCanAfford("lectureHall");
+                },
+                showCondition() {return true}
+            }
         }
     },
     dungeons: {
@@ -245,7 +289,18 @@ export const actions = {
             return expansions.checkIfBuilt(this.id, this.tier);
         },
         buttons: {
-
+            cell: {
+                id: "cell",
+                name: "Cell",
+                effect() {
+                    buildBuilding("cell");
+                },
+                condition() {
+                    const buildings = useBuildingsStore();
+                    return buildings.checkIfCanAfford("cell");
+                },
+                showCondition() {return true}
+            }
         }
     }
 }
