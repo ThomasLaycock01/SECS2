@@ -41,7 +41,6 @@ export const useBuildingsStore = defineStore("buildings", {
             const resources = useResourcesStore();
 
             const chosenBuilding = this.buildings.filter(obj =>  obj.id == buildingId)[0]
-            console.log(chosenBuilding.id)
 
             var canAfford = true;
 

@@ -38,9 +38,9 @@ const misc = useMiscStore();
                 </header>
                 <body class="modal-card-body">
                     <div>{{ activeCultist.getJob() ? activeCultist.getJob() : "Unemployed" }}</div>
-                    <div>Level {{ activeCultist.getLevel() }}</div>
+                    <div>Level {{ activeCultist.getLevel() }} / {{activeCultist.getLevelLimit()}}</div>
                     <div>{{ activeCultist.getXp() }} / {{ activeCultist.getXpNeeded() }}XP</div>
-                    <div v-if="activeCultist.getFreeStatPoints() != 0">{{activeCultist.getFreeStatPoints()}} Skill Points Available</div>
+                    <div v-if="activeCultist.getFreeStatPoints() != 0" class="has-text-warning">{{activeCultist.getFreeStatPoints()}} Skill Points Available!</div>
                     <table class="table is-striped is-narrow is-inline">
                         <thead>
                             <tr>

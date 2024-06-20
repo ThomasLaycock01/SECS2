@@ -92,8 +92,9 @@ class Cultist {
         this.level = 1;
         this.currentXp = 0;
         this.xpNeeded = 20;
-        this.xpIncrement = 1.1;
+        this.xpIncrement = 1.5;
         this.freeStatPoints = 0;
+        this.levelLimit = 2
     }
 
     //getters
@@ -133,18 +134,27 @@ class Cultist {
         return this.freeStatPoints;
     }
 
+    getLevelLimit() {
+        return this.levelLimit;
+    }
+
     //setters
     setJob(job) {
         this.job = job;
     }
 
     addXp(amount) {
-        this.currentXp += amount;
-        this.checkLevelUp();
+        if (this.level == this.levelLimit) {
+            this.currentXp = 0;
+        }
+        else {
+            this.currentXp += amount;
+            this.checkLevelUp();
+        }
     }
 
     checkLevelUp() {
-        if (this.currentXp >= this.xpNeeded) {
+        if (this.currentXp >= this.xpNeeded && !(this.level + 1 > this.levelLimit)) {
             this.levelUp();
         }
     }
