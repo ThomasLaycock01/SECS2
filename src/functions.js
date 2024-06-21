@@ -13,11 +13,24 @@ export function tick() {
     //adding resources
     for (var i in resources.getAll) {
         //evilness is calculated differently
-        if (i == "Evilness") {
+        /*if (i == "Evilness") {
             calculateEvilness();
             continue;
         }
-        calculateResource(i);
+        calculateResource(i);*/
+
+        switch(i) {
+            case "Evilness":
+                calculateEvilness();
+                break;
+            case "Slime":
+                calculateSlime();
+                break;
+            default:
+                calculateResource(i);
+        }
+
+
     }
 
     updateResources();
@@ -38,6 +51,21 @@ function calculateEvilness() {
     }
 
     resources.setResourcePerSec("Evilness", totalEvilnessOutput);
+}
+
+//Slime is also different
+function calculateSlime() {
+    const cultists = useCultistsStore();
+    const resources = useResourcesStore();
+
+    var totalSlimeOutput = 0;
+    for (var i in cultists.regularCultists) {
+        if (cultists.regularCultists[i].getSpecies() == "Slime") {
+            totalSlimeOutput += cultists.regularCultists[i].getLevel();
+        }
+    }
+
+    resources.setResourcePerSec("Slime", totalSlimeOutput);
 }
 
 

@@ -9,7 +9,7 @@ export const actions = {
     //actions are stored as objects that then get rendered to the dom
     centralChamber: {
         name: "Central Chamber",
-        desc: "The Centeral Chamber, in the Heart of your EVIL Lair!",
+        desc: "The Centeral Chamber, in the Heart of your EVIL Lair! >:)",
         tier: "tier0", //stored as a string to make interacting with the expansion store easier
         showCondition() {return true},
         buttons : {
@@ -128,7 +128,7 @@ export const actions = {
     },
     humanResources: {
         name: "Human Resources",
-        desc: "The HR department of your cult",
+        desc: "The HR department of your EVIL cult >:)",
         tier: "tier0",
         showCondition() {return true},
         buttons: {
@@ -176,7 +176,7 @@ export const actions = {
     mines: {
         id: "mines",
         name: "Mines",
-        desc: "A mineshaft underneath your lair",
+        desc: "A mineshaft underneath your EVIL lair >:)",
         tier: "tier1",
         showCondition() {
             const expansions = useExpansionsStore();
