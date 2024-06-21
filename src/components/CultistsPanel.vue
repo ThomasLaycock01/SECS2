@@ -37,6 +37,7 @@ const misc = useMiscStore();
                             @click="isCultistModalActive = false"></button>
                 </header>
                 <body class="modal-card-body">
+                    <div>{{ activeCultist.getSpecies() }}</div>
                     <div>{{ activeCultist.getJob() ? activeCultist.getJob() : "Unemployed" }}</div>
                     <div>Level {{ activeCultist.getLevel() }} / {{activeCultist.getLevelLimit()}}</div>
                     <div>{{ activeCultist.getXp() }} / {{ activeCultist.getXpNeeded() }}XP</div>

@@ -53,8 +53,16 @@ function calculateResource(resource) {
     for (var i in arrayOfJobs) {
         const associatedStat = jobs.getAssociatedStat(resource, i);
         for (var j in jobs.getArray(resource, i)) {
-            //silly way of doing this - come back later and write something better (weird way of grabbing the associated stat)
-            totalResourceOutput += jobs.getOutput(resource, i) * jobs.getArray(resource, i)[j].getStat(associatedStat);
+            //cultist being iterated over
+            const cultist = jobs.getArray(resource, i)[j];
+
+            //for dwarf racial
+            if (cultist.getSpecies() == "Dwarf" && associatedStat == "str") {
+                totalResourceOutput += jobs.getOutput(resource, i) * cultist.getStat(associatedStat) * 2;
+            }
+            else {
+                totalResourceOutput += jobs.getOutput(resource, i) * cultist.getStat(associatedStat);
+            }
         }
     }
 
@@ -84,7 +92,7 @@ function calculateLimits() {
 
 //class for creating cultists - will need expanding
 class Cultist {
-    constructor(id, name) {
+    constructor(id, name, species) {
         this.id = id;
         this.name = name + this.id;
         this.job = null;
@@ -94,7 +102,8 @@ class Cultist {
         this.xpNeeded = 20;
         this.xpIncrement = 1.5;
         this.freeStatPoints = 0;
-        this.levelLimit = 2
+        this.levelLimit = 10;
+        this.species = species;
     }
 
     //getters
@@ -138,6 +147,10 @@ class Cultist {
         return this.levelLimit;
     }
 
+    getSpecies() {
+        return this.species;
+    }
+
     //setters
     setJob(job) {
         this.job = job;
@@ -174,19 +187,29 @@ class Cultist {
 }
 
 //creating new cultists
-export function addCultist() {
+export function addCultist(species) {
     const store = useCultistsStore();
 
     const id = store.numOfCultists;
 
-    const cultist = new Cultist(id, "cultist");
+    const cultist = new Cultist(id, "cultist", species);
 
     store.addCultist(cultist);
 
     //removing cost of cultist
     const resources = useResourcesStore();
 
-    resources.modifyResource("Gold", -20);
+    switch(species) {
+        case "Human":
+            resources.modifyResource("Gold", -20);
+            break;
+        case "Dwarf":
+            resources.modifyResource("Gold", -2000);
+            break;
+        case "Slime":
+            resources.modifyResource("Gold", -2500);
+            resources.modifyResource("Crystals", -1000);
+    }
 
     //incrementing num of cultists to track limit
     const misc = useMiscStore();

@@ -132,16 +132,42 @@ export const actions = {
         tier: "tier0",
         showCondition() {return true},
         buttons: {
-            hireCultist: {
-                id: "hireCultist",
-                name: "Hire Cultist",
+            hireHumanCultist: {
+                id: "hireHumanCultist",
+                name: "Hire Human Cultist",
                 effect() {
-                    addCultist();
+                    addCultist("Human");
                 },
                 condition() {
                     const resources = useResourcesStore();
                     const misc = useMiscStore();
                     return resources.getResourceTotal("Gold") >= 20 && misc.checkCultistSpace;
+                },
+                showCondition() {return true}
+            },
+            hireDwarfCultist: {
+                id: "hireDwarfCultist",
+                name: "Hire Dwarf Cultist",
+                effect() {
+                    addCultist("Dwarf");
+                },
+                condition() {
+                    const resources = useResourcesStore();
+                    const misc = useMiscStore();
+                    return resources.getResourceTotal("Gold") >= 2000 && misc.checkCultistSpace;
+                },
+                showCondition() {return true}
+            },
+            hireSlimeCultist: {
+                id: "hireSlimeCultist",
+                name: "Hire Slime Cultist",
+                effect() {
+                    addCultist("Slime");
+                },
+                condition() {
+                    const resources = useResourcesStore();
+                    const misc = useMiscStore();
+                    return resources.getResourceTotal("Gold") >= 2500 && resources.getResourceTotal("Crystals") >= 1000 && misc.checkCultistSpace;
                 },
                 showCondition() {return true}
             }
