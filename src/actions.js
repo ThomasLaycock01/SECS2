@@ -10,14 +10,13 @@ export const actions = {
     centralChamber: {
         name: "Central Chamber",
         desc: "The Centeral Chamber, in the Heart of your EVIL Lair! >:)",
-        tier: "tier0", //stored as a string to make interacting with the expansion store easier
+        tier: "tier0",
         showCondition() {return true},
         buttons : {
             acquireGold: {
                 id: "acquireGold",
                 name: "Acquire Gold",
                 effect(){
-                    //gotta do this since pinia needs instantiating first - feels dumb but idk how to do it better
                     const resources = useResourcesStore();
                     resources.modifyResource("Gold", 1);
                 },

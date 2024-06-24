@@ -4,6 +4,7 @@ import { useJobsStore } from "./stores/jobs";
 import { useExpansionsStore } from "./stores/expansions";
 import { useMiscStore } from "./stores/misc";
 import { useBuildingsStore } from "./stores/buildings";
+import { useTextLogStore } from "./stores/textLog";
 
 
 //tick system
@@ -317,6 +318,14 @@ export function buildBuilding(buildingId) {
 }
 
 
+
+
+//textlog functions
+export function typeStringInTextlog(string) {
+    for (var i in string) {
+        
+    }
+}
 
 
 
