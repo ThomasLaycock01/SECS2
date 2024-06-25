@@ -15,18 +15,3 @@ const textLog = useTextLogStore();
         </div>
     </div>
 </template>
-
-<script>
-export default {
-    data() {
-        return {
-            typeValue: "",
-            typeStatus: false,
-            typingSpeed: 100,
-            charIndex: 0
-        }
-    },
-    methods: {
-    }
-}
-</script>
