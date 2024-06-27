@@ -321,10 +321,8 @@ export function buildBuilding(buildingId) {
 
 
 //textlog functions
-export function typeStringInTextlog(string) {
-    for (var i in string) {
-        
-    }
+export function playConvoInTextLog(id) {
+    
 }
 
 

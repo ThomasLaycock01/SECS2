@@ -1,6 +1,7 @@
 import { useResourcesStore } from "./stores/resources.js";
 import { useExpansionsStore } from "./stores/expansions.js";
 import { useMiscStore } from "./stores/misc.js";
+import { useTextLogStore } from "./stores/textLog.js";
 
 import { addCultist, buildExpansion, buildBuilding } from "./functions.js";
 import { useBuildingsStore } from "./stores/buildings.js";
@@ -122,6 +123,21 @@ export const actions = {
                     const expansions = useExpansionsStore();
                     return (expansions.hasTier3 == false && expansions.hasTier2)
                 }
+            },
+            //TEST BUTTON - REMOVE FOR RELEASE
+            testButton: {
+                id: "testButton",
+                name: "Test button",
+                effect() {
+                    const textLog = useTextLogStore();
+                    textLog.playConvo(1);
+                },
+                condition() {
+                    return true
+                },
+                showCondition() {
+                    return true
+                }  
             }
         }
     },

@@ -3,16 +3,19 @@ import { defineStore } from "pinia";
 export const useTextLogStore = defineStore("textLog", {
     state: () => {
         return {
-            played: [{id: "1", messages: [{character: "narrator", message: "Test message"}]}],
+            played: [],
             playing: [],
             toPlay: [],
-            unplayed: [{id: "1", messages: [{character: "narrator", message: "Test message", typing: true}]}],
+            unplayed: [{convoId: 1, character: "narrator", message: "test message"}, {convoId: 1, character: "narrator", message: "something else"}],
             typing: false
         }
     },
     getters: {
         getPlayed(state) {
             return state.played;
+        },
+        getPlaying(state) {
+            return state.playing;
         }
     },
     actions: {
@@ -21,21 +24,24 @@ export const useTextLogStore = defineStore("textLog", {
                 //what to do if it is already typing
             }
             else {
-                this.addToPlayingArray(convoId);
+                const toPlayArray = this.unplayed.filter((message) => message.convoId == convoId);
+                this.playing.push(toPlayArray.shift());
+                for (var i in toPlayArray) {
+                    this.toPlay.push(toPlayArray[i])
+                }
             }
         },
-        playConvoInPlayingArray() {
+        movePlayingIntoPlayed() {
+            const message = this.playing.pop();
 
+            this.played.push(message);
+
+            this.moveToPlayintoPlaying();
         },
-        addToPlayingArray(convoId) {
-            const convo = this.unplayed.filter((convo) => convo.id == convoId);
-            this.unplayed = this.unplayed.filter((convo) => convo.id != convoId);
-            this.playing.push(convo);
-        },
-        addToPlayedArray() {
-            const convo = this.playing[0];
-            this.played.push(convo);
-            this.playing.pop();
+        moveToPlayintoPlaying() {
+            const message = this.toPlay.shift();
+
+            this.playing.push(message);
         }
     }
 })
