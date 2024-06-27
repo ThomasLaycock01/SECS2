@@ -32,9 +32,7 @@ export default {
 
                 if (this.charIndex == string.length) {
                     console.log("firing")
-                    setTimeout(() => {
-                        textLog.movePlayingIntoPlayed();
-                    }, 100)
+                    textLog.movePlayingIntoPlayed();
                 }
                 else {
                     setTimeout(() => {

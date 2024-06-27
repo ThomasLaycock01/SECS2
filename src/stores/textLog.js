@@ -25,18 +25,23 @@ export const useTextLogStore = defineStore("textLog", {
             }
             else {
                 const toPlayArray = this.unplayed.filter((message) => message.convoId == convoId);
-                this.playing.push(toPlayArray.shift());
                 for (var i in toPlayArray) {
                     this.toPlay.push(toPlayArray[i])
                 }
+                this.moveToPlayintoPlaying();
             }
         },
         movePlayingIntoPlayed() {
             const message = this.playing.pop();
 
-            this.played.push(message);
+            this.played.unshift(message);
 
-            this.moveToPlayintoPlaying();
+            if (this.toPlay.length != 0) {
+                setTimeout(() => {
+                    this.moveToPlayintoPlaying();
+                }, 1000)
+            }
+
         },
         moveToPlayintoPlaying() {
             const message = this.toPlay.shift();
