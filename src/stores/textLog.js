@@ -6,7 +6,11 @@ export const useTextLogStore = defineStore("textLog", {
             played: [],
             playing: [],
             toPlay: [],
-            unplayed: [{convoId: 1, character: "narrator", message: "test message"}, {convoId: 1, character: "narrator", message: "something else"}],
+            unplayed: [
+                {convoId: 1, character: "narrator", message: "test message"}, 
+                {convoId: 1, character: "narrator", message: "something else"}, 
+                {convoId: 2, character: "narrator", message: "This is another convo"},
+                {convoId: 2, character: "narrator", message: "With another message"}],
             typing: false
         }
     },
@@ -20,14 +24,12 @@ export const useTextLogStore = defineStore("textLog", {
     },
     actions: {
         playConvo(convoId) {
-            if (this.playing.length != 0) {
-                //what to do if it is already typing
+            const toPlayArray = this.unplayed.filter((message) => message.convoId == convoId);
+            for (var i in toPlayArray) {
+                this.toPlay.push(toPlayArray[i])
             }
-            else {
-                const toPlayArray = this.unplayed.filter((message) => message.convoId == convoId);
-                for (var i in toPlayArray) {
-                    this.toPlay.push(toPlayArray[i])
-                }
+            
+            if (this.playing.length == 0) {
                 this.moveToPlayintoPlaying();
             }
         },

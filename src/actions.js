@@ -138,6 +138,20 @@ export const actions = {
                 showCondition() {
                     return true
                 }  
+            },
+            testButton2: {
+                id: "testButton2",
+                name: "Test button 2",
+                effect() {
+                    const textLog = useTextLogStore();
+                    textLog.playConvo(2);
+                },
+                condition() {
+                    return true
+                },
+                showCondition() {
+                    return true
+                }  
             }
         }
     },

@@ -31,13 +31,12 @@ export default {
                 this.charIndex += 1;
 
                 if (this.charIndex == string.length) {
-                    console.log("firing")
                     textLog.movePlayingIntoPlayed();
                 }
                 else {
                     setTimeout(() => {
                     this.typeText(this.string);
-                    }, 100);
+                    }, 70);
                 }
                 
             }
