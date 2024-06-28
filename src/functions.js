@@ -320,15 +320,6 @@ export function buildBuilding(buildingId) {
 
 
 
-//textlog functions
-export function playConvoInTextLog(id) {
-    //this isnt necessary yet, but will be soon
-}
-
-
-
-
-
 
 //HELPER FUNCTIONS
 export function posToNeg(num) {

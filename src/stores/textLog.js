@@ -1,5 +1,7 @@
 import { defineStore } from "pinia";
 
+import { useMiscStore } from "./misc";
+
 export const useTextLogStore = defineStore("textLog", {
     state: () => {
         return {
@@ -7,10 +9,10 @@ export const useTextLogStore = defineStore("textLog", {
             playing: [],
             toPlay: [],
             unplayed: [
-                {convoId: 1, character: "narrator", message: "test message"}, 
-                {convoId: 1, character: "narrator", message: "something else"}, 
-                {convoId: 2, character: "narrator", message: "This is another convo"},
-                {convoId: 2, character: "narrator", message: "With another message"}]
+                {convoId: 1, character: "narrator", message: "test message", last: false}, 
+                {convoId: 1, character: "narrator", message: "something else", last: true}, 
+                {convoId: 2, character: "narrator", message: "This is another convo", last: true},
+                {convoId: 2, character: "narrator", message: "With another message", last: false}]
         }
     },
     getters: {
@@ -33,6 +35,8 @@ export const useTextLogStore = defineStore("textLog", {
             }
         },
         movePlayingIntoPlayed() {
+            const misc = useMiscStore();
+
             const message = this.playing.pop();
 
             this.played.unshift(message);
@@ -43,6 +47,9 @@ export const useTextLogStore = defineStore("textLog", {
                 }, 1000)
             }
 
+            if (message.last) {
+                misc.addSeenConvo(message.convoId);
+            }
         },
         moveToPlayintoPlaying() {
             const message = this.toPlay.shift();

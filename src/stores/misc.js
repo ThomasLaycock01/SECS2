@@ -26,6 +26,12 @@ export const useMiscStore = defineStore("misc", {
         },
         checkBuildingSpace(state) {
             return state.limits.buildings > state.owned.buildings;
+        },
+        getSeenConvos(state) {
+            return state.seenConvos;
+        },
+        checkHasSeenConvo(state) {
+            return (convoId) => state.seenConvos.includes(convoId);
         }
     },
     actions: {
@@ -55,6 +61,9 @@ export const useMiscStore = defineStore("misc", {
             }
 
             this.limits.cultists = totalLimit;
+        },
+        addSeenConvo(convoId) {
+            this.seenConvos.push(convoId);
         }
     }
 })

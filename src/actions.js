@@ -147,7 +147,8 @@ export const actions = {
                     textLog.playConvo(2);
                 },
                 condition() {
-                    return true
+                    const misc = useMiscStore();
+                    return misc.checkHasSeenConvo(1);
                 },
                 showCondition() {
                     return true
