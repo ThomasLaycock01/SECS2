@@ -14,16 +14,6 @@ export const actions = {
         tier: "tier0",
         showCondition() {return true},
         buttons : {
-            acquireGold: {
-                id: "acquireGold",
-                name: "Acquire Gold",
-                effect(){
-                    const resources = useResourcesStore();
-                    resources.modifyResource("Gold", 1);
-                },
-                condition(){return true},
-                showCondition() {return true}
-            },
             beEvil: {
                 id: "beEvil",
                 name: "Be Evil >:)",
@@ -33,6 +23,16 @@ export const actions = {
                 },
                 condition(){return true},
                 showCondition(){return true}
+            },
+            acquireGold: {
+                id: "acquireGold",
+                name: "Acquire Gold",
+                effect(){
+                    const resources = useResourcesStore();
+                    resources.modifyResource("Gold", 1);
+                },
+                condition(){return true},
+                showCondition() {return true}
             },
             expansionMines: {
                 id: "expansionMines",
