@@ -24,3 +24,22 @@
     grid-template-columns: repeat(10, 1fr);
     gap: 10px;
 }
+
+
+.button_list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+/*Tooltip*/
+.tooltip {
+    position: absolute;
+    z-index: 1000;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+}
