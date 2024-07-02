@@ -17,9 +17,9 @@ const hover = ref("");
                 <div class="button_list">
                     <div v-for="button in segment.buttons">
                         <button v-if="button.showCondition()" :disabled="!button.condition()" @click="button.effect" @mouseover="hover = button.id" @mouseleave="hover = ''"  class="button is-dark mb-1 mr-2">{{ button.name }}</button>
-                        <span v-if="hover == button.id" >
+                        <div v-if="hover == button.id" class="tooltip_container" >
                             <Tooltip class="tooltip" :tooltipData="button.tooltipData"/>
-                        </span>
+                        </div>
                     </div>
                 </div>
             </div>

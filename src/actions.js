@@ -103,6 +103,14 @@ export const actions = {
                 showCondition() {
                     const expansions = useExpansionsStore();
                     return (expansions.hasTier2 == false && expansions.hasTier1)
+                },
+                tooltipData: {
+                    title: "Expansion: Barracks",
+                    body: "An area to organize your cultist army",
+                    costs() {
+                        const expansions = useExpansionsStore();
+                        return expansions.getExpansionCosts("barracks");
+                    }
                 }
             },
             expansionTower: {
@@ -118,6 +126,14 @@ export const actions = {
                 showCondition() {
                     const expansions = useExpansionsStore();
                     return (expansions.hasTier2 == false && expansions.hasTier1)
+                },
+                tooltipData: {
+                    title: "Expansion: Tower",
+                    body: "A tower to cast spells from",
+                    costs() {
+                        const expansions = useExpansionsStore();
+                        return expansions.getExpansionCosts("tower");
+                    }
                 }
             },
             expansionAcademy: {
@@ -133,6 +149,14 @@ export const actions = {
                 showCondition() {
                     const expansions = useExpansionsStore();
                     return (expansions.hasTier3 == false && expansions.hasTier2)
+                },
+                tooltipData: {
+                    title: "Expansion: Academy",
+                    body: "An academy to educate future generations of cultists",
+                    costs() {
+                        const expansions = useExpansionsStore();
+                        return expansions.getExpansionCosts("academy");
+                    }
                 }
             },
             expansionDungeons: {
@@ -148,6 +172,14 @@ export const actions = {
                 showCondition() {
                     const expansions = useExpansionsStore();
                     return (expansions.hasTier3 == false && expansions.hasTier2)
+                },
+                tooltipData: {
+                    title: "Expansion: Dungeons",
+                    body: "Dungeons for misbehaving cultists",
+                    costs() {
+                        const expansions = useExpansionsStore();
+                        return expansions.getExpansionCosts("dungeons");
+                    }
                 }
             },
             //TEST BUTTON - REMOVE FOR RELEASE
@@ -207,7 +239,11 @@ export const actions = {
                     const misc = useMiscStore();
                     return resources.getResourceTotal("Gold") >= 20 && misc.checkCultistSpace;
                 },
-                showCondition() {return true}
+                showCondition() {return true},
+                tooltipData: {
+                    title: "Hire Human Cultist",
+                    body: "Hire a human cultist",
+                }
             },
             hireDwarfCultist: {
                 id: "hireDwarfCultist",
@@ -220,7 +256,11 @@ export const actions = {
                     const misc = useMiscStore();
                     return resources.getResourceTotal("Gold") >= 2000 && misc.checkCultistSpace;
                 },
-                showCondition() {return true}
+                showCondition() {return true},
+                tooltipData: {
+                    title: "Hire Dwarf Cultist",
+                    body: "Hire a dwarf cultist",
+                }
             },
             hireSlimeCultist: {
                 id: "hireSlimeCultist",
@@ -233,7 +273,11 @@ export const actions = {
                     const misc = useMiscStore();
                     return resources.getResourceTotal("Gold") >= 2500 && resources.getResourceTotal("Crystals") >= 1000 && misc.checkCultistSpace;
                 },
-                showCondition() {return true}
+                showCondition() {return true},
+                tooltipData: {
+                    title: "Hire Slime Cultist",
+                    body: "Hire a slime cultist",
+                }
             }
         }
     },
@@ -257,7 +301,16 @@ export const actions = {
                     const buildings = useBuildingsStore();
                     return buildings.checkIfCanAfford("goldMine");
                 },
-                showCondition() {return true}
+                showCondition() {return true},
+                tooltipData: {
+                    title: "Gold Mine",
+                    body: "A mine to acquire gold",
+                    costs() {
+                        const buildings = useBuildingsStore();
+                        return buildings.getBuildingCostsById("goldMine")
+                    }
+                }
+                
             },
             crystalMine: {
                 id: "crystalMine",
@@ -269,7 +322,15 @@ export const actions = {
                     const buildings = useBuildingsStore();
                     return buildings.checkIfCanAfford("crystalMine");
                 },
-                showCondition() {return true}
+                showCondition() {return true},
+                tooltipData: {
+                    title: "Crystal Mine",
+                    body: "A mine to acquire crystals",
+                    costs() {
+                        const buildings = useBuildingsStore();
+                        return buildings.getBuildingCostsById("crystalMine")
+                    }
+                }
             }
         }
     },
@@ -293,7 +354,15 @@ export const actions = {
                     const buildings = useBuildingsStore();
                     return buildings.checkIfCanAfford("transmuter");
                 },
-                showCondition() {return true}
+                showCondition() {return true},
+                tooltipData: {
+                    title: "Transmuter",
+                    body: "A device for turning lead into gold",
+                    costs() {
+                        const buildings = useBuildingsStore();
+                        return buildings.getBuildingCostsById("transmuter")
+                    }
+                }
             }
         }
     },
@@ -317,7 +386,15 @@ export const actions = {
                     const buildings = useBuildingsStore();
                     return buildings.checkIfCanAfford("drillSquare");
                 },
-                showCondition() {return true}
+                showCondition() {return true},
+                tooltipData: {
+                    title: "Drill Square",
+                    body: "A square for preparing your soldiers",
+                    costs() {
+                        const buildings = useBuildingsStore();
+                        return buildings.getBuildingCostsById("drillSquare")
+                    }
+                }
             }
         }
     },
@@ -341,7 +418,15 @@ export const actions = {
                     const buildings = useBuildingsStore();
                     return buildings.checkIfCanAfford("infuser");
                 },
-                showCondition() {return true}
+                showCondition() {return true},
+                tooltipData: {
+                    title: "Infuser",
+                    body: "A device for infusing crystals with mana",
+                    costs() {
+                        const buildings = useBuildingsStore();
+                        return buildings.getBuildingCostsById("infuser")
+                    }
+                }
             }
         }
     },
@@ -365,7 +450,15 @@ export const actions = {
                     const buildings = useBuildingsStore();
                     return buildings.checkIfCanAfford("lectureHall");
                 },
-                showCondition() {return true}
+                showCondition() {return true},
+                tooltipData: {
+                    title: "Lecture Hall",
+                    body: "A place for turning your cultists into smarter cultists",
+                    costs() {
+                        const buildings = useBuildingsStore();
+                        return buildings.getBuildingCostsById("lectureHall")
+                    }
+                }
             }
         }
     },
@@ -389,7 +482,15 @@ export const actions = {
                     const buildings = useBuildingsStore();
                     return buildings.checkIfCanAfford("cell");
                 },
-                showCondition() {return true}
+                showCondition() {return true},
+                tooltipData: {
+                    title: "Cell",
+                    body: "I guess you can sleep here, or something",
+                    costs() {
+                        const buildings = useBuildingsStore();
+                        return buildings.getBuildingCostsById("cell")
+                    }
+                }
             }
         }
     }

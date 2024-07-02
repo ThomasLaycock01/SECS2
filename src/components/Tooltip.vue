@@ -14,7 +14,7 @@ const data = props.tooltipData;
         <p class="mb-2">
             {{data.body}}
         </p>
-        <div v-if="data.costs">
+        <div v-if="data.costs" class="mb-2">
             <ul v-for="value, key in data.costs()">
                 <li>{{ key }} : {{ value }}</li>
             </ul>
