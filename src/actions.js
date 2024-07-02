@@ -22,7 +22,12 @@ export const actions = {
                     resources.modifyResource("Evilness", 1);
                 },
                 condition(){return true},
-                showCondition(){return true}
+                showCondition(){return true},
+                tooltipData: {
+                    title: "Be Evil >:)",
+                    body: "Gain 1 Evilness",
+                    flavour: "MWUH HA HA HA HA!!!!"
+                }
             },
             acquireGold: {
                 id: "acquireGold",
@@ -32,7 +37,12 @@ export const actions = {
                     resources.modifyResource("Gold", 1);
                 },
                 condition(){return true},
-                showCondition() {return true}
+                showCondition() {return true},
+                tooltipData: {
+                    title: "Acquire Gold",
+                    body: "Gain 1 Gold",
+                    flavour: "Who knows where it comes from?"
+                }
             },
             expansionMines: {
                 id: "expansionMines",
@@ -47,6 +57,14 @@ export const actions = {
                 showCondition() {
                     const expansions = useExpansionsStore();
                     return expansions.hasTier1 == false;
+                },
+                tooltipData: {
+                    title: "Expansion: Mines",
+                    body: "A mineshaft under your lair",
+                    costs() {
+                        const expansions = useExpansionsStore();
+                        return expansions.getExpansionCosts("mines");
+                    }
                 }
             },
             expansionLaboratory: {
@@ -62,6 +80,14 @@ export const actions = {
                 showCondition() {
                     const expansions = useExpansionsStore();
                     return expansions.hasTier1 == false;
+                },
+                tooltipData: {
+                    title: "Expansion: Laboratory",
+                    body: "A laboratory for evil experiments",
+                    costs() {
+                        const expansions = useExpansionsStore();
+                        return expansions.getExpansionCosts("laboratory");
+                    }
                 }
             },
             expansionBarracks: {
@@ -137,7 +163,11 @@ export const actions = {
                 },
                 showCondition() {
                     return true
-                }  
+                },
+                tooltipData: {
+                    title: "Test",
+                    body: "plays a convo",
+                }
             },
             testButton2: {
                 id: "testButton2",
@@ -152,7 +182,11 @@ export const actions = {
                 },
                 showCondition() {
                     return true
-                }  
+                },
+                tooltipData: {
+                    title: "Test 2",
+                    body: "plays anohter convo",
+                }
             }
         }
     },
