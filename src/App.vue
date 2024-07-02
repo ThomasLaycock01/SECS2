@@ -1,7 +1,7 @@
 <script setup>
 import ResourceTable from "./components/ResourceTable.vue";
-import LairTab from "./components/LairTab.vue";
-import CultistsPanel from "./components/CultistsPanel.vue";
+import LairTab from "./components/lairTab/LairTab.vue";
+import CultistsTab from "./components/cultistTab/CultistsTab.vue";
 import TextLog from "./components/TextLog.vue";
 import JobAssigner from "./components/JobAssigner.vue";
 
@@ -34,7 +34,7 @@ const buildings = useBuildingsStore();
         <LairTab/>
       </b-tab-item>
       <b-tab-item label="Cult">
-        <CultistsPanel/>
+        <CultistsTab/>
       </b-tab-item>
     </b-tabs>
   </section>

@@ -8,9 +8,6 @@ const props = defineProps({
     job: Object,
     resource: String
 })
-
-console.log(props.job.id);
-console.log(props.resource);
 </script>
 
 <template>

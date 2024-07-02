@@ -1,5 +1,5 @@
 <script setup>
-import Tooltip from "./Tooltip.vue";
+import Tooltip from "../Tooltip.vue";
 
 import {actions} from "@/actions.js";
 
