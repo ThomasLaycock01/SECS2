@@ -1,9 +1,9 @@
 <script setup>
-import ResourceTable from "./components/ResourceTable.vue";
+import Tables from "./components/tables/Tables.vue";
 import LairTab from "./components/lairTab/LairTab.vue";
 import CultistsTab from "./components/cultistTab/CultistsTab.vue";
-import TextLog from "./components/TextLog.vue";
-import JobAssigner from "./components/JobAssigner.vue";
+import TextLog from "./components/textLog/TextLog.vue";
+import JobAssigner from "./components/jobAssigner/JobAssigner.vue";
 
 //testing
 import { useExpansionsStore } from "./stores/expansions";
@@ -19,15 +19,15 @@ const buildings = useBuildingsStore();
 <template>
   
 
-  <ResourceTable class="column is-one-fifth"/>
-  <table>
+  <Tables class="column is-one-quarter"/>
+  <!--<table>
     <thead>
       <tr>
         <td>Cultists</td>
         <td><span>{{ misc.getCultistOwned }}</span> / <span>{{ misc.getCultistLimit }}</span></td>
       </tr>
     </thead>
-  </table>
+  </table>-->
   <section class="column is-half">
     <b-tabs v-model="activeTab">
       <b-tab-item label="Lair">

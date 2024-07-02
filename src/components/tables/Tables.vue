@@ -1,14 +1,15 @@
 <script setup>
-import Resource from "./Resource.vue";
+import Resource from "../Resource.vue";
 
 import {useResourcesStore} from "@/stores/resources.js";
+import { useMiscStore } from "@/stores/misc";
 
 const resources = useResourcesStore();
-
+const misc = useMiscStore();
 </script>
 
 <template>
-    <div>
+    <div class="tables">
         <table class="table">
             <thead>
                 <tr>
@@ -21,5 +22,15 @@ const resources = useResourcesStore();
                 <Resource v-for="(amount, resource) in resources.getAll" :resource="resource"/>
             </tbody>
         </table>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Cultists</th>
+                    <th></th>
+                    <th>{{ misc.getCultistOwned }} / {{ misc.getCultistLimit }}</th>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    
 </template>
