@@ -14,7 +14,7 @@ const misc = useMiscStore();
             <button v-else class="button is-outlined" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
         </span>
         <span v-for="i in misc.getCultistLimit - cultists.numOfCultists">
-            <div class="button is-outlined">No cultist</div>
+            <div class="button is-outlined" disabled>Empty</div>
         </span>
     </div>
 

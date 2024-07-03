@@ -243,6 +243,9 @@ export const actions = {
                 tooltipData: {
                     title: "Hire Human Cultist",
                     body: "Hire a human cultist",
+                    costs() {
+                        return {"Gold": 20};
+                    }
                 }
             },
             hireDwarfCultist: {
@@ -260,6 +263,9 @@ export const actions = {
                 tooltipData: {
                     title: "Hire Dwarf Cultist",
                     body: "Hire a dwarf cultist",
+                    costs() {
+                        return {"Gold": 2000};
+                    }
                 }
             },
             hireSlimeCultist: {
@@ -277,6 +283,9 @@ export const actions = {
                 tooltipData: {
                     title: "Hire Slime Cultist",
                     body: "Hire a slime cultist",
+                    costs() {
+                        return {"Gold": 2500, "Crystals": 1000};
+                    }
                 }
             }
         }

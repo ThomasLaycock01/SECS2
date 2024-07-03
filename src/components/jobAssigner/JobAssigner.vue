@@ -1,5 +1,7 @@
 <script setup>
 import JobAssignerTab from './JobAssignerTab.vue';
+
+var activeTab = 0;
 </script>
 
 <template>
@@ -12,11 +14,3 @@ import JobAssignerTab from './JobAssignerTab.vue';
       </b-tab-item>
     </b-tabs>
 </template>
-
-<script>
-export default {
-  data() {
-    return {activeTab: 0}
-  }
-}
-</script>

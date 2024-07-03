@@ -1,8 +1,4 @@
 <script setup>
-import { onMounted, ref } from 'vue';
-
-import { useTextLogStore } from '@/stores/textLog';
-
 const props = defineProps({
     message: String
 })
