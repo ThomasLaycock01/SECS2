@@ -1,5 +1,5 @@
 <script setup>
-import Resource from "../Resource.vue";
+import Resource from "./Resource.vue";
 
 import {useResourcesStore} from "@/stores/resources.js";
 import { useMiscStore } from "@/stores/misc";
