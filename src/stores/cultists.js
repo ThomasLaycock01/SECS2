@@ -12,7 +12,7 @@ export const useCultistsStore = defineStore("cultists", {
             return state.regular;
         },
         getCultistById: (state) => {
-            return (cultistId) => state.regular.find((cultist) => cultist.id == cultistId);
+            return (cultistId) => state.regular.find((cultist) => cultist.getId() == cultistId);
         },
         getUnemployed(state) {
             return state.regular.filter((cultist) => cultist.getJob() == null);
@@ -25,6 +25,9 @@ export const useCultistsStore = defineStore("cultists", {
         addCultist(cultist) {
             this.regular.push(cultist);
         },
+        removeCultist(cultistId) {
+            this.regular = this.regular.filter((cultist) => cultist.getId() != cultistId)
+        },
         checkUnemployed() {
             const array = this.regular;
             const unEmployedArray = array.filter((obj) => obj.getJob() == null);
@@ -34,6 +37,17 @@ export const useCultistsStore = defineStore("cultists", {
             else {
                 return true;
             }
+        },
+        checkIfIdUsed(id) {
+            var idUsed = false;
+
+            for (var i in this.regular) {
+                if (this.regular[i].getId() == id) {
+                    idUsed = true;
+                }
+            }
+
+            return idUsed;
         }
     }
 });

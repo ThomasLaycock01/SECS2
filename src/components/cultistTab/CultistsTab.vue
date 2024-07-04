@@ -77,7 +77,7 @@ const misc = useMiscStore();
                     <button
                             type="button"
                             class="button is-danger"
-                            @click="isCultistModalActive = false">Fire Cultist</button>
+                            @click="fireCultistBtn">Fire Cultist</button>
                     </footer>
             </div>
         
@@ -86,6 +86,7 @@ const misc = useMiscStore();
 </template>
 
 <script>
+import { fireCultist } from "@/functions";
 
 export default {
     data() {
@@ -110,6 +111,10 @@ export default {
         },
         addCha() {
             this.activeCultist.increaseStat("cha");
+        },
+        fireCultistBtn() {
+            fireCultist(this.activeCultist.getId());
+            this.isCultistModalActive = false;
         }
     }
 }

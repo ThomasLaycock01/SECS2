@@ -217,16 +217,20 @@ class Cultist {
 
 //creating new cultists
 export function addCultist(species) {
-    const store = useCultistsStore();
+    const cultists = useCultistsStore();
+    const resources = useResourcesStore();
 
-    const id = store.numOfCultists;
+    var id = cultists.numOfCultists;
+
+    while (cultists.checkIfIdUsed(id)) {
+        id++;
+    }
 
     const cultist = new Cultist(id, "cultist", species);
 
-    store.addCultist(cultist);
+    cultists.addCultist(cultist);
 
     //removing cost of cultist
-    const resources = useResourcesStore();
 
     switch(species) {
         case "Human":
@@ -272,6 +276,17 @@ export function removeCultistFromJob(cultistId) {
 
     const cultist = cultists.getCultistById(cultistId);
     cultist.setJob(null)
+}
+
+//firing a cultist
+export function fireCultist(cultistId) {
+    const cultists = useCultistsStore();
+    const misc = useMiscStore();
+
+    removeCultistFromJob(cultistId);
+
+    cultists.removeCultist(cultistId);
+    misc.removeCultist();
 }
 
 
