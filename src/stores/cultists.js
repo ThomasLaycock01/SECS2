@@ -19,6 +19,9 @@ export const useCultistsStore = defineStore("cultists", {
         },
         getEmployed(state) {
             return state.regular.filter((cultist) => cultist.getJob() != null);
+        },
+        getFreeSkillPoints(state) {
+            return state.regular.filter((cultist) => cultist.getFreeStatPoints() != 0).length >= 1 ? true : false;
         }
     },
     actions: {

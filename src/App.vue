@@ -6,14 +6,10 @@ import TextLog from "./components/textLog/TextLog.vue";
 import JobAssigner from "./components/jobAssigner/JobAssigner.vue";
 
 //testing
-import { useExpansionsStore } from "./stores/expansions";
-import { useMiscStore } from "./stores/misc";
-import { useBuildingsStore } from "./stores/buildings";
+import { useCultistsStore } from "./stores/cultists";
 
-const expansions = useExpansionsStore();
-const misc = useMiscStore();
-const buildings = useBuildingsStore();
 
+const cultists = useCultistsStore();
 </script>
 
 <template>
@@ -25,8 +21,8 @@ const buildings = useBuildingsStore();
       <b-tab-item label="Lair">
         <LairTab/>
       </b-tab-item>
-      <b-tab-item label="Cult">
-        <CultistsTab/>
+      <b-tab-item :label="cultists.getFreeSkillPoints ? 'Cult(!)' : 'Cult'">
+          <CultistsTab/>
       </b-tab-item>
     </b-tabs>
   </section>
