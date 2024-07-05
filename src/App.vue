@@ -40,7 +40,10 @@ export default {
     return {activeTab: 0}
   },
   mounted() {
-    setInterval(tick, 1000)
+    if (!localStorage.getItem("SECSData")) {
+      localStorage.setItem("SECSData", JSON.stringify({}))
+    }
+    setInterval(tick, 1000);
   }
 }
 

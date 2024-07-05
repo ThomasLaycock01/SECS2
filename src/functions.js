@@ -32,7 +32,7 @@ export function tick() {
     //updating xp for cultists
     updateCultistXp();
 
-    //saveData();
+    saveData();
 }
 
 
@@ -331,8 +331,21 @@ export function buildBuilding(buildingId) {
 
 //localStorage functions
 function saveData() {
-    const resources = useResourcesStore();
-    console.log(resources.getFullResourcesObject.Evilness)
+    //got to use slightly different names here, otherwise get cyclic value error
+    const resourceStore = useResourcesStore();
+
+    const storageData = localStorage.getItem("SECSData");
+    var data = JSON.parse(storageData);
+
+    console.log(data);
+
+    data.resources = resourceStore.getFullResourcesObject;
+
+    console.log(data);
+
+    localStorage.setItem("SECSData", JSON.stringify(data));
+
+
 }
 
 
