@@ -13,13 +13,6 @@ export function tick() {
 
     //adding resources
     for (var i in resources.getAll) {
-        //evilness is calculated differently
-        /*if (i == "Evilness") {
-            calculateEvilness();
-            continue;
-        }
-        calculateResource(i);*/
-
         switch(i) {
             case "Evilness":
                 calculateEvilness();
@@ -38,6 +31,8 @@ export function tick() {
 
     //updating xp for cultists
     updateCultistXp();
+
+    //saveData();
 }
 
 
@@ -332,6 +327,13 @@ export function buildBuilding(buildingId) {
     console.log(jobs.checkIfAtLimit("Gold", "miner"))
 }
 
+
+
+//localStorage functions
+function saveData() {
+    const resources = useResourcesStore();
+    console.log(resources.getFullResourcesObject.Evilness)
+}
 
 
 

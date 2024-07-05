@@ -13,6 +13,9 @@ export const useResourcesStore = defineStore("resources", {
         },
         getResourcePerSec(state) {
             return (resource) => state[resource].perSec;
+        },
+        getFullResourcesObject(state) {
+            return state;
         }
     },
     actions: {
