@@ -5,7 +5,6 @@ import CultistsTab from "./components/cultistTab/CultistsTab.vue";
 import TextLog from "./components/textLog/TextLog.vue";
 import JobAssigner from "./components/jobAssigner/JobAssigner.vue";
 
-//testing
 import { useCultistsStore } from "./stores/cultists";
 
 
@@ -21,7 +20,7 @@ const cultists = useCultistsStore();
       <b-tab-item label="Lair">
         <LairTab/>
       </b-tab-item>
-      <b-tab-item :label="cultists.getFreeSkillPoints ? 'Cult(!)' : 'Cult'">
+      <b-tab-item :label="cultists.checkFreeSkillPoints ? 'Cult(!)' : 'Cult'">
           <CultistsTab/>
       </b-tab-item>
     </b-tabs>
