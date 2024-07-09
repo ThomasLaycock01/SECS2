@@ -33,7 +33,7 @@ const cultists = useCultistsStore();
 
 <script>
 
-import { tick } from "./functions";
+import { tick, loadData } from "./functions";
 
 export default {
   data() {
@@ -42,6 +42,9 @@ export default {
   mounted() {
     if (!localStorage.getItem("SECSData")) {
       localStorage.setItem("SECSData", JSON.stringify({}))
+    }
+    else {
+      loadData();
     }
     setInterval(tick, 1000);
   }

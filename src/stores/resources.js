@@ -24,6 +24,14 @@ export const useResourcesStore = defineStore("resources", {
         },
         setResourcePerSec(type, value) {
             this[type].perSec = value;
+        },
+        loadData(data) {
+            for (var i in data) {
+                this[i] = data[i];
+            }
+            for (var i in this) {
+                console.log(i);
+            }
         }
     }
 })

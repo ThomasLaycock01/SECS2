@@ -332,22 +332,29 @@ export function buildBuilding(buildingId) {
 //localStorage functions
 function saveData() {
     //got to use slightly different names here, otherwise get cyclic value error
-    const resourceStore = useResourcesStore();
+    const resourcesStore = useResourcesStore();
 
     const storageData = localStorage.getItem("SECSData");
     var data = JSON.parse(storageData);
 
-    console.log(data);
+    data.resources = resourcesStore.getAll;
 
-    data.resources = resourceStore.getFullResourcesObject;
-
-    console.log(data);
+    const JSONData = JSON.stringify(data);
 
     localStorage.setItem("SECSData", JSON.stringify(data));
 
 
 }
 
+export function loadData() {
+    const resourcesStore = useResourcesStore();
+
+    const data = JSON.parse(localStorage.getItem("SECSData"));
+
+    console.log(data.resources);
+
+    resourcesStore.loadData(data.resources)
+}
 
 
 
