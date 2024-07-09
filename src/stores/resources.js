@@ -29,9 +29,6 @@ export const useResourcesStore = defineStore("resources", {
             for (var i in data) {
                 this[i] = data[i];
             }
-            for (var i in this) {
-                console.log(i);
-            }
         }
     }
 })
