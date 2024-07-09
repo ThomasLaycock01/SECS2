@@ -5,8 +5,7 @@ import { useJobsStore } from '@/stores/jobs';
 const jobs = useJobsStore();
 
 const props = defineProps({
-    job: Object,
-    resource: String
+    job: Object
 })
 
 function buttonClick(e) {
@@ -15,7 +14,7 @@ function buttonClick(e) {
 </script>
 
 <template>
-    <div v-for="i in jobs.getArray(props.resource, props.job.id)">
-        <div>{{ i.getName() }} - Producing {{ i.getSpecies() == "Dwarf" && job.stat == "str" ?  i.getStat(props.job.stat) * props.job.output * 2 : i.getStat(props.job.stat) * props.job.output }} /s <button class="button is-small is-danger" :value="i.getId()" @click="buttonClick">X</button></div>
+    <div v-for="i in jobs.getBaseArray(props.job.id)">
+        <div>{{ i.getName() }} - Producing {{ i.getSpecies() == "Dwarf" && job.stat == "str" ?  i.getStat(props.job.stat) * props.job.output * 2 : i.getStat(props.job.stat) }} /s <button class="button is-small is-danger" :value="i.getId()" @click="buttonClick">X</button></div>
     </div>
 </template>

@@ -67,30 +67,30 @@ function calculateSlime() {
 
 //calculating resource output
 function calculateResource(resource) {
+    //first - instantiate stores
     const jobs = useJobsStore();
     const resources = useResourcesStore();
 
-    const arrayOfJobs = jobs.getByProdType(resource);
 
-    //very bulky, but this just multiplies the total output of the job by the associated stat from each cultist in its job array
+    //second - get jobs with matching resource
+    const arrayOfJobs = jobs.getByOutput(resource);
+
+    //third - calculate output
     var totalResourceOutput = 0;
-    for (var i in arrayOfJobs) {
-        const associatedStat = jobs.getAssociatedStat(resource, i);
-        for (var j in jobs.getArray(resource, i)) {
-            //cultist being iterated over
-            const cultist = jobs.getArray(resource, i)[j];
 
-            //for dwarf racial
-            if (cultist.getSpecies() == "Dwarf" && associatedStat == "str") {
-                totalResourceOutput += jobs.getOutput(resource, i) * cultist.getStat(associatedStat) * 2;
-            }
-            else {
-                totalResourceOutput += jobs.getOutput(resource, i) * cultist.getStat(associatedStat);
-            }
+    for (var i in arrayOfJobs) {
+        const job = arrayOfJobs[i];
+        const associateStat = job["stat"];
+        for (var j in job["baseArray"]) {
+            totalResourceOutput = job["baseArray"][j].getStat(associateStat);
+        }
+        for (var j in job["modifierArray"]) {
+            totalResourceOutput = totalResourceOutput * job["modifierArray"][j];
         }
     }
 
-    resources.setResourcePerSec(resource, totalResourceOutput);
+    //fourth - update resources store with new output
+    resources.setResourcePerSec(resource, totalResourceOutput)
 }
 
 //updating the resources
@@ -248,17 +248,17 @@ export function addCultist(species) {
 
 
 //adding cultists to a job
-export function addCultistToJob(cultistId, resource, job) {
+export function addCultistToJob(cultistId, jobId) {
     //first - instantiate stores
     const cultists = useCultistsStore();
     const jobs = useJobsStore();
 
     //second - add cultistId to job store
-    jobs.addCultistToJobArray(cultistId, resource, job);
+    jobs.addCultistToJob(cultistId, jobId);
 
     //third - update cultist to give them job
     const cultist = cultists.getCultistById(cultistId);
-    cultist.setJob(jobs.getName(resource, job));
+    cultist.setJob(jobs.getName(jobId));
 }
 
 
@@ -267,7 +267,7 @@ export function removeCultistFromJob(cultistId) {
     const jobs = useJobsStore();
     const cultists = useCultistsStore();
 
-    jobs.removeCultistfromJob(cultistId);
+    jobs.removeCultistFromJob(cultistId);
 
     const cultist = cultists.getCultistById(cultistId);
     cultist.setJob(null)
@@ -352,8 +352,6 @@ export function loadData() {
     const resourcesStore = useResourcesStore();
 
     const data = JSON.parse(localStorage.getItem("SECSData"));
-
-    console.log(data.resources);
 
     resourcesStore.loadData(data.resources)
 }
