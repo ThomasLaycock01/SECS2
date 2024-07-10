@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 
 import { useResourcesStore } from "./resources";
+import { useCostsStore } from "./costs";
 
 export const useBuildingsStore = defineStore("buildings", {
     state: () => {
@@ -42,13 +43,14 @@ export const useBuildingsStore = defineStore("buildings", {
         },
         checkIfCanAfford(buildingId) {
             const resources = useResourcesStore();
+            const costs = useCostsStore();
 
-            const chosenBuilding = this.buildings.filter(obj =>  obj.id == buildingId)[0]
+            const cost = costs.getTotalBuildingCost(buildingId);
 
             var canAfford = true;
 
-            for (var i in chosenBuilding.costs) {
-                if (resources.getResourceTotal(i) < chosenBuilding.costs[i]) {
+            for (var i in cost) {
+                if (resources.getResourceTotal(i) < cost[i]) {
                     canAfford = false;
                 }
             }

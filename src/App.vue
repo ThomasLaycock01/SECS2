@@ -7,7 +7,6 @@ import JobAssigner from "./components/jobAssigner/JobAssigner.vue";
 
 import { useCultistsStore } from "./stores/cultists";
 
-
 const cultists = useCultistsStore();
 </script>
 

@@ -14,11 +14,11 @@ export const useCostsStore = defineStore("costs", {
             buildings: {
                 goldMine: {
                     costs: {Gold: 20},
-                    exponent: {Gold: 1.5}
+                    exponents: {Gold: 1.5}
                 },
                 crystalMine: {
                     costs: {Gold: 50},
-                    exponent: {Gold: 1.5}
+                    exponents: {Gold: 1.5}
                 }
             },
             expansions: {
@@ -44,6 +44,18 @@ export const useCostsStore = defineStore("costs", {
             }
 
             return canAfford;
+        },
+        getTotalBuildingCost(type) {
+            const buildings = useBuildingsStore();
+
+            const toBuild = this["buildings"][type]
+            const toReturn = {};
+
+            for (var i in toBuild["costs"]) {
+                toReturn[i] = toBuild["costs"][i] * (toBuild["exponents"][i] ** buildings.getNumOfBuildingById(type));
+            }
+
+            return toReturn;
         }
     }
 })

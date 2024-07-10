@@ -326,17 +326,17 @@ export function buildExpansion(expansionId) {
 //building a building
 export function buildBuilding(buildingId) {
     const buildings = useBuildingsStore();
-    buildings.buildingBuilding(buildingId)
+    const costs = useCostsStore();
 
-    const costs = buildings.getBuildingCostsById(buildingId);
+    const cost = costs.getTotalBuildingCost(buildingId);
 
     const resources = useResourcesStore();
 
-    for (var i in costs) {
-        resources.modifyResource(i, posToNeg(costs[i]));
+    for (var i in cost) {
+        resources.modifyResource(i, posToNeg(cost[i]));
     }
 
-    const jobs = useJobsStore();
+    buildings.buildingBuilding(buildingId)
 }
 
 

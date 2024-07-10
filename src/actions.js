@@ -322,8 +322,8 @@ export const actions = {
                     title: "Gold Mine",
                     body: "A mine to acquire gold",
                     costs() {
-                        const buildings = useBuildingsStore();
-                        return buildings.getBuildingCostsById("goldMine")
+                        const costs = useCostsStore();
+                        return costs.getTotalBuildingCost("goldMine");
                     }
                 }
                 
