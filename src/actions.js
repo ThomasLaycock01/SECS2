@@ -2,6 +2,7 @@ import { useResourcesStore } from "./stores/resources.js";
 import { useExpansionsStore } from "./stores/expansions.js";
 import { useMiscStore } from "./stores/misc.js";
 import { useTextLogStore } from "./stores/textLog.js";
+import { useCostsStore } from "./stores/costs.js";
 
 import { addCultist, buildExpansion, buildBuilding } from "./functions.js";
 import { useBuildingsStore } from "./stores/buildings.js";
@@ -235,16 +236,18 @@ export const actions = {
                     addCultist("Human");
                 },
                 condition() {
-                    const resources = useResourcesStore();
                     const misc = useMiscStore();
-                    return resources.getResourceTotal("Gold") >= 20 && misc.checkCultistSpace;
+                    const costs = useCostsStore();
+
+                    return costs.checkIfCanAffordCultist("human") && misc.checkCultistSpace;
                 },
                 showCondition() {return true},
                 tooltipData: {
                     title: "Hire Human Cultist",
                     body: "Hire a human cultist",
                     costs() {
-                        return {"Gold": 20};
+                        const costs = useCostsStore();
+                        return costs.getCultistCost("human");
                     }
                 }
             },

@@ -5,6 +5,7 @@ import { useExpansionsStore } from "./stores/expansions";
 import { useMiscStore } from "./stores/misc";
 import { useBuildingsStore } from "./stores/buildings";
 import { useTextLogStore } from "./stores/textLog";
+import { useCostsStore } from "./stores/costs";
 
 
 //tick system
@@ -214,6 +215,7 @@ class Cultist {
 export function addCultist(species) {
     const cultists = useCultistsStore();
     const resources = useResourcesStore();
+    const costs = useCostsStore();
 
     var id = cultists.numOfCultists;
 
@@ -229,7 +231,12 @@ export function addCultist(species) {
 
     switch(species) {
         case "Human":
-            resources.modifyResource("Gold", -20);
+            const cost = costs.getCultistCost("human");
+            console.log(cost);
+            for (var i in cost) {
+                resources.modifyResource(i, posToNeg(cost[i]))
+            }
+            //resources.modifyResource("Gold", costs.getCultistCost("human"));
             break;
         case "Dwarf":
             resources.modifyResource("Gold", -2000);
