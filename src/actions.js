@@ -63,8 +63,8 @@ export const actions = {
                     title: "Expansion: Mines",
                     body: "A mineshaft under your lair",
                     costs() {
-                        const expansions = useExpansionsStore();
-                        return expansions.getExpansionCosts("mines");
+                        const costs = useCostsStore();
+                        return costs.getExpansionCost("mines");
                     }
                 }
             },
@@ -343,8 +343,8 @@ export const actions = {
                     title: "Crystal Mine",
                     body: "A mine to acquire crystals",
                     costs() {
-                        const buildings = useBuildingsStore();
-                        return buildings.getBuildingCostsById("crystalMine")
+                        const costs = useCostsStore();
+                        return costs.getTotalBuildingCost("crystalMine");
                     }
                 }
             }

@@ -30,6 +30,9 @@ export const useCostsStore = defineStore("costs", {
     getters: {
         getCultistCost(state) {
             return (type) => state["cultists"][type];
+        },
+        getExpansionCost(state) {
+            return (expansionId) => state["expansions"][expansionId];
         }
     },
     actions: {
