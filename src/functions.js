@@ -85,7 +85,6 @@ function calculateResource(resource) {
             totalResourceOutput = job["baseArray"][j].getStat(associateStat);
         }
         for (var j in job["modifiers"]) {
-            console.log(job["modifiers"][j].modifier())
             totalResourceOutput = Math.floor(totalResourceOutput * job["modifiers"][j].modifier());
         }
     }
