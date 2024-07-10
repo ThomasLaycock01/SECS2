@@ -7,18 +7,19 @@ export const useBuildingsStore = defineStore("buildings", {
     state: () => {
         return {buildings: [
         //mines buildings
-        {id: "goldMine", owned: 0, costs: {Gold: 20}},
-        {id:"crystalMine", owned: 0, costs: {Gold: 50}},
+        {id: "goldMine", owned: 0},
+        {id:"crystalMine", owned: 0},
         //laboratory buildings
-        {id:"transmuter", owned: 0, costs: {Gold: 50}},
+        {id:"transmuter", owned: 0},
         //barracks buildings
-        {id:"drillSquare", owned: 0, costs: {Gold: 2000, Crystals: 1000}},
+        {id:"drillSquare", owned: 0},
         //tower buildings
-        {id:"infuser", owned: 0, costs: {Gold: 5000, Crystals: 200}},
+        {id:"infuser", owned: 0},
         //academy buidlings
-        {id:"lectureHall", owned: 0, costs: {Gold: 10000, Crystals: 20000,}},
+        {id:"lectureHall", owned: 0},
         //dungeons buildings
-        {id:"cell", owned: 0, costs: {Gold: 100000}}]}
+        {id:"cell", owned: 0}
+    ]}
     },
     getters: {
         getNumOfBuildingById(state) {

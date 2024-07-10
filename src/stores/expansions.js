@@ -13,12 +13,12 @@ export const useExpansionsStore = defineStore("expansions", {
             tier3: {}
         },
         all: [
-            {id: "mines", name: "Mines", tier: "tier1", costs: {Gold: 30}, cultistLimit: 2},
-            {id: "laboratory", name: "Laboratory", tier: "tier1", costs: {Gold: 30}, cultistLimit: 2},
-            {id: "barracks", name: "Barracks", tier: "tier2", costs: {Gold: 100, Crystals: 100}, cultistLimit: 2},
-            {id: "tower", name: "Tower", tier: "tier2", costs: {Gold: 50, Crystals: 200}, cultistLimit: 2},
-            {id: "academy", name: "Academy", tier: "tier3", costs: {Gold: 50000, Crystals: 10000}, cultistLimit: 2},
-            {id: "dungeons", name: "Dungeons", tier: "tier3", costs: {Gold: 100000, Crystals: 5000}, cultistLimit: 2}
+            {id: "mines", name: "Mines", tier: "tier1", cultistLimit: 2},
+            {id: "laboratory", name: "Laboratory", tier: "tier1", cultistLimit: 2},
+            {id: "barracks", name: "Barracks", tier: "tier2", cultistLimit: 2},
+            {id: "tower", name: "Tower", tier: "tier2", cultistLimit: 2},
+            {id: "academy", name: "Academy", tier: "tier3", cultistLimit: 2},
+            {id: "dungeons", name: "Dungeons", tier: "tier3", cultistLimit: 2}
         ]
         }
     },
