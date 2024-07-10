@@ -231,7 +231,7 @@ export function addCultist(species) {
 
     switch(species) {
         case "Human":
-            const cost = costs.getCultistCost("human");
+            var cost = costs.getCultistCost("human");
             console.log(cost);
             for (var i in cost) {
                 resources.modifyResource(i, posToNeg(cost[i]))
@@ -239,11 +239,18 @@ export function addCultist(species) {
             //resources.modifyResource("Gold", costs.getCultistCost("human"));
             break;
         case "Dwarf":
-            resources.modifyResource("Gold", -2000);
+            var cost = costs.getCultistCost("dwarf");
+            console.log(cost);
+            for (var i in cost) {
+                resources.modifyResource(i, posToNeg(cost[i]))
+            }
             break;
         case "Slime":
-            resources.modifyResource("Gold", -2500);
-            resources.modifyResource("Crystals", -1000);
+            var cost = costs.getCultistCost("slime");
+            console.log(cost);
+            for (var i in cost) {
+                resources.modifyResource(i, posToNeg(cost[i]))
+            }
     }
 
     //incrementing num of cultists to track limit

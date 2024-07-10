@@ -258,16 +258,18 @@ export const actions = {
                     addCultist("Dwarf");
                 },
                 condition() {
-                    const resources = useResourcesStore();
                     const misc = useMiscStore();
-                    return resources.getResourceTotal("Gold") >= 2000 && misc.checkCultistSpace;
+                    const costs = useCostsStore();
+
+                    return costs.checkIfCanAffordCultist("dwarf") && misc.checkCultistSpace;
                 },
                 showCondition() {return true},
                 tooltipData: {
                     title: "Hire Dwarf Cultist",
                     body: "Hire a dwarf cultist",
                     costs() {
-                        return {"Gold": 2000};
+                        const costs = useCostsStore();
+                        return costs.getCultistCost("dwarf");
                     }
                 }
             },
@@ -278,16 +280,18 @@ export const actions = {
                     addCultist("Slime");
                 },
                 condition() {
-                    const resources = useResourcesStore();
                     const misc = useMiscStore();
-                    return resources.getResourceTotal("Gold") >= 2500 && resources.getResourceTotal("Crystals") >= 1000 && misc.checkCultistSpace;
+                    const costs = useCostsStore();
+
+                    return costs.checkIfCanAffordCultist("slime") && misc.checkCultistSpace;
                 },
                 showCondition() {return true},
                 tooltipData: {
                     title: "Hire Slime Cultist",
                     body: "Hire a slime cultist",
                     costs() {
-                        return {"Gold": 2500, "Crystals": 1000};
+                        const costs = useCostsStore();
+                        return costs.getCultistCost("slime");
                     }
                 }
             }
