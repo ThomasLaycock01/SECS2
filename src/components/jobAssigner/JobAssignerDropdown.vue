@@ -1,11 +1,9 @@
 <script setup>
 import { useCultistsStore } from '@/stores/cultists';
-import { useJobsStore } from '@/stores/jobs';
 
 import { addCultistToJob } from '@/functions';
 
 const cultists = useCultistsStore();
-const jobs = useJobsStore();
 
 const props = defineProps({
     job: Object

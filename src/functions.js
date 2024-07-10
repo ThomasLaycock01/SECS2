@@ -84,8 +84,9 @@ function calculateResource(resource) {
         for (var j in job["baseArray"]) {
             totalResourceOutput = job["baseArray"][j].getStat(associateStat);
         }
-        for (var j in job["modifierArray"]) {
-            totalResourceOutput = totalResourceOutput * job["modifierArray"][j];
+        for (var j in job["modifiers"]) {
+            console.log(job["modifiers"][j].modifier())
+            totalResourceOutput = Math.floor(totalResourceOutput * job["modifiers"][j].modifier());
         }
     }
 
@@ -323,8 +324,6 @@ export function buildBuilding(buildingId) {
     }
 
     const jobs = useJobsStore();
-
-    console.log(jobs.checkIfAtLimit("Gold", "miner"))
 }
 
 

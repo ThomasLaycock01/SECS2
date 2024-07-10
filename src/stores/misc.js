@@ -53,8 +53,6 @@ export const useMiscStore = defineStore("misc", {
             var totalLimit = 2;
 
             for (var i in expansions.getBuilt) {
-                console.log(i);
-                console.log(expansions.getBuilt[i]["cultistLimit"])
                 if (expansions.getBuilt[i]["cultistLimit"] != undefined) {
                     totalLimit += expansions.getBuilt[i]["cultistLimit"];
                 }

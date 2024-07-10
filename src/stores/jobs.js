@@ -1,19 +1,41 @@
 import {defineStore} from "pinia";
 
 import { useCultistsStore } from "./cultists";
-import { removeCultistFromJob } from "@/functions";
+import { useBuildingsStore } from "./buildings";
 
 export const useJobsStore = defineStore("jobs", {
     state: () => {
         return {
+            //mines
             goldMiner: {
                 id: "goldMiner",
                 name: "Gold Miner",
                 output: "Gold",
                 stat: "str",
                 baseArray: [],
-                modifierArray: [],
-                associatedBuilding: "goldMine"
+                modifiers: [{name: "Buildings", modifier() {
+                    const buildings = useBuildingsStore();
+                    return 1 + (buildings.getNumOfBuildingById("goldMine") - 1) * 0.2;
+                }}],
+                requirement() {
+                    const buildings = useBuildingsStore();
+                    return buildings.getNumOfBuildingById("goldMine") >= 1;
+                }
+            },
+            crystalMiner: {
+                id: "crystalMiner",
+                name: "Crystal Miner",
+                output: "Crystals",
+                stat: "str",
+                baseArray: [],
+                modifiers: [{name: "Buildings", modifier() {
+                    const buildings = useBuildingsStore();
+                    return 1 + (buildings.getNumOfBuildingById("crystalMine") - 1) * 0.2;
+                }}],
+                requirement() {
+                    const buildings = useBuildingsStore();
+                    return buildings.getNumOfBuildingById("crystalMine") >= 1;
+                }
             }
 
         }

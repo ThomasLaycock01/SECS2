@@ -6,20 +6,23 @@ export const useBuildingsStore = defineStore("buildings", {
     state: () => {
         return {buildings: [
         //mines buildings
-        {id: "goldMine", owned: 0, costs: {Gold: 20}, prodType: "Gold", jobId: "miner"},
-        {id:"crystalMine", owned: 0, costs: {Gold: 50}, prodType: "Crystals", jobId: "miner"},
+        {id: "goldMine", owned: 0, costs: {Gold: 20}},
+        {id:"crystalMine", owned: 0, costs: {Gold: 50}},
         //laboratory buildings
-        {id:"transmuter", owned: 0, costs: {Gold: 50}, prodType: "Gold", jobId: "alchemist"},
+        {id:"transmuter", owned: 0, costs: {Gold: 50}},
         //barracks buildings
-        {id:"drillSquare", owned: 0, costs: {Gold: 2000, Crystals: 1000}, prodType: "Mil", jobId: "soldier"},
+        {id:"drillSquare", owned: 0, costs: {Gold: 2000, Crystals: 1000}},
         //tower buildings
-        {id:"infuser", owned: 0, costs: {Gold: 5000, Crystals: 200}, prodType: "ManaCrystals", jobId: "infuser"},
+        {id:"infuser", owned: 0, costs: {Gold: 5000, Crystals: 200}},
         //academy buidlings
-        {id:"lectureHall", owned: 0, costs: {Gold: 10000, Crystals: 20000,}, prodType: "Xp", jobId: "lecturer"},
+        {id:"lectureHall", owned: 0, costs: {Gold: 10000, Crystals: 20000,}},
         //dungeons buildings
-        {id:"cell", owned: 0, costs: {Gold: 100000}, prodType: "Prisoners", jobId: "jailer"}]}
+        {id:"cell", owned: 0, costs: {Gold: 100000}}]}
     },
     getters: {
+        getNumOfBuildingById(state) {
+            return (buildingId) => state.buildings.find((building) => building.id == buildingId).owned;
+        },
         getBuildingById: (state) => {
             return (buildingId) => state.buildings.find((building) => building.id == buildingId);
         },
