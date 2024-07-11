@@ -38,7 +38,10 @@ export const actions = {
                     resources.modifyResource("Gold", 1);
                 },
                 condition(){return true},
-                showCondition() {return true},
+                showCondition() {
+                    const misc = useMiscStore();
+                    return misc.checkHasSeenConvo(0);
+                },
                 tooltipData: {
                     title: "Acquire Gold",
                     body: "Gain 1 Gold",
@@ -57,7 +60,8 @@ export const actions = {
                 },
                 showCondition() {
                     const expansions = useExpansionsStore();
-                    return expansions.hasTier1 == false;
+                    const misc = useMiscStore();
+                    return misc.checkHasSeenConvo(0) && expansions.hasTier1 == false;
                 },
                 tooltipData: {
                     title: "Expansion: Mines",
@@ -80,7 +84,8 @@ export const actions = {
                 },
                 showCondition() {
                     const expansions = useExpansionsStore();
-                    return expansions.hasTier1 == false;
+                    const misc = useMiscStore();
+                    return misc.checkHasSeenConvo(0) && expansions.hasTier1 == false;
                 },
                 tooltipData: {
                     title: "Expansion: Laboratory",
@@ -182,44 +187,6 @@ export const actions = {
                         return expansions.getExpansionCosts("dungeons");
                     }
                 }
-            },
-            //TEST BUTTON - REMOVE FOR RELEASE
-            testButton: {
-                id: "testButton",
-                name: "Test button",
-                effect() {
-                    const textLog = useTextLogStore();
-                    textLog.playConvo(1);
-                },
-                condition() {
-                    return true
-                },
-                showCondition() {
-                    return true
-                },
-                tooltipData: {
-                    title: "Test",
-                    body: "plays a convo",
-                }
-            },
-            testButton2: {
-                id: "testButton2",
-                name: "Test button 2",
-                effect() {
-                    const textLog = useTextLogStore();
-                    textLog.playConvo(2);
-                },
-                condition() {
-                    const misc = useMiscStore();
-                    return misc.checkHasSeenConvo(1);
-                },
-                showCondition() {
-                    return true
-                },
-                tooltipData: {
-                    title: "Test 2",
-                    body: "plays anohter convo",
-                }
             }
         }
     },
@@ -227,7 +194,10 @@ export const actions = {
         name: "Human Resources",
         desc: "The HR department of your EVIL cult >:)",
         tier: "tier0",
-        showCondition() {return true},
+        showCondition() {
+            const misc = useMiscStore();
+            return misc.checkHasSeenConvo(0);
+        },
         buttons: {
             hireHumanCultist: {
                 id: "hireHumanCultist",

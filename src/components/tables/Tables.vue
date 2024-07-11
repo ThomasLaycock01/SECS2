@@ -9,8 +9,8 @@ const misc = useMiscStore();
 </script>
 
 <template>
-    <div class="tables">
-        <table class="table">
+    <div class="tables" >
+        <table class="table" v-if="misc.checkHasSeenConvo(0)">
             <thead>
                 <tr>
                     <th>Resources</th>
@@ -22,7 +22,7 @@ const misc = useMiscStore();
                 <Resource v-for="(amount, resource) in resources.getAll" :resource="resource"/>
             </tbody>
         </table>
-        <table class="table">
+        <table class="table" v-if="misc.checkHasSeenConvo(0)">
             <tbody>
                 <tr>
                     <th>Cultists</th>

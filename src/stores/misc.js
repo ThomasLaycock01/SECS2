@@ -32,6 +32,9 @@ export const useMiscStore = defineStore("misc", {
         },
         checkHasSeenConvo(state) {
             return (convoId) => state.seenConvos.includes(convoId);
+        },
+        checkFirstLoad(state) {
+            return state.firstLoad;
         }
     },
     actions: {
@@ -62,6 +65,9 @@ export const useMiscStore = defineStore("misc", {
         },
         addSeenConvo(convoId) {
             this.seenConvos.push(convoId);
+        },
+        setFirstLoadFalse() {
+            this.firstLoad = false;
         }
     }
 })

@@ -6,8 +6,10 @@ import TextLog from "./components/textLog/TextLog.vue";
 import JobAssigner from "./components/jobAssigner/JobAssigner.vue";
 
 import { useCultistsStore } from "./stores/cultists";
+import { useMiscStore } from "./stores/misc";
 
 const cultists = useCultistsStore();
+const misc = useMiscStore();
 </script>
 
 <template>
@@ -19,14 +21,14 @@ const cultists = useCultistsStore();
       <b-tab-item label="Lair">
         <LairTab/>
       </b-tab-item>
-      <b-tab-item :label="cultists.checkFreeSkillPoints ? 'Cult(!)' : 'Cult'">
+      <b-tab-item :label="cultists.checkFreeSkillPoints ? 'Cult(!)' : 'Cult'"  v-if="misc.checkHasSeenConvo(0)">
           <CultistsTab/>
       </b-tab-item>
     </b-tabs>
   </section>
   <div class="column is-one-quarter">
     <TextLog/>
-    <JobAssigner/>
+    <JobAssigner  v-if="misc.checkHasSeenConvo(0)"/>
   </div>
 </template>
 
@@ -34,13 +36,23 @@ const cultists = useCultistsStore();
 
 import { tick, loadData } from "./functions";
 
+import { useMiscStore } from "./stores/misc";
+import { useTextLogStore } from "./stores/textLog";
+
 export default {
   data() {
     return {activeTab: 0}
   },
   mounted() {
-    if (!localStorage.getItem("SECSData")) {
-      localStorage.setItem("SECSData", JSON.stringify({}))
+    const misc = useMiscStore();
+    const textLog = useTextLogStore();
+
+    if (misc.checkFirstLoad) {
+      localStorage.setItem("SECSData", JSON.stringify({}));
+      console.log("working?")
+      setTimeout(function() {
+        textLog.playConvo(0);
+      }, 1000)
     }
     else {
       loadData();

@@ -6,8 +6,20 @@
     border: 1px black solid;
 }
 
+
+
+/*Text log*/
 .textLog {
-    height: 48vh
+    height: 48vh;
+    overflow: auto !important;
+}
+
+.textLogSegment {
+    width: 100%
+}
+
+.nonBartyText {
+    text-align: right;
 }
 
 .tab-content {

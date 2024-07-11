@@ -9,10 +9,15 @@ export const useTextLogStore = defineStore("textLog", {
             playing: [],
             toPlay: [],
             unplayed: [
-                {convoId: 1, character: "narrator", message: "test message", last: false}, 
-                {convoId: 1, character: "narrator", message: "something else", last: true}, 
-                {convoId: 2, character: "narrator", message: "This is another convo", last: true},
-                {convoId: 2, character: "narrator", message: "With another message", last: false}]
+                //convo 0 (initial load)
+                {convoId: 0, character: "barty", message: "Hector! Are you there?", last: false}, 
+                {convoId: 0, character: "hector", message: "Yes... yes, I'm here. Sir", last: false}, 
+                {convoId: 0, character: "barty", message: "Then... IT CAN BEGIN! MWUHAHAHAHAHA!!!!!!", last: false},
+                {convoId: 0, character: "hector", message: "...", last: false},
+                {convoId: 0, character: "barty", message: "...", last: false},
+                {convoId: 0, character: "hector", message: "You should press the button, Sir.", last: false},
+                {convoId: 0, character: "barty", message: "Oh! Yes, of course... one moment...", last: true}
+            ]
         }
     },
     getters: {
@@ -55,6 +60,9 @@ export const useTextLogStore = defineStore("textLog", {
             const message = this.toPlay.shift();
 
             this.playing.push(message);
+        },
+        loadConvos(array) {
+            this["unplayed"] = array;
         }
     }
 })
