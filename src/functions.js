@@ -345,7 +345,6 @@ export function buildBuilding(buildingId) {
 function saveData() {
     //got to use slightly different names here, otherwise get cyclic value error
     const resourcesStore = useResourcesStore();
-    const cultistsStore = useCultistsStore();
 
     const storageData = localStorage.getItem("SECSData");
     var data = JSON.parse(storageData);
