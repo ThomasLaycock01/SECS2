@@ -5,12 +5,15 @@ import {actions} from "@/actions.js";
 
 import { ref } from "vue";
 
+import { useMiscStore } from "@/stores/misc";
+
 const hover = ref("");
+const misc = useMiscStore();
 </script>
 
 <template>
 
-    <div>
+    <div v-if="misc.checkHasSeenConvo(0)">
         <span v-for="segment in actions">
             <div v-if="segment.showCondition()">
                 <div class="title is-4 mb-1 segment-title">{{segment.name}}</div>

@@ -40,7 +40,7 @@ export const actions = {
                 condition(){return true},
                 showCondition() {
                     const misc = useMiscStore();
-                    return misc.checkHasSeenConvo(0);
+                    return misc.checkHasSeenConvo(1);
                 },
                 tooltipData: {
                     title: "Acquire Gold",
@@ -61,7 +61,7 @@ export const actions = {
                 showCondition() {
                     const expansions = useExpansionsStore();
                     const misc = useMiscStore();
-                    return misc.checkHasSeenConvo(0) && expansions.hasTier1 == false;
+                    return misc.checkHasSeenConvo(1) && expansions.hasTier1 == false;
                 },
                 tooltipData: {
                     title: "Expansion: Mines",
@@ -85,7 +85,7 @@ export const actions = {
                 showCondition() {
                     const expansions = useExpansionsStore();
                     const misc = useMiscStore();
-                    return misc.checkHasSeenConvo(0) && expansions.hasTier1 == false;
+                    return misc.checkHasSeenConvo(1) && expansions.hasTier1 == false;
                 },
                 tooltipData: {
                     title: "Expansion: Laboratory",
@@ -196,7 +196,7 @@ export const actions = {
         tier: "tier0",
         showCondition() {
             const misc = useMiscStore();
-            return misc.checkHasSeenConvo(0);
+            return misc.checkHasSeenConvo(1);
         },
         buttons: {
             hireHumanCultist: {

@@ -21,14 +21,14 @@ const misc = useMiscStore();
       <b-tab-item label="Lair">
         <LairTab/>
       </b-tab-item>
-      <b-tab-item :label="cultists.checkFreeSkillPoints ? 'Cult(!)' : 'Cult'"  v-if="misc.checkHasSeenConvo(0)">
+      <b-tab-item :label="cultists.checkFreeSkillPoints ? 'Cult(!)' : 'Cult'"  v-if="misc.checkHasSeenConvo(1)">
           <CultistsTab/>
       </b-tab-item>
     </b-tabs>
   </section>
   <div class="column is-one-quarter">
     <TextLog/>
-    <JobAssigner  v-if="misc.checkHasSeenConvo(0)"/>
+    <JobAssigner  v-if="misc.checkHasSeenConvo(1)"/>
   </div>
 </template>
 
@@ -49,7 +49,6 @@ export default {
 
     if (misc.checkFirstLoad) {
       localStorage.setItem("SECSData", JSON.stringify({}));
-      console.log("working?")
       setTimeout(function() {
         textLog.playConvo(0);
       }, 1000)
