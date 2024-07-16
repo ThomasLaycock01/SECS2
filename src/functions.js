@@ -352,8 +352,12 @@ export function buildBuilding(buildingId) {
 
 //localStorage functions
 function saveData() {
+    //plan - have each pinia store save their data seperately
+    const resources = useResourcesStore();
+
+    resources.saveData();
     //got to use slightly different names here, otherwise get cyclic value error
-    const resourcesStore = useResourcesStore();
+    /*const resourcesStore = useResourcesStore();
 
     const storageData = localStorage.getItem("SECSData");
     var data = JSON.parse(storageData);
@@ -363,7 +367,7 @@ function saveData() {
 
     const JSONData = JSON.stringify(data);
 
-    localStorage.setItem("SECSData", JSON.stringify(data));
+    localStorage.setItem("SECSData", JSON.stringify(data));*/
 
 
 }

@@ -33,9 +33,32 @@ export const useResourcesStore = defineStore("resources", {
         setResourcePerSec(type, value) {
             this["resources"][type].perSec = value;
         },
-        loadData(data) {
-            for (var i in data) {
-                this["resources"][i] = data[i];
+        saveData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            const resourceObject = {};
+
+            for (var i in this["resources"]) {
+                resourceObject[i] = {total: this["resources"][i].total, perSec: this["resources"][i].perSec};
+            }
+
+            console.log(resourceObject);
+
+            data.resources = resourceObject;
+
+            localStorage.setItem("SECSData", JSON.stringify(data));
+
+        },
+        loadData() {
+
+            const data = JSON.parse(localStorage.getItem("SECSData"));
+
+            const resources = data.resources;
+
+            for (var i in resources) {
+                const resource = resources[i];
+                this["resources"][i].total = resource.total;
+                this["resources"][i].perSec = resource.perSec;
             }
         }
     }
