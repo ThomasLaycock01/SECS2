@@ -6,6 +6,10 @@ import { useMiscStore } from "@/stores/misc";
 
 const resources = useResourcesStore();
 const misc = useMiscStore();
+
+for (var i in resources.getAll) {
+    console.log(i);
+}
 </script>
 
 <template>
@@ -19,10 +23,10 @@ const misc = useMiscStore();
                 </tr>
             </thead>
             <tbody>
-                <Resource v-for="(amount, resource) in resources.getAll" :resource="resource"/>
+                <Resource v-for="(object, resource) in resources.getAll" :resource="resource" :object="object"/>
             </tbody>
         </table>
-        <table class="table" v-if="misc.checkHasSeenConvo(1)">
+        <table class="table" v-if="misc.checkHasSeenConvo(2)">
             <tbody>
                 <tr>
                     <th>Cultists</th>

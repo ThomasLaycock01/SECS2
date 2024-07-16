@@ -4,14 +4,13 @@ import { useJobsStore } from "./stores/jobs";
 import { useExpansionsStore } from "./stores/expansions";
 import { useMiscStore } from "./stores/misc";
 import { useBuildingsStore } from "./stores/buildings";
-import { useTextLogStore } from "./stores/textLog";
 import { useCostsStore } from "./stores/costs";
+import { useConvosStore } from "./stores/convos";
 
 
 //tick system
 export function tick() {
     const resources = useResourcesStore();
-
     //adding resources
     for (var i in resources.getAll) {
         switch(i) {
@@ -33,9 +32,11 @@ export function tick() {
     //updating xp for cultists
     updateCultistXp();
 
+    //checking what convos need playing
+    checkConvos();
+
     saveData();
 }
-
 
 //calculating evilness output, since its different from other resources
 function calculateEvilness() {
@@ -102,6 +103,14 @@ function updateResources() {
         resources.modifyResource(i, resources.getResourcePerSec(i));
     }
 }
+
+//checking and playing convos
+function checkConvos() {
+    const convos = useConvosStore();
+
+    convos.playPerRequirements();
+}
+
 
 
 //calculating cultist limit

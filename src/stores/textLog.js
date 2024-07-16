@@ -16,7 +16,26 @@ export const useTextLogStore = defineStore("textLog", {
                 {convoId: 0, character: "hector", message: "...", last: false},
                 {convoId: 0, character: "barty", message: "...", last: false},
                 {convoId: 0, character: "hector", message: "You should press the button, Sir.", last: false},
-                {convoId: 0, character: "barty", message: "Oh! Yes, of course... one moment...", last: true}
+                {convoId: 0, character: "barty", message: "Oh! Yes, of course... one moment...", last: true},
+                //convo 1
+                {convoId: 1, character: "barty", message: "...Nothing happened.", last: false},
+                {convoId: 1, character: "hector", message: "Nothing happened?", last: false},
+                {convoId: 1, character: "barty", message: "Yes. Why did nothing happen!?!?!", last: false},
+                {convoId: 1, character: "hector", message: "Let me have a look.", last: false},
+                {convoId: 1, character: "hector", message: "Oh.", last: false},
+                {convoId: 1, character: "hector", message: "You've not got the resource display turned on.", last: false},
+                {convoId: 1, character: "hector", message: "I'll turn it on for you.", last: true},
+                //convo 2
+                {convoId: 2, character: "barty", message: "Soooo....", last: false},
+                {convoId: 2, character: "barty", message: "How much Evilness do I need to become Super Evil?", last: false},
+                {convoId: 2, character: "hector", message: "One Billion.", last: false},
+                {convoId: 2, character: "barty", message: "ONE BILLION!?!", last: false},
+                {convoId: 2, character: "barty", message: "D'awww, We're gonna be here FOREVER!", last: false},
+                {convoId: 2, character: "hector", message: "Perhaps you should find some help, Sir.", last: false},
+                {convoId: 2, character: "hector", message: "It might make things a bit quicker.", last: false},
+                {convoId: 2, character: "barty", message: "You're a genius, Hector!", last: false},
+                {convoId: 2, character: "barty", message: "MWUHAHAHAHA!!!!", last: true},
+                
             ]
         }
     },

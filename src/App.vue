@@ -21,14 +21,14 @@ const misc = useMiscStore();
       <b-tab-item label="Lair">
         <LairTab/>
       </b-tab-item>
-      <b-tab-item :label="cultists.checkFreeSkillPoints ? 'Cult(!)' : 'Cult'"  v-if="misc.checkHasSeenConvo(1)">
+      <b-tab-item :label="cultists.checkFreeSkillPoints ? 'Cult(!)' : 'Cult'"  v-if="misc.checkHasSeenConvo(2)">
           <CultistsTab/>
       </b-tab-item>
     </b-tabs>
   </section>
   <div class="column is-one-quarter">
     <TextLog/>
-    <JobAssigner  v-if="misc.checkHasSeenConvo(1)"/>
+    <JobAssigner  v-if="misc.checkHasSeenConvo(3)"/>
   </div>
 </template>
 

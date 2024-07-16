@@ -40,7 +40,7 @@ export const actions = {
                 condition(){return true},
                 showCondition() {
                     const misc = useMiscStore();
-                    return misc.checkHasSeenConvo(1);
+                    return misc.checkHasSeenConvo(2);
                 },
                 tooltipData: {
                     title: "Acquire Gold",
@@ -61,7 +61,7 @@ export const actions = {
                 showCondition() {
                     const expansions = useExpansionsStore();
                     const misc = useMiscStore();
-                    return misc.checkHasSeenConvo(1) && expansions.hasTier1 == false;
+                    return misc.checkHasSeenConvo(3) && expansions.hasTier1 == false;
                 },
                 tooltipData: {
                     title: "Expansion: Mines",
@@ -85,7 +85,7 @@ export const actions = {
                 showCondition() {
                     const expansions = useExpansionsStore();
                     const misc = useMiscStore();
-                    return misc.checkHasSeenConvo(1) && expansions.hasTier1 == false;
+                    return misc.checkHasSeenConvo(3) && expansions.hasTier1 == false;
                 },
                 tooltipData: {
                     title: "Expansion: Laboratory",
@@ -196,7 +196,7 @@ export const actions = {
         tier: "tier0",
         showCondition() {
             const misc = useMiscStore();
-            return misc.checkHasSeenConvo(1);
+            return misc.checkHasSeenConvo(2);
         },
         buttons: {
             hireHumanCultist: {
@@ -233,7 +233,10 @@ export const actions = {
 
                     return costs.checkIfCanAffordCultist("dwarf") && misc.checkCultistSpace;
                 },
-                showCondition() {return true},
+                showCondition() {
+                    const misc = useMiscStore();
+                    return misc.checkHasSeenConvo(3);
+                },
                 tooltipData: {
                     title: "Hire Dwarf Cultist",
                     body: "Hire a dwarf cultist",
@@ -255,7 +258,10 @@ export const actions = {
 
                     return costs.checkIfCanAffordCultist("slime") && misc.checkCultistSpace;
                 },
-                showCondition() {return true},
+                showCondition() {
+                    const misc = useMiscStore();
+                    return misc.checkHasSeenConvo(3);
+                },
                 tooltipData: {
                     title: "Hire Slime Cultist",
                     body: "Hire a slime cultist",
