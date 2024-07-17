@@ -51,6 +51,13 @@ export const useCultistsStore = defineStore("cultists", {
             }
 
             return idUsed;
+        },
+        saveData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            data.cultists = {regular: this["regular"], special: this["special"]};
+
+            localStorage.setItem("SECSData", JSON.stringify(data));
         }
     }
 });

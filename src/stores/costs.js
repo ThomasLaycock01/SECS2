@@ -59,6 +59,19 @@ export const useCostsStore = defineStore("costs", {
             }
 
             return toReturn;
+        },
+        saveData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            const costsObject = {};
+
+            for (var i in this["buildings"]) {
+                costsObject[i] = this["buildings"][i].costs;
+            }
+
+            data.costs = costsObject;
+
+            localStorage.setItem("SECSData", JSON.stringify(data));
         }
     }
 })

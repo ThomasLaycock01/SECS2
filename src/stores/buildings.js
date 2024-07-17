@@ -57,6 +57,13 @@ export const useBuildingsStore = defineStore("buildings", {
             }
 
             return canAfford;
+        },
+        saveData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            data.buildings = this["buildings"];
+
+            localStorage.setItem("SECSData", JSON.stringify(data));
         }
     }
 })

@@ -6,6 +6,7 @@ import { useMiscStore } from "./stores/misc";
 import { useBuildingsStore } from "./stores/buildings";
 import { useCostsStore } from "./stores/costs";
 import { useConvosStore } from "./stores/convos";
+import { useTextLogStore } from "./stores/textLog";
 
 
 //tick system
@@ -353,9 +354,25 @@ export function buildBuilding(buildingId) {
 //localStorage functions
 function saveData() {
     //plan - have each pinia store save their data seperately
+    const buildings = useBuildingsStore();
+    const convos = useConvosStore();
+    const costs = useCostsStore();
+    const cultists = useCultistsStore();
+    const expansions = useExpansionsStore();
+    const jobs = useJobsStore();
+    const misc = useMiscStore();
     const resources = useResourcesStore();
+    const textLog = useTextLogStore();
 
+    buildings.saveData();
+    convos.saveData();
+    costs.saveData();
+    cultists.saveData();
+    expansions.saveData();
+    jobs.saveData();
+    misc.saveData();
     resources.saveData();
+    textLog.saveData();
     //got to use slightly different names here, otherwise get cyclic value error
     /*const resourcesStore = useResourcesStore();
 

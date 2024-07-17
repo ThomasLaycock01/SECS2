@@ -32,9 +32,6 @@ export const useMiscStore = defineStore("misc", {
         },
         checkHasSeenConvo(state) {
             return (convoId) => state.seenConvos.includes(convoId);
-        },
-        checkFirstLoad(state) {
-            return state.firstLoad;
         }
     },
     actions: {
@@ -68,6 +65,27 @@ export const useMiscStore = defineStore("misc", {
         },
         setFirstLoadFalse() {
             this.firstLoad = false;
+        },
+        checkFirstLoad() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            if (data === null) {
+                return false;
+            }
+            return true;
+        },
+        saveData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            const miscObject = {};
+
+            miscObject.firstLoad = this["firstLoad"];
+
+            miscObject.seenConvos = this["seenConvos"];
+
+            data.misc = miscObject;
+
+            localStorage.setItem("SECSData", JSON.stringify(data));
         }
     }
 })

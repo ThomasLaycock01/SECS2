@@ -85,6 +85,13 @@ export const useExpansionsStore = defineStore("expansions", {
             }
 
             return canAfford;
+        },
+        saveData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            data.expansions = this["built"];
+
+            localStorage.setItem("SECSData", JSON.stringify(data));
         }
     }
 })

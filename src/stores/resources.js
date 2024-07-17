@@ -42,8 +42,6 @@ export const useResourcesStore = defineStore("resources", {
                 resourceObject[i] = {total: this["resources"][i].total, perSec: this["resources"][i].perSec};
             }
 
-            console.log(resourceObject);
-
             data.resources = resourceObject;
 
             localStorage.setItem("SECSData", JSON.stringify(data));

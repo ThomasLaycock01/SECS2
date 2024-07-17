@@ -82,6 +82,20 @@ export const useTextLogStore = defineStore("textLog", {
         },
         loadConvos(array) {
             this["unplayed"] = array;
+        },
+        saveData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            const textLogObject = {
+                played: this["played"],
+                playing: this["playing"],
+                toPlay: this["toPlay"],
+                unplayed: this["unplayed"]
+            }
+
+            data.textLog = textLogObject;
+
+            localStorage.setItem("SECSData", JSON.stringify(data));
         }
     }
 })

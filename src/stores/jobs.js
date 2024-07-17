@@ -56,21 +56,6 @@ export const useJobsStore = defineStore("jobs", {
         getBaseArray(state) {
             return (id) => state[id]["baseArray"];
         }
-        /*getArray(state) {
-            return (resource, job) => state[resource][job]["array"];
-        },
-        getOutput(state) {
-            return (resource, job) => state[resource][job]["output"];
-        },
-        getName(state) {
-            return (resource, job) => state[resource][job]["name"];
-        },
-        getReqExpansion(state) {
-            return (resource, job) => state[resource][job]["reqExpansion"];
-        },
-        getTier(state) {
-            return (resource, job) => state[resource][job]["tier"];
-        }*/
     },
     actions: {
         getByOutput(output) {
@@ -94,27 +79,21 @@ export const useJobsStore = defineStore("jobs", {
                     this[i]["baseArray"] = this[i]["baseArray"].filter((cultist) => cultist.getId() != cultistId);
                 }
             }
-        }
-        /*
-        removeCultistfromJob(cultistId) {
-            //doing it like this just cause a cultist can only have 1 job, so just make sure it's not in any of the arrays
+        },
+        saveData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            const jobsObject = {};
+
             for (var i in this) {
-                for (var j in this[i]) {
-                    if (this[i][j]["array"]) {
-                        const newArray = this[i][j]["array"].filter((cultist) => cultist.getId() != cultistId);
-                        this[i][j]["array"] = newArray;
-                    }
+                if (this[i]["baseArray"]) {
+                    jobsObject[i] = {baseArray: this[i]["baseArray"], modifiers: this[i]["modifiers"]};
                 }
             }
-        },
-        checkIfHasReqExapansion(expansion, tier) {
-            const expansions = useExpansionsStore();
 
-            //const expansion = this.getReqExpansion(prodType, jobId);
-            //const tier = this.getTier(prodType, jobId);
+            data.jobs = jobsObject;
 
-            return expansions.checkIfBuilt(expansion, tier);
-
-        }*/
+            localStorage.setItem("SECSData", JSON.stringify(data));
+        }
     }
 });
