@@ -72,6 +72,13 @@ export const useCostsStore = defineStore("costs", {
             data.costs = costsObject;
 
             localStorage.setItem("SECSData", JSON.stringify(data));
+        },
+        loadData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            for (var i in data.costs) {
+                this["buildings"][i]["costs"] = data.costs[i];
+            }
         }
     }
 })

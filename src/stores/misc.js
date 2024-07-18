@@ -86,6 +86,12 @@ export const useMiscStore = defineStore("misc", {
             data.misc = miscObject;
 
             localStorage.setItem("SECSData", JSON.stringify(data));
+        },
+        loadData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            this["firstLoad"] = data.misc.firstLoad;
+            this["seenConvos"] = data.misc.seenConvos;
         }
     }
 })

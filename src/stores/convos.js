@@ -57,6 +57,13 @@ export const useConvosStore = defineStore("convos", {
             data.convos = convosObject;
 
             localStorage.setItem("SECSData", JSON.stringify(data));
+        },
+        loadData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            for (var i in data.convos) {
+                this["requirements"][i]["completed"] = data.convos[i];
+            }
         }
     }
 })

@@ -92,6 +92,11 @@ export const useExpansionsStore = defineStore("expansions", {
             data.expansions = this["built"];
 
             localStorage.setItem("SECSData", JSON.stringify(data));
+        },
+        loadData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            this["built"] = data.expansions;
         }
     }
 })

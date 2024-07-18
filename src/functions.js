@@ -353,7 +353,7 @@ export function buildBuilding(buildingId) {
 
 //localStorage functions
 function saveData() {
-    //plan - have each pinia store save their data seperately
+    //have each pinia store save their data seperately
     const buildings = useBuildingsStore();
     const convos = useConvosStore();
     const costs = useCostsStore();
@@ -373,28 +373,29 @@ function saveData() {
     misc.saveData();
     resources.saveData();
     textLog.saveData();
-    //got to use slightly different names here, otherwise get cyclic value error
-    /*const resourcesStore = useResourcesStore();
-
-    const storageData = localStorage.getItem("SECSData");
-    var data = JSON.parse(storageData);
-
-    //resources
-    data.resources = resourcesStore.getAll;
-
-    const JSONData = JSON.stringify(data);
-
-    localStorage.setItem("SECSData", JSON.stringify(data));*/
-
-
 }
 
 export function loadData() {
-    const resourcesStore = useResourcesStore();
+    //same as save, but this time it's the load
+    const buildings = useBuildingsStore();
+    const convos = useConvosStore();
+    const costs = useCostsStore();
+    const cultists = useCultistsStore();
+    const expansions = useExpansionsStore();
+    const jobs = useJobsStore();
+    const misc = useMiscStore();
+    const resources = useResourcesStore();
+    const textLog = useTextLogStore();
 
-    const data = JSON.parse(localStorage.getItem("SECSData"));
-
-    resourcesStore.loadData(data.resources)
+    buildings.loadData();
+    convos.loadData();
+    costs.loadData();
+    cultists.loadData();
+    expansions.loadData();
+    jobs.loadData();
+    misc.loadData();
+    resources.loadData();
+    textLog.loadData();
 }
 
 

@@ -64,6 +64,11 @@ export const useBuildingsStore = defineStore("buildings", {
             data.buildings = this["buildings"];
 
             localStorage.setItem("SECSData", JSON.stringify(data));
+        },
+        loadData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            this["buildings"] = data.buildings;
         }
     }
 })

@@ -96,6 +96,14 @@ export const useTextLogStore = defineStore("textLog", {
             data.textLog = textLogObject;
 
             localStorage.setItem("SECSData", JSON.stringify(data));
+        },
+        loadData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            this["played"] = data.textLog.played;
+            this["playing"] = data.textLog.playing;
+            this["toPlay"] = data.textLog.toPlay;
+            this["unplayed"] = data.textLog.unplayed;
         }
     }
 })

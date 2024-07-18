@@ -58,6 +58,12 @@ export const useCultistsStore = defineStore("cultists", {
             data.cultists = {regular: this["regular"], special: this["special"]};
 
             localStorage.setItem("SECSData", JSON.stringify(data));
+        },
+        loadData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            this["regular"] = data.cultists.regular;
+            this["special"] = data.cultists.special;
         }
     }
 });

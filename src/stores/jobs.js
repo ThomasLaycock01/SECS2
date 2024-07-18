@@ -87,13 +87,22 @@ export const useJobsStore = defineStore("jobs", {
 
             for (var i in this) {
                 if (this[i]["baseArray"]) {
-                    jobsObject[i] = {baseArray: this[i]["baseArray"], modifiers: this[i]["modifiers"]};
+                    jobsObject[i] = {baseArray: this[i]["baseArray"]};
                 }
             }
 
             data.jobs = jobsObject;
 
             localStorage.setItem("SECSData", JSON.stringify(data));
+        },
+        loadData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            for (var i in data.jobs) {
+                if (this[i]["baseArray"]) {
+                    this[i]["baseArray"] = data.jobs[i]["baseArray"];
+                }
+            }
         }
     }
 });
