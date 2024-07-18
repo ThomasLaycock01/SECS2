@@ -1,3 +1,7 @@
+html {
+    scrollbar-width: none;
+}
+
 .segment-title {
     border-bottom: 2px black solid;
 }
@@ -6,8 +10,22 @@
     border: 1px black solid;
 }
 
+
+
+/*Text log*/
 .textLog {
-    height: 48vh
+    height: 48vh;
+    overflow: auto !important;
+    padding: 0 1rem;
+}
+
+.textLogSegment {
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.nonBartyText {
+    text-align: right;
 }
 
 .tab-content {

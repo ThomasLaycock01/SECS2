@@ -5,15 +5,11 @@ import CultistsTab from "./components/cultistTab/CultistsTab.vue";
 import TextLog from "./components/textLog/TextLog.vue";
 import JobAssigner from "./components/jobAssigner/JobAssigner.vue";
 
-//testing
-import { useExpansionsStore } from "./stores/expansions";
+import { useCultistsStore } from "./stores/cultists";
 import { useMiscStore } from "./stores/misc";
-import { useBuildingsStore } from "./stores/buildings";
 
-const expansions = useExpansionsStore();
+const cultists = useCultistsStore();
 const misc = useMiscStore();
-const buildings = useBuildingsStore();
-
 </script>
 
 <template>
@@ -25,27 +21,42 @@ const buildings = useBuildingsStore();
       <b-tab-item label="Lair">
         <LairTab/>
       </b-tab-item>
-      <b-tab-item label="Cult">
-        <CultistsTab/>
+      <b-tab-item :label="cultists.checkFreeSkillPoints ? 'Cult(!)' : 'Cult'"  v-if="misc.checkHasSeenConvo(2)">
+          <CultistsTab/>
       </b-tab-item>
     </b-tabs>
   </section>
   <div class="column is-one-quarter">
     <TextLog/>
-    <JobAssigner/>
+    <JobAssigner  v-if="misc.checkHasSeenConvo(3)"/>
   </div>
 </template>
 
 <script>
 
-import { tick } from "./functions";
+import { tick, loadData } from "./functions";
+
+import { useMiscStore } from "./stores/misc";
+import { useTextLogStore } from "./stores/textLog";
 
 export default {
   data() {
     return {activeTab: 0}
   },
   mounted() {
-    setInterval(tick, 1000)
+    const misc = useMiscStore();
+    const textLog = useTextLogStore();
+
+    if (!misc.checkFirstLoad()) {
+      localStorage.setItem("SECSData", JSON.stringify({}));
+      setTimeout(function() {
+        textLog.playConvo(0);
+      }, 1000)
+    }
+    else {
+      loadData();
+    }
+    setInterval(tick, 1000);
   }
 }
 

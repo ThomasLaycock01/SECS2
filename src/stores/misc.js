@@ -53,8 +53,6 @@ export const useMiscStore = defineStore("misc", {
             var totalLimit = 2;
 
             for (var i in expansions.getBuilt) {
-                console.log(i);
-                console.log(expansions.getBuilt[i]["cultistLimit"])
                 if (expansions.getBuilt[i]["cultistLimit"] != undefined) {
                     totalLimit += expansions.getBuilt[i]["cultistLimit"];
                 }
@@ -64,6 +62,36 @@ export const useMiscStore = defineStore("misc", {
         },
         addSeenConvo(convoId) {
             this.seenConvos.push(convoId);
+        },
+        setFirstLoadFalse() {
+            this.firstLoad = false;
+        },
+        checkFirstLoad() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            if (data === null) {
+                return false;
+            }
+            return true;
+        },
+        saveData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            const miscObject = {};
+
+            miscObject.firstLoad = this["firstLoad"];
+
+            miscObject.seenConvos = this["seenConvos"];
+
+            data.misc = miscObject;
+
+            localStorage.setItem("SECSData", JSON.stringify(data));
+        },
+        loadData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            this["firstLoad"] = data.misc.firstLoad;
+            this["seenConvos"] = data.misc.seenConvos;
         }
     }
 })

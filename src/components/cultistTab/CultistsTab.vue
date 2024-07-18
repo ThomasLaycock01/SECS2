@@ -10,7 +10,7 @@ const misc = useMiscStore();
     <div class="title is-4 mb-1 segment-title">Cultists</div>
     <div class="container">
         <span v-for="i in cultists.regularCultists">
-            <button v-if="i.getFreeStatPoints() != 0"  class="button is-dark is-warning" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
+            <button v-if="i.getFreeStatPoints() != 0"  class="button is-dark is-info" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
             <button v-else class="button is-outlined" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
         </span>
         <span v-for="i in misc.getCultistLimit - cultists.numOfCultists">
@@ -41,7 +41,7 @@ const misc = useMiscStore();
                     <div>{{ activeCultist.getJob() ? activeCultist.getJob() : "Unemployed" }}</div>
                     <div>Level {{ activeCultist.getLevel() }} / {{activeCultist.getLevelLimit()}}</div>
                     <div>{{ activeCultist.getXp() }} / {{ activeCultist.getXpNeeded() }}XP</div>
-                    <div v-if="activeCultist.getFreeStatPoints() != 0" class="has-text-warning">{{activeCultist.getFreeStatPoints()}} Skill Points Available!</div>
+                    <div v-if="activeCultist.getFreeStatPoints() != 0" class="has-text-info">{{activeCultist.getFreeStatPoints()}} Skill Points Available!</div>
                     <table class="table is-striped is-narrow is-inline">
                         <thead>
                             <tr>
@@ -86,6 +86,7 @@ const misc = useMiscStore();
 </template>
 
 <script>
+import { fireCultist } from "@/functions";
 
 export default {
     data() {
@@ -110,6 +111,10 @@ export default {
         },
         addCha() {
             this.activeCultist.increaseStat("cha");
+        },
+        fireCultistBtn() {
+            fireCultist(this.activeCultist.getId());
+            this.isCultistModalActive = false;
         }
     }
 }

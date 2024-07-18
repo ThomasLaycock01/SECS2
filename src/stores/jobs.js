@@ -2,84 +2,107 @@ import {defineStore} from "pinia";
 
 import { useCultistsStore } from "./cultists";
 import { useBuildingsStore } from "./buildings";
-import { useExpansionsStore } from "./expansions";
-
-
 
 export const useJobsStore = defineStore("jobs", {
     state: () => {
         return {
-            Gold: {miner: {id: "miner", output: 1, limitingBuilding: "goldMine", name:"Gold Miner", array: [], stat: "str", reqExpansion: "mines", tier: "tier1"}, alchemist: {id: "alchemist", output: 1, limitingBuilding: "transmuter", name: "Alchemist", array: [], stat: "int", reqExpansion: "laboratory", tier: "tier1"}},
-            Crystals: {miner: {id: "miner", output: 1, limitingBuilding: "crystalMine", name: "Crystal Miner", array: [], stat: "str", reqExpansion: "mines", tier: "tier1"}}
+            //mines
+            goldMiner: {
+                id: "goldMiner",
+                name: "Gold Miner",
+                output: "Gold",
+                stat: "str",
+                baseArray: [],
+                modifiers: [{name: "Buildings", modifier() {
+                    const buildings = useBuildingsStore();
+                    return 1 + (buildings.getNumOfBuildingById("goldMine") - 1) * 0.2;
+                }}],
+                requirement() {
+                    const buildings = useBuildingsStore();
+                    return buildings.getNumOfBuildingById("goldMine") >= 1;
+                }
+            },
+            crystalMiner: {
+                id: "crystalMiner",
+                name: "Crystal Miner",
+                output: "Crystals",
+                stat: "str",
+                baseArray: [],
+                modifiers: [{name: "Buildings", modifier() {
+                    const buildings = useBuildingsStore();
+                    return 1 + (buildings.getNumOfBuildingById("crystalMine") - 1) * 0.2;
+                }}],
+                requirement() {
+                    const buildings = useBuildingsStore();
+                    return buildings.getNumOfBuildingById("crystalMine") >= 1;
+                }
+            }
+
         }
     },
     getters: {
         getAll(state) {
             return state;
         },
-        getByProdType(state) {
-            return (prodType) => state[prodType];
+        getById(state) {
+            return (id) => state[id];
         },
         getAssociatedStat(state) {
-            return (resource, job) => state[resource][job]["stat"];
-        },
-        getArray(state) {
-            return (resource, job) => state[resource][job]["array"];
-        },
-        getOutput(state) {
-            return (resource, job) => state[resource][job]["output"];
+            return (id) => state[id]["stat"];
         },
         getName(state) {
-            return (resource, job) => state[resource][job]["name"];
+            return (id) => state[id]["name"];
         },
-        getReqExpansion(state) {
-            return (resource, job) => state[resource][job]["reqExpansion"];
-        },
-        getTier(state) {
-            return (resource, job) => state[resource][job]["tier"];
+        getBaseArray(state) {
+            return (id) => state[id]["baseArray"];
         }
     },
     actions: {
-        addCultistToJobArray(cultistId, prodType, job) {
+        getByOutput(output) {
+            var returnArray = [];
+            for (var i in this) {
+                if (this[i]["output"] == output) {
+                    returnArray.push(this[i])
+                }
+            }
+
+            return returnArray;
+        },
+        addCultistToJob(cultistId, jobId) {
             const cultists = useCultistsStore();
             const cultist = cultists.getCultistById(cultistId);
-            this[prodType][job].array.push(cultist);
+            this[jobId]["baseArray"].push(cultist);
         },
-        checkIfAtLimit(resource, job) {
-            const buildings = useBuildingsStore();
-
-            const buildingId = this[resource][job]["limitingBuilding"];
-
-            const limit = buildings.getBuildingOwnedById(buildingId);
-
-            const array = this[resource][job]["array"];
-
-            if(array.length == limit) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        },
-        removeCultistfromJob(cultistId) {
-            //doing it like this just cause a cultist can only have 1 job, so just make sure it's not in any of the arrays
+        removeCultistFromJob(cultistId) {
             for (var i in this) {
-                for (var j in this[i]) {
-                    if (this[i][j]["array"]) {
-                        const newArray = this[i][j]["array"].filter((cultist) => cultist.getId() != cultistId);
-                        this[i][j]["array"] = newArray;
-                    }
+                if (this[i]["baseArray"]) {
+                    this[i]["baseArray"] = this[i]["baseArray"].filter((cultist) => cultist.getId() != cultistId);
                 }
             }
         },
-        checkIfHasReqExapansion(expansion, tier) {
-            const expansions = useExpansionsStore();
+        saveData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
 
-            //const expansion = this.getReqExpansion(prodType, jobId);
-            //const tier = this.getTier(prodType, jobId);
+            const jobsObject = {};
 
-            return expansions.checkIfBuilt(expansion, tier);
+            for (var i in this) {
+                if (this[i]["baseArray"]) {
+                    jobsObject[i] = {baseArray: this[i]["baseArray"]};
+                }
+            }
 
+            data.jobs = jobsObject;
+
+            localStorage.setItem("SECSData", JSON.stringify(data));
+        },
+        loadData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            for (var i in data.jobs) {
+                if (this[i]["baseArray"]) {
+                    this[i]["baseArray"] = data.jobs[i]["baseArray"];
+                }
+            }
         }
     }
 });

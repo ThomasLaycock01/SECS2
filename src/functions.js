@@ -4,22 +4,16 @@ import { useJobsStore } from "./stores/jobs";
 import { useExpansionsStore } from "./stores/expansions";
 import { useMiscStore } from "./stores/misc";
 import { useBuildingsStore } from "./stores/buildings";
+import { useCostsStore } from "./stores/costs";
+import { useConvosStore } from "./stores/convos";
 import { useTextLogStore } from "./stores/textLog";
 
 
 //tick system
 export function tick() {
     const resources = useResourcesStore();
-
     //adding resources
     for (var i in resources.getAll) {
-        //evilness is calculated differently
-        /*if (i == "Evilness") {
-            calculateEvilness();
-            continue;
-        }
-        calculateResource(i);*/
-
         switch(i) {
             case "Evilness":
                 calculateEvilness();
@@ -38,8 +32,12 @@ export function tick() {
 
     //updating xp for cultists
     updateCultistXp();
-}
 
+    //checking what convos need playing
+    checkConvos();
+
+    saveData();
+}
 
 //calculating evilness output, since its different from other resources
 function calculateEvilness() {
@@ -72,30 +70,30 @@ function calculateSlime() {
 
 //calculating resource output
 function calculateResource(resource) {
+    //first - instantiate stores
     const jobs = useJobsStore();
     const resources = useResourcesStore();
 
-    const arrayOfJobs = jobs.getByProdType(resource);
 
-    //very bulky, but this just multiplies the total output of the job by the associated stat from each cultist in its job array
+    //second - get jobs with matching resource
+    const arrayOfJobs = jobs.getByOutput(resource);
+
+    //third - calculate output
     var totalResourceOutput = 0;
-    for (var i in arrayOfJobs) {
-        const associatedStat = jobs.getAssociatedStat(resource, i);
-        for (var j in jobs.getArray(resource, i)) {
-            //cultist being iterated over
-            const cultist = jobs.getArray(resource, i)[j];
 
-            //for dwarf racial
-            if (cultist.getSpecies() == "Dwarf" && associatedStat == "str") {
-                totalResourceOutput += jobs.getOutput(resource, i) * cultist.getStat(associatedStat) * 2;
-            }
-            else {
-                totalResourceOutput += jobs.getOutput(resource, i) * cultist.getStat(associatedStat);
-            }
+    for (var i in arrayOfJobs) {
+        const job = arrayOfJobs[i];
+        const associateStat = job["stat"];
+        for (var j in job["baseArray"]) {
+            totalResourceOutput = job["baseArray"][j].getStat(associateStat);
+        }
+        for (var j in job["modifiers"]) {
+            totalResourceOutput = Math.floor(totalResourceOutput * job["modifiers"][j].modifier());
         }
     }
 
-    resources.setResourcePerSec(resource, totalResourceOutput);
+    //fourth - update resources store with new output
+    resources.setResourcePerSec(resource, totalResourceOutput)
 }
 
 //updating the resources
@@ -106,6 +104,14 @@ function updateResources() {
         resources.modifyResource(i, resources.getResourcePerSec(i));
     }
 }
+
+//checking and playing convos
+function checkConvos() {
+    const convos = useConvosStore();
+
+    convos.playPerRequirements();
+}
+
 
 
 //calculating cultist limit
@@ -217,27 +223,44 @@ class Cultist {
 
 //creating new cultists
 export function addCultist(species) {
-    const store = useCultistsStore();
+    const cultists = useCultistsStore();
+    const resources = useResourcesStore();
+    const costs = useCostsStore();
 
-    const id = store.numOfCultists;
+    var id = cultists.numOfCultists;
+
+    while (cultists.checkIfIdUsed(id)) {
+        id++;
+    }
 
     const cultist = new Cultist(id, "cultist", species);
 
-    store.addCultist(cultist);
+    cultists.addCultist(cultist);
 
     //removing cost of cultist
-    const resources = useResourcesStore();
 
     switch(species) {
         case "Human":
-            resources.modifyResource("Gold", -20);
+            var cost = costs.getCultistCost("human");
+            console.log(cost);
+            for (var i in cost) {
+                resources.modifyResource(i, posToNeg(cost[i]))
+            }
+            //resources.modifyResource("Gold", costs.getCultistCost("human"));
             break;
         case "Dwarf":
-            resources.modifyResource("Gold", -2000);
+            var cost = costs.getCultistCost("dwarf");
+            console.log(cost);
+            for (var i in cost) {
+                resources.modifyResource(i, posToNeg(cost[i]))
+            }
             break;
         case "Slime":
-            resources.modifyResource("Gold", -2500);
-            resources.modifyResource("Crystals", -1000);
+            var cost = costs.getCultistCost("slime");
+            console.log(cost);
+            for (var i in cost) {
+                resources.modifyResource(i, posToNeg(cost[i]))
+            }
     }
 
     //incrementing num of cultists to track limit
@@ -249,17 +272,17 @@ export function addCultist(species) {
 
 
 //adding cultists to a job
-export function addCultistToJob(cultistId, resource, job) {
+export function addCultistToJob(cultistId, jobId) {
     //first - instantiate stores
     const cultists = useCultistsStore();
     const jobs = useJobsStore();
 
     //second - add cultistId to job store
-    jobs.addCultistToJobArray(cultistId, resource, job);
+    jobs.addCultistToJob(cultistId, jobId);
 
     //third - update cultist to give them job
     const cultist = cultists.getCultistById(cultistId);
-    cultist.setJob(jobs.getName(resource, job));
+    cultist.setJob(jobs.getName(jobId));
 }
 
 
@@ -268,10 +291,21 @@ export function removeCultistFromJob(cultistId) {
     const jobs = useJobsStore();
     const cultists = useCultistsStore();
 
-    jobs.removeCultistfromJob(cultistId);
+    jobs.removeCultistFromJob(cultistId);
 
     const cultist = cultists.getCultistById(cultistId);
     cultist.setJob(null)
+}
+
+//firing a cultist
+export function fireCultist(cultistId) {
+    const cultists = useCultistsStore();
+    const misc = useMiscStore();
+
+    removeCultistFromJob(cultistId);
+
+    cultists.removeCultist(cultistId);
+    misc.removeCultist();
 }
 
 
@@ -302,20 +336,69 @@ export function buildExpansion(expansionId) {
 //building a building
 export function buildBuilding(buildingId) {
     const buildings = useBuildingsStore();
-    buildings.buildingBuilding(buildingId)
+    const costs = useCostsStore();
 
-    const costs = buildings.getBuildingCostsById(buildingId);
+    const cost = costs.getTotalBuildingCost(buildingId);
 
     const resources = useResourcesStore();
 
-    for (var i in costs) {
-        resources.modifyResource(i, posToNeg(costs[i]));
+    for (var i in cost) {
+        resources.modifyResource(i, posToNeg(cost[i]));
     }
 
-    const jobs = useJobsStore();
-
-    console.log(jobs.checkIfAtLimit("Gold", "miner"))
+    buildings.buildingBuilding(buildingId)
 }
+
+
+
+//localStorage functions
+function saveData() {
+    //have each pinia store save their data seperately
+    const buildings = useBuildingsStore();
+    const convos = useConvosStore();
+    const costs = useCostsStore();
+    const cultists = useCultistsStore();
+    const expansions = useExpansionsStore();
+    const jobs = useJobsStore();
+    const misc = useMiscStore();
+    const resources = useResourcesStore();
+    const textLog = useTextLogStore();
+
+    buildings.saveData();
+    convos.saveData();
+    costs.saveData();
+    cultists.saveData();
+    expansions.saveData();
+    jobs.saveData();
+    misc.saveData();
+    resources.saveData();
+    textLog.saveData();
+}
+
+export function loadData() {
+    //same as save, but this time it's the load
+    const buildings = useBuildingsStore();
+    const convos = useConvosStore();
+    const costs = useCostsStore();
+    const cultists = useCultistsStore();
+    const expansions = useExpansionsStore();
+    const jobs = useJobsStore();
+    const misc = useMiscStore();
+    const resources = useResourcesStore();
+    const textLog = useTextLogStore();
+
+    buildings.loadData();
+    convos.loadData();
+    costs.loadData();
+    cultists.loadData();
+    expansions.loadData();
+    jobs.loadData();
+    misc.loadData();
+    resources.loadData();
+    textLog.loadData();
+}
+
+
 
 
 

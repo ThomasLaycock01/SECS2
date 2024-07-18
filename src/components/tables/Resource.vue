@@ -1,18 +1,14 @@
 <script setup>
-
-import {useResourcesStore} from "@/stores/resources.js";
-
-const resources = useResourcesStore()
-
-defineProps({
-    resource: String
+const props = defineProps({
+    resource: String,
+    object: Object
 })
 </script>
 
 <template>
-    <tr>
-        <td>{{ resource }}</td>
-        <td>{{ resources.getResourceTotal(resource) }}</td>
-        <td>{{ resources.getResourcePerSec(resource) }} /s</td>
+    <tr v-if="props.object.showCondition()">
+        <td>{{ props.resource }}</td>
+        <td>{{ props.object.total }}</td>
+        <td>{{ props.object.perSec }} /s</td>
     </tr>
 </template>

@@ -12,18 +12,24 @@ export const useCultistsStore = defineStore("cultists", {
             return state.regular;
         },
         getCultistById: (state) => {
-            return (cultistId) => state.regular.find((cultist) => cultist.id == cultistId);
+            return (cultistId) => state.regular.find((cultist) => cultist.getId() == cultistId);
         },
         getUnemployed(state) {
             return state.regular.filter((cultist) => cultist.getJob() == null);
         },
         getEmployed(state) {
             return state.regular.filter((cultist) => cultist.getJob() != null);
+        },
+        checkFreeSkillPoints(state) {
+            return state.regular.filter((cultist) => cultist.getFreeStatPoints() != 0).length >= 1 ? true : false;
         }
     },
     actions: {
         addCultist(cultist) {
             this.regular.push(cultist);
+        },
+        removeCultist(cultistId) {
+            this.regular = this.regular.filter((cultist) => cultist.getId() != cultistId)
         },
         checkUnemployed() {
             const array = this.regular;
@@ -34,6 +40,30 @@ export const useCultistsStore = defineStore("cultists", {
             else {
                 return true;
             }
+        },
+        checkIfIdUsed(id) {
+            var idUsed = false;
+
+            for (var i in this.regular) {
+                if (this.regular[i].getId() == id) {
+                    idUsed = true;
+                }
+            }
+
+            return idUsed;
+        },
+        saveData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            data.cultists = {regular: this["regular"], special: this["special"]};
+
+            localStorage.setItem("SECSData", JSON.stringify(data));
+        },
+        loadData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            this["regular"] = data.cultists.regular;
+            this["special"] = data.cultists.special;
         }
     }
 });

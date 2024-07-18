@@ -9,10 +9,34 @@ export const useTextLogStore = defineStore("textLog", {
             playing: [],
             toPlay: [],
             unplayed: [
-                {convoId: 1, character: "narrator", message: "test message", last: false}, 
-                {convoId: 1, character: "narrator", message: "something else", last: true}, 
-                {convoId: 2, character: "narrator", message: "This is another convo", last: true},
-                {convoId: 2, character: "narrator", message: "With another message", last: false}]
+                //convo 0 (initial load)
+                {convoId: 0, character: "barty", message: "Hector! Are you there?", last: false}, 
+                {convoId: 0, character: "hector", message: "Yes... yes, I'm here. Sir", last: false}, 
+                {convoId: 0, character: "barty", message: "Then... IT CAN BEGIN! MWUHAHAHAHAHA!!!!!!", last: false},
+                {convoId: 0, character: "hector", message: "...", last: false},
+                {convoId: 0, character: "barty", message: "...", last: false},
+                {convoId: 0, character: "hector", message: "You should press the button, Sir.", last: false},
+                {convoId: 0, character: "barty", message: "Oh! Yes, of course... one moment...", last: true},
+                //convo 1
+                {convoId: 1, character: "barty", message: "...Nothing happened.", last: false},
+                {convoId: 1, character: "hector", message: "Nothing happened?", last: false},
+                {convoId: 1, character: "barty", message: "Yes. Why did nothing happen!?!?!", last: false},
+                {convoId: 1, character: "hector", message: "Let me have a look.", last: false},
+                {convoId: 1, character: "hector", message: "Oh.", last: false},
+                {convoId: 1, character: "hector", message: "You've not got the resource display turned on.", last: false},
+                {convoId: 1, character: "hector", message: "I'll turn it on for you.", last: true},
+                //convo 2
+                {convoId: 2, character: "barty", message: "Soooo....", last: false},
+                {convoId: 2, character: "barty", message: "How much Evilness do I need to become Super Evil?", last: false},
+                {convoId: 2, character: "hector", message: "One Billion.", last: false},
+                {convoId: 2, character: "barty", message: "ONE BILLION!?!", last: false},
+                {convoId: 2, character: "barty", message: "D'awww, We're gonna be here FOREVER!", last: false},
+                {convoId: 2, character: "hector", message: "Perhaps you should find some help, Sir.", last: false},
+                {convoId: 2, character: "hector", message: "It might make things a bit quicker.", last: false},
+                {convoId: 2, character: "barty", message: "You're a genius, Hector!", last: false},
+                {convoId: 2, character: "barty", message: "MWUHAHAHAHA!!!!", last: true},
+                
+            ]
         }
     },
     getters: {
@@ -55,6 +79,31 @@ export const useTextLogStore = defineStore("textLog", {
             const message = this.toPlay.shift();
 
             this.playing.push(message);
+        },
+        loadConvos(array) {
+            this["unplayed"] = array;
+        },
+        saveData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            const textLogObject = {
+                played: this["played"],
+                playing: this["playing"],
+                toPlay: this["toPlay"],
+                unplayed: this["unplayed"]
+            }
+
+            data.textLog = textLogObject;
+
+            localStorage.setItem("SECSData", JSON.stringify(data));
+        },
+        loadData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            this["played"] = data.textLog.played;
+            this["playing"] = data.textLog.playing;
+            this["toPlay"] = data.textLog.toPlay;
+            this["unplayed"] = data.textLog.unplayed;
         }
     }
 })

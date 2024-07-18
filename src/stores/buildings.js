@@ -1,25 +1,30 @@
 import { defineStore } from "pinia";
 
 import { useResourcesStore } from "./resources";
+import { useCostsStore } from "./costs";
 
 export const useBuildingsStore = defineStore("buildings", {
     state: () => {
         return {buildings: [
-        //mines buildings
-        {id: "goldMine", owned: 0, costs: {Gold: 20}, prodType: "Gold", jobId: "miner"},
-        {id:"crystalMine", owned: 0, costs: {Gold: 50}, prodType: "Crystals", jobId: "miner"},
-        //laboratory buildings
-        {id:"transmuter", owned: 0, costs: {Gold: 50}, prodType: "Gold", jobId: "alchemist"},
-        //barracks buildings
-        {id:"drillSquare", owned: 0, costs: {Gold: 2000, Crystals: 1000}, prodType: "Mil", jobId: "soldier"},
-        //tower buildings
-        {id:"infuser", owned: 0, costs: {Gold: 5000, Crystals: 200}, prodType: "ManaCrystals", jobId: "infuser"},
-        //academy buidlings
-        {id:"lectureHall", owned: 0, costs: {Gold: 10000, Crystals: 20000,}, prodType: "Xp", jobId: "lecturer"},
-        //dungeons buildings
-        {id:"cell", owned: 0, costs: {Gold: 100000}, prodType: "Prisoners", jobId: "jailer"}]}
+            //mines buildings
+            {id: "goldMine", owned: 0},
+            {id:"crystalMine", owned: 0},
+            //laboratory buildings
+            {id:"transmuter", owned: 0},
+            //barracks buildings
+            {id:"drillSquare", owned: 0},
+            //tower buildings
+            {id:"infuser", owned: 0},
+            //academy buidlings
+            {id:"lectureHall", owned: 0},
+            //dungeons buildings
+            {id:"cell", owned: 0}
+        ]}
     },
     getters: {
+        getNumOfBuildingById(state) {
+            return (buildingId) => state.buildings.find((building) => building.id == buildingId).owned;
+        },
         getBuildingById: (state) => {
             return (buildingId) => state.buildings.find((building) => building.id == buildingId);
         },
@@ -39,18 +44,31 @@ export const useBuildingsStore = defineStore("buildings", {
         },
         checkIfCanAfford(buildingId) {
             const resources = useResourcesStore();
+            const costs = useCostsStore();
 
-            const chosenBuilding = this.buildings.filter(obj =>  obj.id == buildingId)[0]
+            const cost = costs.getTotalBuildingCost(buildingId);
 
             var canAfford = true;
 
-            for (var i in chosenBuilding.costs) {
-                if (resources.getResourceTotal(i) < chosenBuilding.costs[i]) {
+            for (var i in cost) {
+                if (resources.getResourceTotal(i) < cost[i]) {
                     canAfford = false;
                 }
             }
 
             return canAfford;
+        },
+        saveData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            data.buildings = this["buildings"];
+
+            localStorage.setItem("SECSData", JSON.stringify(data));
+        },
+        loadData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            this["buildings"] = data.buildings;
         }
     }
 })

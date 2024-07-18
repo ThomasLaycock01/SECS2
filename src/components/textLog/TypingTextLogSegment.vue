@@ -1,49 +1,38 @@
-<template>
-    <div>{{ displayText }}</div>
-</template>
-
-<script>
+<script setup>
 import { useTextLogStore } from '@/stores/textLog';
+import { ref, onMounted } from 'vue';
 
-import { ref } from 'vue';
+const props = defineProps({
+    message: String,
+    character: String
+})
 
-export default {
-    data() {
-        return {
-            charIndex: 0,
-            displayText: ""
-        }
-    },
-    props: {
-        message: {type: String}
-    },
-    setup(props) {
-        const string = ref(props.message);
-        return {
-            string
-        }
-    },  
-    methods: {
-        typeText(string) {
-            const textLog = useTextLogStore();
-            if (this.charIndex < string.length) {
-                this.displayText += string[this.charIndex];
-                this.charIndex += 1;
+var charIndex = 0;
+var displayText = ref("");
 
-                if (this.charIndex == string.length) {
-                    textLog.movePlayingIntoPlayed();
-                }
-                else {
-                    setTimeout(() => {
-                    this.typeText(this.string);
-                    }, 70);
-                }
-                
-            }
+function typeText(string) {
+    const textLog = useTextLogStore();
+    if (charIndex < string.length) {
+        displayText.value += string[charIndex];
+        charIndex += 1;
+
+        if (charIndex == string.length) {
+            textLog.movePlayingIntoPlayed();
         }
-    },
-    mounted() {
-        this.typeText(this.string);
+        else {
+            setTimeout(() => {
+            typeText(string);
+            }, 60);
+        }
+        
     }
 }
+
+onMounted(() => {
+    typeText(props.message)
+    });
 </script>
+
+<template>
+    <div v-bind:class="props.character == 'barty' ? '': 'nonBartyText'" class="textLogSegment">{{ displayText }}</div>
+</template>

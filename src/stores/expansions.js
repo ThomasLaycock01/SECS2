@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 
 import { useResourcesStore } from "./resources";
+import { useCostsStore } from "./costs";
 
 import { posToNeg } from "@/functions";
 
@@ -12,12 +13,12 @@ export const useExpansionsStore = defineStore("expansions", {
             tier3: {}
         },
         all: [
-            {id: "mines", name: "Mines", tier: "tier1", costs: {Gold: 30}, cultistLimit: 2},
-            {id: "laboratory", name: "Laboratory", tier: "tier1", costs: {Gold: 30}, cultistLimit: 2},
-            {id: "barracks", name: "Barracks", tier: "tier2", costs: {Gold: 100, Crystals: 100}, cultistLimit: 2},
-            {id: "tower", name: "Tower", tier: "tier2", costs: {Gold: 50, Crystals: 200}, cultistLimit: 2},
-            {id: "academy", name: "Academy", tier: "tier3", costs: {Gold: 50000, Crystals: 10000}, cultistLimit: 2},
-            {id: "dungeons", name: "Dungeons", tier: "tier3", costs: {Gold: 100000, Crystals: 5000}, cultistLimit: 2}
+            {id: "mines", name: "Mines", tier: "tier1", cultistLimit: 2},
+            {id: "laboratory", name: "Laboratory", tier: "tier1", cultistLimit: 2},
+            {id: "barracks", name: "Barracks", tier: "tier2", cultistLimit: 2},
+            {id: "tower", name: "Tower", tier: "tier2", cultistLimit: 2},
+            {id: "academy", name: "Academy", tier: "tier3", cultistLimit: 2},
+            {id: "dungeons", name: "Dungeons", tier: "tier3", cultistLimit: 2}
         ]
         }
     },
@@ -52,30 +53,50 @@ export const useExpansionsStore = defineStore("expansions", {
     },
     actions: {
         buildExpansion(expansionId) {
+
             const chosenExpansion = this.all.filter(obj => obj.id == expansionId)[0];
             const chosenTier = chosenExpansion.tier;
             this.built[chosenTier] = chosenExpansion;
 
+
+
             const resources = useResourcesStore();
-            for (var i in chosenExpansion.costs) {
-                resources.modifyResource(i, posToNeg(chosenExpansion.costs[i]));
+            const costs = useCostsStore();
+
+            const cost = costs.getExpansionCost(expansionId);
+
+            for (var i in cost) {
+                resources.modifyResource(i, posToNeg(cost[i]));
             }
 
         },
         checkIfCanAfford(expansionId) {
             const resources = useResourcesStore();
+            const costs = useCostsStore();
 
-            const chosenExpansion = this.all.filter(obj =>  obj.id == expansionId)[0]
+            const cost = costs.getExpansionCost(expansionId);
 
             var canAfford = true;
 
-            for (var i in chosenExpansion.costs) {
-                if (resources.getResourceTotal(i) < chosenExpansion.costs[i]) {
+            for (var i in cost) {
+                if (resources.getResourceTotal(i) < cost[i]) {
                     canAfford = false;
                 }
             }
 
             return canAfford;
+        },
+        saveData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            data.expansions = this["built"];
+
+            localStorage.setItem("SECSData", JSON.stringify(data));
+        },
+        loadData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            this["built"] = data.expansions;
         }
     }
 })

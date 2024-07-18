@@ -2,6 +2,7 @@ import { useResourcesStore } from "./stores/resources.js";
 import { useExpansionsStore } from "./stores/expansions.js";
 import { useMiscStore } from "./stores/misc.js";
 import { useTextLogStore } from "./stores/textLog.js";
+import { useCostsStore } from "./stores/costs.js";
 
 import { addCultist, buildExpansion, buildBuilding } from "./functions.js";
 import { useBuildingsStore } from "./stores/buildings.js";
@@ -37,7 +38,10 @@ export const actions = {
                     resources.modifyResource("Gold", 1);
                 },
                 condition(){return true},
-                showCondition() {return true},
+                showCondition() {
+                    const misc = useMiscStore();
+                    return misc.checkHasSeenConvo(2);
+                },
                 tooltipData: {
                     title: "Acquire Gold",
                     body: "Gain 1 Gold",
@@ -56,14 +60,15 @@ export const actions = {
                 },
                 showCondition() {
                     const expansions = useExpansionsStore();
-                    return expansions.hasTier1 == false;
+                    const misc = useMiscStore();
+                    return misc.checkHasSeenConvo(3) && expansions.hasTier1 == false;
                 },
                 tooltipData: {
                     title: "Expansion: Mines",
                     body: "A mineshaft under your lair",
                     costs() {
-                        const expansions = useExpansionsStore();
-                        return expansions.getExpansionCosts("mines");
+                        const costs = useCostsStore();
+                        return costs.getExpansionCost("mines");
                     }
                 }
             },
@@ -79,7 +84,8 @@ export const actions = {
                 },
                 showCondition() {
                     const expansions = useExpansionsStore();
-                    return expansions.hasTier1 == false;
+                    const misc = useMiscStore();
+                    return misc.checkHasSeenConvo(3) && expansions.hasTier1 == false;
                 },
                 tooltipData: {
                     title: "Expansion: Laboratory",
@@ -181,44 +187,6 @@ export const actions = {
                         return expansions.getExpansionCosts("dungeons");
                     }
                 }
-            },
-            //TEST BUTTON - REMOVE FOR RELEASE
-            testButton: {
-                id: "testButton",
-                name: "Test button",
-                effect() {
-                    const textLog = useTextLogStore();
-                    textLog.playConvo(1);
-                },
-                condition() {
-                    return true
-                },
-                showCondition() {
-                    return true
-                },
-                tooltipData: {
-                    title: "Test",
-                    body: "plays a convo",
-                }
-            },
-            testButton2: {
-                id: "testButton2",
-                name: "Test button 2",
-                effect() {
-                    const textLog = useTextLogStore();
-                    textLog.playConvo(2);
-                },
-                condition() {
-                    const misc = useMiscStore();
-                    return misc.checkHasSeenConvo(1);
-                },
-                showCondition() {
-                    return true
-                },
-                tooltipData: {
-                    title: "Test 2",
-                    body: "plays anohter convo",
-                }
             }
         }
     },
@@ -226,7 +194,10 @@ export const actions = {
         name: "Human Resources",
         desc: "The HR department of your EVIL cult >:)",
         tier: "tier0",
-        showCondition() {return true},
+        showCondition() {
+            const misc = useMiscStore();
+            return misc.checkHasSeenConvo(2);
+        },
         buttons: {
             hireHumanCultist: {
                 id: "hireHumanCultist",
@@ -235,16 +206,18 @@ export const actions = {
                     addCultist("Human");
                 },
                 condition() {
-                    const resources = useResourcesStore();
                     const misc = useMiscStore();
-                    return resources.getResourceTotal("Gold") >= 20 && misc.checkCultistSpace;
+                    const costs = useCostsStore();
+
+                    return costs.checkIfCanAffordCultist("human") && misc.checkCultistSpace;
                 },
                 showCondition() {return true},
                 tooltipData: {
                     title: "Hire Human Cultist",
                     body: "Hire a human cultist",
                     costs() {
-                        return {"Gold": 20};
+                        const costs = useCostsStore();
+                        return costs.getCultistCost("human");
                     }
                 }
             },
@@ -255,16 +228,21 @@ export const actions = {
                     addCultist("Dwarf");
                 },
                 condition() {
-                    const resources = useResourcesStore();
                     const misc = useMiscStore();
-                    return resources.getResourceTotal("Gold") >= 2000 && misc.checkCultistSpace;
+                    const costs = useCostsStore();
+
+                    return costs.checkIfCanAffordCultist("dwarf") && misc.checkCultistSpace;
                 },
-                showCondition() {return true},
+                showCondition() {
+                    const misc = useMiscStore();
+                    return misc.checkHasSeenConvo(3);
+                },
                 tooltipData: {
                     title: "Hire Dwarf Cultist",
                     body: "Hire a dwarf cultist",
                     costs() {
-                        return {"Gold": 2000};
+                        const costs = useCostsStore();
+                        return costs.getCultistCost("dwarf");
                     }
                 }
             },
@@ -275,16 +253,21 @@ export const actions = {
                     addCultist("Slime");
                 },
                 condition() {
-                    const resources = useResourcesStore();
                     const misc = useMiscStore();
-                    return resources.getResourceTotal("Gold") >= 2500 && resources.getResourceTotal("Crystals") >= 1000 && misc.checkCultistSpace;
+                    const costs = useCostsStore();
+
+                    return costs.checkIfCanAffordCultist("slime") && misc.checkCultistSpace;
                 },
-                showCondition() {return true},
+                showCondition() {
+                    const misc = useMiscStore();
+                    return misc.checkHasSeenConvo(3);
+                },
                 tooltipData: {
                     title: "Hire Slime Cultist",
                     body: "Hire a slime cultist",
                     costs() {
-                        return {"Gold": 2500, "Crystals": 1000};
+                        const costs = useCostsStore();
+                        return costs.getCultistCost("slime");
                     }
                 }
             }
@@ -315,8 +298,8 @@ export const actions = {
                     title: "Gold Mine",
                     body: "A mine to acquire gold",
                     costs() {
-                        const buildings = useBuildingsStore();
-                        return buildings.getBuildingCostsById("goldMine")
+                        const costs = useCostsStore();
+                        return costs.getTotalBuildingCost("goldMine");
                     }
                 }
                 
@@ -336,8 +319,8 @@ export const actions = {
                     title: "Crystal Mine",
                     body: "A mine to acquire crystals",
                     costs() {
-                        const buildings = useBuildingsStore();
-                        return buildings.getBuildingCostsById("crystalMine")
+                        const costs = useCostsStore();
+                        return costs.getTotalBuildingCost("crystalMine");
                     }
                 }
             }
