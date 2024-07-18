@@ -77,7 +77,7 @@ const misc = useMiscStore();
                     <button
                             type="button"
                             class="button is-danger"
-                            @click="isCultistModalActive = false">Fire Cultist</button>
+                            @click="isCultistModalActive = false">Remove Cultist</button>
                     </footer>
             </div>
         

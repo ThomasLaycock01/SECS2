@@ -5,8 +5,8 @@ import { useExpansionsStore } from "./expansions";
 export const useMiscStore = defineStore("misc", {
     state: () => {
         return {
-            owned: {cultists: 0},
-            limits: {cultists: 2},
+            owned: {cultists: 0, buildings: 0},
+            limits: {cultists: 2, buildings: 2},
             firstLoad: true,
             seenConvos:[]
         }
