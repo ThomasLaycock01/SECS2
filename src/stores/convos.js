@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 
 import { useResourcesStore } from "./resources";
+import { useCultistsStore } from "./cultists";
 import { useTextLogStore } from "./textLog";
 
 export const useConvosStore = defineStore("convos", {
@@ -22,6 +23,14 @@ export const useConvosStore = defineStore("convos", {
                     requirements() {
                         const resources = useResourcesStore();
                         return resources.getResourceTotal("Evilness") >= 10;
+                    },
+                    completed: false
+                },
+                {
+                    id: 3,
+                    requirements() {
+                        const cultists = useCultistsStore();
+                        return cultists.numOfCultists >= 1;
                     },
                     completed: false
                 }

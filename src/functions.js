@@ -127,17 +127,17 @@ function calculateLimits() {
 
 //class for creating cultists - will need expanding
 class Cultist {
-    constructor(id, name, species) {
+    constructor(id, name, species, job, stats, level, currentXp, xpNeeded, xpIncrement, freeStatPoints, levelLimit) {
         this.id = id;
-        this.name = name + this.id;
-        this.job = null;
-        this.stats = {str: 1, int: 1, agi: 1, cha: 1};
-        this.level = 1;
-        this.currentXp = 0;
-        this.xpNeeded = 20;
-        this.xpIncrement = 1.5;
-        this.freeStatPoints = 0;
-        this.levelLimit = 10;
+        this.name = name;
+        this.job = job;
+        this.stats = stats;
+        this.level = level;
+        this.currentXp = currentXp;
+        this.xpNeeded = xpNeeded;
+        this.xpIncrement = xpIncrement;
+        this.freeStatPoints = freeStatPoints;
+        this.levelLimit = levelLimit;
         this.species = species;
     }
 
@@ -148,6 +148,10 @@ class Cultist {
 
     getJob() {
         return this.job;
+    }
+
+    getStats() {
+        return this.stats;
     }
 
     getStat(stat) {
@@ -219,6 +223,36 @@ class Cultist {
         this.freeStatPoints -= 1;
         this.stats[stat] += 1;
     }
+
+    serialize() {
+        const serializedCultist = {
+            name: this.name,
+            job: this.job,
+            stats: this.stats,
+            level: this.level,
+            currentXp: this.currentXp,
+            xpNeeded: this.xpNeeded,
+            xpIncrement: this.xpIncrement,
+            freeStatPoints: this.freeStatPoints,
+            levelLimit: this.levelLimit,
+            species: this.species
+        }
+
+        return serializedCultist;
+    }
+}
+
+//creating a cultist
+function createCultist(id, name, species, job = null, stats = {str: 1, int: 1, agi: 1, cha: 1}, level = 1, currentXp = 0, xpNeeded = 20, xpIncrement = 1.5, freeStatPoints = 0, levelLimit = 10) {
+    return new Cultist(id, name, species, job, stats, level, currentXp, xpNeeded, xpIncrement, freeStatPoints, levelLimit);
+}
+
+export function deserializeCultist(obj) {
+    const cultists = useCultistsStore();
+
+    const cultist = createCultist(obj.id, obj.name, obj.species, obj.job, obj.stats, obj.level, obj.currentXp, obj.xpNeeded, obj.xpIcrement, obj.freeStatPoint, obj.levelLimit);
+
+    cultists.addCultist(cultist);
 }
 
 //creating new cultists
@@ -233,7 +267,7 @@ export function addCultist(species) {
         id++;
     }
 
-    const cultist = new Cultist(id, "cultist", species);
+    const cultist = createCultist(id, "cultist", species)
 
     cultists.addCultist(cultist);
 

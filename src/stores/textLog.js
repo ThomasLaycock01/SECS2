@@ -35,6 +35,16 @@ export const useTextLogStore = defineStore("textLog", {
                 {convoId: 2, character: "hector", message: "It might make things a bit quicker.", last: false},
                 {convoId: 2, character: "barty", message: "You're a genius, Hector!", last: false},
                 {convoId: 2, character: "barty", message: "MWUHAHAHAHA!!!!", last: true},
+                //convo 3
+                {convoId: 3, character: "hector", message: "Congratulations, Sir.", last: false},
+                {convoId: 3, character: "hector", message: "We're now officially a cult.", last: false},
+                {convoId: 3, character: "barty", message: "MWUHAHAHA!!!", last: false},
+                {convoId: 3, character: "barty", message: "...", last: false},
+                {convoId: 3, character: "barty", message: "But what do we actually *do* as a cult?", last: false},
+                {convoId: 3, character: "hector", message: "Well, right now we aren't doing anything, Sir.", last: false},
+                {convoId: 3, character: "hector", message: "I've arranged some plans to turn this shack into a...", last: false},
+                {convoId: 3, character: "hector", message: "...slightly more operable lair.", last: true},
+                
                 
             ]
         }

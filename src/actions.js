@@ -235,7 +235,7 @@ export const actions = {
                 },
                 showCondition() {
                     const misc = useMiscStore();
-                    return misc.checkHasSeenConvo(3);
+                    return misc.checkHasSeenConvo(4);
                 },
                 tooltipData: {
                     title: "Hire Dwarf Cultist",
@@ -260,7 +260,7 @@ export const actions = {
                 },
                 showCondition() {
                     const misc = useMiscStore();
-                    return misc.checkHasSeenConvo(3);
+                    return misc.checkHasSeenConvo(4);
                 },
                 tooltipData: {
                     title: "Hire Slime Cultist",

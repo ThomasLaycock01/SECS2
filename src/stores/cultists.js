@@ -1,5 +1,7 @@
 import {defineStore} from "pinia";
 
+import { deserializeCultist } from "@/functions";
+
 export const useCultistsStore = defineStore("cultists", {
     state: () => {
         return {regular: [], special: []}
@@ -55,15 +57,26 @@ export const useCultistsStore = defineStore("cultists", {
         saveData() {
             var data = JSON.parse(localStorage.getItem("SECSData"));
 
-            data.cultists = {regular: this["regular"], special: this["special"]};
+            const cultistObject = {}
+
+            //serializing cultists to store them
+            for (var i in this["regular"]) {
+                const cultist = this["regular"][i];
+                cultistObject[cultist.getId()] = cultist.serialize();
+            }
+
+            data.cultists = cultistObject;
 
             localStorage.setItem("SECSData", JSON.stringify(data));
         },
         loadData() {
             var data = JSON.parse(localStorage.getItem("SECSData"));
 
-            this["regular"] = data.cultists.regular;
-            this["special"] = data.cultists.special;
+            for (var i in data.cultists) {
+                const cultistObject = data.cultists[i];
+
+                deserializeCultist(cultistObject);
+            }
         }
     }
 });
