@@ -90,8 +90,8 @@ export const actions = {
                     title: "Expansion: Laboratory",
                     body: "A laboratory for evil experiments",
                     costs() {
-                        const expansions = useExpansionsStore();
-                        return expansions.getExpansionCosts("laboratory");
+                        const costs = useCostsStore();
+                        return costs.getExpansionCost("laboratory");
                     }
                 }
             },
@@ -113,8 +113,8 @@ export const actions = {
                     title: "Expansion: Barracks",
                     body: "An area to organize your cultist army",
                     costs() {
-                        const expansions = useExpansionsStore();
-                        return expansions.getExpansionCosts("barracks");
+                        const costs = useCostsStore();
+                        return costs.getExpansionCost("barracks");
                     }
                 }
             },
@@ -136,8 +136,8 @@ export const actions = {
                     title: "Expansion: Tower",
                     body: "A tower to cast spells from",
                     costs() {
-                        const expansions = useExpansionsStore();
-                        return expansions.getExpansionCosts("tower");
+                        const costs = useCostsStore();
+                        return costs.getExpansionCost("tower");
                     }
                 }
             },
@@ -159,8 +159,8 @@ export const actions = {
                     title: "Expansion: Academy",
                     body: "An academy to educate future generations of cultists",
                     costs() {
-                        const expansions = useExpansionsStore();
-                        return expansions.getExpansionCosts("academy");
+                        const costs = useCostsStore();
+                        return costs.getExpansionCost("academy");
                     }
                 }
             },

@@ -46,9 +46,6 @@ export const useExpansionsStore = defineStore("expansions", {
         },
         checkIfBuilt(state) {
             return (expansionId, tier) => state.built[tier].id == expansionId ? true : false;
-        },
-        getExpansionCosts(state) {
-            return (expansionId) => state.all.filter((expansion) => expansion.id == expansionId)[0].costs;
         }
     },
     actions: {
