@@ -1,10 +1,9 @@
 import { useResourcesStore } from "./stores/resources.js";
 import { useExpansionsStore } from "./stores/expansions.js";
 import { useMiscStore } from "./stores/misc.js";
-import { useTextLogStore } from "./stores/textLog.js";
 import { useCostsStore } from "./stores/costs.js";
 
-import { addCultist, buildExpansion, buildBuilding } from "./functions.js";
+import { addCultist, buildExpansion, buildBuilding, checkCultistSpace } from "./functions.js";
 import { useBuildingsStore } from "./stores/buildings.js";
 
 export const actions = {
@@ -209,7 +208,7 @@ export const actions = {
                     const misc = useMiscStore();
                     const costs = useCostsStore();
 
-                    return costs.checkIfCanAffordCultist("human") && misc.checkCultistSpace;
+                    return costs.checkIfCanAffordCultist("human") && checkCultistSpace();
                 },
                 showCondition() {return true},
                 tooltipData: {
@@ -231,7 +230,7 @@ export const actions = {
                     const misc = useMiscStore();
                     const costs = useCostsStore();
 
-                    return costs.checkIfCanAffordCultist("dwarf") && misc.checkCultistSpace;
+                    return costs.checkIfCanAffordCultist("dwarf") && checkCultistSpace();
                 },
                 showCondition() {
                     const misc = useMiscStore();
@@ -256,7 +255,7 @@ export const actions = {
                     const misc = useMiscStore();
                     const costs = useCostsStore();
 
-                    return costs.checkIfCanAffordCultist("slime") && misc.checkCultistSpace;
+                    return costs.checkIfCanAffordCultist("slime") && checkCultistSpace();
                 },
                 showCondition() {
                     const misc = useMiscStore();

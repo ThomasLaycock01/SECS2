@@ -297,11 +297,6 @@ export function addCultist(species) {
                 resources.modifyResource(i, posToNeg(cost[i]))
             }
     }
-
-    //incrementing num of cultists to track limit
-    const misc = useMiscStore();
-
-    misc.addCultist();
     
 }
 
@@ -338,12 +333,10 @@ export function removeCultistFromJob(cultistId) {
 //firing a cultist
 export function fireCultist(cultistId) {
     const cultists = useCultistsStore();
-    const misc = useMiscStore();
 
     removeCultistFromJob(cultistId);
 
     cultists.removeCultist(cultistId);
-    misc.removeCultist();
 }
 
 
@@ -386,6 +379,21 @@ export function buildBuilding(buildingId) {
 
     buildings.buildingBuilding(buildingId)
 }
+
+
+//returns true if there is space for more cultists
+export function checkCultistSpace() {
+    const cultists = useCultistsStore();
+    const misc = useMiscStore();
+
+    if (cultists.numOfCultists >= misc.getCultistLimit) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
 
 
 

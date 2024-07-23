@@ -3,9 +3,11 @@ import Resource from "./Resource.vue";
 
 import {useResourcesStore} from "@/stores/resources.js";
 import { useMiscStore } from "@/stores/misc";
+import { useCultistsStore } from "@/stores/cultists";
 
 const resources = useResourcesStore();
 const misc = useMiscStore();
+const cultists = useCultistsStore();
 
 for (var i in resources.getAll) {
     console.log(i);
@@ -31,7 +33,7 @@ for (var i in resources.getAll) {
                 <tr>
                     <th>Cultists</th>
                     <th></th>
-                    <th>{{ misc.getCultistOwned }} / {{ misc.getCultistLimit }}</th>
+                    <th>{{ cultists.numOfCultists }} / {{ misc.getCultistLimit }}</th>
                 </tr>
             </tbody>
         </table>
