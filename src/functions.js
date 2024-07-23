@@ -35,8 +35,6 @@ export function tick() {
 
     //checking what convos need playing
     checkConvos();
-
-    saveData();
 }
 
 //calculating evilness output, since its different from other resources
@@ -73,6 +71,7 @@ function calculateResource(resource) {
     //first - instantiate stores
     const jobs = useJobsStore();
     const resources = useResourcesStore();
+    const cultists = useCultistsStore();
 
 
     //second - get jobs with matching resource
@@ -83,9 +82,10 @@ function calculateResource(resource) {
 
     for (var i in arrayOfJobs) {
         const job = arrayOfJobs[i];
-        const associateStat = job["stat"];
+        const associatedStat = job["stat"];
         for (var j in job["baseArray"]) {
-            totalResourceOutput = job["baseArray"][j].getStat(associateStat);
+            const cultist = cultists.getCultistById(job["baseArray"][j]);
+            totalResourceOutput = cultist.getStat(associatedStat);
         }
         for (var j in job["modifiers"]) {
             totalResourceOutput = Math.floor(totalResourceOutput * job["modifiers"][j].modifier());
@@ -226,6 +226,7 @@ class Cultist {
 
     serialize() {
         const serializedCultist = {
+            id: this.id,
             name: this.name,
             job: this.job,
             stats: this.stats,
@@ -314,6 +315,9 @@ export function addCultistToJob(cultistId, jobId) {
     //second - add cultistId to job store
     jobs.addCultistToJob(cultistId, jobId);
 
+    console.log(cultistId);
+    console.log(jobId);
+
     //third - update cultist to give them job
     const cultist = cultists.getCultistById(cultistId);
     cultist.setJob(jobs.getName(jobId));
@@ -386,7 +390,7 @@ export function buildBuilding(buildingId) {
 
 
 //localStorage functions
-function saveData() {
+export function saveData() {
     //have each pinia store save their data seperately
     const buildings = useBuildingsStore();
     const convos = useConvosStore();

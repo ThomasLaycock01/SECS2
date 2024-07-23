@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 
 import { useExpansionsStore } from "./expansions";
+import { useCultistsStore } from "./cultists";
 
 export const useMiscStore = defineStore("misc", {
     state: () => {

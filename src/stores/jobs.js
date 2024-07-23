@@ -69,9 +69,7 @@ export const useJobsStore = defineStore("jobs", {
             return returnArray;
         },
         addCultistToJob(cultistId, jobId) {
-            const cultists = useCultistsStore();
-            const cultist = cultists.getCultistById(cultistId);
-            this[jobId]["baseArray"].push(cultist);
+            this[jobId]["baseArray"].push(cultistId);
         },
         removeCultistFromJob(cultistId) {
             for (var i in this) {

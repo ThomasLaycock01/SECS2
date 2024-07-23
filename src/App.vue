@@ -34,7 +34,7 @@ const misc = useMiscStore();
 
 <script>
 
-import { tick, loadData } from "./functions";
+import { tick, loadData, saveData } from "./functions";
 
 import { useMiscStore } from "./stores/misc";
 import { useTextLogStore } from "./stores/textLog";
@@ -57,6 +57,7 @@ export default {
       loadData();
     }
     setInterval(tick, 1000);
+    setInterval(saveData, 30000)
   }
 }
 
