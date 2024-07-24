@@ -24,11 +24,15 @@ export const useTextLogStore = defineStore("textLog", {
     actions: {
         playConvo(convoId) {
             const toPlayArray = this.unplayed.filter((message) => message.convoId == convoId);
+
+            //since there is a breif moment where toPlay is empty, this makes sure that the textlog doesnt accudentally start playing two convos at once
+            const prePushToPlayLength = this.toPlay.length;
+
             for (var i in toPlayArray) {
                 this.toPlay.push(toPlayArray[i])
             }
 
-            if (this.playing.length == 0) {
+            if (this.playing.length == 0 && prePushToPlayLength == 0) {
                 this.moveToPlayintoPlaying();
             }
         },
