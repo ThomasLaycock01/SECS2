@@ -47,8 +47,11 @@ export default {
     const misc = useMiscStore();
     const textLog = useTextLogStore();
 
+    textLog.loadConvos();
+
     if (!misc.checkFirstLoad()) {
       localStorage.setItem("SECSData", JSON.stringify({}));
+      saveData();
       setTimeout(function() {
         textLog.playConvo(0);
       }, 1000)
