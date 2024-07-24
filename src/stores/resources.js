@@ -10,7 +10,7 @@ export const useResourcesStore = defineStore("resources", {
                 Evilness: {total: 0, perSec: 0, showCondition(){const misc = useMiscStore(); return misc.checkHasSeenConvo(1)}}, 
                 Gold: {total: 0, perSec: 0, showCondition(){const misc = useMiscStore(); return misc.checkHasSeenConvo(2)}}, 
                 Crystals: {total: 0, perSec: 0, showCondition(){const expansions = useExpansionsStore(); return expansions.hasTier1}}, 
-                Slime: {total: 0, perSec: 0, showCondition(){const misc = useMiscStore(); return misc.checkHasSeenConvo(4)}}
+                Slime: {total: 0, perSec: 0, showCondition(){const misc = useMiscStore(); return misc.checkHasSeenConvo(5)}}
             }}
     },
     getters: {

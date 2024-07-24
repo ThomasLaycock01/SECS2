@@ -107,7 +107,8 @@ export const actions = {
                 },
                 showCondition() {
                     const expansions = useExpansionsStore();
-                    return (expansions.hasTier2 == false && expansions.hasTier1)
+                    const misc = useMiscStore();
+                    return (expansions.hasTier2 == false && expansions.hasTier1 && misc.checkHasSeenConvo(4));
                 },
                 tooltipData: {
                     title: "Expansion: Barracks",
@@ -130,7 +131,8 @@ export const actions = {
                 },
                 showCondition() {
                     const expansions = useExpansionsStore();
-                    return (expansions.hasTier2 == false && expansions.hasTier1)
+                    const misc = useMiscStore();
+                    return (expansions.hasTier2 == false && expansions.hasTier1 && misc.checkHasSeenConvo(4));
                 },
                 tooltipData: {
                     title: "Expansion: Tower",

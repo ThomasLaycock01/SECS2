@@ -33,6 +33,14 @@ export const useConvosStore = defineStore("convos", {
                         return cultists.numOfCultists >= 1;
                     },
                     completed: false
+                },
+                {
+                    id: 4,
+                    requirements() {
+                        const resources = useResourcesStore();
+                        return resources.getResourceTotal("Crystals") >= 25;
+                    },
+                    completed: false
                 }
 
             ]
