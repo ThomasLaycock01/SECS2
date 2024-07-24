@@ -12,12 +12,18 @@ export const useCostsStore = defineStore("costs", {
                 slime: {Gold: 2500, Crystals: 1000}
             },
             buildings: {
+                //mines
                 goldMine: {
                     costs: {Gold: 20},
                     exponents: {Gold: 1.5}
                 },
                 crystalMine: {
                     costs: {Gold: 50},
+                    exponents: {Gold: 1.5}
+                },
+                //laboratory
+                transmuter: {
+                    costs: {Gold: 25},
                     exponents: {Gold: 1.5}
                 }
             },

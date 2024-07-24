@@ -26,7 +26,7 @@ export const useExpansionsStore = defineStore("expansions", {
         getBuilt(state) {
             return state.built;
         },
-        getBuiltTier0Id(state) {
+        getBuiltTier1Id(state) {
             return state.built.tier1.id;
         },
         getBuiltTier2Id(state) {

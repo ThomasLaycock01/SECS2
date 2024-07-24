@@ -11,6 +11,7 @@ export const useJobsStore = defineStore("jobs", {
                 id: "goldMiner",
                 name: "Gold Miner",
                 output: "Gold",
+                expansion: "mines",
                 stat: "str",
                 baseArray: [],
                 modifiers: [{name: "Buildings", modifier() {
@@ -26,6 +27,7 @@ export const useJobsStore = defineStore("jobs", {
                 id: "crystalMiner",
                 name: "Crystal Miner",
                 output: "Crystals",
+                expansion: "mines",
                 stat: "str",
                 baseArray: [],
                 modifiers: [{name: "Buildings", modifier() {
@@ -35,6 +37,22 @@ export const useJobsStore = defineStore("jobs", {
                 requirement() {
                     const buildings = useBuildingsStore();
                     return buildings.getNumOfBuildingById("crystalMine") >= 1;
+                }
+            },
+            goldTransmuter: {
+                id: "goldTransmuter",
+                name: "Gold Transmuter",
+                output: "Gold",
+                expansion: "laboratory",
+                stat: "int",
+                baseArray: [],
+                modifiers: [{name: "Buildings", modifier() {
+                    const buildings = useBuildingsStore();
+                    return 1 + (buildings.getNumOfBuildingById("transmuter") - 1) * 0.2;
+                }}],
+                requirement() {
+                    const buildings = useBuildingsStore();
+                    return buildings.getNumOfBuildingById("transmuter") >= 1;
                 }
             }
 
@@ -68,13 +86,23 @@ export const useJobsStore = defineStore("jobs", {
 
             return returnArray;
         },
+        getByExpansion(expansion) {
+            var returnArray = [];
+            for (var i in this) {
+                if (this[i]["expansion"] == expansion) {
+                    returnArray.push(this[i]);
+                }
+            }
+
+            return returnArray;
+        },
         addCultistToJob(cultistId, jobId) {
             this[jobId]["baseArray"].push(cultistId);
         },
         removeCultistFromJob(cultistId) {
             for (var i in this) {
                 if (this[i]["baseArray"]) {
-                    this[i]["baseArray"] = this[i]["baseArray"].filter((cultist) => cultist.getId() != cultistId);
+                    this[i]["baseArray"] = this[i]["baseArray"].filter((cultist) => cultist != cultistId);
                 }
             }
         },

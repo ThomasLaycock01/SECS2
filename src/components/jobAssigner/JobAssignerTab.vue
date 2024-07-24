@@ -10,7 +10,7 @@ const jobs = useJobsStore();
 const cultists = useCultistsStore();
 
 const props = defineProps({
-    resource: String
+    expansion: String
 })
 
 function fireButtonClick(e) {
@@ -19,9 +19,9 @@ function fireButtonClick(e) {
 </script>
 
 <template>
-    <div v-for="i in jobs.getByOutput(props.resource)">
+    <div v-for="i in jobs.getByExpansion(props.expansion)">
         <div v-if="i.requirement()">
-            <div class="title is-6 mb-1 segment-title">{{i.name}}</div>
+            <div class="title is-6 mb-1 segment-title">{{i.name}} - produces {{ i.output }}</div>
             <!--List of cultists working in a job-->
             <div v-for="j in jobs.getBaseArray(i.id)">
                 <div>{{ cultists.getCultistById(jobs.getBaseArray(i.id)[j]).getName() }} - Producing {{ cultists.getCultistById(jobs.getBaseArray(i.id)[j]).getStat(i.stat) }} /s <button class="button is-small is-danger" :value="cultists.getCultistById(jobs.getBaseArray(i.id)[j]).getId()" @click="fireButtonClick">X</button></div>

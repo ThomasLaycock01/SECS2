@@ -34,7 +34,7 @@ export const useMiscStore = defineStore("misc", {
                 }
             }
 
-            this.limits.cultists = totalLimit;
+            this.cultistLimit = totalLimit;
         },
         addSeenConvo(convoId) {
             this.seenConvos.push(convoId);

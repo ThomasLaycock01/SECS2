@@ -350,8 +350,8 @@ export const actions = {
                     title: "Transmuter",
                     body: "A device for turning lead into gold",
                     costs() {
-                        const buildings = useBuildingsStore();
-                        return buildings.getBuildingCostsById("transmuter")
+                        const costs = useCostsStore();
+                        return costs.getTotalBuildingCost("transmuter");
                     }
                 }
             }

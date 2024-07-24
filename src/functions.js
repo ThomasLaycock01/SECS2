@@ -356,11 +356,11 @@ function updateCultistXp() {
 //building expansions
 export function buildExpansion(expansionId) {
     const expansions = useExpansionsStore();
+    const misc = useMiscStore();
+
     expansions.buildExpansion(expansionId);
-
-
-    //calculating limits for cultists
-    calculateLimits();
+    misc.calculateCultistLimit();
+    
 }
 
 
