@@ -354,6 +354,26 @@ export const actions = {
                         return costs.getTotalBuildingCost("transmuter");
                     }
                 }
+            },
+            crystallizer: {
+                id: "crystalliser",
+                name: "Crystalliser",
+                effect() {
+                    buildBuilding("crystalliser");
+                },
+                condition() {
+                    const buildings = useBuildingsStore();
+                    return buildings.checkIfCanAfford("crystalliser");
+                },
+                showCondition() {return true},
+                tooltipData: {
+                    title: "Crystalliser",
+                    body: "A device for not-crystals into crystals",
+                    costs() {
+                        const costs = useCostsStore();
+                        return costs.getTotalBuildingCost("crystalliser");
+                    }
+                }
             }
         }
     },

@@ -39,6 +39,7 @@ export const useJobsStore = defineStore("jobs", {
                     return buildings.getNumOfBuildingById("crystalMine") >= 1;
                 }
             },
+            //laboratory
             goldTransmuter: {
                 id: "goldTransmuter",
                 name: "Gold Transmuter",
@@ -53,6 +54,22 @@ export const useJobsStore = defineStore("jobs", {
                 requirement() {
                     const buildings = useBuildingsStore();
                     return buildings.getNumOfBuildingById("transmuter") >= 1;
+                }
+            },
+            crystalliser: {
+                id: "crystalliser",
+                name: "Crystalliser",
+                output: "Crystals",
+                expansion: "laboratory",
+                stat: "int",
+                baseArray: [],
+                modifiers: [{name: "Buildings", modifier() {
+                    const buildings = useBuildingsStore();
+                    return 1 + (buildings.getNumOfBuildingById("crystalliser") - 1) * 0.2;
+                }}],
+                requirement() {
+                    const buildings = useBuildingsStore();
+                    return buildings.getNumOfBuildingById("crystalliser") >= 1;
                 }
             }
 

@@ -25,11 +25,20 @@ export const useCostsStore = defineStore("costs", {
                 transmuter: {
                     costs: {Gold: 25},
                     exponents: {Gold: 1.5}
+                },
+                crystalliser: {
+                    costs: {Gold: 30},
+                    exponents: {Gold: 1.5}
                 }
             },
             expansions: {
+                //t1
                 mines: {Gold: 30},
-                laboratory: {Gold: 30}
+                laboratory: {Gold: 30},
+                //t2
+                barracks: {Gold: 2500, Crystals: 1000},
+                tower: {Gold: 5000, Crystals: 4000},
+                //t3
             }
         }
     },

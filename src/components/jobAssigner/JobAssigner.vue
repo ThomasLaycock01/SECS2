@@ -15,16 +15,16 @@ var activeTab = 0;
       <b-tab-item label="Laboratory" :visible="expansions.getBuiltTier1Id == 'laboratory'">
         <JobAssignerTab :expansion="'laboratory'"/>
       </b-tab-item>
-      <b-tab-item label="Barracks" :visible="tier1 == 'laboratory'">
+      <b-tab-item label="Barracks" :visible="false">
         <JobAssignerTab :expansion="'barracks'"/>
       </b-tab-item>
-      <b-tab-item label="Tower" :visible="tier1 == 'laboratory'">
+      <b-tab-item label="Tower" :visible="false">
         <JobAssignerTab :expansion="'tower'"/>
       </b-tab-item>
-      <b-tab-item label="Academy" :visible="tier1 == 'laboratory'">
+      <b-tab-item label="Academy" :visible="false">
         <JobAssignerTab :expansion="'academy'"/>
       </b-tab-item>
-      <b-tab-item label="Dungeons" :visible="tier1 == 'laboratory'">
+      <b-tab-item label="Dungeons" :visible="false">
         <JobAssignerTab :expansion="'dungeons'"/>
       </b-tab-item>
     </b-tabs>

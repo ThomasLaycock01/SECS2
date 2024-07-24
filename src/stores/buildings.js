@@ -11,6 +11,7 @@ export const useBuildingsStore = defineStore("buildings", {
             {id:"crystalMine", owned: 0},
             //laboratory buildings
             {id:"transmuter", owned: 0},
+            {id:"crystalliser", owned: 0},
             //barracks buildings
             {id:"drillSquare", owned: 0},
             //tower buildings
