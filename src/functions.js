@@ -242,7 +242,7 @@ function createCultist(id, name, species, job = null, stats = {str: 1, int: 1, a
 export function deserializeCultist(obj) {
     const cultists = useCultistsStore();
 
-    const cultist = createCultist(obj.id, obj.name, obj.species, obj.job, obj.stats, obj.level, obj.currentXp, obj.xpNeeded, obj.xpIcrement, obj.freeStatPoint, obj.levelLimit);
+    const cultist = createCultist(obj.id, obj.name, obj.species, obj.job, obj.stats, obj.level, obj.currentXp, obj.xpNeeded, obj.xpIcrement, obj.freeStatPoints, obj.levelLimit);
 
     cultists.addCultist(cultist);
 }
