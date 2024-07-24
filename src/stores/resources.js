@@ -1,6 +1,7 @@
 import {defineStore} from "pinia";
 
 import { useMiscStore } from "./misc";
+import { useExpansionsStore } from "./expansions";
 
 export const useResourcesStore = defineStore("resources", {
     state: () => {
@@ -8,8 +9,8 @@ export const useResourcesStore = defineStore("resources", {
             resources: {
                 Evilness: {total: 0, perSec: 0, showCondition(){const misc = useMiscStore(); return misc.checkHasSeenConvo(1)}}, 
                 Gold: {total: 0, perSec: 0, showCondition(){const misc = useMiscStore(); return misc.checkHasSeenConvo(2)}}, 
-                Crystals: {total: 0, perSec: 0, showCondition(){const misc = useMiscStore(); return misc.checkHasSeenConvo(3)}}, 
-                Slime: {total: 0, perSec: 0, showCondition(){const misc = useMiscStore(); return misc.checkHasSeenConvo(3)}}
+                Crystals: {total: 0, perSec: 0, showCondition(){const expansions = useExpansionsStore(); return expansions.hasTier1}}, 
+                Slime: {total: 0, perSec: 0, showCondition(){const misc = useMiscStore(); return misc.checkHasSeenConvo(4)}}
             }}
     },
     getters: {

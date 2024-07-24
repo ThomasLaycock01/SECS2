@@ -5,15 +5,14 @@ import { useExpansionsStore } from '@/stores/expansions';
 const expansions = useExpansionsStore();
 
 var activeTab = 0;
-var tier1 = expansions.getBuiltTier1Id
 </script>
 
 <template>
     <b-tabs v-model="activeTab">
-      <b-tab-item label="Mines" :visible="tier1 == 'mines'">
+      <b-tab-item label="Mines" :visible="expansions.getBuiltTier1Id == 'mines'">
         <JobAssignerTab :expansion="'mines'"/>
       </b-tab-item>
-      <b-tab-item label="Laboratory" :visible="tier1 == 'laboratory'">
+      <b-tab-item label="Laboratory" :visible="expansions.getBuiltTier1Id == 'laboratory'">
         <JobAssignerTab :expansion="'laboratory'"/>
       </b-tab-item>
       <b-tab-item label="Barracks" :visible="tier1 == 'laboratory'">

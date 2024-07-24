@@ -68,6 +68,8 @@ export const useMiscStore = defineStore("misc", {
 
             this["firstLoad"] = data.misc.firstLoad;
             this["seenConvos"] = data.misc.seenConvos;
+
+            this.calculateCultistLimit();
         }
     }
 })

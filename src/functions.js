@@ -81,15 +81,17 @@ function calculateResource(resource) {
     var totalResourceOutput = 0;
 
     for (var i in arrayOfJobs) {
+        var resourceOutputPerBuilding = 0;
         const job = arrayOfJobs[i];
         const associatedStat = job["stat"];
         for (var j in job["baseArray"]) {
             const cultist = cultists.getCultistById(job["baseArray"][j]);
-            totalResourceOutput = cultist.getStat(associatedStat);
+            resourceOutputPerBuilding = cultist.getStat(associatedStat);
         }
         for (var j in job["modifiers"]) {
-            totalResourceOutput = Math.floor(totalResourceOutput * job["modifiers"][j].modifier());
+            resourceOutputPerBuilding = Math.floor(resourceOutputPerBuilding * job["modifiers"][j].modifier());
         }
+        totalResourceOutput += resourceOutputPerBuilding;
     }
 
     //fourth - update resources store with new output
@@ -110,17 +112,6 @@ function checkConvos() {
     const convos = useConvosStore();
 
     convos.playPerRequirements();
-}
-
-
-
-//calculating cultist limit
-function calculateLimits() {
-    const misc = useMiscStore();
-
-    misc.calculateCultistLimit();
-
-
 }
 
 
