@@ -14,7 +14,7 @@ export const useConvosStore = defineStore("convos", {
                     id: 1,
                     requirements() {
                         const resources = useResourcesStore();
-                        return resources.getResourceTotal("Evilness") >= 1;
+                        return resources.getResourceTotal("evilness") >= 1;
                     },
                     completed: false
                 },
@@ -22,7 +22,7 @@ export const useConvosStore = defineStore("convos", {
                     id: 2,
                     requirements() {
                         const resources = useResourcesStore();
-                        return resources.getResourceTotal("Evilness") >= 10;
+                        return resources.getResourceTotal("evilness") >= 10;
                     },
                     completed: false
                 },
@@ -38,7 +38,7 @@ export const useConvosStore = defineStore("convos", {
                     id: 4,
                     requirements() {
                         const resources = useResourcesStore();
-                        return resources.getResourceTotal("Crystals") >= 25;
+                        return resources.getResourceTotal("crystals") >= 25;
                     },
                     completed: false
                 }

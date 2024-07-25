@@ -19,7 +19,7 @@ export const actions = {
                 name: "Be Evil >:)",
                 effect(){
                     const resources = useResourcesStore();
-                    resources.modifyResource("Evilness", 1);
+                    resources.modifyResource("evilness", 1);
                 },
                 condition(){return true},
                 showCondition(){return true},
@@ -34,7 +34,7 @@ export const actions = {
                 name: "Acquire Gold",
                 effect(){
                     const resources = useResourcesStore();
-                    resources.modifyResource("Gold", 1);
+                    resources.modifyResource("gold", 1);
                 },
                 condition(){return true},
                 showCondition() {
@@ -184,8 +184,8 @@ export const actions = {
                     title: "Expansion: Dungeons",
                     body: "Dungeons for misbehaving cultists",
                     costs() {
-                        const expansions = useExpansionsStore();
-                        return expansions.getExpansionCosts("dungeons");
+                        const costs = useCostsStore();
+                        return costs.getExpansionCost("dungeons");
                     }
                 }
             }

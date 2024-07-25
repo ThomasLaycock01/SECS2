@@ -10,7 +10,7 @@ export const useJobsStore = defineStore("jobs", {
             goldMiner: {
                 id: "goldMiner",
                 name: "Gold Miner",
-                output: "Gold",
+                output: "gold",
                 expansion: "mines",
                 stat: "str",
                 baseArray: [],
@@ -26,7 +26,7 @@ export const useJobsStore = defineStore("jobs", {
             crystalMiner: {
                 id: "crystalMiner",
                 name: "Crystal Miner",
-                output: "Crystals",
+                output: "crystals",
                 expansion: "mines",
                 stat: "str",
                 baseArray: [],
@@ -43,7 +43,7 @@ export const useJobsStore = defineStore("jobs", {
             goldTransmuter: {
                 id: "goldTransmuter",
                 name: "Gold Transmuter",
-                output: "Gold",
+                output: "gold",
                 expansion: "laboratory",
                 stat: "int",
                 baseArray: [],
@@ -59,7 +59,7 @@ export const useJobsStore = defineStore("jobs", {
             crystalliser: {
                 id: "crystalliser",
                 name: "Crystalliser",
-                output: "Crystals",
+                output: "crystals",
                 expansion: "laboratory",
                 stat: "int",
                 baseArray: [],
@@ -90,10 +90,10 @@ export const useJobsStore = defineStore("jobs", {
             infuser: {
                 id: "infuser",
                 name: "Mana Infuser",
-                output: "Mana Crystals",
+                output: "manaCrystals",
                 expansion: "tower",
                 stat: "int",
-                consumes: {Crystals: 2},
+                consumes: {crystals: 2},
                 baseArray: [],
                 modifiers: [{name: "Buildings", modifier() {
                     const buildings = useBuildingsStore();

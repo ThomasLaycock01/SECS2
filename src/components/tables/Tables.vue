@@ -10,10 +10,6 @@ const resources = useResourcesStore();
 const misc = useMiscStore();
 const cultists = useCultistsStore();
 const expansions = useExpansionsStore();
-
-for (var i in resources.getAll) {
-    console.log(i);
-}
 </script>
 
 <template>
@@ -27,7 +23,7 @@ for (var i in resources.getAll) {
                 </tr>
             </thead>
             <tbody>
-                <Resource v-for="(object, resource) in resources.getAll" :resource="resource" :object="object"/>
+                <Resource v-for="(object, resource) in resources.getAll" :object="object"/>
             </tbody>
         </table>
         <table class="table" v-if="misc.checkHasSeenConvo(2)">

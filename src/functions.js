@@ -15,10 +15,10 @@ export function tick() {
     //adding resources
     for (var i in resources.getAll) {
         switch(i) {
-            case "Evilness":
+            case "evilness":
                 calculateEvilness();
                 break;
-            case "Slime":
+            case "slime":
                 calculateSlime();
                 break;
             default:
@@ -48,7 +48,7 @@ function calculateEvilness() {
         totalEvilnessOutput += cultists.regularCultists[i].getLevel();
     }
 
-    resources.setResourcePerSec("Evilness", totalEvilnessOutput);
+    resources.setResourcePerSec("evilness", totalEvilnessOutput);
 }
 
 //Slime is also different
@@ -63,7 +63,7 @@ function calculateSlime() {
         }
     }
 
-    resources.setResourcePerSec("Slime", totalSlimeOutput);
+    resources.setResourcePerSec("slime", totalSlimeOutput);
 }
 
 
@@ -94,7 +94,6 @@ function calculateResource(resource) {
         }
         totalResourceOutput += resourceOutputPerBuilding;
     }
-
 
     //subtracting consumed resources
     const arrayOfConsumerJobs = jobs.getByConsumes(resource);
@@ -311,7 +310,6 @@ export function addCultist(species) {
             for (var i in cost) {
                 resources.modifyResource(i, posToNeg(cost[i]))
             }
-            //resources.modifyResource("Gold", costs.getCultistCost("human"));
             break;
         case "Dwarf":
             var cost = costs.getCultistCost("dwarf");

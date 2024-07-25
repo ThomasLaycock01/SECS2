@@ -7,51 +7,51 @@ export const useCostsStore = defineStore("costs", {
     state: () => {
         return {
             cultists: {
-                human: {Gold: 20},
-                dwarf: {Gold: 2000},
-                slime: {Gold: 2500, Crystals: 1000}
+                human: {gold: 20},
+                dwarf: {gold: 2000},
+                slime: {gold: 2500, crystals: 1000}
             },
             buildings: {
                 //mines
                 goldMine: {
-                    costs: {Gold: 20},
-                    exponents: {Gold: 1.5}
+                    costs: {gold: 20},
+                    exponents: {gold: 1.5}
                 },
                 crystalMine: {
-                    costs: {Gold: 50},
-                    exponents: {Gold: 1.5}
+                    costs: {gold: 50},
+                    exponents: {gold: 1.5}
                 },
                 //laboratory
                 transmuter: {
-                    costs: {Gold: 25},
-                    exponents: {Gold: 1.5}
+                    costs: {gold: 25},
+                    exponents: {gold: 1.5}
                 },
                 crystalliser: {
-                    costs: {Gold: 30},
-                    exponents: {Gold: 1.5}
+                    costs: {gold: 30},
+                    exponents: {gold: 1.5}
                 },
                 //barracks
                 drillSquare: {
-                    costs: {Gold: 500, Crystals: 250},
-                    exponents: {Gold: 2, Crystals: 2}
+                    costs: {gold: 500, crystals: 250},
+                    exponents: {gold: 2, crystals: 2}
                 },
                 bunkBeds: {
-                    costs: {Gold: 1000, Crystals: 700},
-                    exponents: {Gold: 3, Crystals: 2.5}
+                    costs: {gold: 1000, crystals: 700},
+                    exponents: {gold: 3, crystals: 2.5}
                 },
                 //tower
                 infuser: {
-                    costs: {Gold: 500, Crystals: 500},
-                    exponents: {Gold: 2, Crystals: 2}
+                    costs: {gold: 500, crystals: 500},
+                    exponents: {gold: 2, crystals: 2}
                 }
             },
             expansions: {
                 //t1
-                mines: {Gold: 30},
-                laboratory: {Gold: 30},
+                mines: {gold: 30},
+                laboratory: {gold: 30},
                 //t2
-                barracks: {Gold: 2500, Crystals: 1000},
-                tower: {Gold: 5000, Crystals: 4000},
+                barracks: {gold: 2500, crystals: 1000},
+                tower: {gold: 5000, crystals: 4000},
                 //t3
             }
         }

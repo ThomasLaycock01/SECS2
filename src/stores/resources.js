@@ -7,10 +7,11 @@ export const useResourcesStore = defineStore("resources", {
     state: () => {
         return {
             resources: {
-                Evilness: {total: 0, perSec: 0, showCondition(){const misc = useMiscStore(); return misc.checkHasSeenConvo(1)}}, 
-                Gold: {total: 0, perSec: 0, showCondition(){const misc = useMiscStore(); return misc.checkHasSeenConvo(2)}}, 
-                Crystals: {total: 0, perSec: 0, showCondition(){const expansions = useExpansionsStore(); return expansions.hasTier1}}, 
-                Slime: {total: 0, perSec: 0, showCondition(){const misc = useMiscStore(); return misc.checkHasSeenConvo(5)}}
+                evilness: {name: "Evilness", total: 0, perSec: 0, showCondition(){const misc = useMiscStore(); return misc.checkHasSeenConvo(1)}}, 
+                gold: {name:"Gold", total: 0, perSec: 0, showCondition(){const misc = useMiscStore(); return misc.checkHasSeenConvo(2)}}, 
+                crystals: {name:"Crystals", total: 0, perSec: 0, showCondition(){const expansions = useExpansionsStore(); return expansions.hasTier1}}, 
+                manaCrystals: {name:"Mana Crystals", total: 0, perSec: 0, showCondition(){const expansions = useExpansionsStore(); return expansions.getBuiltTier2Id == "tower";}},
+                slime: {name:"Slime",total: 0, perSec: 0, showCondition(){const misc = useMiscStore(); return misc.checkHasSeenConvo(5)}}
             }}
     },
     getters: {
@@ -25,6 +26,9 @@ export const useResourcesStore = defineStore("resources", {
         },
         getSpecificResource(state) {
             return (resource) => state["resources"][resource];
+        },
+        getName(state) {
+            return (resource) => state["resources"][resource]["name"];
         }
     },
     actions: {
