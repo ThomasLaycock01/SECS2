@@ -8,7 +8,8 @@ export const useMiscStore = defineStore("misc", {
         return {
             cultistLimit: 2,
             firstLoad: true,
-            seenConvos:[]
+            seenConvos:[],
+            xpOutput: 1
         }
     },
     getters: {
@@ -20,6 +21,9 @@ export const useMiscStore = defineStore("misc", {
         },
         checkHasSeenConvo(state) {
             return (convoId) => state.seenConvos.includes(convoId);
+        },
+        getXpOutput(state) {
+            return state.xpOutput;
         }
     },
     actions: {
@@ -49,6 +53,9 @@ export const useMiscStore = defineStore("misc", {
                 return false;
             }
             return true;
+        },
+        setXpOutput(value) {
+            this["xpOutput"] = value;
         },
         saveData() {
             var data = JSON.parse(localStorage.getItem("SECSData"));

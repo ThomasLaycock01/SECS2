@@ -71,6 +71,20 @@ export const useJobsStore = defineStore("jobs", {
                     const buildings = useBuildingsStore();
                     return buildings.getNumOfBuildingById("crystalliser") >= 1;
                 }
+            },
+            //barracks
+            drillInstructor: {
+                id: "drillInstructor",
+                name: "Drill Instructor",
+                output: "xp",
+                expansion: "barracks",
+                stat: "cha",
+                baseArray: [],
+                modifiers: [],
+                requirement() {
+                    const buildings = useBuildingsStore();
+                    return buildings.getNumOfBuildingById("drillSquare");
+                }
             }
 
         }

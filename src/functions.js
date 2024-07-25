@@ -31,6 +31,7 @@ export function tick() {
     updateResources();
 
     //updating xp for cultists
+    calculateXpOutput();
     updateCultistXp();
 
     //checking what convos need playing
@@ -105,6 +106,33 @@ function updateResources() {
     for (var i in resources.getAll) {
         resources.modifyResource(i, resources.getResourcePerSec(i));
     }
+}
+
+function calculateXpOutput() {
+    const jobs = useJobsStore();
+    const cultists = useCultistsStore();
+    const misc = useMiscStore();
+
+    const arrayOfJobs = jobs.getByOutput("xp");
+
+    var totalXpOutput = 1;
+
+    for (var i in arrayOfJobs) {
+        var xpOutputPerBuilding = 0;
+        const job = arrayOfJobs[i];
+        const associatedStat = job["stat"];
+        for (var j in job["baseArray"]) {
+            const cultist = cultists.getCultistById(job["baseArray"][j]);
+            xpOutputPerBuilding += cultist.getStat(associatedStat);
+        }
+        for (var j in job["modifiers"]) {
+            xpOutputPerBuilding = Math.floor(xpOutputPerBuilding * job["modifiers"][j].modifier());
+        }
+        totalXpOutput += xpOutputPerBuilding;
+    }
+
+    misc.setXpOutput(totalXpOutput);
+
 }
 
 //checking and playing convos
@@ -336,11 +364,12 @@ export function fireCultist(cultistId) {
 //adding xp to cultists with jobs
 function updateCultistXp() {
     const cultists = useCultistsStore();
+    const misc = useMiscStore();
 
     const cultistArray = cultists.getEmployed
 
     for (var i in cultistArray) {
-        cultistArray[i].addXp(1);
+        cultistArray[i].addXp(misc.getXpOutput);
     }
 }
 

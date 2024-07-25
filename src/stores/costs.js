@@ -29,6 +29,11 @@ export const useCostsStore = defineStore("costs", {
                 crystalliser: {
                     costs: {Gold: 30},
                     exponents: {Gold: 1.5}
+                },
+                //barracks
+                drillSquare: {
+                    costs: {Gold: 500, Crystals: 250},
+                    exponents: {Gold: 2, Crystals: 2}
                 }
             },
             expansions: {

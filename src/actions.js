@@ -108,7 +108,7 @@ export const actions = {
                 showCondition() {
                     const expansions = useExpansionsStore();
                     const misc = useMiscStore();
-                    return (expansions.hasTier2 == false && expansions.hasTier1 && misc.checkHasSeenConvo(4));
+                    return (expansions.hasTier2 == false && misc.checkHasSeenConvo(4));
                 },
                 tooltipData: {
                     title: "Expansion: Barracks",
@@ -404,8 +404,8 @@ export const actions = {
                     title: "Drill Square",
                     body: "A square for preparing your soldiers",
                     costs() {
-                        const buildings = useBuildingsStore();
-                        return buildings.getBuildingCostsById("drillSquare")
+                        const costs = useCostsStore();
+                        return costs.getTotalBuildingCost("drillSquare");
                     }
                 }
             }

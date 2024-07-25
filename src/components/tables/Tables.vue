@@ -4,10 +4,12 @@ import Resource from "./Resource.vue";
 import {useResourcesStore} from "@/stores/resources.js";
 import { useMiscStore } from "@/stores/misc";
 import { useCultistsStore } from "@/stores/cultists";
+import { useExpansionsStore } from "@/stores/expansions";
 
 const resources = useResourcesStore();
 const misc = useMiscStore();
 const cultists = useCultistsStore();
+const expansions = useExpansionsStore();
 
 for (var i in resources.getAll) {
     console.log(i);
@@ -34,6 +36,9 @@ for (var i in resources.getAll) {
                     <th>Cultists</th>
                     <th></th>
                     <th>{{ cultists.numOfCultists }} / {{ misc.getCultistLimit }}</th>
+                </tr>
+                <tr v-if="expansions.hasTier1">
+                    <td>Employed Cultists earn {{ misc.getXpOutput }} XP per second</td>
                 </tr>
             </tbody>
         </table>
