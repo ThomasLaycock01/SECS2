@@ -456,8 +456,8 @@ export const actions = {
                     title: "Infuser",
                     body: "A device for infusing crystals with mana",
                     costs() {
-                        const buildings = useBuildingsStore();
-                        return buildings.getBuildingCostsById("infuser")
+                        const costs = useCostsStore();
+                        return costs.getTotalBuildingCost("infuser");
                     }
                 }
             }

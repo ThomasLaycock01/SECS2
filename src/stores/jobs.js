@@ -83,7 +83,24 @@ export const useJobsStore = defineStore("jobs", {
                 modifiers: [],
                 requirement() {
                     const buildings = useBuildingsStore();
-                    return buildings.getNumOfBuildingById("drillSquare");
+                    return buildings.getNumOfBuildingById("drillSquare") >= 1;
+                }
+            },
+            //tower
+            infuser: {
+                id: "infuser",
+                name: "Mana Infuser",
+                output: "Mana Crystals",
+                expansion: "tower",
+                stat: "int",
+                baseArray: [],
+                modifiers: [{name: "Buildings", modifier() {
+                    const buildings = useBuildingsStore();
+                    return 1 + (buildings.getNumOfBuildingById("infuser") - 1) * 0.1;
+                }}],
+                requirement() {
+                    const buildings = useBuildingsStore();
+                    return buildings.getNumOfBuildingById("infuser") >= 1;
                 }
             }
 

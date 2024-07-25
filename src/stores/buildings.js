@@ -20,6 +20,7 @@ export const useBuildingsStore = defineStore("buildings", {
             infuser: {id:"infuser", owned: 0, jobOnly: true},
             //academy buidlings
             lectureHall: {id:"lectureHall", owned: 0, jobOnly: true},
+            spellCircle: {id:"spellCircle", owned: 0, jobOnly: false, special: "spellcasting"},
             //dungeons buildings
             cell: {id:"cell", owned: 0, jobOnly: true}
         }}

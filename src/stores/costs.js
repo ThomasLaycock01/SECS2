@@ -38,6 +38,11 @@ export const useCostsStore = defineStore("costs", {
                 bunkBeds: {
                     costs: {Gold: 1000, Crystals: 700},
                     exponents: {Gold: 3, Crystals: 2.5}
+                },
+                //tower
+                infuser: {
+                    costs: {Gold: 500, Crystals: 500},
+                    exponents: {Gold: 2, Crystals: 2}
                 }
             },
             expansions: {
