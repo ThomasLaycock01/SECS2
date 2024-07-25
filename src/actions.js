@@ -408,6 +408,26 @@ export const actions = {
                         return costs.getTotalBuildingCost("drillSquare");
                     }
                 }
+            },
+            bunkBeds: {
+                id: "bunkBeds",
+                name: "Bunk Beds",
+                effect() {
+                    buildBuilding("bunkBeds");
+                },
+                condition() {
+                    const buildings = useBuildingsStore();
+                    return buildings.checkIfCanAfford("bunkBeds");
+                },
+                showCondition() {return true},
+                tooltipData: {
+                    title: "Bunk Beds",
+                    body: "Space for more cultists to sleep",
+                    costs() {
+                        const costs = useCostsStore();
+                        return costs.getTotalBuildingCost("bunkBeds");
+                    }
+                }
             }
         }
     },

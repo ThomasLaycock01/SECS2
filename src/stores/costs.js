@@ -34,6 +34,10 @@ export const useCostsStore = defineStore("costs", {
                 drillSquare: {
                     costs: {Gold: 500, Crystals: 250},
                     exponents: {Gold: 2, Crystals: 2}
+                },
+                bunkBeds: {
+                    costs: {Gold: 1000, Crystals: 700},
+                    exponents: {Gold: 3, Crystals: 2.5}
                 }
             },
             expansions: {

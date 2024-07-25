@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 
 import { useExpansionsStore } from "./expansions";
 import { useCultistsStore } from "./cultists";
+import { useBuildingsStore } from "./buildings";
 
 export const useMiscStore = defineStore("misc", {
     state: () => {
@@ -29,6 +30,7 @@ export const useMiscStore = defineStore("misc", {
     actions: {
         calculateCultistLimit() {
             const expansions = useExpansionsStore();
+            const buildings = useBuildingsStore();
 
             var totalLimit = 2;
 
@@ -37,6 +39,12 @@ export const useMiscStore = defineStore("misc", {
                     totalLimit += expansions.getBuilt[i]["cultistLimit"];
                 }
             }
+
+            for (var i in buildings.getCultistLimitBuildings()) {
+                totalLimit += buildings.getCultistLimitBuildings()[i]["owned"];
+            }
+
+            console.log(totalLimit);
 
             this.cultistLimit = totalLimit;
         },

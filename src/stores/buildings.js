@@ -2,38 +2,37 @@ import { defineStore } from "pinia";
 
 import { useResourcesStore } from "./resources";
 import { useCostsStore } from "./costs";
+import { useMiscStore } from "./misc";
 
 export const useBuildingsStore = defineStore("buildings", {
     state: () => {
-        return {buildings: [
+        return {buildings: {
             //mines buildings
-            {id: "goldMine", owned: 0},
-            {id:"crystalMine", owned: 0},
+            goldMine: {id: "goldMine", owned: 0, jobOnly: true},
+            crystalMine: {id:"crystalMine", owned: 0, jobOnly: true},
             //laboratory buildings
-            {id:"transmuter", owned: 0},
-            {id:"crystalliser", owned: 0},
+            transmuter: {id:"transmuter", owned: 0, jobOnly: true},
+            crystalliser: {id:"crystalliser", owned: 0, jobOnly: true},
             //barracks buildings
-            {id:"drillSquare", owned: 0},
+            drillSquare: {id:"drillSquare", owned: 0, jobOnly: true},
+            bunkBeds: {id:"bunkBeds", owned: 0, jobOnly: false, special:"cultistLimit"},
             //tower buildings
-            {id:"infuser", owned: 0},
+            infuser: {id:"infuser", owned: 0, jobOnly: true},
             //academy buidlings
-            {id:"lectureHall", owned: 0},
+            lectureHall: {id:"lectureHall", owned: 0, jobOnly: true},
             //dungeons buildings
-            {id:"cell", owned: 0}
-        ]}
+            cell: {id:"cell", owned: 0, jobOnly: true}
+        }}
     },
     getters: {
         getNumOfBuildingById(state) {
-            return (buildingId) => state.buildings.find((building) => building.id == buildingId).owned;
+            return (buildingId) => state.buildings[buildingId]["owned"];
         },
         getBuildingById: (state) => {
-            return (buildingId) => state.buildings.find((building) => building.id == buildingId);
+            return (buildingId) => state.buildings[buildingId];
         },
         getBuildingCostsById: (state) => {
-            return (buildingId) => state.buildings.find((building) => building.id == buildingId).costs;
-        },
-        getBuildingOwnedById: (state) => {
-            return (buildingId) => state.buildings.find((building) => building.id == buildingId).owned;
+            return (buildingId) => state.buildings[buildingId]["costs"];
         },
         getAll(state) {
             return state.buildings;
@@ -41,7 +40,24 @@ export const useBuildingsStore = defineStore("buildings", {
     },
     actions: {
         buildingBuilding(buildingId) {
-            this.buildings.find((building) => building.id == buildingId).owned += 1;
+            this.buildings[buildingId].owned += 1;
+
+            if (this.buildings[buildingId].special == "cultistLimit") {
+                const misc = useMiscStore();
+                misc.calculateCultistLimit();
+            }
+        },
+        getCultistLimitBuildings() {
+            const returnArray = [];
+            for (var i in this["buildings"]) {
+                if (this["buildings"][i]["special"] == "cultistLimit") {
+                    returnArray.push(this["buildings"][i])
+                }
+            }
+
+            console.log(returnArray);
+
+            return returnArray;
         },
         checkIfCanAfford(buildingId) {
             const resources = useResourcesStore();
