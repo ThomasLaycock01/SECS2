@@ -93,6 +93,7 @@ export const useJobsStore = defineStore("jobs", {
                 output: "Mana Crystals",
                 expansion: "tower",
                 stat: "int",
+                consumes: {Crystals: 2},
                 baseArray: [],
                 modifiers: [{name: "Buildings", modifier() {
                     const buildings = useBuildingsStore();
@@ -128,7 +129,19 @@ export const useJobsStore = defineStore("jobs", {
             var returnArray = [];
             for (var i in this) {
                 if (this[i]["output"] == output) {
-                    returnArray.push(this[i])
+                    returnArray.push(this[i]);
+                }
+            }
+
+            return returnArray;
+        },
+        getByConsumes(consumes) {
+            var returnArray = [];
+            for (var i in this) {
+                for (var j in this[i]["consumes"]) {
+                    if (j == consumes) {
+                        returnArray.push(this[i]);
+                    }
                 }
             }
 

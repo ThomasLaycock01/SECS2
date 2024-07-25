@@ -18,7 +18,7 @@ var activeTab = 0;
       <b-tab-item label="Barracks" :visible="expansions.getBuiltTier2Id == 'barracks'">
         <JobAssignerTab :expansion="'barracks'"/>
       </b-tab-item>
-      <b-tab-item label="Tower" :visible="false">
+      <b-tab-item label="Tower" :visible="expansions.getBuiltTier2Id == 'tower'">
         <JobAssignerTab :expansion="'tower'"/>
       </b-tab-item>
       <b-tab-item label="Academy" :visible="false">

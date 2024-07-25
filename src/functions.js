@@ -95,6 +95,15 @@ function calculateResource(resource) {
         totalResourceOutput += resourceOutputPerBuilding;
     }
 
+
+    //subtracting consumed resources
+    const arrayOfConsumerJobs = jobs.getByConsumes(resource);
+
+    for (var i in arrayOfConsumerJobs) {
+        var consumedAmount = arrayOfConsumerJobs[i]["consumes"][resource] * arrayOfConsumerJobs[i]["baseArray"].length;
+        totalResourceOutput -= consumedAmount;
+    }
+
     //fourth - update resources store with new output
     resources.setResourcePerSec(resource, totalResourceOutput)
 }
