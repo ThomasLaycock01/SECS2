@@ -86,7 +86,7 @@ function calculateResource(resource) {
         const associatedStat = job["stat"];
         for (var j in job["baseArray"]) {
             const cultist = cultists.getCultistById(job["baseArray"][j]);
-            resourceOutputPerBuilding = cultist.getStat(associatedStat);
+            resourceOutputPerBuilding += cultist.getStat(associatedStat);
         }
         for (var j in job["modifiers"]) {
             resourceOutputPerBuilding = Math.floor(resourceOutputPerBuilding * job["modifiers"][j].modifier());
@@ -259,7 +259,9 @@ export function addCultist(species) {
         id++;
     }
 
-    const cultist = createCultist(id, "cultist", species)
+    const name = "cultist " + id;
+
+    const cultist = createCultist(id, name, species)
 
     cultists.addCultist(cultist);
 
