@@ -70,8 +70,10 @@ export const useCostsStore = defineStore("costs", {
             const toReturn = {};
 
             for (var i in toBuild["costs"]) {
-                toReturn[i] = toBuild["costs"][i] * (toBuild["exponents"][i] ** buildings.getNumOfBuildingById(type));
+                toReturn[i] = Math.floor(toBuild["costs"][i] * (toBuild["exponents"][i] ** buildings.getNumOfBuildingById(type)));
             }
+
+            
 
             return toReturn;
         },

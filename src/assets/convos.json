@@ -31,11 +31,11 @@
         {"convoId": 3, "character": "hector", "message": "Well, right now we aren't doing anything, Sir.", "last": false},
         {"convoId": 3, "character": "hector", "message": "I've arranged some plans to turn this shack into a...", "last": false},
         {"convoId": 3, "character": "hector", "message": "...slightly more operable lair.", "last": true},
-        {"convoId": 4, "character": "barty", "messages": "So what's up with these crystal-y things?", "last": false},
-        {"convoId": 4, "character": "hector", "messages": "Let me have a look...", "last": false},
-        {"convoId": 4, "character": "barty", "messages": "Are they valuable?", "last": false},
-        {"convoId": 4, "character": "hector", "messages": "Not as gemstones, per se.", "last": false},
-        {"convoId": 4, "character": "hector", "messages": "They're quite useful for building, however.", "last": false},
-        {"convoId": 4, "character": "hector", "messages": "I'll draw up some plans for furthur expansions", "last": true}
+        {"convoId": 4, "character": "barty", "message": "So what's up with these crystal-y things?", "last": false},
+        {"convoId": 4, "character": "hector", "message": "Let me have a look...", "last": false},
+        {"convoId": 4, "character": "barty", "message": "Are they valuable?", "last": false},
+        {"convoId": 4, "character": "hector", "message": "Not as gemstones, per se.", "last": false},
+        {"convoId": 4, "character": "hector", "message": "They're quite useful for building, however.", "last": false},
+        {"convoId": 4, "character": "hector", "message": "I'll draw up some plans for furthur expansions", "last": true}
     ]
 }

@@ -21,7 +21,7 @@ function fireButtonClick(e) {
 <template>
     <div v-for="i in jobs.getByExpansion(props.expansion)">
         <div v-if="i.requirement()">
-            <div class="title is-6 mb-1 segment-title">{{i.name}} - produces {{ i.output }}</div>
+            <div class="title is-6 mb-1 segment-title">{{i.name}} - produces {{ i.output }} - use {{ i.stat.toUpperCase() }}</div>
             <!--List of cultists working in a job-->
             <div v-for="j in jobs.getBaseArray(i.id)">
                 <div>{{ cultists.getCultistById(j).getName() }} - Producing {{ cultists.getCultistById(j).getStat(i.stat) }} /s <button class="button is-small is-danger" :value="cultists.getCultistById(j).getId()" @click="fireButtonClick">X</button></div>
