@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import { useResourcesStore } from "./resources";
 import { useCostsStore } from "./costs";
 import { useMiscStore } from "./misc";
+import { useCultistsStore } from "./cultists";
 
 export const useBuildingsStore = defineStore("buildings", {
     state: () => {
@@ -18,9 +19,10 @@ export const useBuildingsStore = defineStore("buildings", {
             bunkBeds: {id:"bunkBeds", owned: 0, jobOnly: false, special:"cultistLimit"},
             //tower buildings
             infuser: {id:"infuser", owned: 0, jobOnly: true},
+            spellCircle: {id:"spellCircle", owned: 0, jobOnly: false, special: "spellcasting"},
             //academy buidlings
             lectureHall: {id:"lectureHall", owned: 0, jobOnly: true},
-            spellCircle: {id:"spellCircle", owned: 0, jobOnly: false, special: "spellcasting"},
+            library: {id:"library", owned: 0, jobOnly: false, special: "levelLimit"},
             //dungeons buildings
             cell: {id:"cell", owned: 0, jobOnly: true}
         }}
@@ -47,11 +49,29 @@ export const useBuildingsStore = defineStore("buildings", {
                 const misc = useMiscStore();
                 misc.calculateCultistLimit();
             }
+            else if (this.buildings[buildingId].special == "levelLimit") {
+                const misc = useMiscStore();
+                const cultists = useCultistsStore();
+                misc.calculateLevelLimit();
+                cultists.updateLevelLimits();
+            }
         },
         getCultistLimitBuildings() {
             const returnArray = [];
             for (var i in this["buildings"]) {
                 if (this["buildings"][i]["special"] == "cultistLimit") {
+                    returnArray.push(this["buildings"][i])
+                }
+            }
+
+            console.log(returnArray);
+
+            return returnArray;
+        },
+        getLevelLimitBuildings() {
+            const returnArray = [];
+            for (var i in this["buildings"]) {
+                if (this["buildings"][i]["special"] == "levelLimit") {
                     returnArray.push(this["buildings"][i])
                 }
             }

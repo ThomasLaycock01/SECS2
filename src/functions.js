@@ -251,6 +251,11 @@ class Cultist {
         this.stats[stat] += 1;
     }
 
+    setLevelLimit() {
+        const misc = useMiscStore();
+        this.levelLimit = misc.getDefaultLevelLimit;
+    }
+
     serialize() {
         const serializedCultist = {
             id: this.id,

@@ -43,6 +43,15 @@ export const useCostsStore = defineStore("costs", {
                 infuser: {
                     costs: {gold: 500, crystals: 500},
                     exponents: {gold: 2, crystals: 2}
+                },
+                //academy
+                lectureHall: {
+                    costs: {gold: 2500, crystals: 1000},
+                    exponents: {gold: 5, crystals: 4}
+                },
+                library: {
+                    costs: {gold: 5000, crystals: 2000},
+                    exponents: {gold: 4, crystals: 4}
                 }
             },
             expansions: {
@@ -53,6 +62,8 @@ export const useCostsStore = defineStore("costs", {
                 barracks: {gold: 2500, crystals: 1000},
                 tower: {gold: 5000, crystals: 4000},
                 //t3
+                academy: {gold: 20000, crystals: 15000},
+                dungeons: {gold: 20000, crystals: 20000}
             }
         }
     },

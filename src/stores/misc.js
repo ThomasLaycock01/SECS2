@@ -10,7 +10,8 @@ export const useMiscStore = defineStore("misc", {
             cultistLimit: 2,
             firstLoad: true,
             seenConvos:[],
-            xpOutput: 1
+            xpOutput: 1,
+            defaultLevelLimit: 10
         }
     },
     getters: {
@@ -25,6 +26,9 @@ export const useMiscStore = defineStore("misc", {
         },
         getXpOutput(state) {
             return state.xpOutput;
+        },
+        getDefaultLevelLimit(state) {
+            return state.defaultLevelLimit;
         }
     },
     actions: {
@@ -44,9 +48,20 @@ export const useMiscStore = defineStore("misc", {
                 totalLimit += buildings.getCultistLimitBuildings()[i]["owned"];
             }
 
+            this.cultistLimit = totalLimit;
+        },
+        calculateLevelLimit() {
+            const buildings = useBuildingsStore();
+
+            var totalLimit = 10;
+
+            for (var i in buildings.getLevelLimitBuildings()) {
+                totalLimit += buildings.getLevelLimitBuildings()[i]["owned"];
+            }
+
             console.log(totalLimit);
 
-            this.cultistLimit = totalLimit;
+            this.defaultLevelLimit = totalLimit;
         },
         addSeenConvo(convoId) {
             this.seenConvos.push(convoId);

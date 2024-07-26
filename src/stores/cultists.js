@@ -54,6 +54,11 @@ export const useCultistsStore = defineStore("cultists", {
 
             return idUsed;
         },
+        updateLevelLimits() {
+            for (var i in this.regular) {
+                this.regular[i].setLevelLimit();
+            }
+        },
         saveData() {
             var data = JSON.parse(localStorage.getItem("SECSData"));
 

@@ -488,8 +488,28 @@ export const actions = {
                     title: "Lecture Hall",
                     body: "A place for turning your cultists into smarter cultists",
                     costs() {
-                        const buildings = useBuildingsStore();
-                        return buildings.getBuildingCostsById("lectureHall")
+                        const costs = useCostsStore();
+                        return costs.getTotalBuildingCost("lectureHall")
+                    }
+                }
+            },
+            library: {
+                id: "library",
+                name: "Library",
+                effect() {
+                    buildBuilding("library");
+                },
+                condition() {
+                    const buildings = useBuildingsStore();
+                    return buildings.checkIfCanAfford("library");
+                },
+                showCondition() {return true},
+                tooltipData: {
+                    title: "Library",
+                    body: "Full of books on becoming evil-er",
+                    costs() {
+                        const costs = useCostsStore();
+                        return costs.getTotalBuildingCost("library")
                     }
                 }
             }
