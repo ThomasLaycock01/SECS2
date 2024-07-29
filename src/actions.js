@@ -540,8 +540,28 @@ export const actions = {
                     title: "Cell",
                     body: "I guess you can sleep here, or something",
                     costs() {
-                        const buildings = useBuildingsStore();
-                        return buildings.getBuildingCostsById("cell")
+                        const costs = useCostsStore();
+                        return costs.getTotalBuildingCost("cell")
+                    }
+                }
+            },
+            tortureChamber: {
+                id: "tortureChamber",
+                name: "Torture Chamber",
+                effect() {
+                    buildBuilding("tortureChamber");
+                },
+                condition() {
+                    const buildings = useBuildingsStore();
+                    return buildings.checkIfCanAfford("tortureChamber");
+                },
+                showCondition() {return true},
+                tooltipData: {
+                    title: "Torture Chamber",
+                    body: "An army of Vogons have prepared their very best poetry for this moment",
+                    costs() {
+                        const costs = useCostsStore();
+                        return costs.getTotalBuildingCost("tortureChamber")
                     }
                 }
             }

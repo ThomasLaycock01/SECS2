@@ -52,6 +52,15 @@ export const useCostsStore = defineStore("costs", {
                 library: {
                     costs: {gold: 5000, crystals: 2000},
                     exponents: {gold: 4, crystals: 4}
+                },
+                //dungeons
+                cell: {
+                    costs: {gold: 2000, crystals: 1500},
+                    exponents: {gold: 4, crystals: 3}
+                },
+                tortureChamber: {
+                    costs: {gold: 2000, crystals: 1500},
+                    exponents: {gold: 4, crystals: 3}
                 }
             },
             expansions: {

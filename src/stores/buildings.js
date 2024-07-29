@@ -24,7 +24,8 @@ export const useBuildingsStore = defineStore("buildings", {
             lectureHall: {id:"lectureHall", owned: 0, jobOnly: true},
             library: {id:"library", owned: 0, jobOnly: false, special: "levelLimit"},
             //dungeons buildings
-            cell: {id:"cell", owned: 0, jobOnly: true}
+            cell: {id:"cell", owned: 0, jobOnly: false, special: "cultistLimit"},
+            tortureChamber: {id: "tortureChamber", owned: 0, jobOnly: false, special: "EvilnessOutput"}
         }}
     },
     getters: {
@@ -64,8 +65,6 @@ export const useBuildingsStore = defineStore("buildings", {
                 }
             }
 
-            console.log(returnArray);
-
             return returnArray;
         },
         getLevelLimitBuildings() {
@@ -76,7 +75,15 @@ export const useBuildingsStore = defineStore("buildings", {
                 }
             }
 
-            console.log(returnArray);
+            return returnArray;
+        },
+        getEvilnessOutputBuildings() {
+            const returnArray = [];
+            for (var i in this["buildings"]) {
+                if (this["buildings"][i]["special"] == "evilnessOutput") {
+                    returnArray.push(this["buildings"][i])
+                }
+            }
 
             return returnArray;
         },
