@@ -60,7 +60,7 @@ export const useExpansionsStore = defineStore("expansions", {
             const resources = useResourcesStore();
             const costs = useCostsStore();
 
-            const cost = costs.getExpansionCost(expansionId);
+            const cost = costs.getExpansionTierCost(chosenTier);
 
             for (var i in cost) {
                 resources.modifyResource(i, posToNeg(cost[i]));
@@ -71,7 +71,10 @@ export const useExpansionsStore = defineStore("expansions", {
             const resources = useResourcesStore();
             const costs = useCostsStore();
 
-            const cost = costs.getExpansionCost(expansionId);
+            const chosenExpansion = this.all.filter(obj => obj.id == expansionId)[0];
+            const chosenTier = chosenExpansion.tier;
+
+            const cost = costs.getExpansionTierCost(chosenTier);
 
             var canAfford = true;
 

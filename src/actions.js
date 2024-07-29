@@ -67,7 +67,7 @@ export const actions = {
                     body: "A mineshaft under your lair",
                     costs() {
                         const costs = useCostsStore();
-                        return costs.getExpansionCost("mines");
+                        return costs.getExpansionTierCost("tier1");
                     }
                 }
             },
@@ -91,7 +91,7 @@ export const actions = {
                     body: "A laboratory for evil experiments",
                     costs() {
                         const costs = useCostsStore();
-                        return costs.getExpansionCost("laboratory");
+                        return costs.getExpansionTierCost("tier1");
                     }
                 }
             },
@@ -115,7 +115,7 @@ export const actions = {
                     body: "An area to organize your cultist army",
                     costs() {
                         const costs = useCostsStore();
-                        return costs.getExpansionCost("barracks");
+                        return costs.getExpansionTierCost("tier2");
                     }
                 }
             },
@@ -139,7 +139,7 @@ export const actions = {
                     body: "A tower to cast spells from",
                     costs() {
                         const costs = useCostsStore();
-                        return costs.getExpansionCost("tower");
+                        return costs.getExpansionTierCost("tier2");
                     }
                 }
             },
@@ -162,7 +162,7 @@ export const actions = {
                     body: "An academy to educate future generations of cultists",
                     costs() {
                         const costs = useCostsStore();
-                        return costs.getExpansionCost("academy");
+                        return costs.getExpansionTierCost("tier3");
                     }
                 }
             },
@@ -185,7 +185,7 @@ export const actions = {
                     body: "Dungeons for misbehaving cultists",
                     costs() {
                         const costs = useCostsStore();
-                        return costs.getExpansionCost("dungeons");
+                        return costs.getExpansionTierCost("tier3");
                     }
                 }
             }

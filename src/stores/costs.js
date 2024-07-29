@@ -65,14 +65,9 @@ export const useCostsStore = defineStore("costs", {
             },
             expansions: {
                 //t1
-                mines: {gold: 30},
-                laboratory: {gold: 30},
-                //t2
-                barracks: {gold: 2500, crystals: 1000},
-                tower: {gold: 5000, crystals: 4000},
-                //t3
-                academy: {gold: 20000, crystals: 15000},
-                dungeons: {gold: 20000, crystals: 20000}
+                tier1: {gold: 30},
+                tier2: {gold: 3000, crystals: 2500},
+                tier3: {gold: 20000, crystals: 15000}
             }
         }
     },
@@ -80,8 +75,8 @@ export const useCostsStore = defineStore("costs", {
         getCultistCost(state) {
             return (type) => state["cultists"][type];
         },
-        getExpansionCost(state) {
-            return (expansionId) => state["expansions"][expansionId];
+        getExpansionTierCost(state) {
+            return (expansionTier) => state["expansions"][expansionTier];
         }
     },
     actions: {
