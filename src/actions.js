@@ -274,59 +274,6 @@ export const actions = {
             }
         }
     },
-    mines: {
-        id: "mines",
-        name: "Mines",
-        desc: "A mineshaft underneath your EVIL lair >:)",
-        tier: "tier1",
-        showCondition() {
-            const expansions = useExpansionsStore();
-            return expansions.checkIfBuilt(this.id, this.tier);
-        },
-        buttons: {
-            goldMine: {
-                id: "goldMine",
-                name: "Gold Mine",
-                effect() {
-                    buildBuilding("goldMine")
-                },
-                condition() {
-                    const buildings = useBuildingsStore();
-                    return buildings.checkIfCanAfford("goldMine");
-                },
-                showCondition() {return true},
-                tooltipData: {
-                    title: "Gold Mine",
-                    body: "A mine to acquire gold",
-                    costs() {
-                        const costs = useCostsStore();
-                        return costs.getTotalBuildingCost("goldMine");
-                    }
-                }
-                
-            },
-            crystalMine: {
-                id: "crystalMine",
-                name: "Crystal Mine",
-                effect() {
-                    buildBuilding("crystalMine");
-                },
-                condition() {
-                    const buildings = useBuildingsStore();
-                    return buildings.checkIfCanAfford("crystalMine");
-                },
-                showCondition() {return true},
-                tooltipData: {
-                    title: "Crystal Mine",
-                    body: "A mine to acquire crystals",
-                    costs() {
-                        const costs = useCostsStore();
-                        return costs.getTotalBuildingCost("crystalMine");
-                    }
-                }
-            }
-        }
-    },
     laboratory: {
         id: "laboratory",
         name: "Laboratory",
@@ -562,6 +509,63 @@ export const actions = {
                     costs() {
                         const costs = useCostsStore();
                         return costs.getTotalBuildingCost("tortureChamber")
+                    }
+                }
+            }
+        }
+    }
+}
+
+export const mineActions = {
+    mines: {
+        id: "mines",
+        name: "Mines",
+        desc: "A mineshaft underneath your EVIL lair >:)",
+        tier: "tier1",
+        showCondition() {
+            //const expansions = useExpansionsStore();
+            //return expansions.checkIfBuilt(this.id, this.tier);
+            return true;
+        },
+        buttons: {
+            goldMine: {
+                id: "goldMine",
+                name: "Gold Mine",
+                effect() {
+                    buildBuilding("goldMine")
+                },
+                condition() {
+                    const buildings = useBuildingsStore();
+                    return buildings.checkIfCanAfford("goldMine");
+                },
+                showCondition() {return true},
+                tooltipData: {
+                    title: "Gold Mine",
+                    body: "A mine to acquire gold",
+                    costs() {
+                        const costs = useCostsStore();
+                        return costs.getTotalBuildingCost("goldMine");
+                    }
+                }
+                
+            },
+            crystalMine: {
+                id: "crystalMine",
+                name: "Crystal Mine",
+                effect() {
+                    buildBuilding("crystalMine");
+                },
+                condition() {
+                    const buildings = useBuildingsStore();
+                    return buildings.checkIfCanAfford("crystalMine");
+                },
+                showCondition() {return true},
+                tooltipData: {
+                    title: "Crystal Mine",
+                    body: "A mine to acquire crystals",
+                    costs() {
+                        const costs = useCostsStore();
+                        return costs.getTotalBuildingCost("crystalMine");
                     }
                 }
             }

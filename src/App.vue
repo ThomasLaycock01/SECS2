@@ -2,6 +2,7 @@
 import Tables from "./components/tables/Tables.vue";
 import LairTab from "./components/lairTab/LairTab.vue";
 import CultistsTab from "./components/cultistTab/CultistsTab.vue";
+import MineTab from "./components/mineTab/MineTab.vue";
 import TextLog from "./components/textLog/TextLog.vue";
 import JobAssigner from "./components/jobAssigner/JobAssigner.vue";
 
@@ -23,6 +24,9 @@ const misc = useMiscStore();
       </b-tab-item>
       <b-tab-item :label="cultists.checkFreeSkillPoints ? 'Cult(!)' : 'Cult'"  v-if="misc.checkHasSeenConvo(2)">
           <CultistsTab/>
+      </b-tab-item>
+      <b-tab-item label="Mines">
+        <MineTab/>
       </b-tab-item>
     </b-tabs>
   </section>

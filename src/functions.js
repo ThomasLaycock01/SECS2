@@ -7,6 +7,8 @@ import { useBuildingsStore } from "./stores/buildings";
 import { useCostsStore } from "./stores/costs";
 import { useConvosStore } from "./stores/convos";
 import { useTextLogStore } from "./stores/textLog";
+//expansions
+import { useMinesStore } from "./stores/mines";
 
 
 //tick system
@@ -222,6 +224,10 @@ class Cultist {
         this.job = job;
     }
 
+    removeJob() {
+        this.job = null;
+    }
+
     addXp(amount) {
         if (this.level == this.levelLimit) {
             this.currentXp = 0;
@@ -351,6 +357,31 @@ export function addCultistToJob(cultistId, jobId) {
     cultist.setJob(jobs.getName(jobId));
 }
 
+//refactored
+export function addCultistToWorkerJob(cultistId, piniaObject) {
+    const cultists = useCultistsStore();
+
+    piniaObject.addWorker(cultistId);
+
+    const jobName = piniaObject.getWorkerJobName;
+
+    const cultist = cultists.getCultistById(cultistId);
+
+    cultist.setJob(jobName);
+}
+
+export function addCultistToOverseerJob(cultistId, piniaObject) {
+    const cultists = useCultistsStore();
+
+    piniaObject.assignOverseer(cultistId);
+
+    const jobName = piniaObject.getOverseerJobName;
+
+    const cultist = cultists.getCultistById(cultistId);
+
+    cultist.setJob(jobName);
+}
+
 
 //removing cultists from a job
 export function removeCultistFromJob(cultistId) {
@@ -361,6 +392,27 @@ export function removeCultistFromJob(cultistId) {
 
     const cultist = cultists.getCultistById(cultistId);
     cultist.setJob(null)
+}
+
+//refactored
+export function removeCultistFromOverseerJob(piniaObject) {
+    const cultists = useCultistsStore();
+
+    const cultist = cultists.getCultistById(piniaObject.getOverseer);
+
+    cultist.removeJob();
+
+    piniaObject.removeOverseer();
+}
+
+export function removeCultistFromWorkerJob(cultistId, piniaObject) {
+    const cultists = useCultistsStore();
+
+    const cultist = cultists.getCultistById(cultistId);
+
+    cultist.removeJob();
+
+    piniaObject.removeWorker(cultistId);
 }
 
 //firing a cultist
@@ -431,6 +483,12 @@ export function checkCultistSpace() {
 
 
 
+
+
+
+
+
+
 //localStorage functions
 export function saveData() {
     //have each pinia store save their data seperately
@@ -440,6 +498,7 @@ export function saveData() {
     const cultists = useCultistsStore();
     const expansions = useExpansionsStore();
     const jobs = useJobsStore();
+    const mines = useMinesStore();
     const misc = useMiscStore();
     const resources = useResourcesStore();
     const textLog = useTextLogStore();
@@ -450,6 +509,7 @@ export function saveData() {
     cultists.saveData();
     expansions.saveData();
     jobs.saveData();
+    mines.saveData();
     misc.saveData();
     resources.saveData();
     textLog.saveData();
@@ -463,6 +523,7 @@ export function loadData() {
     const cultists = useCultistsStore();
     const expansions = useExpansionsStore();
     const jobs = useJobsStore();
+    const mines = useMinesStore();
     const misc = useMiscStore();
     const resources = useResourcesStore();
     const textLog = useTextLogStore();
@@ -473,6 +534,7 @@ export function loadData() {
     cultists.loadData();
     expansions.loadData();
     jobs.loadData();
+    mines.loadData();
     misc.loadData();
     resources.loadData();
     textLog.loadData();
