@@ -1,0 +1,5 @@
+{
+    "1000": {"id": "1000", "name": "Aluminium Ore", "shortName": "A. Ore", "stackSize": 200},
+    "1001": {"id": "1001", "name": "Copper Ore", "shortName": "C. Ore", "stackSize": 200},
+    "1002": {"id": "1002", "name": "Iron Ore", "shortName": "I. Ore", "stackSize": 200}
+}

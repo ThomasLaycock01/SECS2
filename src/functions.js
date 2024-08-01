@@ -7,6 +7,7 @@ import { useBuildingsStore } from "./stores/buildings";
 import { useCostsStore } from "./stores/costs";
 import { useConvosStore } from "./stores/convos";
 import { useTextLogStore } from "./stores/textLog";
+import { useInventoryStore } from "./stores/inventory";
 //expansions
 import { useMinesStore } from "./stores/mines";
 
@@ -38,6 +39,10 @@ export function tick() {
 
     //checking what convos need playing
     checkConvos();
+
+    //testing this - remove later!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    const inventory = useInventoryStore();
+    inventory.addItem(1000);
 }
 
 //calculating evilness output, since its different from other resources
@@ -483,7 +488,39 @@ export function checkCultistSpace() {
 
 
 
+//inventory
+class InventoryStack {
+    constructor(itemId, amount) {
+        const inventory = useInventoryStore();
+        const data = inventory.getItemDataById(itemId);
+        this.itemId = itemId;
+        this.name = data.name;
+        this.shortName = data.shortName;
+        this.amount = amount;
+    }
 
+    //getters
+    getItemId() {
+        return this.itemId;
+    }
+
+    getName() {
+        return this.name;
+    }
+
+    getShortName() {
+        return this.shortName;
+    }
+
+    //actions
+
+}
+
+
+
+export function createItem(itemId, amount) {
+    return new InventoryStack(itemId, amount);
+}
 
 
 

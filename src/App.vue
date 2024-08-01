@@ -5,6 +5,7 @@ import CultistsTab from "./components/cultistTab/CultistsTab.vue";
 import MineTab from "./components/mineTab/MineTab.vue";
 import TextLog from "./components/textLog/TextLog.vue";
 import JobAssigner from "./components/jobAssigner/JobAssigner.vue";
+import InventoryTab from "./components/inventory/InventoryTab.vue";
 
 import { useCultistsStore } from "./stores/cultists";
 import { useMiscStore } from "./stores/misc";
@@ -28,6 +29,9 @@ const misc = useMiscStore();
       <b-tab-item label="Mines">
         <MineTab/>
       </b-tab-item>
+      <b-tab-item label="Inventory">
+        <InventoryTab/>
+      </b-tab-item>
     </b-tabs>
   </section>
   <div class="column is-one-quarter">
@@ -42,6 +46,7 @@ import { tick, loadData, saveData } from "./functions";
 
 import { useMiscStore } from "./stores/misc";
 import { useTextLogStore } from "./stores/textLog";
+import { useInventoryStore } from "./stores/inventory";
 
 export default {
   data() {
@@ -50,8 +55,10 @@ export default {
   mounted() {
     const misc = useMiscStore();
     const textLog = useTextLogStore();
+    const inventory = useInventoryStore();
 
     textLog.loadConvos();
+    inventory.loadItemIndex();
 
     if (!misc.checkFirstLoad()) {
       localStorage.setItem("SECSData", JSON.stringify({}));
