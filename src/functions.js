@@ -42,7 +42,7 @@ export function tick() {
 
     //testing this - remove later!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     const inventory = useInventoryStore();
-    inventory.addItem(1000);
+    inventory.addItem(1000, 1);
 }
 
 //calculating evilness output, since its different from other resources
@@ -493,9 +493,11 @@ class InventoryStack {
     constructor(itemId, amount) {
         const inventory = useInventoryStore();
         const data = inventory.getItemDataById(itemId);
+
         this.itemId = itemId;
         this.name = data.name;
         this.shortName = data.shortName;
+        this.stackSize = data.stackSize;
         this.amount = amount;
     }
 
@@ -513,7 +515,27 @@ class InventoryStack {
     }
 
     //actions
+    checkSameId(itemId) {
+        return this.itemId == itemId;
+    }
 
+    addAllPossible(amount) {
+        const spaceAvailable = this.stackSize - this.amount;
+
+        if (spaceAvailable == 0) {
+            return amount;
+        }
+        
+        if (spaceAvailable >= amount) {
+            this.amount += amount;
+            return 0;
+        }
+
+        this.amount += amount - spaceAvailable;
+        return amount - spaceAvailable;
+
+
+    }
 }
 
 

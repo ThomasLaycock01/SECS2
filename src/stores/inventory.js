@@ -34,10 +34,18 @@ export const useInventoryStore = defineStore("inventory", {
             this.itemIndex = items;
         },
         addItem(itemId, amount) {
-            //for now - just add the item with no stack
-            const item = createItem(itemId, amount);
 
-            if (this.inventory.length < this.misc.inventorySize) {
+            for (var i in this.inventory) {
+                if (this.inventory[i].checkSameId(itemId)) {
+                    amount = this.inventory[i].addAllPossible(amount);
+                    if (amount == 0) {
+                        break;
+                    }
+                }
+            }
+
+            if (amount > 0) {
+                const item = createItem(itemId, amount);
                 this.inventory.push(item);
             }
         }

@@ -17,7 +17,7 @@ var activeTab = 0;
         <div class="title is-4 mb-1 segment-title">Inventory</div>
         <div class="container">
             <span v-for="i in inventory.getInventory">
-                <button class="button is-dark">{{ i.shortName ? i.shortName : i.name }}</button>
+                <button class="button is-dark">{{ i.shortName ? i.shortName : i.name }} {{ i.amount }}</button>
             </span>
             <span v-for="i in inventory.getUnusedSpaces">
                 <button class="button is-outlined">Empty</button>
