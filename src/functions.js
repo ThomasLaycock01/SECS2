@@ -493,11 +493,15 @@ class InventoryStack {
     constructor(itemId, amount) {
         const inventory = useInventoryStore();
         const data = inventory.getItemDataById(itemId);
+        this.stackId = inventory.generateStackId();
 
         this.itemId = itemId;
         this.name = data.name;
         this.shortName = data.shortName;
         this.stackSize = data.stackSize;
+        this.sellPrice = data.sellPrice;
+
+
         this.amount = amount;
     }
 
@@ -512,6 +516,10 @@ class InventoryStack {
 
     getShortName() {
         return this.shortName;
+    }
+
+    getStackId() {
+        return this.stackId;
     }
 
     //actions
@@ -533,8 +541,10 @@ class InventoryStack {
 
         this.amount += amount - spaceAvailable;
         return amount - spaceAvailable;
+    }
 
-
+    returnSellValue() {
+        return this.amount * this.sellPrice;
     }
 }
 

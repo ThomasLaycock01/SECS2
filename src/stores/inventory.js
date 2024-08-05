@@ -33,6 +33,26 @@ export const useInventoryStore = defineStore("inventory", {
         loadItemIndex() {
             this.itemIndex = items;
         },
+        generateStackId() {
+            var id = 0;
+            const self = this;
+
+            const idUsed = function(id) {
+                for (var i in self.inventory) {
+                    if (self.inventory[i].getStackId() == id) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            while (idUsed(id)) {
+                id++
+            }
+
+            console.log(id);
+            return id;
+        },
         addItem(itemId, amount) {
 
             for (var i in this.inventory) {
