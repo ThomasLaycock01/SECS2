@@ -500,6 +500,7 @@ class InventoryStack {
         this.shortName = data.shortName;
         this.stackSize = data.stackSize;
         this.sellPrice = data.sellPrice;
+        this.tier = data.tier;
 
 
         this.amount = amount;
@@ -545,6 +546,16 @@ class InventoryStack {
 
     returnSellValue() {
         return this.amount * this.sellPrice;
+    }
+
+    sellThis() {
+        const inventory = useInventoryStore();
+        const resources = useResourcesStore();
+
+        resources.modifyResource("gold", this.returnSellValue());
+
+        inventory.removeItem(this.stackId);
+        
     }
 }
 

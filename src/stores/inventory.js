@@ -68,6 +68,9 @@ export const useInventoryStore = defineStore("inventory", {
                 const item = createItem(itemId, amount);
                 this.inventory.push(item);
             }
+        },
+        removeItem(stackId) {
+            this.inventory = this.inventory.filter((item) => item.stackId != stackId);
         }
     }
 })
