@@ -14,7 +14,7 @@ export const useInventoryStore = defineStore("inventory", {
 
             },
             misc: {
-                inventorySize: 100
+                inventorySize: 10
             }
         }
     },
@@ -27,6 +27,9 @@ export const useInventoryStore = defineStore("inventory", {
         },
         getItemDataById(state) {
             return (itemId) => state.itemIndex[itemId];
+        },
+        checkFreeSpace(state) {
+            return state.inventory.length < state.misc.inventorySize;
         }
     },
     actions: {
@@ -49,8 +52,6 @@ export const useInventoryStore = defineStore("inventory", {
             while (idUsed(id)) {
                 id++
             }
-
-            console.log(id);
             return id;
         },
         addItem(itemId, amount) {
@@ -64,10 +65,13 @@ export const useInventoryStore = defineStore("inventory", {
                 }
             }
 
-            if (amount > 0) {
+            console.log(this.checkFreeSpace)
+
+            if (amount > 0 && this.checkFreeSpace) {
                 const item = createItem(itemId, amount);
                 this.inventory.push(item);
             }
+            console.log(amount);
         },
         removeItem(stackId) {
             this.inventory = this.inventory.filter((item) => item.stackId != stackId);

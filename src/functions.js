@@ -545,12 +545,14 @@ class InventoryStack {
     }
 
     returnSellValue() {
-        return this.amount * this.sellPrice;
+        return Math.floor(this.amount * this.sellPrice);
     }
 
     sellThis() {
         const inventory = useInventoryStore();
         const resources = useResourcesStore();
+
+        console.log(this.returnSellValue());
 
         resources.modifyResource("gold", this.returnSellValue());
 
