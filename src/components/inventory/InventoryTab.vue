@@ -11,6 +11,10 @@ function inventoryButtonClick(e) {
   console.log(e.target);
   inventory.setSelectedItem(e.target.value);
 }
+
+function onClickAway() {
+  inventory.removeSelectedItem();
+}
 </script>
 
 
@@ -22,7 +26,7 @@ function inventoryButtonClick(e) {
 <div class="title is-4 mb-1 segment-title">Inventory</div>
         <div class="container">
             <span v-for="i in inventory.getInventory">
-              <div>
+              <div v-click-away="onClickAway">
                 <button class="button is-dark" ref="inventoryButton" @click="inventoryButtonClick" :value="i.stackId">{{ i.shortName ? i.shortName : i.name }} {{i.amount }}</button>
                 <div v-if="inventory.getSelectedItem == i.stackId">
                   <InventoryPopup class="inventoryPopup" :object="i" />
