@@ -14,7 +14,8 @@ export const useInventoryStore = defineStore("inventory", {
 
             },
             misc: {
-                inventorySize: 10
+                inventorySize: 100,
+                selectedItem: null
             }
         }
     },
@@ -30,6 +31,9 @@ export const useInventoryStore = defineStore("inventory", {
         },
         checkFreeSpace(state) {
             return state.inventory.length < state.misc.inventorySize;
+        },
+        getSelectedItem(state) {
+            return state.misc.selectedItem;
         }
     },
     actions: {
@@ -65,16 +69,19 @@ export const useInventoryStore = defineStore("inventory", {
                 }
             }
 
-            console.log(this.checkFreeSpace)
-
             if (amount > 0 && this.checkFreeSpace) {
                 const item = createItem(itemId, amount);
                 this.inventory.push(item);
             }
-            console.log(amount);
         },
         removeItem(stackId) {
             this.inventory = this.inventory.filter((item) => item.stackId != stackId);
+        },
+        setSelectedItem(val) {
+            this.misc.selectedItem = val;
+        },
+        removeSelectedItem() {
+            this.misc.selectedItem = null;
         }
     }
 })

@@ -9,5 +9,4 @@ import "buefy/dist/buefy.min.css";
 
 const pinia = createPinia();
 
-
 createApp(App).use(pinia).use(Buefy).mount('#app')

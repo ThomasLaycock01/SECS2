@@ -9,6 +9,7 @@ const props = defineProps({
 
 function sellButtonClick() {
     props.object.sellThis();
+    inventory.removeSelectedItem();
 }
 
 </script>
