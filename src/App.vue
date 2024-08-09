@@ -71,7 +71,7 @@ export default {
       loadData();
     }
     setInterval(tick, 1000);
-    setInterval(saveData, 30000)
+    setInterval(saveData, 10000)
   }
 }
 

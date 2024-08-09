@@ -490,12 +490,10 @@ export function checkCultistSpace() {
 
 //inventory
 class InventoryStack {
-    constructor(itemId, amount) {
-        const inventory = useInventoryStore();
-        const data = inventory.getItemDataById(itemId);
-        this.stackId = inventory.generateStackId();
+    constructor(data, amount, stackId) {
+        this.stackId = stackId;
 
-        this.itemId = itemId;
+        this.itemId = data.itemId;
         this.name = data.name;
         this.shortName = data.shortName;
         this.stackSize = data.stackSize;
@@ -559,12 +557,35 @@ class InventoryStack {
         inventory.removeItem(this.stackId);
         
     }
+
+    serialize() {
+        const serializedItem = {
+            stackId: this.stackId,
+            itemId: this.itemId,
+            amount: this.amount
+        }
+
+        return serializedItem;
+    }
 }
 
 
 
-export function createItem(itemId, amount) {
-    return new InventoryStack(itemId, amount);
+export function createItem(itemId, amount, stackId = null) {
+    const inventory = useInventoryStore();
+    if (stackId == null) {
+        stackId = inventory.generateStackId();
+    }
+    
+    const data = inventory.getItemDataById(itemId);
+
+    return new InventoryStack(data, amount, stackId);
+}
+
+export function deserializeItem(object) {
+    const inventory = useInventoryStore();
+
+    inventory.addItemFromDeserialize(object);
 }
 
 
@@ -579,6 +600,7 @@ export function saveData() {
     const costs = useCostsStore();
     const cultists = useCultistsStore();
     const expansions = useExpansionsStore();
+    const inventory = useInventoryStore();
     const jobs = useJobsStore();
     const mines = useMinesStore();
     const misc = useMiscStore();
@@ -590,6 +612,7 @@ export function saveData() {
     costs.saveData();
     cultists.saveData();
     expansions.saveData();
+    inventory.saveData();
     jobs.saveData();
     mines.saveData();
     misc.saveData();
@@ -604,6 +627,7 @@ export function loadData() {
     const costs = useCostsStore();
     const cultists = useCultistsStore();
     const expansions = useExpansionsStore();
+    const inventory = useInventoryStore();
     const jobs = useJobsStore();
     const mines = useMinesStore();
     const misc = useMiscStore();
@@ -615,6 +639,7 @@ export function loadData() {
     costs.loadData();
     cultists.loadData();
     expansions.loadData();
+    inventory.loadData();
     jobs.loadData();
     mines.loadData();
     misc.loadData();

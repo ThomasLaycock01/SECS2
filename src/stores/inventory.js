@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import { createItem } from "@/functions";
+import { createItem, deserializeItem } from "@/functions";
 
 import items from "../assets/items.json";
 
@@ -68,11 +68,14 @@ export const useInventoryStore = defineStore("inventory", {
                     }
                 }
             }
-
             if (amount > 0 && this.checkFreeSpace) {
                 const item = createItem(itemId, amount);
                 this.inventory.push(item);
             }
+        },
+        addItemFromDeserialize(obj) {
+            const stack = createItem(obj.itemId, obj.amount, obj.stackId);
+            this.inventory.push(stack);
         },
         removeItem(stackId) {
             this.inventory = this.inventory.filter((item) => item.stackId != stackId);
@@ -82,6 +85,32 @@ export const useInventoryStore = defineStore("inventory", {
         },
         removeSelectedItem() {
             this.misc.selectedItem = null;
+        },
+        saveData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+
+            const inventoryObject = {};
+
+            for (var i in this.inventory) {
+                const item = this.inventory[i];
+                inventoryObject[item.getStackId()] = item.serialize();
+
+            }
+
+            data.inventory = inventoryObject;
+
+            localStorage.setItem("SECSData", JSON.stringify(data));
+        },
+        loadData() {
+            var data = JSON.parse(localStorage.getItem("SECSData"));
+            
+            for (var i in data.inventory) {
+                const itemObject = data.inventory[i];
+
+                const stack = createItem(itemObject.itemId, itemObject.amount, itemObject.stackId);
+
+                this.inventory.push(stack);
+            }
         }
     }
 })
