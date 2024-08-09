@@ -12,6 +12,10 @@ function sellButtonClick() {
     inventory.removeSelectedItem();
 }
 
+function closeButtonClick() {
+    inventory.removeSelectedItem();
+}
+
 </script>
 
 
@@ -24,6 +28,10 @@ function sellButtonClick() {
         <p>Sell value: {{ props.object.returnSellValue() }} Gold ({{ props.object.sellPrice }} apiece)</p>
 
         <button class="button is-danger" @click="sellButtonClick">Sell</button>
+        <br>
+        <br>
+        
+        <button class="button is-small is-danger" @click="closeButtonClick">Close</button>
 
     </div>
 

@@ -1,5 +1,4 @@
 <script setup>
-import { onMounted } from 'vue';
 
 import InventoryPopup from './InventoryPopup.vue';
 
@@ -8,12 +7,13 @@ import { useInventoryStore } from '@/stores/inventory';
 const inventory = useInventoryStore();
 
 function inventoryButtonClick(e) {
-  console.log(e.target);
+  console.log(e.target.value);
   inventory.setSelectedItem(e.target.value);
 }
 
-function onClickAway() {
-  inventory.removeSelectedItem();
+function onClickAway(e) {
+  console.log(e.target);
+  //inventory.removeSelectedItem();
 }
 </script>
 
@@ -26,7 +26,7 @@ function onClickAway() {
 <div class="title is-4 mb-1 segment-title">Inventory</div>
         <div class="container">
             <span v-for="i in inventory.getInventory">
-              <div v-click-away="onClickAway">
+              <div>
                 <button class="button is-dark" ref="inventoryButton" @click="inventoryButtonClick" :value="i.stackId">{{ i.shortName ? i.shortName : i.name }} {{i.amount }}</button>
                 <div v-if="inventory.getSelectedItem == i.stackId">
                   <InventoryPopup class="inventoryPopup" :object="i" />
