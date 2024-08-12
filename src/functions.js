@@ -39,10 +39,6 @@ export function tick() {
 
     //checking what convos need playing
     checkConvos();
-
-    //testing this - remove later!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    const inventory = useInventoryStore();
-    inventory.addItem(1000, 1);
 }
 
 //calculating evilness output, since its different from other resources
