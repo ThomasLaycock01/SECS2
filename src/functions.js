@@ -15,6 +15,7 @@ import { useMinesStore } from "./stores/mines";
 //tick system
 export function tick() {
     const resources = useResourcesStore();
+    const expansions = useExpansionsStore();
     //adding resources
     for (var i in resources.getAll) {
         switch(i) {
@@ -30,6 +31,8 @@ export function tick() {
 
 
     }
+
+    expansions.ExpansionTicks();
 
     updateResources();
 

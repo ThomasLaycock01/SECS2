@@ -2,23 +2,27 @@ import { defineStore } from "pinia";
 
 import { useResourcesStore } from "./resources";
 import { useCostsStore } from "./costs";
+import { useMinesStore } from "./mines"; 
 
 import { posToNeg } from "@/functions";
 
 export const useExpansionsStore = defineStore("expansions", {
     state: () => {
         return {built: {
-            tier1: {},
-            tier2: {},
-            tier3: {}
+            tier1: "",
+            tier2: "",
+            tier3: ""
         },
         all: [
-            {id: "mines", name: "Mines", tier: "tier1", cultistLimit: 2},
-            {id: "laboratory", name: "Laboratory", tier: "tier1", cultistLimit: 2},
-            {id: "barracks", name: "Barracks", tier: "tier2", cultistLimit: 2},
-            {id: "tower", name: "Tower", tier: "tier2", cultistLimit: 2},
-            {id: "academy", name: "Academy", tier: "tier3", cultistLimit: 2},
-            {id: "dungeons", name: "Dungeons", tier: "tier3", cultistLimit: 2}
+            {id: "mines", name: "Mines", tier: "tier1", piniaObject() {
+                const mines = useMinesStore();
+                return mines;
+            }},
+            {id: "laboratory", name: "Laboratory", tier: "tier1"},
+            {id: "barracks", name: "Barracks", tier: "tier2"},
+            {id: "tower", name: "Tower", tier: "tier2"},
+            {id: "academy", name: "Academy", tier: "tier3"},
+            {id: "dungeons", name: "Dungeons", tier: "tier3"}
         ]
         }
     },
@@ -36,16 +40,19 @@ export const useExpansionsStore = defineStore("expansions", {
             return state.built.tier3.id;
         },
         hasTier1(state) {
-            return state.built.tier1.id ? true : false;
+            return state.built.tier1 ? true : false;
         },
         hasTier2(state) {
-            return state.built.tier2.id ? true : false;
+            return state.built.tier2 ? true : false;
         },
         hasTier3(state) {
-            return state.built.tier3.id ? true : false;
+            return state.built.tier3 ? true : false;
         },
         checkIfBuilt(state) {
             return (expansionId, tier) => state.built[tier].id == expansionId ? true : false;
+        },
+        getObjectById(state) {
+            return (expansionId) => state.all.filter((expansion) => expansion.id == expansionId)[0];
         }
     },
     actions: {
@@ -53,7 +60,7 @@ export const useExpansionsStore = defineStore("expansions", {
 
             const chosenExpansion = this.all.filter(obj => obj.id == expansionId)[0];
             const chosenTier = chosenExpansion.tier;
-            this.built[chosenTier] = chosenExpansion;
+            this.built[chosenTier] = chosenExpansion.id;
 
 
 
@@ -85,6 +92,14 @@ export const useExpansionsStore = defineStore("expansions", {
             }
 
             return canAfford;
+        },
+        ExpansionTicks() {
+            for (var i in this.getBuilt) {
+                if (this.getBuilt[i]) {
+                    const pinia = this.getObjectById(this.getBuilt[i]).piniaObject();
+                    pinia.tick();
+                }
+            }
         },
         saveData() {
             var data = JSON.parse(localStorage.getItem("SECSData"));

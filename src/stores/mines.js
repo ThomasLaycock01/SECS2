@@ -46,6 +46,9 @@ export const useMinesStore = defineStore("mines", {
         }
     },
     actions: {
+        tick() {
+            console.log("Tick working");
+        },
         assignOverseer(cultistId) {
             this.mineshaft.overseer = cultistId;
         },
