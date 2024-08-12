@@ -9,9 +9,9 @@ import { posToNeg } from "@/functions";
 export const useExpansionsStore = defineStore("expansions", {
     state: () => {
         return {built: {
-            tier1: "",
-            tier2: "",
-            tier3: ""
+            tier1: null,
+            tier2: null,
+            tier3: null
         },
         all: [
             {id: "mines", name: "Mines", tier: "tier1", piniaObject() {
@@ -31,13 +31,13 @@ export const useExpansionsStore = defineStore("expansions", {
             return state.built;
         },
         getBuiltTier1Id(state) {
-            return state.built.tier1.id;
+            return state.built.tier1;
         },
         getBuiltTier2Id(state) {
-            return state.built.tier2.id;
+            return state.built.tier2;
         },
         getBuiltTier3Id(state) {
-            return state.built.tier3.id;
+            return state.built.tier3;
         },
         hasTier1(state) {
             return state.built.tier1 ? true : false;
@@ -49,7 +49,7 @@ export const useExpansionsStore = defineStore("expansions", {
             return state.built.tier3 ? true : false;
         },
         checkIfBuilt(state) {
-            return (expansionId, tier) => state.built[tier].id == expansionId ? true : false;
+            return (expansionId, tier) => state.built[tier] == expansionId ? true : false;
         },
         getObjectById(state) {
             return (expansionId) => state.all.filter((expansion) => expansion.id == expansionId)[0];

@@ -38,8 +38,12 @@ export const useMiscStore = defineStore("misc", {
 
             var totalLimit = 2;
 
+            console.log(expansions.getBuilt)
+
             for (var i in expansions.getBuilt) {
-                totalLimit += 2;
+                if (expansions.getBuilt[i]) {
+                    totalLimit += 2;
+                }
             }
 
             for (var i in buildings.getCultistLimitBuildings()) {
