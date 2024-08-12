@@ -32,7 +32,7 @@ export function tick() {
 
     }
 
-    expansions.ExpansionTicks();
+    expansions.expansionTicks();
 
     updateResources();
 

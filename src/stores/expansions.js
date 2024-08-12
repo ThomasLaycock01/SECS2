@@ -93,7 +93,7 @@ export const useExpansionsStore = defineStore("expansions", {
 
             return canAfford;
         },
-        ExpansionTicks() {
+        expansionTicks() {
             for (var i in this.getBuilt) {
                 if (this.getBuilt[i]) {
                     const pinia = this.getObjectById(this.getBuilt[i]).piniaObject();
