@@ -42,7 +42,7 @@ const misc = useMiscStore();
 
 <script>
 
-import { tick, loadData, saveData } from "./functions";
+import { tick, loadData, saveData, instantiateItems } from "./functions";
 
 import { useMiscStore } from "./stores/misc";
 import { useTextLogStore } from "./stores/textLog";
@@ -59,6 +59,7 @@ export default {
 
     textLog.loadConvos();
     inventory.loadItemIndex();
+    instantiateItems();
 
     if (!misc.checkFirstLoad()) {
       localStorage.setItem("SECSData", JSON.stringify({}));

@@ -2,6 +2,8 @@ import { defineStore } from "pinia";
 
 import { useCultistsStore } from "./cultists";
 
+import items from "../assets/items.json";
+
 export const useMinesStore = defineStore("mines", {
     state: () => {
         return {
@@ -11,10 +13,7 @@ export const useMinesStore = defineStore("mines", {
                 maxDepth: 1000,
                 currentDepth: 0
             },
-            resources: {
-                aluminium: {id: "aluminium", multiplier: 10},
-                copper: {id: "copper", multiplier: 25},
-                iron: {id: "iron", multiplier: 50}
+            items: {
             },
             misc: {
                 workerJobName: "Miner",
@@ -48,6 +47,9 @@ export const useMinesStore = defineStore("mines", {
     actions: {
         tick() {
             console.log("Tick working");
+        },
+        instantiateItems() {
+            this.items = items.mines;
         },
         assignOverseer(cultistId) {
             this.mineshaft.overseer = cultistId;

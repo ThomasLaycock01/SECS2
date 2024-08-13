@@ -646,6 +646,13 @@ export function loadData() {
     textLog.loadData();
 }
 
+//instantiat items
+export function instantiateItems() {
+    const mines = useMinesStore();
+
+    mines.instantiateItems();
+}
+
 
 
 
