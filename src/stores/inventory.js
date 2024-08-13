@@ -2,17 +2,12 @@ import { defineStore } from "pinia";
 
 import { createItem, deserializeItem } from "@/functions";
 
-import items from "../assets/items.json";
-
 export const useInventoryStore = defineStore("inventory", {
     state: () => {
         return {
             inventory: [
 
             ],
-            itemIndex: {
-
-            },
             misc: {
                 inventorySize: 100,
                 selectedItem: null
@@ -37,9 +32,6 @@ export const useInventoryStore = defineStore("inventory", {
         }
     },
     actions: {
-        loadItemIndex() {
-            this.itemIndex = items;
-        },
         generateStackId() {
             const lastId = this.inventory[this.inventory.length - 1].getStackId();
 

@@ -46,7 +46,6 @@ import { tick, loadData, saveData, instantiateItems } from "./functions";
 
 import { useMiscStore } from "./stores/misc";
 import { useTextLogStore } from "./stores/textLog";
-import { useInventoryStore } from "./stores/inventory";
 
 export default {
   data() {
@@ -55,10 +54,8 @@ export default {
   mounted() {
     const misc = useMiscStore();
     const textLog = useTextLogStore();
-    const inventory = useInventoryStore();
 
     textLog.loadConvos();
-    inventory.loadItemIndex();
     instantiateItems();
 
     if (!misc.checkFirstLoad()) {
