@@ -50,11 +50,16 @@ export class Item {
     }
 
     //actions
+    //gonna finish serializing later - work on mines first
     serialize() {
         const serializedItem = {
-            stackId: this.stackId,
+            id: this.id,
             itemId: this.itemId,
-            amount: this.amount
+            name: this.name,
+            shortName: this.shortName,
+            type: this.type,
+            modifiers: this.modifiers,
+            sellPrice: this.sellPrice
         }
 
         return serializedItem;
