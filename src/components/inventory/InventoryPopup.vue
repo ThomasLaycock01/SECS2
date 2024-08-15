@@ -23,9 +23,9 @@ function closeButtonClick() {
 
 <template>
     <div>
-        <h6>{{props.object.name}} x{{props.object.amount}}</h6>
+        <h6>{{props.object.name}}</h6>
         <p>Tier {{ props.object.tier }}</p>
-        <p>Sell value: {{ props.object.returnSellValue() }} Gold ({{ props.object.sellPrice }} apiece)</p>
+        <p>Sell value: {{ props.object.getSellPrice() }} Gold</p>
 
         <button class="button is-danger" @click="sellButtonClick">Sell</button>
         <br>
