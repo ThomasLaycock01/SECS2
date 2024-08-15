@@ -7,7 +7,7 @@ import items from "../assets/items.json";
 export const useMinesStore = defineStore("mines", {
     state: () => {
         return {
-            mineshaft: {
+            workers: {
                 overseer: null,
                 workerArray: []
             },
@@ -29,20 +29,27 @@ export const useMinesStore = defineStore("mines", {
         }
     },
     getters: {
+        //resources
+        getResources(state) {
+            return state.resources;
+        },
+        getResourceObject(state) {
+            return (id) => state.resources[id];
+        },
+        getResourceTotal(state) {
+            return (id) => state.resources[id].total;
+        },
+        getResourcePerSec(state) {
+            return (id) => state.resources[id].perSec;
+        },
         getOverseer(state) {
-            return state.mineshaft.overseer;
+            return state.workers.overseer;
         },
         getWorkerJobName(state) {
             return state.misc.workerJobName;
         },
         getOverseerJobName(state) {
             return state.misc.overseerJobName;
-        },
-        getResources(state) {
-            return state.resources;
-        },
-        getResourceById(state) {
-            return (id) => state.resources[id];
         },
         getUnlockResources(state) {
             const returnArray = [];
@@ -55,32 +62,42 @@ export const useMinesStore = defineStore("mines", {
         }
     },
     actions: {
+        //tick
         tick() {
             //console.log("Tick working");
         },
+        //resources
+        modifyResource(resource, amount) {
+            this.resources[resource].total += amount;
+        },
+        setResourcePerSec(resource, amount) {
+            this.resources[resource].perSec = amount;
+        },
+        //items
         instantiateItems() {
             this.items = items.mines;
         },
+        //workers
         assignOverseer(cultistId) {
-            this.mineshaft.overseer = cultistId;
+            this.workers.overseer = cultistId;
         },
         addWorker(obj) {
-            this.mineshaft.workerArray.push(obj);
+            this.workers.workerArray.push(obj);
         },
         removeOverseer() {
-            this.mineshaft.overseer = null;
+            this.workers.overseer = null;
         },
         removeWorker(cultistId) {
-            this.mineshaft.workerArray = this.mineshaft.workerArray.filter((id) => id != cultistId);
+            this.workers.workerArray = this.workers.workerArray.filter((id) => id != cultistId);
         },
         getCultistArray() {
             const cultists = useCultistsStore();
 
             const cultistArray = [];
 
-            for (var i in this.mineshaft.workerArray) {
-                const cultist = cultists.getCultistById(this.mineshaft.workerArray[i].id);
-                const resource = this.getResourceById(this.mineshaft.workerArray[i].resource )
+            for (var i in this.workers.workerArray) {
+                const cultist = cultists.getCultistById(this.workers.workerArray[i].id);
+                const resource = this.getResourceById(this.workers.workerArray[i].resource )
                 const obj = {
                     cultist: cultist,
                     resource: resource
@@ -92,17 +109,18 @@ export const useMinesStore = defineStore("mines", {
 
             return cultistArray;
         },
+        //saving/loading
         saveData() {
             var data = JSON.parse(localStorage.getItem("SECSData"));
 
-            data.mines = this.mineshaft;
+            data.mines = this.workers;
 
             localStorage.setItem("SECSData", JSON.stringify(data));
         },
         loadData() {
             var data = JSON.parse(localStorage.getItem("SECSData"));
 
-            this.mineshaft = data.mines;
+            this.workers = data.mines;
         }
     }
 })
