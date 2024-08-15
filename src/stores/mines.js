@@ -9,9 +9,16 @@ export const useMinesStore = defineStore("mines", {
         return {
             mineshaft: {
                 overseer: null,
-                workerArray: [],
-                maxDepth: 1000,
-                currentDepth: 0
+                workerArray: []
+            },
+            resources: {
+                stone: {id:"stone", name:"Stone", total: 0, perSec: 0, 
+                    showCondition(){
+                        const expansions = useExpansionsStore(); 
+                        return expansions.hasTier1}, 
+                    unlockCondition() {
+                        return true;
+                    }}
             },
             items: {
             },
@@ -22,12 +29,6 @@ export const useMinesStore = defineStore("mines", {
         }
     },
     getters: {
-        getDepth(state) {
-            return state.mineshaft.currentDepth;
-        },
-        getMaxDepth(state) {
-            return state.mineshaft.maxDepth;
-        },
         getOverseer(state) {
             return state.mineshaft.overseer;
         },
@@ -40,13 +41,22 @@ export const useMinesStore = defineStore("mines", {
         getResources(state) {
             return state.resources;
         },
-        getResourceProduction(state) {
-            return (resource) => Math.floor(state.mineshaft.currentDepth / state.resources[resource].multiplier);
+        getResourceById(state) {
+            return (id) => state.resources[id];
+        },
+        getUnlockResources(state) {
+            const returnArray = [];
+            for (var i in state.resources) {
+                if (state.resources[i].unlockCondition()) {
+                    returnArray.push(state.resources[i]);
+                }
+            }
+            return returnArray;
         }
     },
     actions: {
         tick() {
-            console.log("Tick working");
+            //console.log("Tick working");
         },
         instantiateItems() {
             this.items = items.mines;
@@ -54,8 +64,8 @@ export const useMinesStore = defineStore("mines", {
         assignOverseer(cultistId) {
             this.mineshaft.overseer = cultistId;
         },
-        addWorker(cultistId) {
-            this.mineshaft.workerArray.push(cultistId);
+        addWorker(obj) {
+            this.mineshaft.workerArray.push(obj);
         },
         removeOverseer() {
             this.mineshaft.overseer = null;
@@ -69,8 +79,13 @@ export const useMinesStore = defineStore("mines", {
             const cultistArray = [];
 
             for (var i in this.mineshaft.workerArray) {
-                const cultist = cultists.getCultistById(this.mineshaft.workerArray[i]);
-                cultistArray.push(cultist);
+                const cultist = cultists.getCultistById(this.mineshaft.workerArray[i].id);
+                const resource = this.getResourceById(this.mineshaft.workerArray[i].resource )
+                const obj = {
+                    cultist: cultist,
+                    resource: resource
+                }
+                cultistArray.push(obj);
             }
 
             console.log(cultistArray);

@@ -10,6 +10,9 @@ html {
     border: 1px black solid;
 }
 
+.inline-blockContainer > * {
+    display:inline-block;
+}
 
 
 /*Text log*/
