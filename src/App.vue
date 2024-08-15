@@ -1,7 +1,7 @@
 <script setup>
 import Tables from "./components/tables/Tables.vue";
 import LairTab from "./components/lairTab/LairTab.vue";
-import CultistsTab from "./components/cultistTab/CultistsTab.vue";
+import HRTab from "./components/HRTab/HRTab.vue";
 import MineTab from "./components/mineTab/MineTab.vue";
 //import TextLog from "./components/textLog/TextLog.vue";
 import InventoryTab from "./components/inventory/InventoryTab.vue";
@@ -22,8 +22,8 @@ const misc = useMiscStore();
       <b-tab-item label="Lair">
         <LairTab/>
       </b-tab-item>
-      <b-tab-item :label="cultists.checkFreeSkillPoints ? 'Cult(!)' : 'Cult'"  v-if="misc.checkHasSeenConvo(2)">
-          <CultistsTab/>
+      <b-tab-item label="HR" >
+          <HRTab/>
       </b-tab-item>
       <b-tab-item label="Mines">
         <MineTab/>

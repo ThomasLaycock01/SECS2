@@ -173,7 +173,7 @@ export function deserializeCultist(obj) {
 //creating new cultists
 export function addCultist(species) {
     const cultists = useCultistsStore();
-    const resources = useResourcesStore();
+
     var id = cultists.numOfCultists;
 
     while (cultists.checkIfIdUsed(id)) {
@@ -185,25 +185,6 @@ export function addCultist(species) {
     const cultist = createCultist(id, name, species)
 
     cultists.addCultist(cultist);
-
-    //removing cost of cultist
-
-    switch(species) {
-        case "Human":
-            for (var i in cost) {
-                resources.modifyResource(i, posToNeg(cost[i]))
-            }
-            break;
-        case "Dwarf":
-            for (var i in cost) {
-                resources.modifyResource(i, posToNeg(cost[i]))
-            }
-            break;
-        case "Slime":
-            for (var i in cost) {
-                resources.modifyResource(i, posToNeg(cost[i]))
-            }
-    }
     
 }
 

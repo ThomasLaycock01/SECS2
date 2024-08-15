@@ -1,29 +1,15 @@
 <script setup>
-import Tooltip from "../Tooltip.vue";
+import { useLairStore } from '@/stores/lair';
 
-import { ref } from "vue";
+const lair = useLairStore();
 
-import { useMiscStore } from "@/stores/misc";
-
-const hover = ref("");
-const misc = useMiscStore();
 </script>
 
 <template>
 
-    <div v-if="misc.checkHasSeenConvo(0)">
-        <span v-for="segment in actions">
-            <div v-if="segment.showCondition()">
-                <div class="title is-4 mb-1 segment-title">{{segment.name}}</div>
-                <div class="button_list">
-                    <div v-for="button in segment.buttons">
-                        <button v-if="button.showCondition()" :disabled="!button.condition()" @click="button.effect" @mouseover="hover = button.id" @mouseleave="hover = ''"  class="button is-dark mb-1 mr-2">{{ button.name }}</button>
-                        <div v-if="hover == button.id" class="tooltip_container" >
-                            <Tooltip class="tooltip" :tooltipData="button.tooltipData"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div>
+        <span v-for="action in lair.getActions">
+            <button v-if="action.showCondition()" :disabled="!action.condition()" @click="action.effect"  class="button is-dark mb-1 mr-2">{{ action.name }}</button>
         </span>
     </div> 
 

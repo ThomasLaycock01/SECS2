@@ -49,7 +49,7 @@ function removeWorkerClick(e) {
 
 <template>
 
-<ActionList :actions="mineActions"/>
+<!--<ActionList :actions="mineActions"/>-->
 
 <div>
     <!--Resources

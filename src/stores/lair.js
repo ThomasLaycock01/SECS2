@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 
 import { useResourcesStore } from "./resources";
 
-export const useMinesStore = defineStore("lair", {
+export const useLairStore = defineStore("lair", {
     state: () => {
         return {
             actions: {
@@ -36,15 +36,14 @@ export const useMinesStore = defineStore("lair", {
                         resources.modifyResource("gold", 1)
                     }
                 }
-            },
-            misc: {
-                workerJobName: "Miner",
-                overseerJobName: "Mine Overseer"
             }
         }
     },
     getters: {
-
+        //actions
+        getActions(state) {
+            return state.actions;
+        }
     },
     actions: {
     }

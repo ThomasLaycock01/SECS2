@@ -20,12 +20,11 @@ export const useResourcesStore = defineStore("resources", {
                     showCondition(){
                         return true}}
             },
-        misc: {
             childPinias: [{id:"mines", resources: ["stone"], piniaObject() {const mines = useMinesStore(); return mines}}]
-        }}
+        }
     },
     getters: {
-        getAll(state) {
+        getGlobal(state) {
             return state.resources;
         },
         getResourceTotal(state) {
@@ -39,6 +38,10 @@ export const useResourcesStore = defineStore("resources", {
         },
         getName(state) {
             return (resource) => state.resources[resource].name;
+        },
+        //pinias
+        getChildPinias(state) {
+            return state.childPinias;
         }
     },
     actions: {
@@ -47,6 +50,30 @@ export const useResourcesStore = defineStore("resources", {
         },
         setResourcePerSec(type, value) {
             this.resources[type].perSec = value;
+        },
+        checkIfCanAfford(costsObj) {
+            var canAfford = true;
+            for (var i in costsObj) {
+                if (this.getResourceTotal(i) < costsObj[i]) {
+                    canAfford = false;
+                }
+            }
+
+            return canAfford;
+            //might not be necessary, but keep around as reference for how to grab the child pinias
+            /*for (var i in costsObj) {
+                if (this.getGlobal[i]) {
+                    //this can be used to grab resources from this pinia
+                    
+                } 
+                else {
+                    for (var j in this.getChildPinias) {
+                        if (this.getChildPinias[j].resources.includes(i)) {
+                            //this can be used to grab resources from the other pinias
+                        }
+                    }
+                }
+            }*/
         },
         saveData() {
             var data = JSON.parse(localStorage.getItem("SECSData"));

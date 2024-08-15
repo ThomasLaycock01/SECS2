@@ -1,12 +1,23 @@
 <script setup>
+import { useHRStore } from '@/stores/HR';
 import { useCultistsStore } from "@/stores/cultists";
 import { useMiscStore } from '@/stores/misc';
 
 const cultists = useCultistsStore();
 const misc = useMiscStore();
+const HR = useHRStore();
 </script>
 
+
+
 <template>
+
+    <div>
+        <span v-for="action in HR.getActions">
+            <button v-if="action.showCondition()" :disabled="!action.condition()" @click="action.effect()"  class="button is-dark mb-1 mr-2">{{ action.name }}</button>
+        </span>
+    </div> 
+
     <div class="title is-4 mb-1 segment-title">Cultists</div>
     <div class="container">
         <span v-for="i in cultists.regularCultists">
@@ -83,11 +94,11 @@ const misc = useMiscStore();
         
         </b-modal>
     </section>
+
 </template>
 
 <script>
-import { fireCultist } from "@/functions";
-
+//go do this through the optionsAPI cause buefy doesn't like composition
 export default {
     data() {
         return {
@@ -99,24 +110,11 @@ export default {
         setNewActiveCultist(cultist) {
             this.activeCultist = cultist;
             this.isCultistModalActive = true;
-        },
-        addStr() {
-            this.activeCultist.increaseStat("str");
-        },
-        addAgi() {
-            this.activeCultist.increaseStat("agi");
-        },
-        addInt() {
-            this.activeCultist.increaseStat("int");
-        },
-        addCha() {
-            this.activeCultist.increaseStat("cha");
-        },
+        }/*
         fireCultistBtn() {
             fireCultist(this.activeCultist.getId());
             this.isCultistModalActive = false;
-        }
+        }*/
     }
 }
-
 </script>
