@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 
 import { useResourcesStore } from "./resources";
-import { useCostsStore } from "./costs";
 import { useMinesStore } from "./mines"; 
 
 import { posToNeg } from "@/functions";
@@ -65,9 +64,6 @@ export const useExpansionsStore = defineStore("expansions", {
 
 
             const resources = useResourcesStore();
-            const costs = useCostsStore();
-
-            const cost = costs.getExpansionTierCost(chosenTier);
 
             for (var i in cost) {
                 resources.modifyResource(i, posToNeg(cost[i]));
@@ -76,12 +72,9 @@ export const useExpansionsStore = defineStore("expansions", {
         },
         checkIfCanAfford(expansionId) {
             const resources = useResourcesStore();
-            const costs = useCostsStore();
 
             const chosenExpansion = this.all.filter(obj => obj.id == expansionId)[0];
             const chosenTier = chosenExpansion.tier;
-
-            const cost = costs.getExpansionTierCost(chosenTier);
 
             var canAfford = true;
 

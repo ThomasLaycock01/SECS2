@@ -1,42 +1,52 @@
 import {defineStore} from "pinia";
 
-import { useMiscStore } from "./misc";
-import { useExpansionsStore } from "./expansions";
+import { useMinesStore } from "./mines";
 
 export const useResourcesStore = defineStore("resources", {
     state: () => {
         return {
             resources: {
-                evilness: {name: "Evilness", total: 0, perSec: 0, showCondition(){const misc = useMiscStore(); return misc.checkHasSeenConvo(1)}}, 
-                gold: {name:"Gold", total: 0, perSec: 0, showCondition(){const misc = useMiscStore(); return misc.checkHasSeenConvo(2)}}, 
-                crystals: {name:"Crystals", total: 0, perSec: 0, showCondition(){const expansions = useExpansionsStore(); return expansions.hasTier1}}, 
-                manaCrystals: {name:"Mana Crystals", total: 0, perSec: 0, showCondition(){const expansions = useExpansionsStore(); return expansions.getBuiltTier2Id == "tower";}},
-                slime: {name:"Slime",total: 0, perSec: 0, showCondition(){const misc = useMiscStore(); return misc.checkHasSeenConvo(5)}}
-            }}
+                evilness: {id:"evilness",
+                    name: "Evilness",
+                    total: 0,
+                    perSec: 0,
+                    showCondition(){
+                        return true}},
+                gold: {
+                    id:"gold", 
+                    name:"Gold", 
+                    total: 0, 
+                    perSec: 0, 
+                    showCondition(){
+                        return true}}
+            },
+        misc: {
+            childPinias: [{id:"mines", resources: ["stone"], piniaObject() {const mines = useMinesStore(); return mines}}]
+        }}
     },
     getters: {
         getAll(state) {
-            return state["resources"];
+            return state.resources;
         },
         getResourceTotal(state) {
-            return (resource) => state["resources"][resource].total;
+            return (resource) => state.resources[resource].total;
         },
         getResourcePerSec(state) {
-            return (resource) => state["resources"][resource].perSec;
+            return (resource) => state.resources[resource].perSec;
         },
         getSpecificResource(state) {
-            return (resource) => state["resources"][resource];
+            return (resource) => state.resources[resource];
         },
         getName(state) {
-            return (resource) => state["resources"][resource]["name"];
+            return (resource) => state.resources[resource].name;
         }
     },
     actions: {
         modifyResource(type, amount) {
-            this["resources"][type].total += amount;
+            this.resources[type].total += amount;
         },
         setResourcePerSec(type, value) {
-            this["resources"][type].perSec = value;
+            this.resources[type].perSec = value;
         },
         saveData() {
             var data = JSON.parse(localStorage.getItem("SECSData"));

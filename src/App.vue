@@ -3,8 +3,7 @@ import Tables from "./components/tables/Tables.vue";
 import LairTab from "./components/lairTab/LairTab.vue";
 import CultistsTab from "./components/cultistTab/CultistsTab.vue";
 import MineTab from "./components/mineTab/MineTab.vue";
-import TextLog from "./components/textLog/TextLog.vue";
-import JobAssigner from "./components/jobAssigner/JobAssigner.vue";
+//import TextLog from "./components/textLog/TextLog.vue";
 import InventoryTab from "./components/inventory/InventoryTab.vue";
 
 import { useCultistsStore } from "./stores/cultists";
@@ -35,8 +34,7 @@ const misc = useMiscStore();
     </b-tabs>
   </section>
   <div class="column is-one-quarter">
-    <TextLog/>
-    <JobAssigner  v-if="misc.checkHasSeenConvo(3)"/>
+    <!--<TextLog/>-->
   </div>
 </template>
 
@@ -52,7 +50,7 @@ export default {
     return {activeTab: 0}
   },
   mounted() {
-    const misc = useMiscStore();
+    /*const misc = useMiscStore();
     const textLog = useTextLogStore();
 
     textLog.loadConvos();
@@ -67,9 +65,9 @@ export default {
     }
     else {
       loadData();
-    }
+    }*/
     setInterval(tick, 1000);
-    setInterval(saveData, 10000)
+    //setInterval(saveData, 10000)
   }
 }
 

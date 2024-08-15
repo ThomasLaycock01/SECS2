@@ -1,7 +1,4 @@
 <script setup>
-import ActionList from '../ActionList.vue';
-
-import { mineActions } from '@/actions';
 import { addCultistToOverseerJob, addCultistToWorkerJob, removeCultistFromOverseerJob, removeCultistFromWorkerJob } from '@/functions';
 
 import { useMinesStore } from '@/stores/mines';

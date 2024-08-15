@@ -1,25 +1,22 @@
 //pinias
 import { useResourcesStore } from "./stores/resources";
 import { useCultistsStore } from "./stores/cultists";
-import { useJobsStore } from "./stores/jobs";
 import { useExpansionsStore } from "./stores/expansions";
 import { useMiscStore } from "./stores/misc";
-import { useBuildingsStore } from "./stores/buildings";
-import { useCostsStore } from "./stores/costs";
-import { useConvosStore } from "./stores/convos";
 import { useTextLogStore } from "./stores/textLog";
 import { useInventoryStore } from "./stores/inventory";
 //expansions
 import { useMinesStore } from "./stores/mines";
 //classes
 import { Item } from "./classes/Item";
+import { Cultist } from "./classes/Cultist";
 //testing json
 import items from "@/assets/items.json";
 
 
 //tick system
 export function tick() {
-    const resources = useResourcesStore();
+    /*const resources = useResourcesStore();
     const expansions = useExpansionsStore();
     //adding resources
     for (var i in resources.getAll) {
@@ -46,7 +43,7 @@ export function tick() {
     updateCultistXp();
 
     //checking what convos need playing
-    checkConvos();
+    checkConvos();*/
 }
 
 //calculating evilness output, since its different from other resources
@@ -81,7 +78,6 @@ function calculateSlime() {
 //calculating resource output
 function calculateResource(resource) {
     //first - instantiate stores
-    const jobs = useJobsStore();
     const resources = useResourcesStore();
     const cultists = useCultistsStore();
 
@@ -128,7 +124,6 @@ function updateResources() {
 }
 
 function calculateXpOutput() {
-    const jobs = useJobsStore();
     const cultists = useCultistsStore();
     const misc = useMiscStore();
 
@@ -155,140 +150,12 @@ function calculateXpOutput() {
 }
 
 //checking and playing convos
-function checkConvos() {
+/*function checkConvos() {
     const convos = useConvosStore();
 
     convos.playPerRequirements();
-}
+}*/
 
-
-
-//class for creating cultists - will need expanding
-class Cultist {
-    constructor(id, name, species, job, stats, level, currentXp, xpNeeded, xpIncrement, freeStatPoints, levelLimit) {
-        this.id = id;
-        this.name = name;
-        this.job = job;
-        this.stats = stats;
-        this.level = level;
-        this.currentXp = currentXp;
-        this.xpNeeded = xpNeeded;
-        this.xpIncrement = xpIncrement;
-        this.freeStatPoints = freeStatPoints;
-        this.levelLimit = levelLimit;
-        this.species = species;
-    }
-
-    //getters
-    getName() {
-        return this.name;
-    }
-
-    getJob() {
-        return this.job;
-    }
-
-    getStats() {
-        return this.stats;
-    }
-
-    getStat(stat) {
-        return this.stats[stat];
-    }
-
-    getId() {
-        return this.id;
-    }
-
-    getXp() {
-        return this.currentXp;
-    }
-
-    getXpNeeded() {
-        return this.xpNeeded;
-    }
-
-    getXpIncrement() {
-        return this.xpIncrement;
-    }
-
-    getLevel() {
-        return this.level;
-    }
-
-    getFreeStatPoints() {
-        return this.freeStatPoints;
-    }
-
-    getLevelLimit() {
-        return this.levelLimit;
-    }
-
-    getSpecies() {
-        return this.species;
-    }
-
-    //setters
-    setJob(job) {
-        this.job = job;
-    }
-
-    removeJob() {
-        this.job = null;
-    }
-
-    addXp(amount) {
-        if (this.level == this.levelLimit) {
-            this.currentXp = 0;
-        }
-        else {
-            this.currentXp += amount;
-            this.checkLevelUp();
-        }
-    }
-
-    checkLevelUp() {
-        if (this.currentXp >= this.xpNeeded && !(this.level + 1 > this.levelLimit)) {
-            this.levelUp();
-        }
-    }
-
-    levelUp() {
-        this.currentXp = 0;
-        this.xpNeeded = Math.floor(this.xpNeeded * this.xpIncrement);
-
-        this.level += 1;
-        this.freeStatPoints += Math.ceil(Math.random() * 3)
-    }
-
-    increaseStat(stat) {
-        this.freeStatPoints -= 1;
-        this.stats[stat] += 1;
-    }
-
-    setLevelLimit() {
-        const misc = useMiscStore();
-        this.levelLimit = misc.getDefaultLevelLimit;
-    }
-
-    serialize() {
-        const serializedCultist = {
-            id: this.id,
-            name: this.name,
-            job: this.job,
-            stats: this.stats,
-            level: this.level,
-            currentXp: this.currentXp,
-            xpNeeded: this.xpNeeded,
-            xpIncrement: this.xpIncrement,
-            freeStatPoints: this.freeStatPoints,
-            levelLimit: this.levelLimit,
-            species: this.species
-        }
-
-        return serializedCultist;
-    }
-}
 
 //creating a cultist
 function createCultist(id, name, species, job = null, stats = {str: 1, int: 1, agi: 1, cha: 1}, level = 1, currentXp = 0, xpNeeded = 20, xpIncrement = 1.5, freeStatPoints = 0, levelLimit = 10) {
@@ -307,8 +174,6 @@ export function deserializeCultist(obj) {
 export function addCultist(species) {
     const cultists = useCultistsStore();
     const resources = useResourcesStore();
-    const costs = useCostsStore();
-
     var id = cultists.numOfCultists;
 
     while (cultists.checkIfIdUsed(id)) {
@@ -325,22 +190,16 @@ export function addCultist(species) {
 
     switch(species) {
         case "Human":
-            var cost = costs.getCultistCost("human");
-            console.log(cost);
             for (var i in cost) {
                 resources.modifyResource(i, posToNeg(cost[i]))
             }
             break;
         case "Dwarf":
-            var cost = costs.getCultistCost("dwarf");
-            console.log(cost);
             for (var i in cost) {
                 resources.modifyResource(i, posToNeg(cost[i]))
             }
             break;
         case "Slime":
-            var cost = costs.getCultistCost("slime");
-            console.log(cost);
             for (var i in cost) {
                 resources.modifyResource(i, posToNeg(cost[i]))
             }
@@ -353,7 +212,6 @@ export function addCultist(species) {
 export function addCultistToJob(cultistId, jobId) {
     //first - instantiate stores
     const cultists = useCultistsStore();
-    const jobs = useJobsStore();
 
     //second - add cultistId to job store
     jobs.addCultistToJob(cultistId, jobId);
@@ -394,7 +252,6 @@ export function addCultistToOverseerJob(cultistId, piniaObject) {
 
 //removing cultists from a job
 export function removeCultistFromJob(cultistId) {
-    const jobs = useJobsStore();
     const cultists = useCultistsStore();
 
     jobs.removeCultistFromJob(cultistId);
@@ -459,23 +316,6 @@ export function buildExpansion(expansionId) {
 }
 
 
-//building a building
-export function buildBuilding(buildingId) {
-    const buildings = useBuildingsStore();
-    const costs = useCostsStore();
-
-    const cost = costs.getTotalBuildingCost(buildingId);
-
-    const resources = useResourcesStore();
-
-    for (var i in cost) {
-        resources.modifyResource(i, posToNeg(cost[i]));
-    }
-
-    buildings.buildingBuilding(buildingId)
-}
-
-
 //returns true if there is space for more cultists
 export function checkCultistSpace() {
     const cultists = useCultistsStore();
@@ -513,25 +353,17 @@ export function deserializeItem(object) {
 //localStorage functions
 export function saveData() {
     //have each pinia store save their data seperately
-    const buildings = useBuildingsStore();
-    const convos = useConvosStore();
-    const costs = useCostsStore();
     const cultists = useCultistsStore();
     const expansions = useExpansionsStore();
     const inventory = useInventoryStore();
-    const jobs = useJobsStore();
     const mines = useMinesStore();
     const misc = useMiscStore();
     const resources = useResourcesStore();
     const textLog = useTextLogStore();
 
-    buildings.saveData();
-    convos.saveData();
-    costs.saveData();
     cultists.saveData();
     expansions.saveData();
     //inventory.saveData();
-    jobs.saveData();
     mines.saveData();
     misc.saveData();
     resources.saveData();
@@ -540,25 +372,17 @@ export function saveData() {
 
 export function loadData() {
     //same as save, but this time it's the load
-    const buildings = useBuildingsStore();
-    const convos = useConvosStore();
-    const costs = useCostsStore();
     const cultists = useCultistsStore();
     const expansions = useExpansionsStore();
     const inventory = useInventoryStore();
-    const jobs = useJobsStore();
     const mines = useMinesStore();
     const misc = useMiscStore();
     const resources = useResourcesStore();
     const textLog = useTextLogStore();
 
-    buildings.loadData();
-    convos.loadData();
-    costs.loadData();
     cultists.loadData();
     expansions.loadData();
     //inventory.loadData();
-    jobs.loadData();
     mines.loadData();
     misc.loadData();
     resources.loadData();
