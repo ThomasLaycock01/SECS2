@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import { createItem, deserializeItem } from "@/functions";
+import { Item } from "@/classes/Item";
 
 export const useInventoryStore = defineStore("inventory", {
     state: () => {
@@ -9,7 +9,7 @@ export const useInventoryStore = defineStore("inventory", {
 
             ],
             misc: {
-                inventorySize: 100,
+                inventorySize: 10,
                 selectedItem: null
             }
         }
@@ -18,11 +18,11 @@ export const useInventoryStore = defineStore("inventory", {
         getInventory(state) {
             return state.inventory;
         },
+        getItemById(state) {
+            return (id) => state.inventory.find((obj) => obj.id = id)
+        },
         getUnusedSpaces(state) {
             return state.misc.inventorySize - state.inventory.length;
-        },
-        getItemDataById(state) {
-            return (itemId) => state.itemIndex[itemId];
         },
         checkFreeSpace(state) {
             return state.inventory.length < state.misc.inventorySize;
@@ -32,64 +32,37 @@ export const useInventoryStore = defineStore("inventory", {
         }
     },
     actions: {
-        generateStackId() {
-            const lastId = this.inventory[this.inventory.length - 1].getStackId();
+        generateItemId() {
+            const idArray = [];
+            var returnId = 0;
 
-            return lastId + 1;
-        },
-        addItem(itemId, amount) {
+            for (var i in this.getInventory) {
+                idArray.push(this.getInventory[i].getId());
+            }
 
-            for (var i in this.inventory) {
-                if (this.inventory[i].checkSameId(itemId)) {
-                    amount = this.inventory[i].addAllPossible(amount);
-                    if (amount == 0) {
-                        break;
-                    }
-                }
+            while (idArray.includes(returnId)) {
+                returnId++;
             }
-            if (amount > 0 && this.checkFreeSpace) {
-                const item = createItem(itemId, amount);
-                this.inventory.push(item);
+
+            return returnId;
+        },
+        addItem(itemObj) {
+            if (!this.checkFreeSpace) {
+                return;
             }
+            const id = this.generateItemId();
+            console.log(id);
+            const newItem = new Item(id, itemObj);
+            this.inventory.push(newItem);
         },
-        addItemFromDeserialize(obj) {
-            const stack = createItem(obj.itemId, obj.amount, obj.stackId);
-            this.inventory.push(stack);
-        },
-        removeItem(stackId) {
-            this.inventory = this.inventory.filter((item) => item.stackId != stackId);
+        removeItem(id) {
+            this.inventory = this.inventory.filter((obj) => obj.getId() != id);
         },
         setSelectedItem(val) {
             this.misc.selectedItem = val;
         },
         removeSelectedItem() {
             this.misc.selectedItem = null;
-        },
-        saveData() {
-            var data = JSON.parse(localStorage.getItem("SECSData"));
-
-            const inventoryObject = {};
-
-            for (var i in this.inventory) {
-                const item = this.inventory[i];
-                inventoryObject[item.getStackId()] = item.serialize();
-
-            }
-
-            data.inventory = inventoryObject;
-
-            localStorage.setItem("SECSData", JSON.stringify(data));
-        },
-        loadData() {
-            var data = JSON.parse(localStorage.getItem("SECSData"));
-            
-            for (var i in data.inventory) {
-                const itemObject = data.inventory[i];
-
-                const stack = createItem(itemObject.itemId, itemObject.amount, itemObject.stackId);
-
-                this.inventory.push(stack);
-            }
         }
     }
 })

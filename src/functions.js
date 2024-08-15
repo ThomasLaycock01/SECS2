@@ -1,3 +1,4 @@
+//pinias
 import { useResourcesStore } from "./stores/resources";
 import { useCultistsStore } from "./stores/cultists";
 import { useJobsStore } from "./stores/jobs";
@@ -10,6 +11,10 @@ import { useTextLogStore } from "./stores/textLog";
 import { useInventoryStore } from "./stores/inventory";
 //expansions
 import { useMinesStore } from "./stores/mines";
+//classes
+import { Item } from "./classes/Item";
+//testing json
+import items from "@/assets/items.json";
 
 
 //tick system
@@ -485,100 +490,14 @@ export function checkCultistSpace() {
 }
 
 
-
-
-//inventory
-class InventoryStack {
-    constructor(data, amount, stackId) {
-        this.stackId = stackId;
-
-        this.itemId = data.itemId;
-        this.name = data.name;
-        this.shortName = data.shortName;
-        this.stackSize = data.stackSize;
-        this.sellPrice = data.sellPrice;
-        this.tier = data.tier;
-
-
-        this.amount = amount;
-    }
-
-    //getters
-    getItemId() {
-        return this.itemId;
-    }
-
-    getName() {
-        return this.name;
-    }
-
-    getShortName() {
-        return this.shortName;
-    }
-
-    getStackId() {
-        return this.stackId;
-    }
-
-    //actions
-    checkSameId(itemId) {
-        return this.itemId == itemId;
-    }
-
-    addAllPossible(amount) {
-        const spaceAvailable = this.stackSize - this.amount;
-
-        if (spaceAvailable == 0) {
-            return amount;
-        }
-        
-        if (spaceAvailable >= amount) {
-            this.amount += amount;
-            return 0;
-        }
-
-        this.amount += amount - spaceAvailable;
-        return amount - spaceAvailable;
-    }
-
-    returnSellValue() {
-        return Math.floor(this.amount * this.sellPrice);
-    }
-
-    sellThis() {
-        const inventory = useInventoryStore();
-        const resources = useResourcesStore();
-
-        console.log(this.returnSellValue());
-
-        resources.modifyResource("gold", this.returnSellValue());
-
-        inventory.removeItem(this.stackId);
-        
-    }
-
-    serialize() {
-        const serializedItem = {
-            stackId: this.stackId,
-            itemId: this.itemId,
-            amount: this.amount
-        }
-
-        return serializedItem;
-    }
-}
-
-
-
-export function createItem(itemId, amount, stackId = null) {
+//selling an item
+export function sellItem(id) {
     const inventory = useInventoryStore();
-    if (stackId == null) {
-        stackId = inventory.generateStackId();
-    }
-    
-    const data = inventory.getItemDataById(itemId);
+    const resources = useResourcesStore();
 
-    return new InventoryStack(data, amount, stackId);
+    const item = inventory.getItemById(id);
+    resources.modifyResource("gold", item.getSellPrice());
+    inventory.removeItem(item.id);
 }
 
 export function deserializeItem(object) {
@@ -611,7 +530,7 @@ export function saveData() {
     costs.saveData();
     cultists.saveData();
     expansions.saveData();
-    inventory.saveData();
+    //inventory.saveData();
     jobs.saveData();
     mines.saveData();
     misc.saveData();
@@ -638,7 +557,7 @@ export function loadData() {
     costs.loadData();
     cultists.loadData();
     expansions.loadData();
-    inventory.loadData();
+    //inventory.loadData();
     jobs.loadData();
     mines.loadData();
     misc.loadData();

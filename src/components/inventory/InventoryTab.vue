@@ -27,8 +27,8 @@ function onClickAway(e) {
         <div class="container">
             <span v-for="i in inventory.getInventory">
               <div>
-                <button class="button is-dark" ref="inventoryButton" @click="inventoryButtonClick" :value="i.stackId">{{ i.shortName ? i.shortName : i.name }} {{i.amount }}</button>
-                <div v-if="inventory.getSelectedItem == i.stackId">
+                <button class="button is-dark" @click="inventoryButtonClick" :value="i.getId()">{{ i.shortName ? i.shortName : i.name }}</button>
+                <div v-if="inventory.getSelectedItem == i.getId()">
                   <InventoryPopup class="inventoryPopup" :object="i" />
                 </div>
               </div>
