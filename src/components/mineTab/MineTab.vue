@@ -1,4 +1,6 @@
 <script setup>
+import { reactive } from 'vue';
+
 import { addCultistToOverseerJob, addCultistToWorkerJob, removeCultistFromOverseerJob, removeCultistFromWorkerJob } from '@/functions';
 
 import { useMinesStore } from '@/stores/mines';
@@ -9,13 +11,30 @@ const cultists = useCultistsStore();
 
 var workerToAssign = null;
 var resourceToAssign = null;
+var disabled = reactive({disabled: true});
+
+
+function disabledCheck() {
+    console.log(workerToAssign)
+    console.log(resourceToAssign)
+    if (workerToAssign != null && resourceToAssign != null) {
+        disabled.disabled = false;
+    }
+    else {
+        disabled.disabled = true;   
+    }
+    console.log(disabled)
+}
+
 
 function setWorker(e) {
     workerToAssign = e.target.value;
+    disabledCheck();
 }
 
 function setResource(e) {
     resourceToAssign = e.target.value;
+    disabledCheck();
 }
 
 function assignWorker() {
@@ -78,20 +97,20 @@ function removeWorkerClick(e) {
         <div class="inline-blockContainer">
             <div>
                 <b-field label="Worker">
-                    <b-select placeholder="Worker" value="" @input="setWorker" :disabled="!cultists.checkUnemployed()">
+                    <b-select placeholder="Worker" @input="setWorker" :disabled="!cultists.checkUnemployed()">
                         <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
                     </b-select>
                 </b-field>
             </div>
             <div>
                 <b-field label="Resource">
-                    <b-select placeholder="Resource" value="" @input="setResource">
+                    <b-select placeholder="Resource" @input="setResource">
                         <option v-for="i in mines.getUnlockResources" :value="i.id">{{ i.name }}</option>
                     </b-select>
                 </b-field>
             </div>
             <div>
-                <button class="button is-dark mb-1 mr-2" @click="assignWorker">Assign!</button>
+                <button class="button is-dark mb-1 mr-2" :disabled="disabled.disabled">Assign!</button>
             </div>
         </div>
         <br>
@@ -99,7 +118,7 @@ function removeWorkerClick(e) {
             <div v-for="i in mines.getCultistArray()">
                 <div>{{ i.cultist.getName() }} - Lvl {{ i.cultist.getLevel() }} - Mining {{i.resource.name}}</div>
                 <button class="button is-small is-info">Switch metal</button>
-                 <button class="button is-small is-danger" :value="i.cultist.getId()" @click="removeWorkerClick">Remove</button></div>
+                <button class="button is-small is-danger" :value="i.cultist.getId()" @click="removeWorkerClick">Remove</button></div>
         </div>
     </div>
 
