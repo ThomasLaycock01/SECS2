@@ -11,6 +11,10 @@ export class Cultist {
         this.freeStatPoints = freeStatPoints;
         this.levelLimit = levelLimit;
         this.species = species;
+
+        this.modifiers = modifiers;
+        this.perks = perks;
+        this.equipment = equipment;
     }
 
     //getters
@@ -62,6 +66,18 @@ export class Cultist {
         return this.species;
     }
 
+    getModifiers() {
+        return this.modifiers;
+    }
+
+    getEquipment() {
+        return this.equipment;
+    }
+
+    getPerks() {
+        return this.perks;
+    }
+
     //setters
     setJob(job) {
         this.job = job;
@@ -103,6 +119,15 @@ export class Cultist {
     setLevelLimit() {
         const misc = useMiscStore();
         this.levelLimit = misc.getDefaultLevelLimit;
+    }
+
+    calculateModifiers() {
+        for (var i in this.getPerks()) {
+            this.modifiers.push(this.getPerks()[i].modifier);
+        }
+        for (var i in this.getEquipment()) {
+            this.modifiers.push(this.getEquipment()[i].modifier);
+        }
     }
 
     serialize() {
