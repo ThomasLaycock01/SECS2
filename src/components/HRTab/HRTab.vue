@@ -21,8 +21,7 @@ const HR = useHRStore();
     <div class="title is-4 mb-1 segment-title">Cultists</div>
     <div class="container">
         <span v-for="i in cultists.regularCultists">
-            <button v-if="i.getFreeStatPoints() != 0"  class="button is-dark is-info" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
-            <button v-else class="button is-outlined" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
+            <button  class="button is-dark is-info" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
         </span>
         <span v-for="i in misc.getCultistLimit - cultists.numOfCultists">
             <div class="button is-outlined" disabled>Empty</div>
@@ -52,37 +51,6 @@ const HR = useHRStore();
                     <div>{{ activeCultist.getJob() ? activeCultist.getJob() : "Unemployed" }}</div>
                     <div>Level {{ activeCultist.getLevel() }} / {{activeCultist.getLevelLimit()}}</div>
                     <div>{{ activeCultist.getXp() }} / {{ activeCultist.getXpNeeded() }}XP</div>
-                    <div v-if="activeCultist.getFreeStatPoints() != 0" class="has-text-info">{{activeCultist.getFreeStatPoints()}} Skill Points Available!</div>
-                    <table class="table is-striped is-narrow is-inline">
-                        <thead>
-                            <tr>
-                                <th>Stats</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Strength</td>
-                                <td>{{ activeCultist.getStat("str") }}</td>
-                                <td v-if="activeCultist.getFreeStatPoints() != 0"><button @click="addStr">+</button></td>
-                            </tr>
-                            <tr>
-                                <td>Intelligence</td>
-                                <td>{{ activeCultist.getStat("int") }}</td>
-                                <td v-if="activeCultist.getFreeStatPoints() != 0"><button @click="addInt">+</button></td>
-                            </tr>
-                            <tr>
-                                <td>Aglility</td>
-                                <td>{{ activeCultist.getStat("agi") }}</td>
-                                <td v-if="activeCultist.getFreeStatPoints() != 0"><button @click="addAgi">+</button></td>
-                            </tr>
-                            <tr>
-                                <td>Charisma</td>
-                                <td>{{ activeCultist.getStat("cha") }}</td>
-                                <td v-if="activeCultist.getFreeStatPoints() != 0"><button @click="addCha">+</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </body>
                 <footer class="modal-card-foot">
                     <button
