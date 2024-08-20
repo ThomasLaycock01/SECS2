@@ -158,14 +158,14 @@ function calculateXpOutput() {
 
 
 //creating a cultist
-function createCultist(id, name, species, job = null, stats = {str: 1, int: 1, agi: 1, cha: 1}, level = 1, currentXp = 0, xpNeeded = 20, xpIncrement = 1.5, freeStatPoints = 0, levelLimit = 10) {
-    return new Cultist(id, name, species, job, stats, level, currentXp, xpNeeded, xpIncrement, freeStatPoints, levelLimit);
+function createCultist(id, name, species, job = null, level = 1, currentXp = 0, xpNeeded = 20, xpIncrement = 1.5, levelLimit = 10, modifiers = [], perks = {}, equipment = {}) {
+    return new Cultist(id, name, species, job, level, currentXp, xpNeeded, xpIncrement, levelLimit, modifiers, perks, equipment);
 }
 
 export function deserializeCultist(obj) {
     const cultists = useCultistsStore();
 
-    const cultist = createCultist(obj.id, obj.name, obj.species, obj.job, obj.stats, obj.level, obj.currentXp, obj.xpNeeded, obj.xpIcrement, obj.freeStatPoints, obj.levelLimit);
+    const cultist = createCultist(obj.id, obj.name, obj.species, obj.job, obj.level, obj.currentXp, obj.xpNeeded, obj.xpIcrement, obj.levelLimit);
 
     cultists.addCultist(cultist);
 }
