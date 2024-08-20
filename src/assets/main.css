@@ -75,6 +75,56 @@ html {
     color: firebrick;
 }
 
+
+/*HR tab modal*/
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cultistModal {
+    background: #FFFFFF;
+    box-shadow: 2px 2px 20px 1px;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 40vh;
+    height: 60vh;
+}
+
+.cultistModalHeader,
+.cultistModalFooter {
+  padding: 15px;
+  display: flex;
+}
+
+.cultistModalHeader {
+  position: relative;
+  border-bottom: 1px solid #eeeeee;
+  color: #4AAE9B;
+  justify-content: space-between;
+}
+
+.cultistModalFooter {
+  border-top: 1px solid #eeeeee;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.cultistModalBody {
+  position: relative;
+  padding: 20px 10px;
+}
+
+/*rename this*/
 /*inventory popup*/
 .inventoryPopup {
     position: absolute;
