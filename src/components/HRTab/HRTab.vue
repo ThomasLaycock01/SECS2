@@ -53,47 +53,4 @@ function setNewActiveCultist(cultist) {
         </div>
     </div>
 
-    <!--<section>
-        <div>
-
-        </div>
-        <!--<b-modal
-            v-model="isCultistModalActive"
-            has-modal-card
-            trap-focus
-            :destroy-on-hide="false"
-            aria-role="dialog"
-            aria-label="cultistModal"
-            close-button-aria-label="Close"
-            ariaModal>
-            <div class="modal-card">
-                <header class="modal-card-head">
-                    <p class="modal-card-title">{{activeCultist.getName()}}</p>
-                    <button
-                            type="button"
-                            class="delete"
-                            @click="isCultistModalActive = false"></button>
-                </header>
-                <body class="modal-card-body">
-                    <div>{{ activeCultist.getSpecies() }}</div>
-                    <div>{{ activeCultist.getJob() ? activeCultist.getJob() : "Unemployed" }}</div>
-                    <div>Level {{ activeCultist.getLevel() }} / {{activeCultist.getLevelLimit()}}</div>
-                    <div>{{ activeCultist.getXp() }} / {{ activeCultist.getXpNeeded() }}XP</div>
-                    <br>
-                    <div>
-                        <div>Equipment</div>
-                        <div>{{ activeCultist.getEquipment() }}</div>
-                    </div>
-                </body>
-                <footer class="modal-card-foot">
-                    <button
-                            type="button"
-                            class="button is-danger"
-                            @click="fireCultistBtn()">Remove Cultist</button>
-                    </footer>
-            </div>
-        
-        </b-modal>
-    </section>-->
-
 </template>
