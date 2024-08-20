@@ -34,6 +34,7 @@ function assignWorker() {
 
 function setOverseer(e) {
     addCultistToOverseerJob(e.target.value, mines)
+    workerToAssign.worker = null;
 }
 
 function addWorker(e) {
@@ -65,7 +66,7 @@ function removeWorkerClick(e) {
     <div>
         <div class="title is-5 mb-1 segment-title">Overseer</div>
         <div v-if="mines.getOverseer">
-            <div>{{ cultists.getCultistById(mines.getOverseer).getName() }} - Multiplying all production by {{ cultists.getCultistById(mines.getOverseer).getLevel() * 0.5 > 1 ? 1 : cultists.getCultistById(mines.getOverseer).getLevel() * 0.5 }}</div>
+            <div>{{ mines.getOverseer.getName() }} - Multiplying all production by {{ mines.getOverseerModifier() }}</div>
             <button type="button" class="button is-danger" @click="removeOverseerClick">Remove Overseer</button>
         </div>
         <div v-else>

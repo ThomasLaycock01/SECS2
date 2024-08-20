@@ -16,10 +16,10 @@ import items from "@/assets/items.json";
 
 //tick system
 export function tick() {
-    /*const resources = useResourcesStore();
+    const resources = useResourcesStore();
     const expansions = useExpansionsStore();
     //adding resources
-    for (var i in resources.getAll) {
+    /*for (var i in resources.getAll) {
         switch(i) {
             case "evilness":
                 calculateEvilness();
@@ -34,7 +34,7 @@ export function tick() {
 
     }
 
-    expansions.expansionTicks();
+    */expansions.expansionTicks();/*
 
     updateResources();
 
@@ -243,9 +243,7 @@ export function removeCultistFromJob(cultistId) {
 
 //refactored
 export function removeCultistFromOverseerJob(piniaObject) {
-    const cultists = useCultistsStore();
-
-    const cultist = cultists.getCultistById(piniaObject.getOverseer);
+    const cultist = piniaObject.getOverseer;
 
     cultist.removeJob();
 

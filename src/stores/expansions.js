@@ -8,7 +8,7 @@ import { posToNeg } from "@/functions";
 export const useExpansionsStore = defineStore("expansions", {
     state: () => {
         return {built: {
-            tier1: null,
+            tier1: "mines",
             tier2: null,
             tier3: null
         },
