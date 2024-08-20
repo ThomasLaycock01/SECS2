@@ -42,8 +42,10 @@ export const useMinesStore = defineStore("mines", {
         getResourcePerSec(state) {
             return (id) => state.resources[id].perSec;
         },
+        //workers
         getOverseer(state) {
-            return state.workers.overseer;
+            const cultists = useCultistsStore();
+            return cultists.getCultistById(state.workers.overseer);
         },
         getWorkerJobName(state) {
             return state.misc.workerJobName;
@@ -59,12 +61,16 @@ export const useMinesStore = defineStore("mines", {
                 }
             }
             return returnArray;
+        },
+        //misc
+        getWorkerJobName(state) {
+            return this.misc.workerJobName;
         }
     },
     actions: {
         //tick
         tick() {
-            //console.log("Tick working");
+            console.log("Tick working");
         },
         //resources
         modifyResource(resource, amount) {
@@ -88,7 +94,7 @@ export const useMinesStore = defineStore("mines", {
             this.workers.overseer = null;
         },
         removeWorker(cultistId) {
-            this.workers.workerArray = this.workers.workerArray.filter((id) => id != cultistId);
+            this.workers.workerArray = this.workers.workerArray.filter((obj) => obj.id != cultistId);
         },
         getCultistArray() {
             const cultists = useCultistsStore();
@@ -97,12 +103,13 @@ export const useMinesStore = defineStore("mines", {
 
             for (var i in this.workers.workerArray) {
                 const cultist = cultists.getCultistById(this.workers.workerArray[i].id);
-                const resource = this.getResourceById(this.workers.workerArray[i].resource )
+                const resource = this.getResourceObject(this.workers.workerArray[i].resource )
                 const obj = {
                     cultist: cultist,
                     resource: resource
                 }
                 cultistArray.push(obj);
+                cultist.setJob(this.getWorkerJobName)
             }
 
             console.log(cultistArray);

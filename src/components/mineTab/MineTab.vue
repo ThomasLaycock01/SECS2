@@ -9,41 +9,27 @@ import { useCultistsStore } from '@/stores/cultists';
 const mines = useMinesStore();
 const cultists = useCultistsStore();
 
-var workerToAssign = null;
-var resourceToAssign = null;
-var disabled = reactive({disabled: true});
-
-
-function disabledCheck() {
-    console.log(workerToAssign)
-    console.log(resourceToAssign)
-    if (workerToAssign != null && resourceToAssign != null) {
-        disabled.disabled = false;
-    }
-    else {
-        disabled.disabled = true;   
-    }
-    console.log(disabled)
-}
+var workerToAssign = reactive({worker: null});
+var resourceToAssign = reactive({resource: null});
 
 
 function setWorker(e) {
-    workerToAssign = e.target.value;
-    disabledCheck();
+    workerToAssign.worker = e.target.value;
 }
 
 function setResource(e) {
-    resourceToAssign = e.target.value;
-    disabledCheck();
+    resourceToAssign.resource = e.target.value;
 }
 
 function assignWorker() {
     const obj = {
-        id: workerToAssign,
-        resource: resourceToAssign
+        id: workerToAssign.worker,
+        resource: resourceToAssign.resource
     }
-    console.log(obj);
     mines.addWorker(obj);
+
+    workerToAssign.worker = null;
+    resourceToAssign.resource = null;
 }
 
 function setOverseer(e) {
@@ -75,7 +61,7 @@ function removeWorkerClick(e) {
     <div v-for="object in mines.getResources">
         {{ object.id }} - {{ mines.getResourceProduction(object.id) }} per Cultist per second
     </div>
-    <!--Overseer-->
+    Overseer-->
     <div>
         <div class="title is-5 mb-1 segment-title">Overseer</div>
         <div v-if="mines.getOverseer">
@@ -97,27 +83,27 @@ function removeWorkerClick(e) {
         <div class="inline-blockContainer">
             <div>
                 <b-field label="Worker">
-                    <b-select placeholder="Worker" @input="setWorker" :disabled="!cultists.checkUnemployed()">
+                    <b-select placeholder="Worker" @input="setWorker" v-model="workerToAssign.worker" :disabled="!cultists.checkUnemployed()">
                         <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
                     </b-select>
                 </b-field>
             </div>
-            <div>
+            <div v-if="workerToAssign.worker != null">
                 <b-field label="Resource">
-                    <b-select placeholder="Resource" @input="setResource">
+                    <b-select placeholder="Resource" @input="setResource" v-model="resourceToAssign.resource">
                         <option v-for="i in mines.getUnlockResources" :value="i.id">{{ i.name }}</option>
                     </b-select>
                 </b-field>
             </div>
-            <div>
-                <button class="button is-dark mb-1 mr-2" :disabled="disabled.disabled">Assign!</button>
+            <div v-if="resourceToAssign.resource">
+                <button class="button is-dark mb-1 mr-2" @click="assignWorker">Assign!</button>
             </div>
         </div>
         <br>
         <div>
             <div v-for="i in mines.getCultistArray()">
                 <div>{{ i.cultist.getName() }} - Lvl {{ i.cultist.getLevel() }} - Mining {{i.resource.name}}</div>
-                <button class="button is-small is-info">Switch metal</button>
+                <button class="button is-small is-info">Switch resource</button>
                 <button class="button is-small is-danger" :value="i.cultist.getId()" @click="removeWorkerClick">Remove</button></div>
         </div>
     </div>
