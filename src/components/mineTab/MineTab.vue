@@ -58,11 +58,14 @@ function removeWorkerClick(e) {
 <!--<ActionList :actions="mineActions"/>-->
 
 <div>
-    <!--Resources
-    <div v-for="object in mines.getResources">
-        {{ object.id }} - {{ mines.getResourceProduction(object.id) }} per Cultist per second
+    <!--Actions-->
+    <div>
+        <span v-for="action in mines.getActions">
+            <button v-if="action.showCondition()" :disabled="!action.condition()" @click="action.effect()"  class="button is-dark mb-1 mr-2">{{ action.name }}</button>
+        </span>
     </div>
-    Overseer-->
+    <!--Resources-->
+    <!--Overseer-->
     <div>
         <div class="title is-5 mb-1 segment-title">Overseer</div>
         <div v-if="mines.getOverseer">

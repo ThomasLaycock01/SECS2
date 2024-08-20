@@ -51,6 +51,11 @@ const HR = useHRStore();
                     <div>{{ activeCultist.getJob() ? activeCultist.getJob() : "Unemployed" }}</div>
                     <div>Level {{ activeCultist.getLevel() }} / {{activeCultist.getLevelLimit()}}</div>
                     <div>{{ activeCultist.getXp() }} / {{ activeCultist.getXpNeeded() }}XP</div>
+                    <br>
+                    <div>
+                        <div>Equipment</div>
+                        <div>{{ activeCultist.getEquipment() }}</div>
+                    </div>
                 </body>
                 <footer class="modal-card-foot">
                     <button

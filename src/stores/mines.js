@@ -1,12 +1,30 @@
 import { defineStore } from "pinia";
 
 import { useCultistsStore } from "./cultists";
+import { useInventoryStore } from "./inventory";
 
 import items from "../assets/items.json";
 
 export const useMinesStore = defineStore("mines", {
     state: () => {
         return {
+            actions: {
+                testButton: {
+                    id: "testButton",
+                    name: "Test button",
+                    desc: "Hire a Human Cultist",
+                    condition() {
+                        return true;
+                    },
+                    showCondition() {
+                        return true;
+                    },
+                    effect() {
+                        const mines = useMinesStore();
+                        mines.createItem(1000)
+                    }
+                }
+            },
             workers: {
                 overseer: null,
                 workerArray: []
@@ -29,6 +47,10 @@ export const useMinesStore = defineStore("mines", {
         }
     },
     getters: {
+        //actions
+        getActions(state) {
+            return state.actions;
+        },
         //resources
         getResources(state) {
             return state.resources;
@@ -105,6 +127,12 @@ export const useMinesStore = defineStore("mines", {
         //items
         instantiateItems() {
             this.items = items.mines;
+        },
+        createItem(itemId) {
+            const inventory = useInventoryStore();
+            const object = this.items[itemId];
+            console.log(object);
+            inventory.addItem(object);
         },
         //workers
         assignOverseer(cultistId) {

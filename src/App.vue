@@ -66,6 +66,7 @@ export default {
     else {
       loadData();
     }*/
+    instantiateItems();
     setInterval(tick, 1000);
     //setInterval(saveData, 10000)
   }
