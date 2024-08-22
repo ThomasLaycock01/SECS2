@@ -1,5 +1,5 @@
 export class Cultist {
-    constructor(id, name, species, job, level, currentXp, xpNeeded, xpIncrement, levelLimit, modifiers, perks, equipment) {
+    constructor(id, name, species, job, level, currentXp, xpNeeded, xpIncrement, levelLimit, perks, equipment) {
         this.id = id;
         this.name = name;
         this.job = job;
@@ -10,7 +10,6 @@ export class Cultist {
         this.levelLimit = levelLimit;
         this.species = species;
 
-        this.modifiers = modifiers;
         this.perks = perks;
         this.equipment = equipment;
     }
@@ -50,10 +49,6 @@ export class Cultist {
 
     getSpecies() {
         return this.species;
-    }
-
-    getModifiers() {
-        return this.modifiers;
     }
 
     getEquipment() {
@@ -99,15 +94,6 @@ export class Cultist {
     setLevelLimit() {
         const misc = useMiscStore();
         this.levelLimit = misc.getDefaultLevelLimit;
-    }
-
-    calculateModifiers() {
-        for (var i in this.getPerks()) {
-            this.modifiers.push(this.getPerks()[i].modifier);
-        }
-        for (var i in this.getEquipment()) {
-            this.modifiers.push(this.getEquipment()[i].modifier);
-        }
     }
 
     serialize() {

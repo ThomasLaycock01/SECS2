@@ -158,8 +158,8 @@ function calculateXpOutput() {
 
 
 //creating a cultist
-function createCultist(id, name, species, job = null, level = 1, currentXp = 0, xpNeeded = 20, xpIncrement = 1.5, levelLimit = 10, modifiers = [], perks = {}, equipment = {}) {
-    return new Cultist(id, name, species, job, level, currentXp, xpNeeded, xpIncrement, levelLimit, modifiers, perks, equipment);
+function createCultist(id, name, species, job = null, level = 1, currentXp = 0, xpNeeded = 20, xpIncrement = 1.5, levelLimit = 10, perks = {}, equipment = {tool: null, body: null, accessory: null}) {
+    return new Cultist(id, name, species, job, level, currentXp, xpNeeded, xpIncrement, levelLimit, perks, equipment);
 }
 
 export function deserializeCultist(obj) {
