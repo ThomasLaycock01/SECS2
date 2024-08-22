@@ -8,6 +8,7 @@ export class Item {
         this.type = data.type;
         this.modifiers = data.modifiers;
         this.sellPrice = data.sellPrice;
+        this.equipped = false;
     }
 
     //getters
@@ -49,7 +50,19 @@ export class Item {
         return this.sellPrice;
     }
 
+    getEquipped() {
+        return this.equipped;
+    }
+
     //actions
+    toggleEquipped() {
+        if (this.equipped) {
+            this.equipped = false;
+            return;
+        }
+        this.equipped = true;
+    }
+
     //gonna finish serializing later - work on mines first
     serialize() {
         const serializedItem = {

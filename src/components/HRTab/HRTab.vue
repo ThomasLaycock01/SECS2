@@ -12,7 +12,7 @@ const HR = useHRStore();
 const inventory = useInventoryStore();
 
 var activeCultist = reactive({cultist: null});
-var equipmentScreen = reactive({check: false, type: null});
+var equipmentScreen = reactive({check: false, type: null, selectedItem: null});
 
 function setNewActiveCultist(cultist) {
     activeCultist.cultist = cultist;
@@ -28,8 +28,13 @@ function closeButtonClick() {
     equipmentScreen.check = false;
 }
 
-function confirmButtonClick() {
+function equipmentScreenButtonClick(id) {
+    equipmentScreen.selectedItem = id;
+}
 
+function confirmButtonClick() {
+    const item = inventory.getItemById(equipmentScreen.selectedItem);
+    activeCultist.cultist.equipItem(item);
 }
 </script>
 
@@ -66,14 +71,14 @@ function confirmButtonClick() {
                 <div class="container">
                     <span v-for="i in inventory.getItemByType(equipmentScreen.type)">
                         <div>
-                            <button class="button is-dark" :value="i.getId()">{{ i.shortName ? i.shortName : i.name }}</button>
+                            <button :class="i.getId() == equipmentScreen.selectedItem ? 'button is-info' : 'button is-dark'" @click="equipmentScreenButtonClick(i.getId())">{{ i.shortName ? i.shortName : i.name }}</button>
                         </div>
                     </span>
-                    <div>
-                        <button class="button is-outlined" @click="closeButtonClick">Close</button>
-                        <button class="button is-dark">Confirm</button>
-                    </div>
-
+                </div>
+                <br/>
+                <div>
+                    <button class="button is-outlined" @click="closeButtonClick">Close</button>
+                    <button class="button is-dark" @click="confirmButtonClick">Confirm</button>
                 </div>
             </div>
             <!--Cultist screen - appears when a cultist is selected-->

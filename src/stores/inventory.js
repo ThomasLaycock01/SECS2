@@ -19,11 +19,10 @@ export const useInventoryStore = defineStore("inventory", {
             return state.inventory;
         },
         getItemById(state) {
-            return (id) => state.inventory.find((obj) => obj.id = id)
+            return (id) => state.inventory.find((obj) => obj.id == id)
         },
         getItemByType(state) {
             return (type) => {
-                console.log(type);
                 return state.inventory.filter(obj => obj.getType != type);
             }
         },

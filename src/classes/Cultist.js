@@ -96,6 +96,12 @@ export class Cultist {
         this.levelLimit = misc.getDefaultLevelLimit;
     }
 
+    equipItem(item) {
+        const type = item.getType();
+        this.equipment[type] = item;
+        item.toggleEquipped();
+    }
+
     serialize() {
         const serializedCultist = {
             id: this.id,
