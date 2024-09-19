@@ -23,7 +23,7 @@ export const useInventoryStore = defineStore("inventory", {
         },
         getItemByType(state) {
             return (type) => {
-                return state.inventory.filter(obj => obj.getType != type);
+                return state.inventory.filter(obj => obj.getType() == type);
             }
         },
         getUnusedSpaces(state) {

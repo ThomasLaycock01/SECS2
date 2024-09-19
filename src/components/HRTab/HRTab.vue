@@ -35,6 +35,9 @@ function equipmentScreenButtonClick(id) {
 function confirmButtonClick() {
     const item = inventory.getItemById(equipmentScreen.selectedItem);
     activeCultist.cultist.equipItem(item);
+    equipmentScreen.check = false;
+    equipmentScreen.type = null;
+    equipmentScreen.selectedItem = null;
 }
 </script>
 
@@ -91,7 +94,7 @@ function confirmButtonClick() {
                 <div>
                     <div v-for="value, key in activeCultist.cultist.getEquipment()">
                         {{key}}:
-                        <button v-if="value" class="button is-info" @click="equipButtonClick" :value="key">{{ value }}</button>
+                        <button v-if="value" class="button is-info" @click="equipButtonClick" :value="key">{{ value.name }}</button>
                         <button v-else class="button is-outlined" @click="equipButtonClick" :value="key">Empty</button>
                     </div>
                 </div>

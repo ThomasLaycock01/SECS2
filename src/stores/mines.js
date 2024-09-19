@@ -23,6 +23,21 @@ export const useMinesStore = defineStore("mines", {
                         const mines = useMinesStore();
                         mines.createItem(1000)
                     }
+                },
+                testButton2: {
+                    id: "testButton2",
+                    name: "Test button 2",
+                    desc: "Hire a Human Cultist",
+                    condition() {
+                        return true;
+                    },
+                    showCondition() {
+                        return true;
+                    },
+                    effect() {
+                        const mines = useMinesStore();
+                        mines.createItem(1001)
+                    }
                 }
             },
             workers: {
@@ -33,7 +48,8 @@ export const useMinesStore = defineStore("mines", {
                 stone: {id:"stone", name:"Stone", total: 0, perSec: 0, 
                     showCondition(){
                         const expansions = useExpansionsStore(); 
-                        return expansions.hasTier1}, 
+                        return expansions.hasTier1;
+                    }, 
                     unlockCondition() {
                         return true;
                     }}
@@ -148,7 +164,7 @@ export const useMinesStore = defineStore("mines", {
             }
             var mod = 1 + (0.1 * (overseer.getLevel() - 1));
 
-            for (var i in overseer.getModifiers()) {
+            for (var i in overseer.getModifiersByType("mineOverseer")) {
                 console.log(i);
                 //come back and finihs this once modifiers are fully implmented
             }

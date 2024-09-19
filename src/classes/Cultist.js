@@ -102,6 +102,16 @@ export class Cultist {
         item.toggleEquipped();
     }
 
+    getModifiersByType(type) {
+        var returnArray = [];
+        for (var i in this.getEquipment()) {
+            if (this.getEquipment()[i]) {
+                returnArray.push(this.getEquipment()[i].getModifiersByType(type));
+            }
+        }
+        return returnArray;
+    }
+
     serialize() {
         const serializedCultist = {
             id: this.id,
