@@ -40,6 +40,21 @@ export const useResourcesStore = defineStore("resources", {
             return (resource) => state.resources[resource].name;
         },
         //pinias
+        getAll(state) {
+            var returnObj = {};
+
+            for (var i in state.resources) {
+                returnObj[i] = state.resources[i];
+            }
+
+            for (var i in state.childPinias) {
+                for (var j in state.childPinias[i].piniaObject().getResources) {
+                    returnObj[j] = state.childPinias[i].piniaObject().getResources[j];
+                }
+            }
+
+            return returnObj;
+        },
         getChildPinias(state) {
             return state.childPinias;
         }

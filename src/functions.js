@@ -18,6 +18,10 @@ import items from "@/assets/items.json";
 export function tick() {
     const resources = useResourcesStore();
     const expansions = useExpansionsStore();
+
+    //test
+    console.log(resources.getGlobal)
+    console.log(resources.getAll)
     //adding resources
     /*for (var i in resources.getAll) {
         switch(i) {

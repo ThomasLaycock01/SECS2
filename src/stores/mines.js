@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 
 import { useCultistsStore } from "./cultists";
 import { useInventoryStore } from "./inventory";
+import { useExpansionsStore } from "./expansions";
 
 import items from "../assets/items.json";
 
@@ -52,7 +53,7 @@ export const useMinesStore = defineStore("mines", {
                     }, 
                     unlockCondition() {
                         return true;
-                    }}
+                }}
             },
             items: {
             },

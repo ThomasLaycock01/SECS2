@@ -21,7 +21,7 @@ const cultists = useCultistsStore();
                 </tr>
             </thead>
             <tbody> <!--Using getGlobal for now - remember to update to getALl-->
-                <Resource v-for="(object, resource) in resources.getGlobal" :object="object"/>
+                <Resource v-for="(object, resource) in resources.getAll" :object="object"/>
             </tbody>
         </table>
         <table class="table">
