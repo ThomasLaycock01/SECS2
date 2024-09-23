@@ -116,18 +116,15 @@ export const useMinesStore = defineStore("mines", {
             const cultists = useCultistsStore();
             //first - get overseer modifier
             const overseerMod = this.getOverseerModifier();
-            console.log(overseerMod);
 
             //second - calculate output of each resource
             for (var i in this.getResources) {
                 var resourceOutput = 0;
                 for (var j in this.getWorkerArray) {
-                    console.log(i);
-                    console.log(this.getWorkerArray[j].resource);
                     if (this.getWorkerArray[j].resource == i) {
                         const cultist = cultists.getCultistById(this.getWorkerArray[j].id);
-                        resourceOutput += 1 * (1 + 0.1 * (cultist.getLevel() - 1))
-                        console.log(resourceOutput);
+                        //general output of cultists with level modifier
+                        resourceOutput += 1 * cultist.getModifiersByType("mineWorker");
                     }
                 }
                 this.resources[i].perSec = resourceOutput;

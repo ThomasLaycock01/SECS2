@@ -102,14 +102,31 @@ export class Cultist {
         item.toggleEquipped();
     }
 
+    getLevelModifier() {
+        return (this.getLevel() - 1) * 0.1
+    }
+
     getModifiersByType(type) {
-        var returnArray = [];
+        var modifierArray = [];
         for (var i in this.getEquipment()) {
             if (this.getEquipment()[i]) {
-                returnArray.push(this.getEquipment()[i].getModifiersByType(type));
+                //returnArray.push(this.getEquipment()[i].getModifiersByType(type));
+                for (var j in this.getEquipment()[i].getModifiersByType(type)) {
+                    modifierArray.push(this.getEquipment()[i].getModifiersByType(type)[j])
+                }
             }
         }
-        return returnArray;
+
+
+        var totalMod = 1;
+        for (var i in modifierArray) {
+            totalMod += modifierArray[i]["modifier"];
+        }
+
+        //adding the levelMod for convenience
+        totalMod += this.getLevelModifier();
+
+        return totalMod;
     }
 
     serialize() {

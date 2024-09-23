@@ -38,8 +38,8 @@ export class Item {
 
     getModifiersByType(type) {
         const returnArray = [];
-        for (var i in this.modifiers) {
-            if (this.modifiers[i].type == type) {
+        for (var i in this.getModifiers()) {
+            if (this.getModifiers()[i].type == type) {
                 returnArray.push(this.modifiers[i]);
             }
         }
