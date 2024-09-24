@@ -64,6 +64,16 @@ export class Cultist {
         return this.perkPoints;
     }
 
+    checkIfHasPerk(perkId) {
+        for (var i in this.getPerks()) {
+            if (this.getPerks()[i].perkId == perkId) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     //setters
     setJob(job) {
         this.job = job;
