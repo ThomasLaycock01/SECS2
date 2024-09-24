@@ -1,5 +1,5 @@
 export class Cultist {
-    constructor(id, name, species, job, level, currentXp, xpNeeded, xpIncrement, levelLimit, perks, equipment) {
+    constructor(id, name, species, job, level, currentXp, xpNeeded, xpIncrement, levelLimit, perks, perkPoints, equipment) {
         this.id = id;
         this.name = name;
         this.job = job;
@@ -11,6 +11,7 @@ export class Cultist {
         this.species = species;
 
         this.perks = perks;
+        this.perkPoints = perkPoints;
         this.equipment = equipment;
     }
 
@@ -57,6 +58,10 @@ export class Cultist {
 
     getPerks() {
         return this.perks;
+    }
+
+    getPerkPoints() {
+        return this.perkPoints;
     }
 
     //setters

@@ -11,7 +11,7 @@ import { useMinesStore } from "./stores/mines";
 import { Item } from "./classes/Item";
 import { Cultist } from "./classes/Cultist";
 //testing json
-import items from "@/assets/items.json";
+import items from "@/assets/json/items.json";
 
 
 //tick system
@@ -159,8 +159,9 @@ function calculateXpOutput() {
 
 
 //creating a cultist
-function createCultist(id, name, species, job = null, level = 1, currentXp = 0, xpNeeded = 20, xpIncrement = 1.5, levelLimit = 10, perks = {}, equipment = {tool: null, body: null, accessory: null}) {
-    return new Cultist(id, name, species, job, level, currentXp, xpNeeded, xpIncrement, levelLimit, perks, equipment);
+// REMEMBMER!!! -- cultist start with a perk point for testing. Remove this later
+function createCultist(id, name, species, job = null, level = 1, currentXp = 0, xpNeeded = 20, xpIncrement = 1.5, levelLimit = 10, perks = {}, perkPoints = 1, equipment = {tool: null, body: null, accessory: null}) {
+    return new Cultist(id, name, species, job, level, currentXp, xpNeeded, xpIncrement, levelLimit, perks, perkPoints, equipment);
 }
 
 export function deserializeCultist(obj) {

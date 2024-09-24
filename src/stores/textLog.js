@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 
 import { useMiscStore } from "./misc";
 
-import convos from "../assets/convos.json"
+import convos from "../assets/json/convos.json"
 
 export const useTextLogStore = defineStore("textLog", {
     state: () => {

@@ -4,7 +4,7 @@ import { useCultistsStore } from "./cultists";
 import { useInventoryStore } from "./inventory";
 import { useExpansionsStore } from "./expansions";
 
-import items from "../assets/items.json";
+import items from "../assets/json/items.json";
 
 export const useMinesStore = defineStore("mines", {
     state: () => {

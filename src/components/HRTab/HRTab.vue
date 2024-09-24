@@ -6,6 +6,8 @@ import { useCultistsStore } from "@/stores/cultists";
 import { useMiscStore } from '@/stores/misc';
 import { useInventoryStore } from '@/stores/inventory';
 
+import perks from "@/assets/json/perks.json";
+
 const cultists = useCultistsStore();
 const misc = useMiscStore();
 const HR = useHRStore();
@@ -91,12 +93,33 @@ function confirmButtonClick() {
                 <div>{{activeCultist.cultist.getJob() ? activeCultist.cultist.getJob() : "Unemployed"}}</div>
                 <div>Level {{ activeCultist.cultist.getLevel() }} / {{ activeCultist.cultist.getLevelLimit() }}</div>
                 <div>{{ activeCultist.cultist.getXp() }} / {{ activeCultist.cultist.getXpNeeded() }}</div>
+                <br>
+                <div class="title is-6">Equipment</div>
                 <div>
                     <div v-for="value, key in activeCultist.cultist.getEquipment()">
                         {{key}}:
                         <button v-if="value" class="button is-info" @click="equipButtonClick" :value="key">{{ value.name }}</button>
                         <button v-else class="button is-outlined" @click="equipButtonClick" :value="key">Empty</button>
                     </div>
+                </div>
+                <!--New Perks only appear when a cultist has available perk points-->
+                <br>
+                <div class="title is-6">Perks</div>
+                <div v-if="activeCultist.cultist.getPerkPoints()">
+                    <div>Perk points available: {{ activeCultist.cultist.getPerkPoints() }}</div>
+                    <div class="container">
+                        <div v-for="i in perks.default">
+                            <span v-if="activeCultist.cultist.getLevel() >= i.level">
+                                {{ i.name }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div>Selected</div>
+                <div class="container">
+                    <span v-for="i in activeCultist.cultist.getPerks()">
+                        <button  class="button is-dark is-info">{{i.name}}</button>
+                    </span>
                 </div>
             </div>
             <!--default screen - appears if nothing else-->
