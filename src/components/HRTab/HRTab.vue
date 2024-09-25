@@ -41,6 +41,11 @@ function confirmButtonClick() {
     equipmentScreen.type = null;
     equipmentScreen.selectedItem = null;
 }
+
+function assignPerk(e) {
+    console.log(perks.default[e.target.value]);
+    activeCultist.cultist.addPerk(perks.default[e.target.value]);
+}
 </script>
 
 
@@ -109,16 +114,17 @@ function confirmButtonClick() {
                     <div>Perk points available: {{ activeCultist.cultist.getPerkPoints() }}</div>
                     <div class="container">
                         <div v-for="i in perks.default">
-                            <span v-if="activeCultist.cultist.getLevel() >= i.level">
-                                {{ i.name }}
+                            <span v-if="activeCultist.cultist.getLevel() >= i.level && !activeCultist.cultist.checkIfHasPerk(i.perkId)">
+                                <button class="button is-info" @click="assignPerk" :value="i.perkId">{{ i.name }}</button>
                             </span>
                         </div>
                     </div>
+                    <br>
                 </div>
-                <div>Selected</div>
+                <div>Unlocked</div>
                 <div class="container">
                     <span v-for="i in activeCultist.cultist.getPerks()">
-                        <button  class="button is-dark is-info">{{i.name}}</button>
+                        <button  class="button is-outlined">{{i.name}}</button>
                     </span>
                 </div>
             </div>

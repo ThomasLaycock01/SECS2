@@ -106,6 +106,14 @@ export class Cultist {
         this.level += 1;
     }
 
+    incrementPerkPoint() {
+        this.perkPoints++;
+    }
+
+    decrementPerkPoint() {
+        this.perkPoints--;
+    }
+
     setLevelLimit() {
         const misc = useMiscStore();
         this.levelLimit = misc.getDefaultLevelLimit;
@@ -115,6 +123,11 @@ export class Cultist {
         const type = item.getType();
         this.equipment[type] = item;
         item.toggleEquipped();
+    }
+
+    addPerk(perkObject) {
+        this.perks.push(perkObject);
+        this.decrementPerkPoint();
     }
 
     getLevelModifier() {
