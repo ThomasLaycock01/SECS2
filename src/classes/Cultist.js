@@ -135,22 +135,29 @@ export class Cultist {
     }
 
     getModifiersByType(type) {
-        var modifierArray = [];
+        var modValue = 0;
         for (var i in this.getEquipment()) {
             if (this.getEquipment()[i]) {
-                //returnArray.push(this.getEquipment()[i].getModifiersByType(type));
                 for (var j in this.getEquipment()[i].getModifiersByType(type)) {
-                    modifierArray.push(this.getEquipment()[i].getModifiersByType(type)[j])
+                    modValue += this.getEquipment()[i].getModifiersByType(type)[j]["modifier"];
                 }
             }
         }
 
-
-        var totalMod = 1;
-        for (var i in modifierArray) {
-            totalMod += modifierArray[i]["modifier"];
+        for (var i in this.getPerks()) {
+            for (var j in this.getPerks()[i]["modifiers"]) {
+                if (this.getPerks()[i]["modifiers"][j]["type"] == type) {
+                    modValue += this.getPerks()[i]["modifiers"][j]["modifier"];
+                }
+            }
         }
 
+        console.log(modValue);
+
+        //this can be used later to set a cultists base output
+        var totalMod = 1
+
+        totalMod += modValue;
         //adding the levelMod for convenience
         totalMod += this.getLevelModifier();
 
