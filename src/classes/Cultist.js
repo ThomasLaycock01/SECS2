@@ -152,8 +152,6 @@ export class Cultist {
             }
         }
 
-        console.log(modValue);
-
         //this can be used later to set a cultists base output
         var totalMod = 1
 
