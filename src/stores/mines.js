@@ -59,7 +59,9 @@ export const useMinesStore = defineStore("mines", {
             },
             misc: {
                 workerJobName: "Miner",
-                overseerJobName: "Mine Overseer"
+                overseerJobName: "Mine Overseer",
+                workerXp: 1,
+                overseerXp: 2
             }
         }
     },
@@ -108,6 +110,12 @@ export const useMinesStore = defineStore("mines", {
         getOverseerJobName(state) {
             return state.misc.overseerJobName;
         },
+        getWorkerXpAmount(state) {
+            return state.misc.workerXp;
+        },
+        getOverseerXpAmount(state) {
+            return state.misc.overseerXp;
+        }
     },
     actions: {
         //tick
@@ -130,6 +138,18 @@ export const useMinesStore = defineStore("mines", {
                 this.resources[i].perSec = resourceOutput;
                 this.resources[i].total += this.resources[i].perSec;
             }
+
+            //adding XP
+            for (var i in this.getWorkerArray) {
+                const cultist = cultists.getCultistById(this.getWorkerArray[i].id);
+                cultist.addXp(this.getWorkerXpAmount);
+            }
+
+            if (this.getOverseer) {
+                const overseer = this.getOverseer;
+                overseer.addXp(this.getOverseerXpAmount);
+            }
+
         },
         //resources
         modifyResource(resource, amount) {
