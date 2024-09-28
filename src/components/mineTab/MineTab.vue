@@ -64,16 +64,15 @@ function removeWorkerClick(e) {
             <button v-if="action.showCondition()" :disabled="!action.condition()" @click="action.effect()"  class="button is-dark mb-1 mr-2">{{ action.name }}</button>
         </span>
     </div>
-    <!--Resources-->
     <!--Overseer-->
     <div>
         <div class="title is-5 mb-1 segment-title">Overseer</div>
         <div v-if="mines.getOverseer">
-            <div>{{ mines.getOverseer.getName() }} - Multiplying all production by {{ mines.getOverseerModifier() }}</div>
+            <div>{{ mines.getOverseer.getName() }} - Production is currently at {{ mines.getOverseerModifier() * 100 }}%!</div>
             <button type="button" class="button is-danger" @click="removeOverseerClick">Remove Overseer</button>
         </div>
         <div v-else>
-            Without an Overseer, production is halved!
+            Without an Overseer, production is only 50%!
             <b-field label="Assign Overseer">
                 <b-select placeholder="Assign Overseer" value="" @input="setOverseer" :disabled="!cultists.checkUnemployed()">
                     <option v-for="j in cultists.getUnemployed" :value="j.getId()">{{ j.getName() }}</option>
