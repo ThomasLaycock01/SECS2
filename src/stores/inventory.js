@@ -61,7 +61,6 @@ export const useInventoryStore = defineStore("inventory", {
                 return;
             }
             const id = this.generateItemId();
-            console.log(id);
             const newItem = new Item(id, itemObj);
             this.inventory.push(newItem);
         },
