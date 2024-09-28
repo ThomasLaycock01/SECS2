@@ -6,7 +6,6 @@ import { useCultistsStore } from "./cultists";
 export const useMiscStore = defineStore("misc", {
     state: () => {
         return {
-            cultistLimit: 2,
             firstLoad: true,
             seenConvos:[],
             xpOutput: 1,
@@ -14,9 +13,6 @@ export const useMiscStore = defineStore("misc", {
         }
     },
     getters: {
-        getCultistLimit(state) {
-            return state.cultistLimit;
-        },
         getSeenConvos(state) {
             return state.seenConvos;
         },
@@ -31,21 +27,6 @@ export const useMiscStore = defineStore("misc", {
         }
     },
     actions: {
-        calculateCultistLimit() {
-            const expansions = useExpansionsStore();
-
-            var totalLimit = 2;
-
-            console.log(expansions.getBuilt)
-
-            for (var i in expansions.getBuilt) {
-                if (expansions.getBuilt[i]) {
-                    totalLimit += 2;
-                }
-            }
-
-            this.cultistLimit = totalLimit;
-        },
         calculateLevelLimit() {
 
             var totalLimit = 10;
