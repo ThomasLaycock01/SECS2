@@ -75,9 +75,9 @@ function assignPerk(e) {
             <!--Inventory screen - appears when selecting new item for cultist to equip-->
             <div v-if="activeCultist.cultist && equipmentScreen.check">
                 <div>Equipment: {{ equipmentScreen.type }}</div>
-                <div>Click to select. Double Click to immediately equip.</div>
+                <div>Click to select.</div>
                 <div class="container">
-                    <span v-for="i in inventory.getItemByType(equipmentScreen.type)">
+                    <span v-for="i in inventory.getUnequippedItemByType(equipmentScreen.type)">
                         <div>
                             <button :class="i.getId() == equipmentScreen.selectedItem ? 'button is-info' : 'button is-dark'" @click="equipmentScreenButtonClick(i.getId())">{{ i.shortName ? i.shortName : i.name }}</button>
                         </div>

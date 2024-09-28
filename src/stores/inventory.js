@@ -26,6 +26,11 @@ export const useInventoryStore = defineStore("inventory", {
                 return state.inventory.filter(obj => obj.getType() == type);
             }
         },
+        getUnequippedItemByType(state) {
+            return (type) => {
+                return state.inventory.filter(obj => obj.getType() == type && !obj.getEquipped());
+            }
+        },
         getUnusedSpaces(state) {
             return state.misc.inventorySize - state.inventory.length;
         },
