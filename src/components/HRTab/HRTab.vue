@@ -3,13 +3,11 @@ import { reactive } from 'vue';
 
 import { useHRStore } from '@/stores/HR';
 import { useCultistsStore } from "@/stores/cultists";
-import { useMiscStore } from '@/stores/misc';
 import { useInventoryStore } from '@/stores/inventory';
 
 import perks from "@/assets/json/perks.json";
 
 const cultists = useCultistsStore();
-const misc = useMiscStore();
 const HR = useHRStore();
 const inventory = useInventoryStore();
 
@@ -68,7 +66,7 @@ function assignPerk(e) {
                 <span v-for="i in cultists.regularCultists">
                     <button  class="button is-dark is-info" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
                 </span>
-                <span v-for="i in misc.getCultistLimit - cultists.numOfCultists">
+                <span v-for="i in HR.getCultistLimit - cultists.numOfCultists">
                     <div class="button is-outlined" disabled>Empty</div>
                 </span>
             </div>
