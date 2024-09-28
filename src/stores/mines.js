@@ -135,7 +135,7 @@ export const useMinesStore = defineStore("mines", {
                         resourceOutput += 1 * cultist.getModifiersByType("mineWorker");
                     }
                 }
-                this.resources[i].perSec = resourceOutput;
+                this.resources[i].perSec = Math.round(resourceOutput * overseerMod * 100) / 100;
                 this.resources[i].total += this.resources[i].perSec;
             }
 
