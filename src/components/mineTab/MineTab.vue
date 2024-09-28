@@ -68,7 +68,7 @@ function removeWorkerClick(e) {
     <div>
         <div class="title is-5 mb-1 segment-title">Overseer</div>
         <div v-if="mines.getOverseer">
-            <div>{{ mines.getOverseer.getName() }} - Production is currently at {{ mines.getOverseerModifier() * 100 }}%!</div>
+            <div>{{ mines.getOverseer.getName() }} - Production is currently at {{ Math.floor(mines.getOverseerModifier() * 100) }}%!</div>
             <button type="button" class="button is-danger" @click="removeOverseerClick">Remove Overseer</button>
         </div>
         <div v-else>

@@ -165,7 +165,6 @@ export const useMinesStore = defineStore("mines", {
         createItem(itemId) {
             const inventory = useInventoryStore();
             const object = this.items[itemId];
-            console.log(object);
             inventory.addItem(object);
         },
         //workers
@@ -180,14 +179,8 @@ export const useMinesStore = defineStore("mines", {
             if (overseer == null) {
                 return 0.5;
             }
-            var mod = 1 + (0.1 * (overseer.getLevel() - 1));
 
-            for (var i in overseer.getModifierByType("mineOverseer")) {
-                console.log(i);
-                //come back and finihs this once modifiers are fully implmented
-            }
-
-            return mod;
+            return overseer.getModifierByType("mineOverseer");
         },
         addWorker(obj) {
             this.workers.workerArray.push(obj);

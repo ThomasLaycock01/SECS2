@@ -31,7 +31,6 @@ export const useCultistsStore = defineStore("cultists", {
             //calculating evilness
             var evilnessOutput = 0;
             for (var i in this.regularCultists) {
-                console.log(this.regularCultists[i]);
                 evilnessOutput += 1 * this.regularCultists[i].getModifierByType("evilness");
             }
 
