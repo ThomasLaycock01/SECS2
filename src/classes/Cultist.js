@@ -104,7 +104,7 @@ export class Cultist {
         this.xpNeeded = Math.floor(this.xpNeeded * this.xpIncrement);
 
         this.level += 1;
-        this.perkPoints += 1;
+        this.incrementPerkPoint();
     }
 
     incrementPerkPoint() {
