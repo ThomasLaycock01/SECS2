@@ -74,7 +74,6 @@ export const useExpansionsStore = defineStore("expansions", {
             const resources = useResourcesStore();
 
             const chosenExpansion = this.all.filter(obj => obj.id == expansionId)[0];
-            const chosenTier = chosenExpansion.tier;
 
             var canAfford = true;
 
