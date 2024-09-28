@@ -58,8 +58,6 @@ export const useExpansionsStore = defineStore("expansions", {
         checkIfBuilt(state) {
             return (expansionId) => {
                 const expansionObject = this.getObjectById(expansionId);
-                console.log(expansionObject);
-                console.log(expansionId);
                 if (state.built[expansionObject.tier] == expansionId) {
                     return true;
                 }
@@ -91,7 +89,6 @@ export const useExpansionsStore = defineStore("expansions", {
         buildExpansion(expansionId) {
 
             const chosenExpansion = this.getObjectById(expansionId);
-            console.log(chosenExpansion);
             const chosenTier = chosenExpansion.tier;
             this.built[chosenTier] = chosenExpansion.id;
 
