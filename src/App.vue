@@ -5,6 +5,10 @@ import HRTab from "./components/HRTab/HRTab.vue";
 import MineTab from "./components/mineTab/MineTab.vue";
 //import TextLog from "./components/textLog/TextLog.vue";
 import InventoryTab from "./components/inventory/InventoryTab.vue";
+
+import { useExpansionsStore } from "./stores/expansions";
+
+const expansions = useExpansionsStore();
 </script>
 
 <template>
@@ -19,11 +23,11 @@ import InventoryTab from "./components/inventory/InventoryTab.vue";
       <b-tab-item label="HR" >
           <HRTab/>
       </b-tab-item>
-      <b-tab-item label="Mines">
-        <MineTab/>
-      </b-tab-item>
       <b-tab-item label="Inventory">
         <InventoryTab/>
+      </b-tab-item>
+      <b-tab-item label="Mines" v-if="expansions.checkIfBuilt('mines')">
+        <MineTab/>
       </b-tab-item>
     </b-tabs>
   </section>

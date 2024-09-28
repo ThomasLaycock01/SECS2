@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 
+import { useExpansionsStore } from "./expansions";
 import { useResourcesStore } from "./resources";
 
 export const useLairStore = defineStore("lair", {
@@ -34,6 +35,25 @@ export const useLairStore = defineStore("lair", {
                     effect() {
                         const resources = useResourcesStore();
                         resources.modifyResource("gold", 1)
+                    }
+                },
+                //expansions
+                expansionMines: {
+                    id: "expansionMines",
+                    name: "Expansion: Mines",
+                    desc: "Build a mineshaft for your EVIL mining operations.",
+                    condition() {
+                        const expansions = useExpansionsStore();
+                        const resources = useResourcesStore();
+                        return resources.checkIfCanAfford(expansions.getCostObject("mines"));
+                    },
+                    showCondition() {
+                        const expansions = useExpansionsStore();
+                        return expansions.hasTier1 ? false : true;
+                    },
+                    effect() {
+                        const expansions = useExpansionsStore();
+                        expansions.buildExpansion("mines");
                     }
                 }
             }

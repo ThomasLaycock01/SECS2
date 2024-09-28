@@ -8,15 +8,23 @@ import { posToNeg } from "@/functions";
 export const useExpansionsStore = defineStore("expansions", {
     state: () => {
         return {built: {
-            tier1: "mines",
+            tier1: null,
             tier2: null,
             tier3: null
         },
         all: [
-            {id: "mines", name: "Mines", tier: "tier1", piniaObject() {
-                const mines = useMinesStore();
-                return mines;
-            }},
+            {
+                id: "mines", 
+                name: "Mines", 
+                tier: "tier1", 
+                piniaObject() {
+                    const mines = useMinesStore();
+                    return mines;
+                },
+                costs: {
+                    gold: 30
+                }
+            },
             {id: "laboratory", name: "Laboratory", tier: "tier1"},
             {id: "barracks", name: "Barracks", tier: "tier2"},
             {id: "tower", name: "Tower", tier: "tier2"},
@@ -48,42 +56,53 @@ export const useExpansionsStore = defineStore("expansions", {
             return state.built.tier3 ? true : false;
         },
         checkIfBuilt(state) {
-            return (expansionId, tier) => state.built[tier] == expansionId ? true : false;
+            return (expansionId) => {
+                const expansionObject = this.getObjectById(expansionId);
+                console.log(expansionObject);
+                console.log(expansionId);
+                if (state.built[expansionObject.tier] == expansionId) {
+                    return true;
+                }
+                return false;
+            };
         },
         getObjectById(state) {
-            return (expansionId) => state.all.filter((expansion) => expansion.id == expansionId)[0];
+            return (expansionId) =>  {
+                for (var i in state.all) {
+                    if (state.all[i].id == expansionId) {
+                        return state.all[i];
+                    }
+                }
+            }
+        },
+        getCostObject(state) {
+            return (expansionId) => {
+                for (var i in state.all) {
+                    if (state.all[i].id === expansionId) {
+                        return state.all[i].costs;
+                    }
+                }
+                console.log("error in getCostObject funciton");
+
+            }
         }
     },
     actions: {
         buildExpansion(expansionId) {
 
-            const chosenExpansion = this.all.filter(obj => obj.id == expansionId)[0];
+            const chosenExpansion = this.getObjectById(expansionId);
+            console.log(chosenExpansion);
             const chosenTier = chosenExpansion.tier;
             this.built[chosenTier] = chosenExpansion.id;
 
-
+            const costs = chosenExpansion.costs;
 
             const resources = useResourcesStore();
 
-            for (var i in cost) {
-                resources.modifyResource(i, posToNeg(cost[i]));
+            for (var i in costs) {
+                resources.modifyResource(i, posToNeg(costs[i]));
             }
 
-        },
-        checkIfCanAfford(expansionId) {
-            const resources = useResourcesStore();
-
-            const chosenExpansion = this.all.filter(obj => obj.id == expansionId)[0];
-
-            var canAfford = true;
-
-            for (var i in cost) {
-                if (resources.getResourceTotal(i) < cost[i]) {
-                    canAfford = false;
-                }
-            }
-
-            return canAfford;
         },
         expansionTicks() {
             for (var i in this.getBuilt) {
