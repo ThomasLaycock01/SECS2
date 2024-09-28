@@ -204,8 +204,6 @@ export const useMinesStore = defineStore("mines", {
                 cultist.setJob(this.getWorkerJobName)
             }
 
-            console.log(cultistArray);
-
             return cultistArray;
         },
         //saving/loading

@@ -8,7 +8,6 @@ export const useMiscStore = defineStore("misc", {
         return {
             firstLoad: true,
             seenConvos:[],
-            xpOutput: 1,
             defaultLevelLimit: 10
         }
     },
@@ -18,9 +17,6 @@ export const useMiscStore = defineStore("misc", {
         },
         checkHasSeenConvo(state) {
             return (convoId) => state.seenConvos.includes(convoId);
-        },
-        getXpOutput(state) {
-            return state.xpOutput;
         },
         getDefaultLevelLimit(state) {
             return state.defaultLevelLimit;
@@ -48,9 +44,6 @@ export const useMiscStore = defineStore("misc", {
                 return false;
             }
             return true;
-        },
-        setXpOutput(value) {
-            this["xpOutput"] = value;
         },
         saveData() {
             var data = JSON.parse(localStorage.getItem("SECSData"));

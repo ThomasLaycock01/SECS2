@@ -8,22 +8,16 @@ import { useInventoryStore } from "./stores/inventory";
 //expansions
 import { useMinesStore } from "./stores/mines";
 //classes
-import { Item } from "./classes/Item";
 import { Cultist } from "./classes/Cultist";
-//testing json
-import items from "@/assets/json/items.json";
 
 
 //tick system
 export function tick() {
-    const resources = useResourcesStore();
     const expansions = useExpansionsStore();
     const cultists = useCultistsStore();
 
     cultists.tick();
     expansions.expansionTicks();/*
-
-    updateResources();
 
     //updating xp for cultists
     calculateXpOutput();
@@ -31,109 +25,6 @@ export function tick() {
 
     //checking what convos need playing
     checkConvos();*/
-}
-
-//calculating evilness output, since its different from other resources
-function calculateEvilness() {
-    const cultists = useCultistsStore();
-    const resources = useResourcesStore();
-
-    var totalEvilnessOutput = 0;
-    for (var i in cultists.regularCultists) {
-        totalEvilnessOutput += cultists.regularCultists[i].getLevel();
-    }
-
-    resources.setResourcePerSec("evilness", totalEvilnessOutput);
-}
-
-//Slime is also different
-function calculateSlime() {
-    const cultists = useCultistsStore();
-    const resources = useResourcesStore();
-
-    var totalSlimeOutput = 0;
-    for (var i in cultists.regularCultists) {
-        if (cultists.regularCultists[i].getSpecies() == "Slime") {
-            totalSlimeOutput += cultists.regularCultists[i].getLevel();
-        }
-    }
-
-    resources.setResourcePerSec("slime", totalSlimeOutput);
-}
-
-
-//calculating resource output
-function calculateResource(resource) {
-    //first - instantiate stores
-    const resources = useResourcesStore();
-    const cultists = useCultistsStore();
-
-
-    //second - get jobs with matching resource
-    const arrayOfJobs = jobs.getByOutput(resource);
-
-    //third - calculate output
-    var totalResourceOutput = 0;
-
-    for (var i in arrayOfJobs) {
-        var resourceOutputPerBuilding = 0;
-        const job = arrayOfJobs[i];
-        const associatedStat = job["stat"];
-        for (var j in job["baseArray"]) {
-            const cultist = cultists.getCultistById(job["baseArray"][j]);
-            resourceOutputPerBuilding += cultist.getStat(associatedStat);
-        }
-        for (var j in job["modifiers"]) {
-            resourceOutputPerBuilding = Math.floor(resourceOutputPerBuilding * job["modifiers"][j].modifier());
-        }
-        totalResourceOutput += resourceOutputPerBuilding;
-    }
-
-    //subtracting consumed resources
-    const arrayOfConsumerJobs = jobs.getByConsumes(resource);
-
-    for (var i in arrayOfConsumerJobs) {
-        var consumedAmount = arrayOfConsumerJobs[i]["consumes"][resource] * arrayOfConsumerJobs[i]["baseArray"].length;
-        totalResourceOutput -= consumedAmount;
-    }
-
-    //fourth - update resources store with new output
-    resources.setResourcePerSec(resource, totalResourceOutput)
-}
-
-//updating the resources
-function updateResources() {
-    const resources = useResourcesStore();
-
-    for (var i in resources.getAll) {
-        resources.modifyResource(i, resources.getResourcePerSec(i));
-    }
-}
-
-function calculateXpOutput() {
-    const cultists = useCultistsStore();
-    const misc = useMiscStore();
-
-    const arrayOfJobs = jobs.getByOutput("xp");
-
-    var totalXpOutput = 1;
-
-    for (var i in arrayOfJobs) {
-        var xpOutputPerBuilding = 0;
-        const job = arrayOfJobs[i];
-        const associatedStat = job["stat"];
-        for (var j in job["baseArray"]) {
-            const cultist = cultists.getCultistById(job["baseArray"][j]);
-            xpOutputPerBuilding += cultist.getStat(associatedStat);
-        }
-        for (var j in job["modifiers"]) {
-            xpOutputPerBuilding = Math.floor(xpOutputPerBuilding * job["modifiers"][j].modifier());
-        }
-        totalXpOutput += xpOutputPerBuilding;
-    }
-
-    misc.setXpOutput(totalXpOutput);
-
 }
 
 //checking and playing convos
@@ -145,8 +36,7 @@ function calculateXpOutput() {
 
 
 //creating a cultist
-// REMEMBMER!!! -- cultist start with a perk point for testing. Remove this later
-function createCultist(id, name, species, job = null, level = 1, currentXp = 0, xpNeeded = 20, xpIncrement = 1.5, levelLimit = 10, perks = [], perkPoints = 1, equipment = {tool: null, body: null, accessory: null}) {
+function createCultist(id, name, species, job = null, level = 1, currentXp = 0, xpNeeded = 20, xpIncrement = 1.5, levelLimit = 10, perks = [], perkPoints = 0, equipment = {tool: null, body: null, accessory: null}) {
     return new Cultist(id, name, species, job, level, currentXp, xpNeeded, xpIncrement, levelLimit, perks, perkPoints, equipment);
 }
 
@@ -177,23 +67,7 @@ export function addCultist(species) {
 }
 
 
-//adding cultists to a job
-export function addCultistToJob(cultistId, jobId) {
-    //first - instantiate stores
-    const cultists = useCultistsStore();
-
-    //second - add cultistId to job store
-    jobs.addCultistToJob(cultistId, jobId);
-
-    console.log(cultistId);
-    console.log(jobId);
-
-    //third - update cultist to give them job
-    const cultist = cultists.getCultistById(cultistId);
-    cultist.setJob(jobs.getName(jobId));
-}
-
-//refactored
+//adding cultists to a job/an overseer job
 export function addCultistToWorkerJob(cultistId, piniaObject) {
     const cultists = useCultistsStore();
 
@@ -219,17 +93,7 @@ export function addCultistToOverseerJob(cultistId, piniaObject) {
 }
 
 
-//removing cultists from a job
-export function removeCultistFromJob(cultistId) {
-    const cultists = useCultistsStore();
-
-    jobs.removeCultistFromJob(cultistId);
-
-    const cultist = cultists.getCultistById(cultistId);
-    cultist.setJob(null)
-}
-
-//refactored
+//removing cultists from a job/an overseer job
 export function removeCultistFromOverseerJob(piniaObject) {
     const cultist = piniaObject.getOverseer;
 
@@ -258,42 +122,13 @@ export function fireCultist(cultistId) {
 }
 
 
-//adding xp to cultists with jobs
-function updateCultistXp() {
-    const cultists = useCultistsStore();
-    const misc = useMiscStore();
-
-    const cultistArray = cultists.getEmployed
-
-    for (var i in cultistArray) {
-        cultistArray[i].addXp(misc.getXpOutput);
-    }
-}
-
-
 
 //building expansions
 export function buildExpansion(expansionId) {
     const expansions = useExpansionsStore();
-    const misc = useMiscStore();
 
     expansions.buildExpansion(expansionId);
-    misc.calculateCultistLimit();
     
-}
-
-
-//returns true if there is space for more cultists
-export function checkCultistSpace() {
-    const cultists = useCultistsStore();
-    const misc = useMiscStore();
-
-    if (cultists.numOfCultists >= misc.getCultistLimit) {
-        return false;
-    }
-    else {
-        return true;
-    }
 }
 
 

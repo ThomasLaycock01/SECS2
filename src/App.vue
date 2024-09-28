@@ -5,12 +5,6 @@ import HRTab from "./components/HRTab/HRTab.vue";
 import MineTab from "./components/mineTab/MineTab.vue";
 //import TextLog from "./components/textLog/TextLog.vue";
 import InventoryTab from "./components/inventory/InventoryTab.vue";
-
-import { useCultistsStore } from "./stores/cultists";
-import { useMiscStore } from "./stores/misc";
-
-const cultists = useCultistsStore();
-const misc = useMiscStore();
 </script>
 
 <template>
@@ -40,10 +34,7 @@ const misc = useMiscStore();
 
 <script>
 
-import { tick, loadData, saveData, instantiateItems } from "./functions";
-
-import { useMiscStore } from "./stores/misc";
-import { useTextLogStore } from "./stores/textLog";
+import { tick, instantiateItems } from "./functions";
 
 export default {
   data() {
