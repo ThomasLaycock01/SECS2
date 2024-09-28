@@ -38,16 +38,4 @@ function onClickAway(e) {
             </span>
 
         </div>
-<!--
-<b-tabs v-model="activeTab">
-    <b-tab-item label="Inventory">
-      </b-tab-item>
-      <b-tab-item label="Workers">
-        <div class="title is-4 mb-1 segment-title">Workers</div>
-      </b-tab-item>
-      <b-tab-item label="Market">
-        <div class="title is-4 mb-1 segment-title">Market</div>
-      </b-tab-item>
-</b-tabs>
--->
 </template>
