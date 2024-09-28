@@ -66,6 +66,9 @@ export const useResourcesStore = defineStore("resources", {
         setResourcePerSec(type, value) {
             this.resources[type].perSec = value;
         },
+        updateResource(type) {
+            this.resources[type].total += this.resources[type].perSec;
+        },
         checkIfCanAfford(costsObj) {
             var canAfford = true;
             for (var i in costsObj) {

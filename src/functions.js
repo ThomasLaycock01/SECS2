@@ -18,24 +18,10 @@ import items from "@/assets/json/items.json";
 export function tick() {
     const resources = useResourcesStore();
     const expansions = useExpansionsStore();
+    const cultists = useCultistsStore();
 
-    //adding resources
-    /*for (var i in resources.getAll) {
-        switch(i) {
-            case "evilness":
-                calculateEvilness();
-                break;
-            case "slime":
-                calculateSlime();
-                break;
-            default:
-                calculateResource(i);
-        }
-
-
-    }
-
-    */expansions.expansionTicks();/*
+    cultists.tick();
+    expansions.expansionTicks();/*
 
     updateResources();
 

@@ -1,5 +1,7 @@
 import {defineStore} from "pinia";
 
+import { useResourcesStore } from "./resources";
+
 import { deserializeCultist } from "@/functions";
 
 export const useCultistsStore = defineStore("cultists", {
@@ -27,6 +29,19 @@ export const useCultistsStore = defineStore("cultists", {
         }
     },
     actions: {
+        tick() {
+            const resources = useResourcesStore();
+            //calculating evilness
+            var evilnessOutput = 0;
+            for (var i in this.regularCultists) {
+                console.log(this.regularCultists[i]);
+                evilnessOutput += 1 * this.regularCultists[i].getModifiersByType("evilness");
+            }
+
+            resources.setResourcePerSec("evilness", evilnessOutput);
+            resources.updateResource("evilness");
+
+        },
         addCultist(cultist) {
             this.regular.push(cultist);
         },
@@ -44,15 +59,13 @@ export const useCultistsStore = defineStore("cultists", {
             }
         },
         checkIfIdUsed(id) {
-            var idUsed = false;
-
             for (var i in this.regular) {
                 if (this.regular[i].getId() == id) {
-                    idUsed = true;
+                    return true;
                 }
             }
 
-            return idUsed;
+            return false;
         },
         updateLevelLimits() {
             for (var i in this.regular) {
