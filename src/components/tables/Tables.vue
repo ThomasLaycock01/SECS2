@@ -2,12 +2,12 @@
 import Resource from "./Resource.vue";
 
 import {useResourcesStore} from "@/stores/resources.js";
-import { useMiscStore } from "@/stores/misc";
 import { useCultistsStore } from "@/stores/cultists";
+import { useHRStore } from "@/stores/HR";
 
 const resources = useResourcesStore();
-const misc = useMiscStore();
 const cultists = useCultistsStore();
+const HR = useHRStore();
 </script>
 
 <template>
@@ -20,7 +20,7 @@ const cultists = useCultistsStore();
                     <th></th>
                 </tr>
             </thead>
-            <tbody> <!--Using getGlobal for now - remember to update to getALl-->
+            <tbody>
                 <Resource v-for="(object, resource) in resources.getAll" :object="object"/>
             </tbody>
         </table>
@@ -29,7 +29,7 @@ const cultists = useCultistsStore();
                 <tr>
                     <th>Cultists</th>
                     <th></th>
-                    <th>{{ cultists.numOfCultists }} / {{ misc.getCultistLimit }}</th>
+                    <th>{{ cultists.numOfCultists }} / {{ HR.getCultistLimit }}</th>
                 </tr>
             </tbody>
         </table>
