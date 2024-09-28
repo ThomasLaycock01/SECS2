@@ -135,7 +135,7 @@ export class Cultist {
         return (this.getLevel() - 1) * 0.1
     }
 
-    getModifiersByType(type) {
+    getModifierByType(type) {
         var modValue = 0;
         for (var i in this.getEquipment()) {
             if (this.getEquipment()[i]) {
