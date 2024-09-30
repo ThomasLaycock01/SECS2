@@ -46,14 +46,19 @@ export const useMinesStore = defineStore("mines", {
                 workerArray: []
             },
             resources: {
-                stone: {id:"stone", name:"Stone", total: 0, perSec: 0, 
+                stone: {
+                    id:"stone",
+                    name:"Stone",
+                    total: 0, 
+                    perSec: 0, 
                     showCondition(){
                         const expansions = useExpansionsStore(); 
                         return expansions.hasTier1;
                     }, 
                     unlockCondition() {
                         return true;
-                }}
+                    }
+                }
             },
             items: {
             },
@@ -83,14 +88,6 @@ export const useMinesStore = defineStore("mines", {
         getResourcePerSec(state) {
             return (id) => state.resources[id].perSec;
         },
-        //workers
-        getOverseer(state) {
-            if (state.workers.overseer == null) {
-                return null;
-            }
-            const cultists = useCultistsStore();
-            return cultists.getCultistById(state.workers.overseer);
-        },
         getUnlockResources(state) {
             const returnArray = [];
             for (var i in state.resources) {
@@ -100,8 +97,16 @@ export const useMinesStore = defineStore("mines", {
             }
             return returnArray;
         },
+        //workers
+        getOverseer(state) {
+            if (state.workers.overseer == null) {
+                return null;
+            }
+            const cultists = useCultistsStore();
+            return cultists.getCultistById(state.workers.overseer);
+        },
         getWorkerArray(state) {
-            return this.workers.workerArray;
+            return state.workers.workerArray;
         },
         //misc
         getWorkerJobName(state) {
