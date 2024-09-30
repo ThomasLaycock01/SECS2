@@ -28,6 +28,14 @@ function closeButtonClick() {
     equipmentScreen.check = false;
 }
 
+function unequipButtonClick() {
+    activeCultist.cultist.unequipItem(equipmentScreen.type);
+
+    equipmentScreen.check = false;
+    equipmentScreen.type = null;
+    equipmentScreen.selectedItem = null;
+}
+
 function equipmentScreenButtonClick(id) {
     equipmentScreen.selectedItem = id;
 }
@@ -35,7 +43,7 @@ function equipmentScreenButtonClick(id) {
 function confirmButtonClick() {
     const item = inventory.getItemById(equipmentScreen.selectedItem);
     activeCultist.cultist.equipItem(item);
-    
+
     equipmentScreen.check = false;
     equipmentScreen.type = null;
     equipmentScreen.selectedItem = null;
@@ -88,6 +96,9 @@ function assignPerk(e) {
                 <div>
                     <button class="button is-outlined" @click="closeButtonClick">Close</button>
                     <button class="button is-dark" @click="confirmButtonClick">Confirm</button>
+                    <span v-if="activeCultist.cultist.checkIfEquipped(equipmentScreen.type)">
+                        <button class="button is-outlined is-danger" @click="unequipButtonClick">Unequip Item</button>
+                    </span>
                 </div>
             </div>
             <!--Cultist screen - appears when a cultist is selected-->
