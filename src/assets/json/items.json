@@ -1,6 +1,7 @@
 {
     "mines": {
         "1000": {"itemId": "1000", "type": "tool", "name": "Rusty Shovel", "shortName": "R. Shov", "modifiers": [{"type": "mineWorker", "modifier": 0.05}], "sellPrice": 10, "tier": 0},
-        "1001": {"itemId": "1001", "type": "body", "name": "Rusty Cuirass", "shortName": "R. Cuir", "modifiers": [{"type": "mineWorker", "modifier": 0.05}], "sellPrice": 10, "tier": 0}
+        "1001": {"itemId": "1001", "type": "body", "name": "Rusty Cuirass", "shortName": "R. Cuir", "modifiers": [{"type": "mineWorker", "modifier": 0.05}], "sellPrice": 10, "tier": 0},
+        "1002": {"itemId": "1002", "type": "accessory", "name": "Rusty Ring", "shortName": "R. Ring", "modifiers": [{"type": "mineWorker", "modifier": 0.05}], "sellPrice": 10, "tier": 0}
     }
 }

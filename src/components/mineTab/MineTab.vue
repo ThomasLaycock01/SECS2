@@ -92,7 +92,6 @@ function removeWorkerClick(e) {
                 <b-field label="Resource">
                     <b-select placeholder="Resource" @input="setResource" v-model="resourceToAssign.resource">
                         <option v-for="i in mines.getUnlockResources" :value="i.id">{{ i.name }}</option>
-                        <option value="scavenge">Scavenge</option>
                     </b-select>
                 </b-field>
             </div>

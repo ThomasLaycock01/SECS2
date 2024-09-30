@@ -58,6 +58,18 @@ export const useMinesStore = defineStore("mines", {
                     unlockCondition() {
                         return true;
                     }
+                },
+                scavenge: {
+                    id:"scavenge",
+                    name:"Scavenge",
+                    total: 0, 
+                    perSec: 0, 
+                    showCondition(){
+                        return false;
+                    }, 
+                    unlockCondition() {
+                        return true;
+                    }
                 }
             },
             items: {
@@ -108,6 +120,10 @@ export const useMinesStore = defineStore("mines", {
         getWorkerArray(state) {
             return state.workers.workerArray;
         },
+        //items
+        getItems(state) {
+            return this.items;
+        },
         //misc
         getWorkerJobName(state) {
             return state.misc.workerJobName;
@@ -144,6 +160,12 @@ export const useMinesStore = defineStore("mines", {
                 this.resources[i].total += this.resources[i].perSec;
             }
 
+            //scavenge stuff
+            if (this.getResourceTotal("scavenge") >= 100) {
+                this.resources["scavenge"].total = 0;
+                this.giveRandItem(0);
+            }
+
             //adding XP
             for (var i in this.getWorkerArray) {
                 const cultist = cultists.getCultistById(this.getWorkerArray[i].id);
@@ -171,6 +193,18 @@ export const useMinesStore = defineStore("mines", {
             const inventory = useInventoryStore();
             const object = this.items[itemId];
             inventory.addItem(object);
+        },
+        giveRandItem(tier) {
+            var tierArray = [];
+            for (var i in this.getItems) {
+                if (this.getItems[i].tier == tier) {
+                    tierArray.push(this.getItems[i]);
+                }
+            }
+
+            const index = Math.floor(Math.random() * tierArray.length)
+
+            this.createItem(tierArray[index].itemId);
         },
         //workers
         assignOverseer(cultistId) {
