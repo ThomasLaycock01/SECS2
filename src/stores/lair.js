@@ -55,6 +55,22 @@ export const useLairStore = defineStore("lair", {
                         const expansions = useExpansionsStore();
                         expansions.buildExpansion("mines");
                     }
+                },
+                //debug
+                debugGold: {
+                    id: "debugGold",
+                    name: "Debug Gold",
+                    desc: "Add a bajillion gold",
+                    condition() {
+                        return true;
+                    },
+                    showCondition() {
+                        return true;
+                    },
+                    effect() {
+                        const resources = useResourcesStore();
+                        resources.modifyResource("gold", 1000000)
+                    }
                 }
             }
         }
