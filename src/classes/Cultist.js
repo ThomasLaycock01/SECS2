@@ -74,6 +74,13 @@ export class Cultist {
         return false;
     }
 
+    checkIfEquipped(type) {
+        if (this.equipment[type] != null) {
+            return true;
+        }
+        return false;
+    }
+
     //setters
     setJob(job) {
         this.job = job;
@@ -122,8 +129,18 @@ export class Cultist {
 
     equipItem(item) {
         const type = item.getType();
+
+        if (this.checkIfEquipped(type)) {
+            this.unequipItem(type);
+        }
+
         this.equipment[type] = item;
         item.toggleEquipped();
+    }
+
+    unequipItem(type) {
+        this.equipment[type].toggleEquipped();
+        this.equipment[type] = null;
     }
 
     addPerk(perkObject) {

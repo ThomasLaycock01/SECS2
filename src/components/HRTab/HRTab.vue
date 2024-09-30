@@ -35,6 +35,7 @@ function equipmentScreenButtonClick(id) {
 function confirmButtonClick() {
     const item = inventory.getItemById(equipmentScreen.selectedItem);
     activeCultist.cultist.equipItem(item);
+    
     equipmentScreen.check = false;
     equipmentScreen.type = null;
     equipmentScreen.selectedItem = null;
