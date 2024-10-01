@@ -7,7 +7,7 @@ const props = defineProps({
 <template>
     <tr v-if="props.object.showCondition()">
         <td>{{ props.object.name }}</td>
-        <td>{{ props.object.total.toLocaleString("en-GB") }}</td>
-        <td>{{ props.object.perSec }} /s</td>
+        <td>{{ (Math.round(props.object.total * 100) / 100).toLocaleString("en-GB") }}</td>
+        <td>{{ Math.round(props.object.perSec * 100) / 100 }} /s</td>
     </tr>
 </template>
