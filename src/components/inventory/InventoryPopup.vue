@@ -1,7 +1,9 @@
 <script setup>
 import { useInventoryStore } from '@/stores/inventory';
+import { useCultistsStore } from '@/stores/cultists';
 
 const inventory = useInventoryStore();
+const cultists = useCultistsStore();
 
 const props = defineProps({
     object: Object
@@ -22,9 +24,10 @@ function closeButtonClick() {
 
 <template>
     <div>
-        <h6>{{props.object.name}}</h6>
-        <p>Tier {{ props.object.tier }}</p>
+        <h6>{{props.object.getName()}}</h6>
+        <p>Tier {{ props.object.getTier() }}</p>
         <p>Sell value: {{ props.object.getSellPrice() }} Gold</p>
+        <p>Equipped by {{ cultists.getCultistById(props.object.getEquippedCultistId()).getName() }}</p>
 
         <button class="button is-danger" @click="sellButtonClick">Sell</button>
         <br>

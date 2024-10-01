@@ -8,6 +8,8 @@ export class Item {
         this.type = data.type;
         this.modifiers = data.modifiers;
         this.sellPrice = data.sellPrice;
+        this.tier = data.tier;
+
         this.equippedCultistId = null;
     }
 
@@ -48,6 +50,10 @@ export class Item {
 
     getSellPrice() {
         return this.sellPrice;
+    }
+
+    getTier() {
+        return this.tier;
     }
 
     getEquippedCultistId() {
