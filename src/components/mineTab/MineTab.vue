@@ -43,6 +43,7 @@ function removeOverseerClick() {
 }
 
 function removeWorkerClick(e) {
+    console.log(e.target.value);
     removeCultistFromWorkerJob(e.target.value, mines)
 }
 </script>
@@ -106,7 +107,7 @@ function removeWorkerClick(e) {
             <div v-for="i in mines.getWorkerArray">
                 <div>{{ cultists.getCultistById(i.id).getName() }} - Lvl {{ cultists.getCultistById(i.id).getLevel() }} - {{ i.resource == "scavenge" ? "Scavenging" : `Mining ${i. resource}` }}</div>
                 <button class="button is-small is-info">Switch resource</button>
-                <button class="button is-small is-danger" :value="0" @click="removeWorkerClick">Remove</button></div>
+                <button class="button is-small is-danger" :value="i.id" @click="removeWorkerClick">Remove</button></div>
         </div>
     </div>
 
