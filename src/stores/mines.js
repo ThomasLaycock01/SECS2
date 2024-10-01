@@ -230,26 +230,8 @@ export const useMinesStore = defineStore("mines", {
         removeWorker(cultistId) {
             this.workers.workerArray = this.workers.workerArray.filter((obj) => obj.id != cultistId);
         },
-        getCultistArray() {
-            const cultists = useCultistsStore();
-
-            const cultistArray = [];
-
-            for (var i in this.workers.workerArray) {
-                const cultist = cultists.getCultistById(this.workers.workerArray[i].id);
-                const resource = this.getResourceObject(this.workers.workerArray[i].resource )
-                const obj = {
-                    cultist: cultist,
-                    resource: resource
-                }
-                cultistArray.push(obj);
-                cultist.setJob(this.getWorkerJobName)
-            }
-
-            return cultistArray;
-        },
         //saving/loading
-        saveData() {
+        /*saveData() {
             var data = JSON.parse(localStorage.getItem("SECSData"));
 
             data.mines = this.workers;
@@ -260,7 +242,7 @@ export const useMinesStore = defineStore("mines", {
             var data = JSON.parse(localStorage.getItem("SECSData"));
 
             this.workers = data.mines;
-        },
+        },*/
         //misc
         completeScavenge() {
             const index = Math.random();

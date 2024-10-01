@@ -12,25 +12,17 @@ export const useMiscStore = defineStore("misc", {
         }
     },
     getters: {
-        getSeenConvos(state) {
+        /*getSeenConvos(state) {
             return state.seenConvos;
         },
         checkHasSeenConvo(state) {
             return (convoId) => state.seenConvos.includes(convoId);
-        },
+        },*/
         getDefaultLevelLimit(state) {
             return state.defaultLevelLimit;
         }
     },
-    actions: {
-        calculateLevelLimit() {
-
-            var totalLimit = 10;
-
-            console.log(totalLimit);
-
-            this.defaultLevelLimit = totalLimit;
-        },
+    actions: {/*,
         addSeenConvo(convoId) {
             this.seenConvos.push(convoId);
         },
@@ -65,6 +57,6 @@ export const useMiscStore = defineStore("misc", {
             this["seenConvos"] = data.misc.seenConvos;
 
             this.calculateCultistLimit();
-        }
+        }*/
     }
 })

@@ -108,7 +108,7 @@ export const useExpansionsStore = defineStore("expansions", {
                     pinia.tick();
                 }
             }
-        },
+        }/*,
         saveData() {
             var data = JSON.parse(localStorage.getItem("SECSData"));
 
@@ -120,6 +120,6 @@ export const useExpansionsStore = defineStore("expansions", {
             var data = JSON.parse(localStorage.getItem("SECSData"));
 
             this["built"] = data.expansions;
-        }
+        }*/
     }
 })

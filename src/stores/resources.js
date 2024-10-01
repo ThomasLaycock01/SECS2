@@ -98,7 +98,7 @@ export const useResourcesStore = defineStore("resources", {
                 }
             }*/
         },
-        saveData() {
+        /*saveData() {
             var data = JSON.parse(localStorage.getItem("SECSData"));
 
             const resourceObject = {};
@@ -123,6 +123,6 @@ export const useResourcesStore = defineStore("resources", {
                 this["resources"][i].total = resource.total;
                 this["resources"][i].perSec = resource.perSec;
             }
-        }
+        }*/
     }
 })

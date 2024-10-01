@@ -19,10 +19,6 @@ export function tick() {
     cultists.tick();
     expansions.expansionTicks();/*
 
-    //updating xp for cultists
-    calculateXpOutput();
-    updateCultistXp();
-
     //checking what convos need playing
     checkConvos();*/
 }
@@ -152,7 +148,7 @@ export function deserializeItem(object) {
 
 
 //localStorage functions
-export function saveData() {
+/*export function saveData() {
     //have each pinia store save their data seperately
     const cultists = useCultistsStore();
     const expansions = useExpansionsStore();
@@ -188,7 +184,7 @@ export function loadData() {
     misc.loadData();
     resources.loadData();
     textLog.loadData();
-}
+}*/
 
 //instantiat items
 export function instantiateItems() {
