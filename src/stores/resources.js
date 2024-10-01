@@ -66,7 +66,7 @@ export const useResourcesStore = defineStore("resources", {
         setResourcePerSec(type, value) {
             this.resources[type].perSec = value;
         },
-        updateResource(type) {
+        updateResourceOnTick(type) {
             this.resources[type].total += this.resources[type].perSec;
         },
         removeResources(obj) {
