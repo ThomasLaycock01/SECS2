@@ -12,22 +12,21 @@ export const useHRStore = defineStore("HR", {
                     id: "hireHuman",
                     name: "Hire Human Cultist",
                     desc: "Hire a Human Cultist",
-                    costs:{gold: 20},
+                    costs() {
+                        const HR = useHRStore();
+                        return HR.getCultistCostBySpecies("human");
+                    },
                     condition() {
                         const resources = useResourcesStore();
-                        return resources.checkIfCanAfford(this.costs);
+                        const HR = useHRStore();
+                        return resources.checkIfCanAfford(HR.getCultistCostBySpecies("human"));
                     },
                     showCondition() {
                         return true;
                     },
                     effect() {
-                        //create the cultist
-                        addCultist("Human")
-                        //remove cost
-                        const resources = useResourcesStore();
-                        for (var i in this.costs) {
-                            resources.modifyResource(i, posToNeg(this.costs[i]))
-                        }
+                        const HR = useHRStore();
+                        HR.hireCultist("human");
                     },
                     tooltipData: {
                         name: "Hire Human",
@@ -37,7 +36,10 @@ export const useHRStore = defineStore("HR", {
                 }
             },
             misc: {
-                cultistLimit: 2
+                cultistLimit: 2,
+                costs: {
+                    human: {gold: 20}
+                }
             }
         }
     },
@@ -48,8 +50,20 @@ export const useHRStore = defineStore("HR", {
         },
         getCultistLimit(state) {
             return state.misc.cultistLimit;
+        },
+        //misc
+        getCultistCostBySpecies(state) {
+            return (species) => state.misc.costs[species];
         }
     },
     actions: {
+        hireCultist(species) {
+            const resources = useResourcesStore();
+            
+            resources.removeResources(this.getCultistCostBySpecies(species));
+
+            addCultist(species);
+            
+        }
     }
 })

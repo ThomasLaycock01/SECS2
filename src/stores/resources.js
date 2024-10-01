@@ -69,6 +69,11 @@ export const useResourcesStore = defineStore("resources", {
         updateResource(type) {
             this.resources[type].total += this.resources[type].perSec;
         },
+        removeResources(obj) {
+            for (var i in obj) {
+                this.resources[i].total -= obj[i]
+            }
+        },
         checkIfCanAfford(costsObj) {
             var canAfford = true;
             for (var i in costsObj) {
