@@ -42,6 +42,10 @@ export const useLairStore = defineStore("lair", {
                     id: "expansionMines",
                     name: "Expansion: Mines",
                     desc: "Start digging a mineshaft underneath your evil lair!",
+                    costs() {
+                        const expansions = useExpansionsStore();
+                        return expansions.getCostObject("mines");
+                    },
                     condition() {
                         const expansions = useExpansionsStore();
                         const resources = useResourcesStore();
