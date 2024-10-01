@@ -107,7 +107,7 @@ export class Cultist {
     }
 
     levelUp() {
-        this.currentXp = 0;
+        this.currentXp = this.currentXp - this.xpNeeded;
         this.xpNeeded = Math.floor(this.xpNeeded * this.xpIncrement);
 
         this.level += 1;
