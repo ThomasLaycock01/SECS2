@@ -70,7 +70,7 @@ export class Item {
     }
 
     //gonna finish serializing later - work on mines first
-    serialize() {
+    /*serialize() {
         const serializedItem = {
             id: this.id,
             itemId: this.itemId,
@@ -82,5 +82,5 @@ export class Item {
         }
 
         return serializedItem;
-    }
+    }*/
 }
