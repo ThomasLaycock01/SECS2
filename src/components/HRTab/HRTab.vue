@@ -79,7 +79,6 @@ function mouseLeavePerk(e) {
 }
 
 function assignPerk(e) {
-    console.log(perks.default[e.target.value]);
     activeCultist.cultist.addPerk(perks.default[e.target.value]);
 }
 </script>
