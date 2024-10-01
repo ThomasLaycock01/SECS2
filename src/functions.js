@@ -68,14 +68,14 @@ export function addCultist(species) {
 
 
 //adding cultists to a job/an overseer job
-export function addCultistToWorkerJob(cultistId, piniaObject) {
+export function addCultistToWorkerJob(obj, piniaObject) {
     const cultists = useCultistsStore();
 
-    piniaObject.addWorker(cultistId);
+    const cultist = cultists.getCultistById(obj.id)
+
+    piniaObject.addWorker(obj);
 
     const jobName = piniaObject.getWorkerJobName;
-
-    const cultist = cultists.getCultistById(cultistId);
 
     cultist.setJob(jobName);
 }

@@ -1,7 +1,7 @@
 <script setup>
 import { reactive } from 'vue';
 
-import { addCultistToOverseerJob, removeCultistFromOverseerJob, removeCultistFromWorkerJob } from '@/functions';
+import { addCultistToOverseerJob, addCultistToWorkerJob, removeCultistFromOverseerJob, removeCultistFromWorkerJob } from '@/functions';
 
 import { useMinesStore } from '@/stores/mines';
 import { useCultistsStore } from '@/stores/cultists';
@@ -26,7 +26,8 @@ function assignWorker() {
         id: workerToAssign.worker,
         resource: resourceToAssign.resource
     }
-    mines.addWorker(obj);
+    
+    addCultistToWorkerJob(obj, mines);
 
     workerToAssign.worker = null;
     resourceToAssign.resource = null;
