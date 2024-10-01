@@ -162,8 +162,8 @@ export const useMinesStore = defineStore("mines", {
 
             //scavenge stuff
             if (this.getResourceTotal("scavenge") >= 100) {
-                this.resources["scavenge"].total = 0;
-                this.giveRandItem(0);
+                this.resources["scavenge"].total -= 100;
+                this.completeScavenge();
             }
 
             //adding XP
@@ -257,6 +257,17 @@ export const useMinesStore = defineStore("mines", {
             var data = JSON.parse(localStorage.getItem("SECSData"));
 
             this.workers = data.mines;
+        },
+        //misc
+        completeScavenge() {
+            const index = Math.random();
+
+            if (index >= 0.9) {
+                this.giveRandItem(1);
+            }
+            else {
+                this.giveRandItem(0);
+            }
         }
     }
 })
