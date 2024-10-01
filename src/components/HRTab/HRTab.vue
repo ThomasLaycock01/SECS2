@@ -171,7 +171,7 @@ function assignPerk(e) {
                     <span v-for="i in activeCultist.cultist.getPerks()">
                         <button  class="button is-outlined">{{i.name}}</button>
                         <div v-if="i.perkId == selectedPerk.perk">
-                                    <PerkTooltip class="perkTooltip" :perk="i"/>
+                                    <PerkTooltip class="perkTooltip" :perk="i" :unlocked="true"/>
                         </div>
                     </span>
                 </div>
