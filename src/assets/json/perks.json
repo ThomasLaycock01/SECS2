@@ -1,5 +1,5 @@
 {
     "default": {
-        "1000": {"perkId": "1000", "name": "Strong", "modifiers": [{"type": "mineWorker", "modifier": 0.05}], "level": 1}
+        "1000": {"perkId": "1000", "name": "Strong", "modifiers": [{"job": "mineWorker", "type": "global", "modifier": 0.05}], "level": 1}
     }
 }

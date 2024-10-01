@@ -36,10 +36,10 @@ export class Item {
         return this.modifiers;
     }
 
-    getModifiersByType(type) {
+    getModifiersByJob(job, type) {
         const returnArray = [];
         for (var i in this.getModifiers()) {
-            if (this.getModifiers()[i].type == type) {
+            if (this.getModifiers()[i].job == job && this.getModifiers()[i].type == type) {
                 returnArray.push(this.modifiers[i]);
             }
         }

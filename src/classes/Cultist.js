@@ -152,30 +152,34 @@ export class Cultist {
         return (this.getLevel() - 1) * 0.1
     }
 
-    getModifierByType(type) {
-        var modValue = 0;
+    getModifiers(job, type = "global", incLevel = true) {
+        var modVal = 0;
+
         for (var i in this.getEquipment()) {
             if (this.getEquipment()[i]) {
-                for (var j in this.getEquipment()[i].getModifiersByType(type)) {
-                    modValue += this.getEquipment()[i].getModifiersByType(type)[j]["modifier"];
+                for (var j in this.getEquipment()[i].getModifiersByJob(job, type)) {
+                    modVal += this.getEquipment()[i].getModifiersByJob(job, type)[j]["modifier"];
                 }
             }
         }
-
+        
         for (var i in this.getPerks()) {
             for (var j in this.getPerks()[i]["modifiers"]) {
-                if (this.getPerks()[i]["modifiers"][j]["type"] == type) {
-                    modValue += this.getPerks()[i]["modifiers"][j]["modifier"];
+                if (this.getPerks()[i]["modifiers"][j]["type"] == type && this.getPerks()[i]["modifiers"][j]["job"] == job) {
+                    modVal += this.getPerks()[i]["modifiers"][j]["modifier"];
                 }
             }
         }
-
+        
         //this can be used later to set a cultists base output
         var totalMod = 1
 
-        totalMod += modValue;
-        //adding the levelMod for convenience
-        totalMod += this.getLevelModifier();
+        totalMod += modVal;
+
+        //adding the levelMod
+        if (incLevel) {
+            totalMod += this.getLevelModifier();
+        }
 
         return totalMod;
     }
