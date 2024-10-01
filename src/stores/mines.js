@@ -120,6 +120,9 @@ export const useMinesStore = defineStore("mines", {
         getWorkerArray(state) {
             return state.workers.workerArray;
         },
+        getNumOfWorkers(state) {
+            return state.workers.workerArray.length;
+        },
         //items
         getItems(state) {
             return this.items;
@@ -172,7 +175,7 @@ export const useMinesStore = defineStore("mines", {
                 cultist.addXp(this.getWorkerXpAmount);
             }
 
-            if (this.getOverseer) {
+            if (this.getOverseer && this.getNumOfWorkers > 0) {
                 const overseer = this.getOverseer;
                 overseer.addXp(this.getOverseerXpAmount);
             }
