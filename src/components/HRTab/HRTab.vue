@@ -1,4 +1,6 @@
 <script setup>
+import PerkTooltip from './PerkTooltip.vue';
+
 import { reactive } from 'vue';
 
 import { useHRStore } from '@/stores/HR';
@@ -13,6 +15,7 @@ const inventory = useInventoryStore();
 
 var activeCultist = reactive({cultist: null});
 var equipmentScreen = reactive({check: false, type: null, selectedItem: null});
+var selectedPerk = reactive({perk: null});
 
 function setNewActiveCultist(cultist) {
     activeCultist.cultist = cultist;
@@ -47,6 +50,14 @@ function confirmButtonClick() {
     equipmentScreen.check = false;
     equipmentScreen.type = null;
     equipmentScreen.selectedItem = null;
+}
+
+function mouseEnterPerk(e) {
+    selectedPerk.perk = e.target.value
+}
+
+function mouseLeavePerk(e) {
+    selectedPerk.perk = null;
 }
 
 function assignPerk(e) {
@@ -125,7 +136,10 @@ function assignPerk(e) {
                     <div class="container">
                         <div v-for="i in perks.default">
                             <span v-if="activeCultist.cultist.getLevel() >= i.level && !activeCultist.cultist.checkIfHasPerk(i.perkId)">
-                                <button class="button is-info" @click="assignPerk" :value="i.perkId">{{ i.name }}</button>
+                                <button class="button is-info" @click="assignPerk" @mouseenter="mouseEnterPerk" @mouseleave="mouseLeavePerk" :value="i.perkId">{{ i.name }}</button>
+                                <div v-if="i.perkId == selectedPerk.perk">
+                                    <PerkTooltip class="perkTooltip" :perk="i"/>
+                                </div>
                             </span>
                         </div>
                     </div>
