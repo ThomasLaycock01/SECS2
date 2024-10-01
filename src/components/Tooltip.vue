@@ -1,26 +1,22 @@
 <script setup>
 const props = defineProps({
-    tooltipData: Object
+    data: Object
 })
-
-const data = props.tooltipData;
 </script>
 
 <template>
     <div>
         <b class="mb-2">
-            {{data.title}}
+            {{props.data.name}}
         </b>
         <p class="mb-2">
-            {{data.body}}
+            {{props.data.desc}}
         </p>
-        <!--<div v-if="data.costs" class="mb-2">
-            <ul v-for="value, key in data.costs()">
+        <div v-if="props.data.costs" class="mb-2">
+            <p>{{ props.data.costs }}</p>
+            <!--<ul v-for="value, key in data.costs()">
                 <li>{{ key }} : {{ value }}</li>
-            </ul>
-        </div>-->
-        <p v-if="data.flavour" class="flavour">
-            {{ data.flavour }}
-        </p>
+            </ul>-->
+        </div>
     </div>
 </template>

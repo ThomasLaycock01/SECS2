@@ -28,6 +28,11 @@ export const useHRStore = defineStore("HR", {
                         for (var i in this.costs) {
                             resources.modifyResource(i, posToNeg(this.costs[i]))
                         }
+                    },
+                    tooltipData: {
+                        name: "Hire Human",
+                        desc: "Hire a human cultist",
+                        costs: {gold: 20}
                     }
                 }
             },

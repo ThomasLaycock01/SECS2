@@ -10,7 +10,6 @@ export const useLairStore = defineStore("lair", {
                 beEvil: {
                     id: "beEvil",
                     name: "Be Evil >:)",
-                    desc: "Be Evil - and Gain 1 Evilness",
                     condition() {
                         return true;
                     },
@@ -20,12 +19,15 @@ export const useLairStore = defineStore("lair", {
                     effect() {
                         const resources = useResourcesStore();
                         resources.modifyResource("evilness", 1)
+                    },
+                    tooltipData: {
+                        name: "Be Evil >:)",
+                        desc: "Be Evil - and Gain 1 Evilness"
                     }
                 },
                 acquireGold: {
                     id: "acquireGold",
                     name: "Acquire Gold",
-                    desc: "Acquire 1 Gold?",
                     condition() {
                         return true;
                     },
@@ -35,13 +37,16 @@ export const useLairStore = defineStore("lair", {
                     effect() {
                         const resources = useResourcesStore();
                         resources.modifyResource("gold", 1)
+                    },
+                    tooltipData: {
+                        name: "Acquire Gold",
+                        desc: "Acquire 1 Gold"
                     }
                 },
                 //expansions
                 expansionMines: {
                     id: "expansionMines",
                     name: "Expansion: Mines",
-                    desc: "Build a mineshaft for your EVIL mining operations.",
                     condition() {
                         const expansions = useExpansionsStore();
                         const resources = useResourcesStore();
@@ -54,6 +59,10 @@ export const useLairStore = defineStore("lair", {
                     effect() {
                         const expansions = useExpansionsStore();
                         expansions.buildExpansion("mines");
+                    },
+                    tooltipData: {
+                        name: "Expansion: Mines",
+                        desc: "Start digging a mineshaft underneath your evil lair!"
                     }
                 },
                 //debug
@@ -70,6 +79,10 @@ export const useLairStore = defineStore("lair", {
                     effect() {
                         const resources = useResourcesStore();
                         resources.modifyResource("gold", 1000000)
+                    },
+                    tooltipData: {
+                        name: "Cheat",
+                        desc: "give 1 million gold"
                     }
                 }
             }
