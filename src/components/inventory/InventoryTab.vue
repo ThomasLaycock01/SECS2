@@ -1,5 +1,4 @@
 <script setup>
-
 import InventoryPopup from './InventoryPopup.vue';
 
 import { useInventoryStore } from '@/stores/inventory';
