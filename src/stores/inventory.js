@@ -1,5 +1,7 @@
 import { defineStore } from "pinia";
 
+import { useResourcesStore } from "./resources";
+
 import { Item } from "@/classes/Item";
 
 export const useInventoryStore = defineStore("inventory", {
@@ -66,6 +68,15 @@ export const useInventoryStore = defineStore("inventory", {
         },
         removeItem(id) {
             this.inventory = this.inventory.filter((obj) => obj.getId() != id);
+        },
+        sellItem(id) {
+            const resources = useResourcesStore();
+
+            const item = this.inventory.find((obj) => obj.getId() == id);
+
+            resources.modifyResource("gold", item.getSellPrice());
+
+            this.removeItem(item.getId());
         },
         setSelectedItem(val) {
             this.misc.selectedItem = val;

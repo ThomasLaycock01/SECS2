@@ -7,13 +7,7 @@ import { useInventoryStore } from '@/stores/inventory';
 const inventory = useInventoryStore();
 
 function inventoryButtonClick(e) {
-  console.log(e.target.value);
   inventory.setSelectedItem(e.target.value);
-}
-
-function onClickAway(e) {
-  console.log(e.target);
-  //inventory.removeSelectedItem();
 }
 </script>
 

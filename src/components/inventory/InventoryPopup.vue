@@ -8,8 +8,7 @@ const props = defineProps({
 })
 
 function sellButtonClick() {
-    props.object.sellThis();
-    inventory.removeSelectedItem();
+    inventory.sellItem(props.object.id);
 }
 
 function closeButtonClick() {
