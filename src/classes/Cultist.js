@@ -206,7 +206,7 @@ export class Cultist {
         return modVal;
     }
 
-    serialize() {
+    /*serialize() {
         const serializedCultist = {
             id: this.id,
             name: this.name,
@@ -220,5 +220,5 @@ export class Cultist {
         }
 
         return serializedCultist;
-    }
+    }*/
 }
