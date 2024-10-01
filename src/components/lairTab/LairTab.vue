@@ -24,7 +24,7 @@ function mouseLeaveFunction(e) {
         <span v-for="action in lair.getActions">
             <button v-if="action.showCondition()" :disabled="!action.condition()" @click="action.effect" @mouseenter="mouseEnterFunction" @mouseleave="mouseLeaveFunction" :value="action.id" class="button is-dark mb-1 mr-2">{{ action.name }}</button>
             <span v-if="tooltip.id == action.id">
-                <Tooltip class="tooltip" :data="action.tooltipData"/>
+                <Tooltip class="tooltip" :name="action.name" :desc="action.desc" :costs="action.costs"/>
             </span>
         </span>
     </div> 

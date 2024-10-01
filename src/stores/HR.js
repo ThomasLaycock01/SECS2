@@ -28,11 +28,6 @@ export const useHRStore = defineStore("HR", {
                         const HR = useHRStore();
                         HR.hireCultist("human");
                     },
-                    tooltipData: {
-                        name: "Hire Human",
-                        desc: "Hire a human cultist",
-                        costs: {gold: 20}
-                    }
                 }
             },
             misc: {

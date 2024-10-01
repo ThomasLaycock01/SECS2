@@ -1,19 +1,24 @@
 <script setup>
 const props = defineProps({
-    data: Object
+    name: String,
+    desc: String,
+    costs: {
+        type: Object,
+        default: null
+    }
 })
 </script>
 
 <template>
     <div>
         <b class="mb-2">
-            {{props.data.name}}
+            {{props.name}}
         </b>
         <p class="mb-2">
-            {{props.data.desc}}
+            {{props.desc}}
         </p>
-        <div v-if="props.data.costs" class="mb-2">
-            <p>{{ props.data.costs }}</p>
+        <div v-if="props.costs" class="mb-2">
+            <p>{{ props.costs }}</p>
             <!--<ul v-for="value, key in data.costs()">
                 <li>{{ key }} : {{ value }}</li>
             </ul>-->
