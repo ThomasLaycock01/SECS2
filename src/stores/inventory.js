@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 
 import { useResourcesStore } from "./resources";
+import { useCultistsStore } from "./cultists";
 
 import { Item } from "@/classes/Item";
 
@@ -71,10 +72,15 @@ export const useInventoryStore = defineStore("inventory", {
         },
         sellItem(id) {
             const resources = useResourcesStore();
+            const cultists = useCultistsStore();
 
             const item = this.inventory.find((obj) => obj.getId() == id);
 
             resources.modifyResource("gold", item.getSellPrice());
+
+            if (item.getEquippedCultistId() != null) {
+                cultists.getCultistById(item.getEquippedCultistId()).unequipItem(item.getType());
+            }
 
             this.removeItem(item.getId());
         },
