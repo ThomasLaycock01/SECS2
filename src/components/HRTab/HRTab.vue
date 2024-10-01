@@ -1,4 +1,5 @@
 <script setup>
+import Tooltip from '../Tooltip.vue';
 import PerkTooltip from './PerkTooltip.vue';
 
 import { reactive } from 'vue';
@@ -13,20 +14,35 @@ const cultists = useCultistsStore();
 const HR = useHRStore();
 const inventory = useInventoryStore();
 
+var actions = reactive({tooltip: null});
 var activeCultist = reactive({cultist: null});
 var equipmentScreen = reactive({check: false, type: null, selectedItem: null});
 var selectedPerk = reactive({perk: null});
+
+//for the cultist half of the screen
+function mouseEnterButton(e) {
+    actions.tooltip = e.target.value;
+}
+
+function mouseLeaveButton(e) {
+    actions.tooltip = null;
+}
 
 function setNewActiveCultist(cultist) {
     activeCultist.cultist = cultist;
     equipmentScreen.check = false;
 }
 
+
+
+//for the display half of the screen
 function equipButtonClick(e) {
     equipmentScreen.check = true;
     equipmentScreen.type = e.target.value;
 }
 
+
+//for the equipment screen
 function closeButtonClick() {
     equipmentScreen.check = false;
 }
@@ -52,6 +68,8 @@ function confirmButtonClick() {
     equipmentScreen.selectedItem = null;
 }
 
+
+//for the perk display
 function mouseEnterPerk(e) {
     selectedPerk.perk = e.target.value
 }
@@ -72,7 +90,10 @@ function assignPerk(e) {
 
     <div>
         <span v-for="action in HR.getActions">
-            <button v-if="action.showCondition()" :disabled="!action.condition()" @click="action.effect()"  class="button is-dark mb-1 mr-2">{{ action.name }}</button>
+            <button v-if="action.showCondition()" :disabled="!action.condition()" @click="action.effect()" @mouseenter="mouseEnterButton" @mouseleave="mouseLeaveButton" :value="action.id" class="button is-dark mb-1 mr-2">{{ action.name }}</button>
+            <span v-if="actions.tooltip == action.id">
+                <Tooltip class="tooltip" :name="action.name" :desc="action.desc" :costs="action.costs"/>
+            </span>
         </span>
     </div> 
 

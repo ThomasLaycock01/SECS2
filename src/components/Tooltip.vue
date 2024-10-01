@@ -3,7 +3,7 @@ const props = defineProps({
     name: String,
     desc: String,
     costs: {
-        type: Object,
+        type: Function,
         default: null
     }
 })
@@ -18,10 +18,9 @@ const props = defineProps({
             {{props.desc}}
         </p>
         <div v-if="props.costs" class="mb-2">
-            <p>{{ props.costs }}</p>
-            <!--<ul v-for="value, key in data.costs()">
+            <ul v-for="value, key in props.costs()">
                 <li>{{ key }} : {{ value }}</li>
-            </ul>-->
+            </ul>
         </div>
     </div>
 </template>
