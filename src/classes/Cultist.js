@@ -135,11 +135,11 @@ export class Cultist {
         }
 
         this.equipment[type] = item;
-        item.toggleEquipped();
+        item.equipItem(this.getId());
     }
 
     unequipItem(type) {
-        this.equipment[type].toggleEquipped();
+        this.equipment[type].unequipItem();
         this.equipment[type] = null;
     }
 

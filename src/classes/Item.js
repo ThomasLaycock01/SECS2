@@ -8,7 +8,7 @@ export class Item {
         this.type = data.type;
         this.modifiers = data.modifiers;
         this.sellPrice = data.sellPrice;
-        this.equipped = false;
+        this.equippedCultistId = null;
     }
 
     //getters
@@ -50,17 +50,17 @@ export class Item {
         return this.sellPrice;
     }
 
-    getEquipped() {
-        return this.equipped;
+    getEquippedCultistId() {
+        return this.equippedCultistId;
     }
 
     //actions
-    toggleEquipped() {
-        if (this.equipped) {
-            this.equipped = false;
-            return;
-        }
-        this.equipped = true;
+    equipItem(cultistId) {
+        this.equippedCultistId = cultistId;
+    }
+
+    unequipItem() {
+        this.equippedCultistId = null;
     }
 
     //gonna finish serializing later - work on mines first
