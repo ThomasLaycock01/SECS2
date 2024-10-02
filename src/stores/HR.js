@@ -1,8 +1,9 @@
 import { defineStore } from "pinia";
 
 import { useResourcesStore } from "./resources";
+import { useCultistsStore } from "./cultists";
 
-import { addCultist, posToNeg } from "@/functions";
+import { addCultist } from "@/functions";
 
 export const useHRStore = defineStore("HR", {
     state: () => {
@@ -19,7 +20,7 @@ export const useHRStore = defineStore("HR", {
                     condition() {
                         const resources = useResourcesStore();
                         const HR = useHRStore();
-                        return resources.checkIfCanAfford(HR.getCultistCostBySpecies("human"));
+                        return resources.checkIfCanAfford(HR.getCultistCostBySpecies("human")) && HR.checkCultistSpace();
                     },
                     showCondition() {
                         return true;
@@ -59,6 +60,11 @@ export const useHRStore = defineStore("HR", {
 
             addCultist(species);
             
+        },
+        checkCultistSpace() {
+            const cultists = useCultistsStore();
+
+            return !(cultists.numOfCultists == this.getCultistLimit);
         }
     }
 })
