@@ -80,6 +80,7 @@ function mouseLeavePerk(e) {
 
 function assignPerk(e) {
     activeCultist.cultist.addPerk(perks.default[e.target.value]);
+    selectedPerk.perk = null;
 }
 </script>
 
@@ -169,9 +170,9 @@ function assignPerk(e) {
                 <div>Unlocked</div>
                 <div class="container">
                     <span v-for="i in activeCultist.cultist.getPerks()">
-                        <button  class="button is-outlined">{{i.name}}</button>
+                        <button  class="button is-outlined" @mouseenter="mouseEnterPerk" @mouseleave="mouseLeavePerk" :value="i.perkId">{{i.name}}</button>
                         <div v-if="i.perkId == selectedPerk.perk">
-                                    <PerkTooltip class="perkTooltip" :perk="i" :unlocked="true"/>
+                            <PerkTooltip class="perkTooltip" :perk="i" :unlocked="true"/>
                         </div>
                     </span>
                 </div>
