@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 
+import { useResourcesStore } from "./resources";
 import { useCultistsStore } from "./cultists";
 import { useInventoryStore } from "./inventory";
 import { useExpansionsStore } from "./expansions";
@@ -38,6 +39,21 @@ export const useMinesStore = defineStore("mines", {
                     effect() {
                         const mines = useMinesStore();
                         mines.createItem(1001)
+                    }
+                },
+                testButton3: {
+                    id: "testButton3",
+                    name: "This button needs stone!",
+                    desc: "testButton3",
+                    condition() {
+                        const resources = useResourcesStore();
+                        return resources.checkIfCanAfford({stone: 5});
+                    },
+                    showCondition() {
+                        return true;
+                    },
+                    effect() {
+                        console.log("It worked!")
                     }
                 }
             },
