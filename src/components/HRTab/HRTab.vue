@@ -93,7 +93,7 @@ function assignPerk(e) {
                 <span v-for="i in cultists.regularCultists">
                     <button  class="button is-dark is-info" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
                 </span>
-                <span v-for="i in HR.getCultistLimit - cultists.numOfCultists">
+                <span v-for="i in cultists.getCultistLimit - cultists.numOfCultists">
                     <div class="button is-outlined" disabled>Empty</div>
                 </span>
             </div>

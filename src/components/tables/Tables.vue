@@ -29,7 +29,7 @@ const HR = useHRStore();
                 <tr>
                     <th>Cultists</th>
                     <th></th>
-                    <th>{{ cultists.numOfCultists }} / {{ HR.getCultistLimit }}</th>
+                    <th>{{ cultists.numOfCultists }} / {{ cultists.getCultistLimit }}</th>
                 </tr>
             </tbody>
         </table>

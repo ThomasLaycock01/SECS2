@@ -6,7 +6,11 @@ import { deserializeCultist } from "@/functions";
 
 export const useCultistsStore = defineStore("cultists", {
     state: () => {
-        return {regular: [], special: []}
+        return {regular: [], special: [],
+            misc : {
+                cultistLimit: 2
+            }
+        }
     },
     getters: {
         numOfCultists(state) {
@@ -23,6 +27,9 @@ export const useCultistsStore = defineStore("cultists", {
         },
         getEmployed(state) {
             return state.regular.filter((cultist) => cultist.getJob() != null);
+        },
+        getCultistLimit(state) {
+            return state.misc.cultistLimit;
         }
     },
     actions: {

@@ -38,7 +38,6 @@ export const useHRStore = defineStore("HR", {
                 }
             },
             misc: {
-                cultistLimit: 2,
                 costs: {
                     human: {gold: 20}
                 }
@@ -49,9 +48,6 @@ export const useHRStore = defineStore("HR", {
         //actions
         getActions(state) {
             return state.actions;
-        },
-        getCultistLimit(state) {
-            return state.misc.cultistLimit;
         },
         //misc
         getCultistCostBySpecies(state) {
@@ -70,7 +66,7 @@ export const useHRStore = defineStore("HR", {
         checkCultistSpace() {
             const cultists = useCultistsStore();
 
-            return !(cultists.numOfCultists == this.getCultistLimit);
+            return !(cultists.numOfCultists == cultists.getCultistLimit);
         }
     }
 })
