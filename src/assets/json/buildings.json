@@ -1,5 +1,5 @@
 {
     "lair": {
-        "chambers": {"id": "chambers", "name": "Chambers", "desc":"Some chambers for your cultists to sleep in.", "effectDesc":"+1 cultist limit", "modifiers": {"cultistLimit": 1}, "onBuildEffects": ["recalcCultistLimit"], "costs": {"gold": 10, "stone": 20}, "evilnessReq": 40, "expansionReq": 0}
+        "chambers": {"id": "chambers", "name": "Chambers", "desc":"Some chambers for your cultists to sleep in.", "effectDesc":"+1 cultist limit", "modifiers": {"cultistLimit": 1}, "onBuildEffects": ["recalcCultistLimit"], "costs": {"gold": 10, "stone": 20}, "reqs": {"evilness": 40, "expansion": 0}}
     }
 }

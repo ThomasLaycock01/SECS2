@@ -130,7 +130,8 @@ export const useLairStore = defineStore("lair", {
                         return resources.checkIfCanAfford(buildingObj["costs"]);
                     },
                     showCondition() {
-                        return true;
+                        const resources = useResourcesStore();
+                        return resources.getEvilness >= buildingObj["reqs"]["evilness"];
                     },
                     effect() {
                         console.log("it worked")
