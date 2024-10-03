@@ -57,6 +57,21 @@ export const useLairStore = defineStore("lair", {
                                 const resources = useResourcesStore();
                                 resources.modifyResource("gold", 1000000)
                             }
+                        },
+                        debugEvilness: {
+                            id: "debugEvilness",
+                            name: "Debug Evilness",
+                            desc: "Add a bajillion evilness",
+                            condition() {
+                                return true;
+                            },
+                            showCondition() {
+                                return true;
+                            },
+                            effect() {
+                                const resources = useResourcesStore();
+                                resources.modifyResource("evilness", 1000000)
+                            }
                         }
                     }
                 },
