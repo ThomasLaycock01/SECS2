@@ -53,7 +53,7 @@ export const useBuildingsStore = defineStore("buildings", {
         instantiateBuildings() {
             this.buildings = buildings;
         },
-        buildBuilding(pinia, buildingId) {
+        buildBuildings(pinia, buildingId) {
             const resources = useResourcesStore();
 
             const costs = this.childPinias[pinia].piniaObject().buildBuilding(buildingId);
@@ -63,6 +63,8 @@ export const useBuildingsStore = defineStore("buildings", {
             const effects = this.getOnBuildEffects(pinia, buildingId);
 
             this.resolveOnBuildEffects(effects);
+            
+            this.childPinias[pinia].piniaObject().updateBuildingCost(buildingId);
         },
         resolveOnBuildEffects(effectArray) {
             const cultists = useCultistsStore();
