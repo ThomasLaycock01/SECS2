@@ -6,6 +6,10 @@ const props = defineProps({
         type: String,
         default: null
     },
+    owned: {
+        type: Number,
+        default: null
+    },
     costs: {
         type: Function,
         default: null
@@ -16,7 +20,7 @@ const props = defineProps({
 <template>
     <div>
         <b class="mb-2">
-            {{props.name}}
+            {{props.name}}{{ props.owned ? ` - Owned: ${props.owned}`  : "" }}
         </b>
         <p class="mb-2">
             {{props.desc}}

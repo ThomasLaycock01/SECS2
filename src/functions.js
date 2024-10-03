@@ -1,11 +1,13 @@
 //pinias
-import { useLairStore } from "./stores/lair";
 import { useResourcesStore } from "./stores/globalPinias/resources";
 import { useCultistsStore } from "./stores/globalPinias/cultists";
+import { useInventoryStore } from "./stores/globalPinias/inventory";
+import { useBuildingsStore } from "./stores/globalPinias/buildings";
+
+import { useLairStore } from "./stores/lair";
 import { useExpansionsStore } from "./stores/expansions";
 import { useMiscStore } from "./stores/misc";
 import { useTextLogStore } from "./stores/textLog";
-import { useInventoryStore } from "./stores/globalPinias/inventory";
 //expansions
 import { useMinesStore } from "./stores/mines";
 //classes
@@ -195,8 +197,10 @@ export function instantiateItems() {
 }
 
 export function instantiateBuildings() {
+    const buildings = useBuildingsStore();
     const lair = useLairStore();
 
+    buildings.instantiateBuildings();
     lair.instantiateBuildings();
 }
 

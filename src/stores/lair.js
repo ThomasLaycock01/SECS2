@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 
 import { useExpansionsStore } from "./expansions";
 import { useResourcesStore } from "./globalPinias/resources";
+import { useBuildingsStore } from "./globalPinias/buildings";
 
 import buildings from "../assets/json/buildings.json";
 
@@ -123,10 +124,13 @@ export const useLairStore = defineStore("lair", {
         }
     },
     actions: {
-        buildBuilding() {
-            
+        //buildings
+        buildBuilding(buildingId) {
+            this.buildings[buildingId].owned += 1;
         },
         instantiateBuildings() {
+            const id = this.$id;
+
             this.buildings = buildings["lair"];
             for (var i in this.buildings) {
                 this.buildings[i]["owned"] = 0;
@@ -140,6 +144,7 @@ export const useLairStore = defineStore("lair", {
                     name: buildingObj["name"],
                     desc: buildingObj["desc"],
                     effectDesc: buildingObj["effectDesc"],
+                    owned: buildingObj["owned"],
                     costs() {
                         return buildingObj["costs"];
                     },
@@ -153,7 +158,8 @@ export const useLairStore = defineStore("lair", {
                         return resources.getEvilness >= buildingObj["reqs"]["evilness"] && expansions.hasTier(buildingObj["reqs"]["expansionTier"]);
                     },
                     effect() {
-                        console.log("it worked")
+                        const buildings = useBuildingsStore();
+                        buildings.buildBuilding(id, buildingObj["id"]);
                     }
                 }
             }
