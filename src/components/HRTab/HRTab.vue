@@ -5,8 +5,8 @@ import PerkTooltip from './PerkTooltip.vue';
 import { reactive } from 'vue';
 
 import { useHRStore } from '@/stores/HR';
-import { useCultistsStore } from "@/stores/cultists";
-import { useInventoryStore } from '@/stores/inventory';
+import { useCultistsStore } from "@/stores/globalPinias/cultists";
+import { useInventoryStore } from '@/stores/globalPinias/inventory';
 
 import perks from "@/assets/json/perks.json";
 

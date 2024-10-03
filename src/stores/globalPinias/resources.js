@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 
-import { useMinesStore } from "./mines";
+import { useMinesStore } from "../mines";
 
 export const useResourcesStore = defineStore("resources", {
     state: () => {

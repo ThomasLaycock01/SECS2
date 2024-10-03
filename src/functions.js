@@ -1,11 +1,11 @@
 //pinias
 import { useLairStore } from "./stores/lair";
-import { useResourcesStore } from "./stores/resources";
-import { useCultistsStore } from "./stores/cultists";
+import { useResourcesStore } from "./stores/globalPinias/resources";
+import { useCultistsStore } from "./stores/globalPinias/cultists";
 import { useExpansionsStore } from "./stores/expansions";
 import { useMiscStore } from "./stores/misc";
 import { useTextLogStore } from "./stores/textLog";
-import { useInventoryStore } from "./stores/inventory";
+import { useInventoryStore } from "./stores/globalPinias/inventory";
 //expansions
 import { useMinesStore } from "./stores/mines";
 //classes

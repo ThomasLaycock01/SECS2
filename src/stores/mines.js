@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
 
-import { useResourcesStore } from "./resources";
-import { useCultistsStore } from "./cultists";
-import { useInventoryStore } from "./inventory";
+import { useResourcesStore } from "./globalPinias/resources";
+import { useCultistsStore } from "./globalPinias/cultists";
+import { useInventoryStore } from "./globalPinias/inventory";
 import { useExpansionsStore } from "./expansions";
 
 import items from "../assets/json/items.json";

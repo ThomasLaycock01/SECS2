@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import { useResourcesStore } from "./resources";
+import { useResourcesStore } from "./globalPinias/resources";
 import { useMinesStore } from "./mines"; 
 
 import { posToNeg } from "@/functions";

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 
 import { useExpansionsStore } from "./expansions";
-import { useResourcesStore } from "./resources";
+import { useResourcesStore } from "./globalPinias/resources";
 
 import buildings from "../assets/json/buildings.json";
 
@@ -123,6 +123,9 @@ export const useLairStore = defineStore("lair", {
         }
     },
     actions: {
+        buildBuilding() {
+            
+        },
         instantiateBuildings() {
             this.buildings = buildings["lair"];
             for (var i in this.buildings) {

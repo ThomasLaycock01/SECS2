@@ -1,7 +1,7 @@
 <script setup>
 import InventoryPopup from './InventoryPopup.vue';
 
-import { useInventoryStore } from '@/stores/inventory';
+import { useInventoryStore } from '@/stores/globalPinias/inventory';
 
 const inventory = useInventoryStore();
 

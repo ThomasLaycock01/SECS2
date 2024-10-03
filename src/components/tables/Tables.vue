@@ -1,8 +1,8 @@
 <script setup>
 import Resource from "./Resource.vue";
 
-import {useResourcesStore} from "@/stores/resources.js";
-import { useCultistsStore } from "@/stores/cultists";
+import {useResourcesStore} from "@/stores/globalPinias/resources.js";
+import { useCultistsStore } from "@/stores/globalPinias/cultists";
 import { useHRStore } from "@/stores/HR";
 
 const resources = useResourcesStore();

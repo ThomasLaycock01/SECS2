@@ -1,6 +1,6 @@
 <script setup>
-import { useInventoryStore } from '@/stores/inventory';
-import { useCultistsStore } from '@/stores/cultists';
+import { useInventoryStore } from '@/stores/globalPinias/inventory';
+import { useCultistsStore } from '@/stores/globalPinias/cultists';
 
 const inventory = useInventoryStore();
 const cultists = useCultistsStore();
