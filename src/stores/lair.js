@@ -3,6 +3,8 @@ import { defineStore } from "pinia";
 import { useExpansionsStore } from "./expansions";
 import { useResourcesStore } from "./resources";
 
+import buildings from "../assets/json/buildings.json";
+
 export const useLairStore = defineStore("lair", {
     state: () => {
         return {
@@ -93,6 +95,9 @@ export const useLairStore = defineStore("lair", {
                         }
                     }
                 }
+            },
+            buildings: {
+
             }
         }
     },
@@ -103,5 +108,34 @@ export const useLairStore = defineStore("lair", {
         }
     },
     actions: {
+        instantiateBuildings() {
+            this.buildings = buildings["lair"];
+            for (var i in this.buildings) {
+                this.buildings[i]["owned"] = 0;
+            }
+
+            for (var i in this.buildings) {
+                const buildingObj = this.buildings[i];
+
+                this.actions.buildings.buttons[i] = {
+                    id: buildingObj["id"],
+                    name: buildingObj["name"],
+                    desc: buildingObj["desc"],
+                    costs() {
+                        return buildingObj["costs"];
+                    },
+                    condition() {
+                        const resources = useResourcesStore();
+                        return resources.checkIfCanAfford(buildingObj["costs"]);
+                    },
+                    showCondition() {
+                        return true;
+                    },
+                    effect() {
+                        console.log("it worked")
+                    }
+                }
+            }
+        }
     }
 })

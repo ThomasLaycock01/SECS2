@@ -1,4 +1,5 @@
 //pinias
+import { useLairStore } from "./stores/lair";
 import { useResourcesStore } from "./stores/resources";
 import { useCultistsStore } from "./stores/cultists";
 import { useExpansionsStore } from "./stores/expansions";
@@ -186,11 +187,17 @@ export function loadData() {
     textLog.loadData();
 }*/
 
-//instantiat items
+//instantiat files
 export function instantiateItems() {
     const mines = useMinesStore();
 
     mines.instantiateItems();
+}
+
+export function instantiateBuildings() {
+    const lair = useLairStore();
+
+    lair.instantiateBuildings();
 }
 
 

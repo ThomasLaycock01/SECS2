@@ -38,7 +38,7 @@ const expansions = useExpansionsStore();
 
 <script>
 
-import { tick, instantiateItems } from "./functions";
+import { tick, instantiateItems, instantiateBuildings } from "./functions";
 
 export default {
   data() {
@@ -62,6 +62,7 @@ export default {
       loadData();
     }*/
     instantiateItems();
+    instantiateBuildings();
     setInterval(tick, 1000);
     //setInterval(saveData, 10000)
   }
