@@ -27,6 +27,11 @@ export const useResourcesStore = defineStore("resources", {
         getGlobal(state) {
             return state.resources;
         },
+        //function specifically for getting evilness
+        getEvilness(state) {
+            return state.resources["evilness"].total;
+        },
+        //generally, dont use this one for getting evilness
         getResourceTotal(state) {
             return (resource) => {
                 switch (resource) {
