@@ -2,6 +2,8 @@ import {defineStore} from "pinia";
 
 import { useMinesStore } from "../mines";
 
+import { posToNeg } from "@/functions";
+
 export const useResourcesStore = defineStore("resources", {
     state: () => {
         return {
@@ -88,7 +90,17 @@ export const useResourcesStore = defineStore("resources", {
         },
         removeResources(obj) {
             for (var i in obj) {
-                this.resources[i].total -= obj[i]
+                switch (i) {
+                    case "evilness":
+                    case "gold":
+                        return state.resources[i].total;
+                    default:
+                        for (var j in state.childPinias) {
+                            if (state.childPinias[j].resources.includes(i)) {
+                                return state.childPinias[j].piniaObject().modifyResource(i, posToNeg(obj[i]));
+                            }
+                        }
+                }
             }
         },
         checkIfCanAfford(costsObj) {
