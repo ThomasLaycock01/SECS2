@@ -1,5 +1,5 @@
 <script setup>
-import Tooltip from '../Tooltip.vue';
+import ActionList from '../ActionList.vue';
 import PerkTooltip from './PerkTooltip.vue';
 
 import { reactive } from 'vue';
@@ -14,20 +14,11 @@ const cultists = useCultistsStore();
 const HR = useHRStore();
 const inventory = useInventoryStore();
 
-var actions = reactive({tooltip: null});
 var activeCultist = reactive({cultist: null});
 var equipmentScreen = reactive({check: false, type: null, selectedItem: null});
 var selectedPerk = reactive({perk: null});
 
 //for the cultist half of the screen
-function mouseEnterButton(e) {
-    actions.tooltip = e.target.value;
-}
-
-function mouseLeaveButton(e) {
-    actions.tooltip = null;
-}
-
 function setNewActiveCultist(cultist) {
     activeCultist.cultist = cultist;
     equipmentScreen.check = false;
@@ -89,12 +80,7 @@ function assignPerk(e) {
 <template>
 
     <div>
-        <span v-for="action in HR.getActions">
-            <button v-if="action.showCondition()" :disabled="!action.condition()" @click="action.effect()" @mouseenter="mouseEnterButton" @mouseleave="mouseLeaveButton" :value="action.id" class="button is-dark mb-1 mr-2">{{ action.name }}</button>
-            <span v-if="actions.tooltip == action.id">
-                <Tooltip class="tooltip" :name="action.name" :desc="action.desc" :costs="action.costs"/>
-            </span>
-        </span>
+        <ActionList :piniaObject="HR"/>
     </div> 
 
     <div class="title is-4 mb-1 segment-title">Cultists</div>

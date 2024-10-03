@@ -11,34 +11,47 @@ export const useMinesStore = defineStore("mines", {
     state: () => {
         return {
             actions: {
-                testButton: {
-                    id: "testButton",
-                    name: "Test button",
-                    desc: "Hire a Human Cultist",
-                    condition() {
-                        return true;
-                    },
-                    showCondition() {
-                        return true;
-                    },
-                    effect() {
-                        const mines = useMinesStore();
-                        mines.createItem(1000)
+                actions: {
+                    id: "actions",
+                    name: "Actions",
+                    buttons : {
+                        testButton: {
+                            id: "testButton",
+                            name: "Test button",
+                            desc: "Hire a Human Cultist",
+                            condition() {
+                                return true;
+                            },
+                            showCondition() {
+                                return true;
+                            },
+                            effect() {
+                                const mines = useMinesStore();
+                                mines.createItem(1000)
+                            }
+                        },
+                        testButton2: {
+                            id: "testButton2",
+                            name: "Test button 2",
+                            desc: "Hire a Human Cultist",
+                            condition() {
+                                return true;
+                            },
+                            showCondition() {
+                                return true;
+                            },
+                            effect() {
+                                const mines = useMinesStore();
+                                mines.createItem(1001)
+                            }
+                        }
                     }
                 },
-                testButton2: {
-                    id: "testButton2",
-                    name: "Test button 2",
-                    desc: "Hire a Human Cultist",
-                    condition() {
-                        return true;
-                    },
-                    showCondition() {
-                        return true;
-                    },
-                    effect() {
-                        const mines = useMinesStore();
-                        mines.createItem(1001)
+                buildings: {
+                    id: "buildings",
+                    name: "Buildings",
+                    buttons: {
+
                     }
                 }
             },

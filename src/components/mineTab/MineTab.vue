@@ -1,6 +1,8 @@
 <script setup>
 import { reactive } from 'vue';
 
+import ActionList from '../ActionList.vue';
+
 import { addCultistToOverseerJob, addCultistToWorkerJob, removeCultistFromOverseerJob, removeCultistFromWorkerJob } from '@/functions';
 
 import { useMinesStore } from '@/stores/mines';
@@ -53,14 +55,10 @@ function removeWorkerClick(e) {
 
 <template>
 
-<!--<ActionList :actions="mineActions"/>-->
-
 <div>
     <!--Actions-->
     <div>
-        <span v-for="action in mines.getActions">
-            <button v-if="action.showCondition()" :disabled="!action.condition()" @click="action.effect()"  class="button is-dark mb-1 mr-2">{{ action.name }}</button>
-        </span>
+        <ActionList :piniaObject="mines"/>
     </div>
     <!--Overseer-->
     <div>

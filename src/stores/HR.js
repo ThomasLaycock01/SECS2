@@ -9,26 +9,32 @@ export const useHRStore = defineStore("HR", {
     state: () => {
         return {
             actions: {
-                hireHuman: {
-                    id: "hireHuman",
-                    name: "Hire Human Cultist",
-                    desc: "Hire a Human Cultist",
-                    costs() {
-                        const HR = useHRStore();
-                        return HR.getCultistCostBySpecies("human");
-                    },
-                    condition() {
-                        const resources = useResourcesStore();
-                        const HR = useHRStore();
-                        return resources.checkIfCanAfford(HR.getCultistCostBySpecies("human")) && HR.checkCultistSpace();
-                    },
-                    showCondition() {
-                        return true;
-                    },
-                    effect() {
-                        const HR = useHRStore();
-                        HR.hireCultist("human");
-                    },
+                recruitment: {
+                    id: "recruitment",
+                    name: "Recruitment",
+                    buttons : {
+                        hireHuman: {
+                            id: "hireHuman",
+                            name: "Hire Human Cultist",
+                            desc: "Hire a Human Cultist",
+                            costs() {
+                                const HR = useHRStore();
+                                return HR.getCultistCostBySpecies("human");
+                            },
+                            condition() {
+                                const resources = useResourcesStore();
+                                const HR = useHRStore();
+                                return resources.checkIfCanAfford(HR.getCultistCostBySpecies("human")) && HR.checkCultistSpace();
+                            },
+                            showCondition() {
+                                return true;
+                            },
+                            effect() {
+                                const HR = useHRStore();
+                                HR.hireCultist("human");
+                            }
+                        }  
+                    }
                 }
             },
             misc: {
