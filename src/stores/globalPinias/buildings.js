@@ -26,6 +26,21 @@ export const useBuildingsStore = defineStore("buildings", {
                     }
                 }
             }
+        },
+        getTotalBuildingModifier(state) {
+            return (modifierId) => {
+                var totalMod = 0;
+                for (var i in state.childPinias) {
+                    for (var j in state.childPinias[i].buildings) {
+                        const buildingId = state.childPinias[i].buildings;
+                        if (state.buildings[i][buildingId].modifiers[modifierId]) {
+                            const building = state.buildings[i][buildingId];
+                            totalMod += building.modifiers[modifierId] * state.getNumOfBuildings(building.id);
+                        }
+                    }
+                }
+                return totalMod;
+            }
         }
     },
     actions: {
