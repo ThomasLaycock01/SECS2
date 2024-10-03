@@ -1,5 +1,6 @@
 <script setup>
 const props = defineProps({
+    tooltipType: String,
     name: String,
     desc: String,
     effectDesc: {
@@ -18,20 +19,33 @@ const props = defineProps({
 </script>
 
 <template>
+    <!--templates broken up by type-->
     <div>
+        <!--Name and desc are always shown-->
         <b class="mb-2">
-            {{props.name}}{{ props.owned ? ` - Owned: ${props.owned}`  : "" }}
+            {{props.name}}
         </b>
         <p class="mb-2">
             {{props.desc}}
         </p>
-        <p class="mb-2" v-if="props.effectDesc">
+        <!--Buildings-->
+        <span v-if="props.tooltipType==`building`">
+            <p class="mb-2">
             {{ props.effectDesc }}
-        </p>
-        <div v-if="props.costs" class="mb-2">
-            <ul v-for="value, key in props.costs()">
-                <li>{{ key }} : {{ value }}</li>
-            </ul>
-        </div>
+            </p>
+            <div class="mb-2">
+                <ul v-for="value, key in props.costs()">
+                    <li>{{ key }} : {{ value }}</li>
+                </ul>
+            </div>
+        </span>
+        <!--Expansions-->
+        <span v-if="props.tooltipType=='expansion'">
+            <div class="mb-2">
+                <ul v-for="value, key in props.costs()">
+                    <li>{{ key }} : {{ value }}</li>
+                </ul>
+            </div>
+        </span>
     </div>
 </template>
