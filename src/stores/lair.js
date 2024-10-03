@@ -127,6 +127,8 @@ export const useLairStore = defineStore("lair", {
         //buildings
         buildBuilding(buildingId) {
             this.buildings[buildingId].owned += 1;
+
+            return this.buildings[buildingId].costs;
         },
         instantiateBuildings() {
             const id = this.$id;
