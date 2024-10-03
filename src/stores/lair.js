@@ -146,7 +146,8 @@ export const useLairStore = defineStore("lair", {
                     },
                     showCondition() {
                         const resources = useResourcesStore();
-                        return resources.getEvilness >= buildingObj["reqs"]["evilness"];
+                        const expansions = useExpansionsStore();
+                        return resources.getEvilness >= buildingObj["reqs"]["evilness"] && expansions.hasTier(buildingObj["reqs"]["expansionTier"]);
                     },
                     effect() {
                         console.log("it worked")
