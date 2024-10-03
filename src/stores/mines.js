@@ -40,21 +40,6 @@ export const useMinesStore = defineStore("mines", {
                         const mines = useMinesStore();
                         mines.createItem(1001)
                     }
-                },
-                testButton3: {
-                    id: "testButton3",
-                    name: "This button needs stone!",
-                    desc: "testButton3",
-                    condition() {
-                        const resources = useResourcesStore();
-                        return resources.checkIfCanAfford({stone: 5});
-                    },
-                    showCondition() {
-                        return true;
-                    },
-                    effect() {
-                        console.log("It worked!")
-                    }
                 }
             },
             workers: {
