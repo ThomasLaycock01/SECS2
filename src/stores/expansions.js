@@ -8,15 +8,15 @@ import { posToNeg } from "@/functions";
 export const useExpansionsStore = defineStore("expansions", {
     state: () => {
         return {built: {
-            tier1: null,
-            tier2: null,
-            tier3: null
+            1: null,
+            2: null,
+            3: null
         },
         all: [
             {
                 id: "mines", 
                 name: "Mines", 
-                tier: "tier1", 
+                tier: 1, 
                 piniaObject() {
                     const mines = useMinesStore();
                     return mines;
@@ -46,14 +46,11 @@ export const useExpansionsStore = defineStore("expansions", {
         getBuiltTier3Id(state) {
             return state.built.tier3;
         },
-        hasTier1(state) {
-            return state.built.tier1 ? true : false;
-        },
-        hasTier2(state) {
-            return state.built.tier2 ? true : false;
-        },
-        hasTier3(state) {
-            return state.built.tier3 ? true : false;
+        hasTier(state) {
+            return (tier) => {
+                console.log(state.built[tier]);
+                return state.built[tier] ? true : false;
+            }
         },
         checkIfBuilt(state) {
             return (expansionId) => {

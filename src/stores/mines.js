@@ -67,7 +67,7 @@ export const useMinesStore = defineStore("mines", {
                     perSec: 0, 
                     showCondition(){
                         const expansions = useExpansionsStore(); 
-                        return expansions.hasTier1;
+                        return expansions.hasTier(1);
                     }, 
                     unlockCondition() {
                         return true;

@@ -101,7 +101,7 @@ export const useLairStore = defineStore("lair", {
                             },
                             showCondition() {
                                 const expansions = useExpansionsStore();
-                                return expansions.hasTier1 ? false : true;
+                                return !expansions.hasTier(1);
                             },
                             effect() {
                                 const expansions = useExpansionsStore();
