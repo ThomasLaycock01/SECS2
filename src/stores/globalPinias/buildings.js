@@ -4,6 +4,7 @@ import { useResourcesStore } from "./resources";
 import { useCultistsStore } from "./cultists";
 
 import { useLairStore } from "../lair";
+import { useMinesStore } from "../mines";
 
 import buildings from "../../assets/json/buildings.json";
 
@@ -14,7 +15,8 @@ export const useBuildingsStore = defineStore("buildings", {
 
             },
             childPinias: {
-                lair: {id:"lair", buildings: ["chambers"], piniaObject() {const lair = useLairStore(); return lair}}
+                lair: {id:"lair", buildings: ["chambers"], piniaObject() {const lair = useLairStore(); return lair}},
+                mines: {id:"mines", buildings: ["tunnel"], piniaObject() {const mines = useMinesStore(); return mines}}
             }
         }
     },

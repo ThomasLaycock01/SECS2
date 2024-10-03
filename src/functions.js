@@ -199,9 +199,11 @@ export function instantiateItems() {
 export function instantiateBuildings() {
     const buildings = useBuildingsStore();
     const lair = useLairStore();
+    const mines = useMinesStore();
 
     buildings.instantiateBuildings();
     lair.instantiateBuildings();
+    mines.instantiateBuildings();
 }
 
 

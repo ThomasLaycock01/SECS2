@@ -3,9 +3,12 @@ import { defineStore } from "pinia";
 import { useResourcesStore } from "./globalPinias/resources";
 import { useCultistsStore } from "./globalPinias/cultists";
 import { useInventoryStore } from "./globalPinias/inventory";
+import { useBuildingsStore } from "./globalPinias/buildings";
+
 import { useExpansionsStore } from "./expansions";
 
 import items from "../assets/json/items.json";
+import buildings from "../assets/json/buildings.json";
 
 export const useMinesStore = defineStore("mines", {
     state: () => {
@@ -14,6 +17,7 @@ export const useMinesStore = defineStore("mines", {
                 actions: {
                     id: "actions",
                     name: "Actions",
+                    tooltipType: "action",
                     buttons : {
                         testButton: {
                             id: "testButton",
@@ -65,6 +69,7 @@ export const useMinesStore = defineStore("mines", {
                 buildings: {
                     id: "buildings",
                     name: "Buildings",
+                    tooltipType: "building",
                     buttons: {
 
                     }
@@ -102,6 +107,9 @@ export const useMinesStore = defineStore("mines", {
                 }
             },
             items: {
+            },
+            buildings: {
+
             },
             misc: {
                 workerJobName: "Miner",
@@ -155,6 +163,10 @@ export const useMinesStore = defineStore("mines", {
         //items
         getItems(state) {
             return this.items;
+        },
+        //buildings
+        getNumOfBuilding(state) {
+            return (buildingId) => state.buildings[buildingId].owned;
         },
         //misc
         getWorkerJobName(state) {
@@ -258,6 +270,56 @@ export const useMinesStore = defineStore("mines", {
         },
         removeWorker(cultistId) {
             this.workers.workerArray = this.workers.workerArray.filter((obj) => obj.id != cultistId);
+        },
+        //buildings
+        buildBuilding(buildingId) {
+            this.buildings[buildingId].owned += 1;
+
+            return this.buildings[buildingId].costs;
+        },
+        updateBuildingCost(buildingId) {
+            for (var i in this.buildings[buildingId].costs) {
+                this.buildings[buildingId].costs[i] = this.buildings[buildingId].costs[i] * this.buildings[buildingId].exponents[i]
+            }
+        },
+        instantiateBuildings() {
+            const id = this.$id;
+
+            this.buildings = buildings["mines"];
+            for (var i in this.buildings) {
+                this.buildings[i]["owned"] = 0;
+            }
+
+            for (var i in this.buildings) {
+                const buildingObj = this.buildings[i];
+
+                this.actions.buildings.buttons[i] = {
+                    id: buildingObj["id"],
+                    name: buildingObj["name"],
+                    desc: buildingObj["desc"],
+                    effectDesc: buildingObj["effectDesc"],
+                    owned() {
+                        const buildings = useBuildingsStore();
+                        return buildings.getNumOfBuildings(buildingObj["id"]);
+                    },
+                    costs() {
+                        return buildingObj["costs"];
+                    },
+                    condition() {
+                        const resources = useResourcesStore();
+                        return resources.checkIfCanAfford(buildingObj["costs"]);
+                    },
+                    showCondition() {
+                        const resources = useResourcesStore();
+                        const expansions = useExpansionsStore();
+                        return resources.getEvilness >= buildingObj["reqs"]["evilness"] && expansions.hasTier(buildingObj["reqs"]["expansionTier"]);
+                    },
+                    effect() {
+                        const buildings = useBuildingsStore();
+                        buildings.buildBuildings(id, buildingObj["id"]);
+                    }
+                }
+            }
         },
         //saving/loading
         /*saveData() {

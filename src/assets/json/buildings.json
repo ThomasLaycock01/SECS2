@@ -1,5 +1,8 @@
 {
     "lair": {
         "chambers": {"id": "chambers", "name": "Chambers", "desc":"Some chambers for your cultists to sleep in.", "effectDesc":"+1 cultist limit", "modifiers": {"cultistLimit": 1}, "onBuildEffects": ["recalcCultistLimit"], "costs": {"gold": 10, "stone": 20}, "exponents": {"gold": 2, "stone": 2}, "reqs": {"evilness": 40, "expansionTier": 1}}
+    },
+    "mines": {
+        "tunnel": {"id": "tunnel", "name": "Tunnel", "desc":"Adding an extra tunnel will make mining more productive", "effectDesc":"+10% output on all cultists in the mines", "modifiers": {"jobs": [{"job": "mineWorker", "type": "global", "modifier": 0.1}]}, "costs": {"stone": 50}, "exponents": {"stone": 1.3}, "reqs": {"evilness": 40, "expansionTier": 1}}
     }
 }
