@@ -93,11 +93,11 @@ export const useResourcesStore = defineStore("resources", {
                 switch (i) {
                     case "evilness":
                     case "gold":
-                        return state.resources[i].total;
+                        return this.resources[i].total;
                     default:
-                        for (var j in state.childPinias) {
-                            if (state.childPinias[j].resources.includes(i)) {
-                                return state.childPinias[j].piniaObject().modifyResource(i, posToNeg(obj[i]));
+                        for (var j in this.childPinias) {
+                            if (this.childPinias[j].resources.includes(i)) {
+                                return this.childPinias[j].piniaObject().modifyResource(i, posToNeg(obj[i]));
                             }
                         }
                 }
