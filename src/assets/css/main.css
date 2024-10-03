@@ -46,6 +46,17 @@ html {
     gap: 10px;
 }
 
+.cultistContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min-content, 70px));
+    gap: 10px;
+    width: auto;
+}
+
+/*.cultistGridItem {
+    justify-self: center;
+}*/
+
 
 .button_list {
     display: flex;
