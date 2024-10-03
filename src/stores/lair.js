@@ -121,6 +121,10 @@ export const useLairStore = defineStore("lair", {
         //actions
         getActions(state) {
             return state.actions;
+        },
+        //buildings
+        getNumOfBuildings(state) {
+            return (buildingId) => state.buildings[buildingId].owned;
         }
     },
     actions: {
@@ -146,7 +150,6 @@ export const useLairStore = defineStore("lair", {
                     name: buildingObj["name"],
                     desc: buildingObj["desc"],
                     effectDesc: buildingObj["effectDesc"],
-                    owned: buildingObj["owned"],
                     costs() {
                         return buildingObj["costs"];
                     },

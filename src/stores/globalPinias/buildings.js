@@ -18,7 +18,15 @@ export const useBuildingsStore = defineStore("buildings", {
         }
     },
     getters: {
-        
+        getNumOfBuildings(state) {
+            return (buildingId) => {
+                for (var i in state.childPinias) {
+                    if (state.childPinias[i].buildings.includes(buildingId)) {
+                        return state.childPinias[i].piniaObject().getNumOfBuilding(buildingId);
+                    }
+                }
+            }
+        }
     },
     actions: {
         instantiateBuildings() {
