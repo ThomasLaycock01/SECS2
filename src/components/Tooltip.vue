@@ -1,4 +1,8 @@
 <script setup>
+import { useBuildingsStore } from '@/stores/globalPinias/buildings';
+
+const buildings = useBuildingsStore();
+
 const props = defineProps({
     tooltipType: String,
     name: String,
@@ -8,7 +12,7 @@ const props = defineProps({
         default: null
     },
     owned: {
-        type: Number,
+        type: Function,
         default: null
     },
     costs: {
@@ -38,6 +42,9 @@ const props = defineProps({
                     <li>{{ key }} : {{ value }}</li>
                 </ul>
             </div>
+            <p class="mb-2">
+                Owned - {{ props.owned() }}
+            </p>
         </span>
         <!--Expansions-->
         <span v-if="props.tooltipType=='expansion'">
