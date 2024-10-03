@@ -121,6 +121,7 @@ export const useLairStore = defineStore("lair", {
                     id: buildingObj["id"],
                     name: buildingObj["name"],
                     desc: buildingObj["desc"],
+                    effectDesc: buildingObj["effectDesc"],
                     costs() {
                         return buildingObj["costs"];
                     },
