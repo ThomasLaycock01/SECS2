@@ -1,6 +1,7 @@
 import {defineStore} from "pinia";
 
 import { useResourcesStore } from "./resources";
+import { useCultistsStore } from "./cultists";
 
 import { useLairStore } from "../lair";
 
@@ -41,6 +42,11 @@ export const useBuildingsStore = defineStore("buildings", {
                 }
                 return totalMod;
             }
+        },
+        getOnBuildEffects(state) {
+            return (pinia, buildingId) => {
+                return state.buildings[pinia][buildingId].onBuildEffects;
+            }
         }
     },
     actions: {
@@ -53,6 +59,24 @@ export const useBuildingsStore = defineStore("buildings", {
             const costs = this.childPinias[pinia].piniaObject().buildBuilding(buildingId);
 
             resources.removeResources(costs);
+
+            const effects = this.getOnBuildEffects(pinia, buildingId);
+
+            this.resolveOnBuildEffects(effects);
+        },
+        resolveOnBuildEffects(effectArray) {
+            const cultists = useCultistsStore();
+
+            for (var i in effectArray) {
+                switch (effectArray[i]) {
+                    case "recalcCultistLimit":
+                        cultists.calculateCultistLimit();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
         }
     }
 });
