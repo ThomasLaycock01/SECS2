@@ -1,6 +1,7 @@
 import {defineStore} from "pinia";
 
 import { useResourcesStore } from "./resources";
+import { useBuildingsStore } from "./buildings";
 
 import { deserializeCultist } from "@/functions";
 
@@ -69,6 +70,13 @@ export const useCultistsStore = defineStore("cultists", {
             }
 
             return false;
+        },
+        calculateCultistLimit() {
+            const buildings = useBuildingsStore();
+
+            const buildingLimit = buildings.getTotalBuildingModifier("cultistLimit");
+
+            this.misc.cultistLimit = 2 + buildingLimit;
         }/*,
         saveData() {
             var data = JSON.parse(localStorage.getItem("SECSData"));
