@@ -13,6 +13,7 @@ export const useExpansionsStore = defineStore("expansions", {
             3: null
         },
         all: [
+            //mines
             {
                 id: "mines", 
                 name: "Mines", 
@@ -23,6 +24,32 @@ export const useExpansionsStore = defineStore("expansions", {
                 },
                 costs: {
                     gold: 30
+                }
+            },
+            {
+                id: "metalmancer",
+                name: "Metalmancer",
+                tier: 2,
+                piniaObject() {
+                    //placeholder
+                    return true;
+                },
+                costs: {
+                    stone: 500,
+                    gold: 2000
+                }
+            },
+            {
+                id: "forge",
+                name: "Forge",
+                tier: 2,
+                piniaObject() {
+                    //placeholder
+                    return true;
+                },
+                costs: {
+                    stone: 500,
+                    gold: 2000
                 }
             },
             {id: "laboratory", name: "Laboratory", tier: "tier1"},
@@ -45,6 +72,16 @@ export const useExpansionsStore = defineStore("expansions", {
         },
         getBuiltTier3Id(state) {
             return state.built.tier3;
+        },
+        hasExpansion(state){
+            return (expansionId) => {
+                for (var i in state.built) {
+                    if (state.built[i] == expansionId) {
+                        return true;
+                    }
+                }
+                return false;
+            }
         },
         hasTier(state) {
             return (tier) => {

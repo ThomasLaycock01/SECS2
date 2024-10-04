@@ -111,6 +111,50 @@ export const useLairStore = defineStore("lair", {
                                 const expansions = useExpansionsStore();
                                 expansions.buildExpansion("mines");
                             }
+                        },
+                        expansionMetalmancer: {
+                            id: "expansionMetalmancer",
+                            name: "Expansion: Metalmancer",
+                            desc: "Build a tower for a Metalmancer.",
+                            costs() {
+                                const expansions = useExpansionsStore();
+                                return expansions.getCostObject("metalmancer");
+                            },
+                            condition() {
+                                const expansions = useExpansionsStore();
+                                const resources = useResourcesStore();
+                                return resources.checkIfCanAfford(expansions.getCostObject("metalmancer"));
+                            },
+                            showCondition() {
+                                const expansions = useExpansionsStore();
+                                return !expansions.hasTier(2) && expansions.hasExpansion("mines");
+                            },
+                            effect() {
+                                const expansions = useExpansionsStore();
+                                expansions.buildExpansion("metalmancer");
+                            }
+                        },
+                        expansionForge: {
+                            id: "expansionForge",
+                            name: "Expansion: Forge",
+                            desc: "Build a forge for smithing gear.",
+                            costs() {
+                                const expansions = useExpansionsStore();
+                                return expansions.getCostObject("forge");
+                            },
+                            condition() {
+                                const expansions = useExpansionsStore();
+                                const resources = useResourcesStore();
+                                return resources.checkIfCanAfford(expansions.getCostObject("forge"));
+                            },
+                            showCondition() {
+                                const expansions = useExpansionsStore();
+                                return !expansions.hasTier(2) && expansions.hasExpansion("mines");
+                            },
+                            effect() {
+                                const expansions = useExpansionsStore();
+                                expansions.buildExpansion("forge");
+                            }
                         }
                     }
                 }
