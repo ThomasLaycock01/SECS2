@@ -45,6 +45,44 @@ export const useBuildingsStore = defineStore("buildings", {
                 return totalMod;
             }
         },
+        getGlobalBuildingJobModifier(state) {
+            return (job) => {
+                var totalMod = 0;
+                for (var i in state.childPinias) {
+                    for (var j in state.childPinias[i].buildings) {
+                        const buildingId = state.childPinias[i].buildings;
+                        if (state.buildings[i][buildingId].modifiers["jobs"]) {
+                            const building = state.buildings[i][buildingId];
+                            for (var k in building.modifiers["jobs"]) {
+                                if (building.modifiers["jobs"][k].job == job && building.modifiers["jobs"][k].type == "global") {
+                                    totalMod += building.modifiers["jobs"][k].modifier * state.getNumOfBuildings(building.id);
+                                }
+                            }
+                        }
+                    }
+                }
+                return totalMod;
+            }
+        },
+        getSpecificBuildingJobModifier(state) {
+            return (job, type) => {
+                var totalMod = 0;
+                for (var i in state.childPinias) {
+                    for (var j in state.childPinias[i].buildings) {
+                        const buildingId = state.childPinias[i].buildings;
+                        if (state.buildings[i][buildingId].modifiers["jobs"]) {
+                            const building = state.buildings[i][buildingId];
+                            for (var k in building.modifiers["jobs"]) {
+                                if (building.modifiers["jobs"][k].job == job && building.modifiers["jobs"][k].type == type) {
+                                    totalMod += building.modifiers["jobs"][k].modifier * state.getNumOfBuildings(building.id);
+                                }
+                            }
+                        }
+                    }
+                }
+                return totalMod;
+            }
+        },
         getOnBuildEffects(state) {
             return (pinia, buildingId) => {
                 return state.buildings[pinia][buildingId].onBuildEffects;

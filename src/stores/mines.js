@@ -187,6 +187,7 @@ export const useMinesStore = defineStore("mines", {
         tick() {
             //pinia stores
             const cultists = useCultistsStore();
+            const buildings = useBuildingsStore();
             //first - get overseer modifier
             const overseerMod = this.getOverseerModifier();
 
@@ -197,7 +198,11 @@ export const useMinesStore = defineStore("mines", {
                     if (this.getWorkerArray[j].resource == i) {
                         const cultist = cultists.getCultistById(this.getWorkerArray[j].id);
                         //output 
-                        resourceOutput += 1 *( 1 + cultist.getGlobalModifiers("mineWorker") + cultist.getModifiersByType("mineWorker", i));
+                        const cultistMod = cultist.getGlobalModifiers("mineWorker") + cultist.getModifiersByType("mineWorker", i);
+                        const buildingMod = buildings.getGlobalBuildingJobModifier("mineWorker") + buildings.getSpecificBuildingJobModifier("mineWorker", i);
+                        const finalMod = 1 + cultistMod + buildingMod;
+
+                        resourceOutput += 1 * finalMod;
                     }
                 }
                 this.resources[i].perSec = Math.round(resourceOutput * overseerMod * 100) / 100;
