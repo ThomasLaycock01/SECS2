@@ -121,6 +121,7 @@ export const useExpansionsStore = defineStore("expansions", {
     },
     actions: {
         buildExpansion(expansionId) {
+            const resources = useResourcesStore();
 
             const chosenExpansion = this.getObjectById(expansionId);
             const chosenTier = chosenExpansion.tier;
@@ -128,11 +129,7 @@ export const useExpansionsStore = defineStore("expansions", {
 
             const costs = chosenExpansion.costs;
 
-            const resources = useResourcesStore();
-
-            for (var i in costs) {
-                resources.modifyResource(i, posToNeg(costs[i]));
-            }
+            resources.removeResources(costs);
 
         },
         expansionTicks() {
