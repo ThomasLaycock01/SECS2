@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 
 import { useResourcesStore } from "./globalPinias/resources";
+import { useExpansionsStore } from "./expansions";
 
 export const useForgeStore = defineStore("forge", {
     state: () => {
@@ -26,6 +27,21 @@ export const useForgeStore = defineStore("forge", {
                                 resources.modifyResource("evilness", 1)
                             }
                         }
+                    }
+                }
+            },
+            resources: {
+                copperBars: {
+                    id:"copperBars",
+                    name:"Copper Bars",
+                    total: 0,
+                    perSec: 0,
+                    showCondition() {
+                        const expansions = useExpansionsStore();
+                        return expansions.hasTier(2);
+                    },
+                    unlockCondition() {
+                        return true;
                     }
                 }
             }

@@ -1,6 +1,7 @@
 import {defineStore} from "pinia";
 
 import { useMinesStore } from "../mines";
+import { useForgeStore } from "../forge";
 
 import { posToNeg } from "@/functions";
 
@@ -22,7 +23,10 @@ export const useResourcesStore = defineStore("resources", {
                     showCondition(){
                         return true}}
             },
-            childPinias: [{id:"mines", resources: ["stone", "copper", "iron"], piniaObject() {const mines = useMinesStore(); return mines}}]
+            childPinias: [
+                {id:"mines", resources: ["stone", "copper", "iron"], piniaObject() {const mines = useMinesStore(); return mines}},
+                {id:"forge", resources: ["copperBars"], piniaObject() {const forge = useForgeStore(); return forge}}
+            ]
         }
     },
     getters: {
