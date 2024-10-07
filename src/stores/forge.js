@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-
+import { useResourcesStore } from "./globalPinias/resources";
 
 export const useForgeStore = defineStore("forge", {
     state: () => {
