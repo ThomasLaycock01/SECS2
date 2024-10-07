@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 
 import { useResourcesStore } from "./globalPinias/resources";
 import { useMinesStore } from "./mines"; 
+import { useForgeStore } from "./forge";
 
 import { posToNeg } from "@/functions";
 
@@ -44,8 +45,8 @@ export const useExpansionsStore = defineStore("expansions", {
                 name: "Forge",
                 tier: 2,
                 piniaObject() {
-                    //placeholder
-                    return true;
+                    const forge = useForgeStore();
+                    return forge;
                 },
                 costs: {
                     stone: 500,
@@ -85,7 +86,6 @@ export const useExpansionsStore = defineStore("expansions", {
         },
         hasTier(state) {
             return (tier) => {
-                console.log(state.built[tier]);
                 return state.built[tier] ? true : false;
             }
         },
