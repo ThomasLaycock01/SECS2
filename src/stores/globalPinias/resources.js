@@ -13,13 +13,15 @@ export const useResourcesStore = defineStore("resources", {
                     name: "Evilness",
                     total: 0,
                     perSec: 0,
+                    consumedPerSec: 0, 
                     showCondition(){
                         return true}},
                 gold: {
                     id:"gold", 
                     name:"Gold", 
                     total: 0, 
-                    perSec: 0, 
+                    perSec: 0,
+                    consumedPerSec: 0, 
                     showCondition(){
                         return true}}
             },

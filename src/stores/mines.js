@@ -85,6 +85,7 @@ export const useMinesStore = defineStore("mines", {
                     name:"Stone",
                     total: 0, 
                     perSec: 0, 
+                    consumedPerSec: 0, 
                     showCondition(){
                         const expansions = useExpansionsStore(); 
                         return expansions.hasTier(1);
@@ -98,6 +99,7 @@ export const useMinesStore = defineStore("mines", {
                     name: "Copper",
                     total: 0,
                     perSec: 0,
+                    consumedPerSec: 0, 
                     showCondition() {
                         const expansions = useExpansionsStore();
                         return expansions.hasTier(1);
@@ -111,6 +113,7 @@ export const useMinesStore = defineStore("mines", {
                     name: "Iron",
                     total: 0,
                     perSec: 0,
+                    consumedPerSec: 0, 
                     showCondition() {
                         const expansions = useExpansionsStore();
                         return expansions.hasTier(1);
@@ -124,6 +127,7 @@ export const useMinesStore = defineStore("mines", {
                     name:"Scavenge",
                     total: 0, 
                     perSec: 0, 
+                    consumedPerSec: 0, 
                     showCondition(){
                         return false;
                     }, 

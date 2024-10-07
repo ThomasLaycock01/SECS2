@@ -36,6 +36,7 @@ export const useForgeStore = defineStore("forge", {
                     name:"Copper Bars",
                     total: 0,
                     perSec: 0,
+                    consumedPerSec: 0, 
                     showCondition() {
                         const expansions = useExpansionsStore();
                         return expansions.hasTier(2);
