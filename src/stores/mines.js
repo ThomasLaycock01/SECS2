@@ -93,6 +93,32 @@ export const useMinesStore = defineStore("mines", {
                         return true;
                     }
                 },
+                copper: {
+                    id:"copper",
+                    name: "Copper",
+                    total: 0,
+                    perSec: 0,
+                    showCondition() {
+                        const expansions = useExpansionsStore();
+                        return expansions.hasTier(1);
+                    },
+                    unlockCondition() {
+                        return true;
+                    }
+                },
+                iron: {
+                    id:"iron",
+                    name: "Iron",
+                    total: 0,
+                    perSec: 0,
+                    showCondition() {
+                        const expansions = useExpansionsStore();
+                        return expansions.hasTier(1);
+                    },
+                    unlockCondition() {
+                        return true;
+                    }
+                },
                 scavenge: {
                     id:"scavenge",
                     name:"Scavenge",

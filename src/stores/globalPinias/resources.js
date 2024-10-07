@@ -22,7 +22,7 @@ export const useResourcesStore = defineStore("resources", {
                     showCondition(){
                         return true}}
             },
-            childPinias: [{id:"mines", resources: ["stone"], piniaObject() {const mines = useMinesStore(); return mines}}]
+            childPinias: [{id:"mines", resources: ["stone", "copper", "iron"], piniaObject() {const mines = useMinesStore(); return mines}}]
         }
     },
     getters: {
