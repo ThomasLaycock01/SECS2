@@ -56,7 +56,19 @@ export const useResourcesStore = defineStore("resources", {
             };
         },
         getResourcePerSec(state) {
-            return (resource) => state.resources[resource].perSec;
+            return (resource) => {
+                switch (resource) {
+                    case "evilness":
+                    case "gold":
+                        return state.resources[resource].perSec;
+                    default:
+                        for (var i in state.childPinias) {
+                            if (state.childPinias[i].resources.includes(resource)) {
+                                return state.childPinias[i].piniaObject().getResourcePerSec(resource);
+                            }
+                        }
+                }
+            };
         },
         getSpecificResource(state) {
             return (resource) => state.resources[resource];

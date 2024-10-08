@@ -167,6 +167,9 @@ export const useMinesStore = defineStore("mines", {
         getResourcePerSec(state) {
             return (id) => state.resources[id].perSec;
         },
+        getResourceConsumedPerSec(state) {
+            return (id) => state.resources[id].consumedPerSec;
+        },
         getUnlockResources(state) {
             const returnArray = [];
             for (var i in state.resources) {
@@ -263,6 +266,9 @@ export const useMinesStore = defineStore("mines", {
         },
         setResourcePerSec(resource, amount) {
             this.resources[resource].perSec = amount;
+        },
+        setResourceConsumedPerSec(resource, amount) {
+            this.resources[resource].consumedPerSec = amount;
         },
         //items
         instantiateItems() {

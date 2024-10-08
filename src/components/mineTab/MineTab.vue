@@ -37,7 +37,6 @@ function assignWorker() {
 
 function setOverseer(e) {
     addCultistToOverseerJob(e.target.value, mines)
-    workerToAssign.worker = null;
 }
 
 function removeOverseerClick() {

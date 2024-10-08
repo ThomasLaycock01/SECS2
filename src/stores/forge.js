@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 
 import { useResourcesStore } from "./globalPinias/resources";
 import { useExpansionsStore } from "./expansions";
+import { useCultistsStore } from "./globalPinias/cultists";
 
 export const useForgeStore = defineStore("forge", {
     state: () => {
@@ -29,6 +30,10 @@ export const useForgeStore = defineStore("forge", {
                         }
                     }
                 }
+            },
+            workers: {
+                overseer: null,
+                workerArray: []
             },
             resources: {
                 copperBars: {
@@ -75,6 +80,14 @@ export const useForgeStore = defineStore("forge", {
             }
             return returnArray;
         },
+        //workers
+        getOverseer(state) {
+            if (state.workers.overseer == null) {
+                return null;
+            }
+            const cultists = useCultistsStore();
+            return cultists.getCultistById(state.workers.overseer);
+        }
     },
     actions: {
         tick() {
@@ -86,6 +99,21 @@ export const useForgeStore = defineStore("forge", {
         },
         setResourcePerSec(resource, amount) {
             this.resources[resource].perSec = amount;
+        },
+        //workers
+        assignOverseer(cultistId) {
+            this.workers.overseer = cultistId;
+        },
+        removeOverseer() {
+            this.workers.overseer = null;
+        },
+        getOverseerModifier() {
+            const overseer = this.getOverseer;
+            if (overseer == null) {
+                return 0.5;
+            }
+
+            return overseer.getGlobalModifiers("mineOverseer") + 1;
         }
     }
 })
