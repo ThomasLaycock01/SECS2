@@ -87,6 +87,12 @@ export const useForgeStore = defineStore("forge", {
             }
             const cultists = useCultistsStore();
             return cultists.getCultistById(state.workers.overseer);
+        },
+        getWorkerArray(state) {
+            return state.workers.workerArray;
+        },
+        getNumOfWorkers(state) {
+            return state.workers.workerArray.length;
         }
     },
     actions: {
@@ -114,6 +120,12 @@ export const useForgeStore = defineStore("forge", {
             }
 
             return overseer.getGlobalModifiers("mineOverseer") + 1;
+        },
+        addWorker(obj) {
+            this.workers.workerArray.push(obj);
+        },
+        removeWorker(cultistId) {
+            this.workers.workerArray = this.workers.workerArray.filter((obj) => obj.id != cultistId);
         }
     }
 })
