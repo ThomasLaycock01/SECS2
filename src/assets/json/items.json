@@ -6,5 +6,8 @@
         "1101": {"itemId": "1101", "type": "tool", "name": "Ancient Pickaxe", "shortName": "A. Pick", "modifiers": [{"job": "mineWorker", "type": "global", "modifier": 0.15}], "sellPrice": 25, "tier": 1},
         "1102": {"itemId": "1102", "type": "body", "name": "Ancient Robe", "shortName": "A. Robe", "modifiers": [{"job": "mineWorker", "type": "global", "modifier": 0.15}], "sellPrice": 25, "tier": 1},
         "1103": {"itemId": "1103", "type": "accessory", "name": "Ancient Necklace", "shortName": "A. Neck", "modifiers": [{"job": "mineWorker", "type": "global", "modifier": 0.15}], "sellPrice": 25, "tier": 1}
+    },
+    "forge": {
+        "2000": {"itemId": "2000", "type": "tool", "name": "Copper Pickaxe", "shortName": "C. Pick", "modifiers": [{"job": "mineWorker", "type": "global", "modifier": 0.07}], "sellPrice": 20, "tier": 1, "craftCosts": {"copperBars": 2}, "smithCost": 1000}
     }
 }

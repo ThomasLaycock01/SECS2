@@ -4,6 +4,8 @@ import { useResourcesStore } from "./globalPinias/resources";
 import { useExpansionsStore } from "./expansions";
 import { useCultistsStore } from "./globalPinias/cultists";
 
+import items from "../assets/json/items.json";
+
 export const useForgeStore = defineStore("forge", {
     state: () => {
         return {
@@ -57,6 +59,9 @@ export const useForgeStore = defineStore("forge", {
             },
             queues: {
                 smeltingQueue: []
+            },
+            items: {
+
             },
             misc: {
                 smelterJobName: "Smelter",
@@ -232,6 +237,10 @@ export const useForgeStore = defineStore("forge", {
                 case "smelter":
                     this.queues.smeltingQueue.shift();
             }
+        },
+        instantiateItems() {
+            this.items = items.forge;
         }
+        
     }
 })

@@ -10,6 +10,7 @@ import { useMiscStore } from "./stores/misc";
 import { useTextLogStore } from "./stores/textLog";
 //expansions
 import { useMinesStore } from "./stores/mines";
+import { useForgeStore } from "./stores/forge";
 //classes
 import { Cultist } from "./classes/Cultist";
 
@@ -213,8 +214,10 @@ export function loadData() {
 //instantiat files
 export function instantiateItems() {
     const mines = useMinesStore();
+    const forge = useForgeStore();
 
     mines.instantiateItems();
+    forge.instantiateItems();
 }
 
 export function instantiateBuildings() {
