@@ -118,6 +118,13 @@ export const useForgeStore = defineStore("forge", {
             const cultists = useCultistsStore();
             return cultists.getCultistById(state.workers.smelter);
         },
+        getSmith(state) {
+            if (state.workers.smith == null) {
+                return null;
+            }
+            const cultists = useCultistsStore();
+            return cultists.getCultistById(state.workers.smith);
+        },
         getWorkerArray(state) {
             return state.workers.workerArray;
         },
