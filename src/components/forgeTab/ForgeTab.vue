@@ -51,6 +51,10 @@ function removeSmith() {
 function setSelectedItem(item) {
     smithingTab.selectedItem = item;
 }
+
+function craftItem() {
+    forge.addToSmithingQueue(smithingTab.selectedItem);
+}
 </script>
 
 
@@ -159,7 +163,7 @@ function setSelectedItem(item) {
                                     <li v-for="value, key in smithingTab.selectedItem.craftCosts">{{ forge.getResourceName(key) }}: {{ value }}</li>
                                 </ul>
                             </div>
-                            <button class="button is-dark mb-1 mr-2" :disabled="!forge.checkIfCanAffordItem(smithingTab.selectedItem)">Craft!</button>
+                            <button class="button is-dark mb-1 mr-2" :disabled="!forge.checkIfCanAffordItem(smithingTab.selectedItem)" @click="craftItem()">Craft!</button>
                         </div>
                         <div v-else>
                             Select an Item!

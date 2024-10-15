@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import { useResourcesStore } from "./globalPinias/resources";
 import { useExpansionsStore } from "./expansions";
 import { useCultistsStore } from "./globalPinias/cultists";
+import { useInventoryStore } from "./globalPinias/inventory";
 
 import items from "../assets/json/items.json";
 
@@ -58,7 +59,8 @@ export const useForgeStore = defineStore("forge", {
                 }
             },
             queues: {
-                smeltingQueue: []
+                smeltingQueue: [],
+                smithingQueue: []
             },
             items: {
 
@@ -66,7 +68,8 @@ export const useForgeStore = defineStore("forge", {
             misc: {
                 smelterJobName: "Smelter",
                 smithJobName: "Blacksmith",
-                currentSmeltingProgress: 0
+                currentSmeltingProgress: 0,
+                currentSmithingProgress: 0
             }
         }
     },
@@ -142,6 +145,8 @@ export const useForgeStore = defineStore("forge", {
                 switch (queueType) {
                     case "smelter":
                         return state.queues.smeltingQueue;
+                    case "smith":
+                        return state.queues.smithingQueue;
                     default:
                         console.log("error in forge.getQueue");
                 }
@@ -160,14 +165,26 @@ export const useForgeStore = defineStore("forge", {
                     this.misc.currentSmeltingProgress -= this.getResourceSmeltingCost(this.getQueue("smelter")[0].barType);
                     this.queues.smeltingQueue[0].amount--;
 
-
-                    this.misc.smeltingProgress -= this.getResourceSmeltingCost(this.getQueue("smelter")[0].barType);
-
                     this.modifyResource(this.getQueue("smelter")[0].barType, 1);
 
                     if (this.queues.smeltingQueue[0].amount == 0) {
                         this.removeFirstQueueEntry("smelter");
                     }
+                }
+            }
+            
+            //smithing
+            if (this.getQueue("smith").length > 0) {
+                const inventory = useInventoryStore();
+                
+                this.misc.currentSmithingProgress += 100 * this.getSmithModifier();
+
+                const itemToSmith = this.getQueue("smith")[0];
+
+                if (this.misc.currentSmithingProgress >= itemToSmith.smithCost) {
+                    inventory.addItem(itemToSmith);
+                    this.misc.currentSmithingProgress = 0;
+                    this.queues.smithingQueue.shift();
                 }
             }
         },
@@ -211,6 +228,14 @@ export const useForgeStore = defineStore("forge", {
 
             return smelter.getGlobalModifiers("smelter") + 1;
         },
+        getSmithModifier() {
+            const smelter = this.getSmith;
+            if (smelter == null) {
+                return 0;
+            }
+
+            return smelter.getGlobalModifiers("smith") + 1;
+        },
         //queues
         CheckIfCanAffordOrder(resourceToAdd, amount) {
             const resources = useResourcesStore();
@@ -230,6 +255,14 @@ export const useForgeStore = defineStore("forge", {
             this.queues.smeltingQueue.push(queueObj);
 
             resources.removeResources(this.getResourceCostsByAmount(barToAdd, amountToAdd));
+
+        },
+        addToSmithingQueue(itemToAdd) {
+            const resources = useResourcesStore();
+
+            this.queues.smithingQueue.push(itemToAdd);
+
+            resources.removeResources(itemToAdd.craftCosts);
 
         },
         removeFirstQueueEntry(type) {
