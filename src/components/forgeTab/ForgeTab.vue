@@ -3,7 +3,7 @@ import { reactive } from 'vue';
 
 import ActionList from '../ActionList.vue';
 
-import { addCultistToOverseerJob, addCultistToWorkerJob, removeCultistFromOverseerJob, removeCultistFromWorkerJob } from '@/functions';
+import { addCultistToOtherJob, addCultistToWorkerJob, removeCultistFromOtherJob, removeCultistFromWorkerJob } from '@/functions';
 
 import { useForgeStore } from '@/stores/forge';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
@@ -37,12 +37,12 @@ function assignWorker() {
     resourceToAssign.resource = null;
 }
 
-function setOverseer(e) {
-    addCultistToOverseerJob(e.target.value, forge)
+function setSmelter(e) {
+    addCultistToOtherJob(e.target.value, forge, "smelter");
 }
 
-function removeOverseerClick() {
-    removeCultistFromOverseerJob(forge)
+function removeSmelter() {
+    removeCultistFromOtherJob(forge, "smelter", forge.getSmelter.getId())
 }
 
 function removeWorkerClick(e) {
@@ -59,17 +59,17 @@ function removeWorkerClick(e) {
     <div>
         <ActionList :piniaObject="forge"/>
     </div>
-    <!--Overseer-->
+    <!--Smelting-->
     <div>
-        <div class="title is-5 mb-1 segment-title">Overseer</div>
-        <div v-if="forge.getOverseer">
-            <div>{{ forge.getOverseer.getName() }} - Currently boosting production by {{ Math.floor((forge.getOverseerModifier() - 1) * 100) }}%!</div>
-            <button type="button" class="button is-danger" @click="removeOverseerClick">Remove Overseer</button>
+        <div class="title is-5 mb-1 segment-title">Smelting</div>
+        <div v-if="forge.getSmelter">
+            <div>{{ forge.getSmelter.getName() }} - Currently boosting smelting speed by {{ "placeholder" }}%!</div>
+            <button type="button" class="button is-danger" @click="removeSmelter">Remove Smelter</button>
         </div>
         <div v-else>
-            Without an Overseer, production is only 50%!
+            You need a cultist assigned to smelting to refine metal into bars!
             <b-field label="Assign Overseer">
-                <b-select placeholder="Assign Overseer" value="" @input="setOverseer" :disabled="!cultists.checkUnemployed()">
+                <b-select placeholder="Assign Overseer" value="" @input="setSmelter" :disabled="!cultists.checkUnemployed()">
                     <option v-for="j in cultists.getUnemployed" :value="j.getId()">{{ j.getName() }}</option>
                 </b-select>
             </b-field>

@@ -91,6 +91,27 @@ export function addCultistToOverseerJob(cultistId, piniaObject) {
     cultist.setJob(jobName);
 }
 
+export function addCultistToOtherJob(cultistId, piniaObject, jobId) {
+    const cultists = useCultistsStore();
+
+    const jobName = piniaObject.assignOther(cultistId, jobId);
+
+    const cultist = cultists.getCultistById(cultistId);
+
+    cultist.setJob(jobName);
+}
+
+export function removeCultistFromOtherJob(piniaObject, jobId, cultistId, isJobUnique = true) {
+    const cultists = useCultistsStore();
+
+
+    if (isJobUnique) {
+        piniaObject.removeOther(jobId);
+        const cultist = cultists.getCultistById(cultistId);
+        cultist.removeJob();
+    }
+}
+
 
 //removing cultists from a job/an overseer job
 export function removeCultistFromOverseerJob(piniaObject) {

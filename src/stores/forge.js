@@ -32,8 +32,8 @@ export const useForgeStore = defineStore("forge", {
                 }
             },
             workers: {
-                overseer: null,
-                workerArray: []
+                smelter: null,
+                smith: null
             },
             resources: {
                 copperBars: {
@@ -50,6 +50,10 @@ export const useForgeStore = defineStore("forge", {
                         return true;
                     }
                 }
+            },
+            misc: {
+                smelterJobName: "Smelter",
+                smithJobName: "Blacksmith"
             }
         }
     },
@@ -81,12 +85,12 @@ export const useForgeStore = defineStore("forge", {
             return returnArray;
         },
         //workers
-        getOverseer(state) {
-            if (state.workers.overseer == null) {
+        getSmelter(state) {
+            if (state.workers.smelter == null) {
                 return null;
             }
             const cultists = useCultistsStore();
-            return cultists.getCultistById(state.workers.overseer);
+            return cultists.getCultistById(state.workers.smelter);
         },
         getWorkerArray(state) {
             return state.workers.workerArray;
@@ -107,11 +111,29 @@ export const useForgeStore = defineStore("forge", {
             this.resources[resource].perSec = amount;
         },
         //workers
-        assignOverseer(cultistId) {
-            this.workers.overseer = cultistId;
+        assignOther(cultistId, jobId) {
+            switch (jobId) {
+                case "smelter":
+                    this.workers.smelter = cultistId;
+                    return this.misc.smelterJobName;
+                case "smith":
+                    this.workers.smith = cultistId;
+                    return this.misc.smithJobName;
+                default:
+                    console.log("something went wrong in forge.assignOther")
+            }
         },
-        removeOverseer() {
-            this.workers.overseer = null;
+        removeOther(jobId) {
+            switch (jobId) {
+                case "smelter":
+                    this.workers.smelter = null;
+                    break;
+                case "smith":
+                    this.workers.smith = null;
+                    break;
+                default:
+                    console.log("something went wrong in forge.removeOther")
+            }
         },
         getOverseerModifier() {
             const overseer = this.getOverseer;
