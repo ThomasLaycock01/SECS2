@@ -207,8 +207,18 @@ export const useForgeStore = defineStore("forge", {
 
             return resources.checkIfCanAfford(costs);
         },
-        addToSmeltingQueue(obj) {
-            this.queues.smeltingQueue.push(obj);
+        addToSmeltingQueue(barToAdd, amountToAdd) {
+            const resources = useResourcesStore();
+
+            const queueObj = {
+                barType: barToAdd,
+                amount: amountToAdd
+            }
+
+            this.queues.smeltingQueue.push(queueObj);
+
+            resources.removeResources(this.getResourceCostsByAmount(barToAdd, amountToAdd));
+
         },
         removeFirstQueueEntry(type) {
             switch (type) {

@@ -25,11 +25,7 @@ function setAmount(e) {
 }
 
 function addToSmeltingQueue() {
-    const obj = {
-        barType: barToAdd.bar,
-        amount: barToAdd.amount
-    }
-    forge.addToSmeltingQueue(obj);
+    forge.addToSmeltingQueue(barToAdd.bar, barToAdd.amount);
 
     barToAdd.bar = null;
     barToAdd.amount = null;
