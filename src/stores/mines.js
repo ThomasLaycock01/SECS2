@@ -63,6 +63,21 @@ export const useMinesStore = defineStore("mines", {
                                 const mines = useMinesStore();
                                 mines.modifyResource("stone", 1000000)
                             }
+                        },
+                        debugCopper: {
+                            id: "debugCopper",
+                            name: "Debug copper",
+                            desc: "Hire a Human Cultist",
+                            condition() {
+                                return true;
+                            },
+                            showCondition() {
+                                return true;
+                            },
+                            effect() {
+                                const mines = useMinesStore();
+                                mines.modifyResource("copper", 1000000)
+                            }
                         }
                     }
                 },
