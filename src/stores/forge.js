@@ -44,7 +44,8 @@ export const useForgeStore = defineStore("forge", {
                     consumedPerSec: 0,
                     costs: {
                         copper: 10
-                    }, 
+                    },
+                    smeltingCost: 1000, 
                     showCondition() {
                         const expansions = useExpansionsStore();
                         return expansions.hasTier(2);
@@ -59,7 +60,8 @@ export const useForgeStore = defineStore("forge", {
             },
             misc: {
                 smelterJobName: "Smelter",
-                smithJobName: "Blacksmith"
+                smithJobName: "Blacksmith",
+                currentSmeltingProgress: 0
             }
         }
     },
@@ -105,6 +107,9 @@ export const useForgeStore = defineStore("forge", {
                 return costsObj;
             } 
         },
+        getResourceSmeltingCost(state) {
+            return (id) => state.resources[id].smeltingCost;
+        },
         //workers
         getSmelter(state) {
             if (state.workers.smelter == null) {
@@ -133,7 +138,26 @@ export const useForgeStore = defineStore("forge", {
     },
     actions: {
         tick() {
-            console.log("forge tick")
+            //smelting
+            if (this.getQueue("smelter").length > 0) {
+                
+                this.misc.currentSmeltingProgress += 100 * this.getSmelterModifier();
+
+                while (this.misc.currentSmeltingProgress >= this.getResourceSmeltingCost(this.getQueue("smelter")[0].barType)) {
+
+                    this.misc.currentSmeltingProgress -= this.getResourceSmeltingCost(this.getQueue("smelter")[0].barType);
+                    this.queues.smeltingQueue[0].amount--;
+
+
+                    this.misc.smeltingProgress -= this.getResourceSmeltingCost(this.getQueue("smelter")[0].barType);
+
+                    this.modifyResource(this.getQueue("smelter")[0].barType, 1);
+
+                    if (this.queues.smeltingQueue[0].amount == 0) {
+                        this.removeFirstQueueEntry("smelter");
+                    }
+                }
+            }
         },
         //resources
         modifyResource(resource, amount) {
@@ -167,19 +191,13 @@ export const useForgeStore = defineStore("forge", {
                     console.log("something went wrong in forge.removeOther")
             }
         },
-        getOverseerModifier() {
-            const overseer = this.getOverseer;
-            if (overseer == null) {
-                return 0.5;
+        getSmelterModifier() {
+            const smelter = this.getSmelter;
+            if (smelter == null) {
+                return 0;
             }
 
-            return overseer.getGlobalModifiers("mineOverseer") + 1;
-        },
-        addWorker(obj) {
-            this.workers.workerArray.push(obj);
-        },
-        removeWorker(cultistId) {
-            this.workers.workerArray = this.workers.workerArray.filter((obj) => obj.id != cultistId);
+            return smelter.getGlobalModifiers("smelter") + 1;
         },
         //queues
         CheckIfCanAffordOrder(resourceToAdd, amount) {
@@ -191,6 +209,12 @@ export const useForgeStore = defineStore("forge", {
         },
         addToSmeltingQueue(obj) {
             this.queues.smeltingQueue.push(obj);
+        },
+        removeFirstQueueEntry(type) {
+            switch (type) {
+                case "smelter":
+                    this.queues.smeltingQueue.shift();
+            }
         }
     }
 })
