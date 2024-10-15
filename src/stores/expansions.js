@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import { useResourcesStore } from "./globalPinias/resources";
 import { useMinesStore } from "./mines"; 
 import { useForgeStore } from "./forge";
+import { useMetalmancerStore } from "./metalmancer";
 
 import { posToNeg } from "@/functions";
 
@@ -32,8 +33,8 @@ export const useExpansionsStore = defineStore("expansions", {
                 name: "Metalmancer",
                 tier: 2,
                 piniaObject() {
-                    //placeholder
-                    return true;
+                    const metalmancer = useMetalmancerStore();
+                    return metalmancer;
                 },
                 costs: {
                     stone: 500,

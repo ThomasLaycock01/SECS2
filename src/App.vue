@@ -4,6 +4,7 @@ import LairTab from "./components/lairTab/LairTab.vue";
 import HRTab from "./components/HRTab/HRTab.vue";
 import MineTab from "./components/mineTab/MineTab.vue";
 import ForgeTab from "./components/forgeTab/ForgeTab.vue";
+import MetalmancerTab from "./components/metalmancerTab/MetalmancerTab.vue";
 //import TextLog from "./components/textLog/TextLog.vue";
 import InventoryTab from "./components/inventory/InventoryTab.vue";
 
@@ -32,6 +33,9 @@ const expansions = useExpansionsStore();
       </b-tab-item>
       <b-tab-item label="Forge" v-if="expansions.checkIfBuilt('forge')">
         <ForgeTab/>
+      </b-tab-item>
+      <b-tab-item label="Metalmancer" v-if="expansions.checkIfBuilt('metalmancer')">
+        <MetalmancerTab/>
       </b-tab-item>
     </b-tabs>
   </section>
