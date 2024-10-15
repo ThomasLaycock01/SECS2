@@ -13,6 +13,7 @@ const cultists = useCultistsStore();
 
 
 var barToAdd = reactive({bar: null, amount: null});
+var smithingTab = reactive({metal: null, selecteditem: null});
 
 
 
@@ -45,6 +46,10 @@ function setSmith(e) {
 
 function removeSmith() {
     removeCultistFromOtherJob(forge, "smith", forge.getSmith.getId())
+}
+
+function setSelectedItem(item) {
+    smithingTab.selectedItem = item;
 }
 </script>
 
@@ -121,6 +126,45 @@ function removeSmith() {
                             <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
                         </b-select>
                     </b-field>
+                </div>
+                <div class="title is-5 mb-1 segment-title">Crafting</div>
+                <b-field label="Select Metal">
+                    <b-select placeholder="Metal" value=""  v-model="smithingTab.metal">
+                        <option v-for="i in forge.getUnlockResources" :value="i.id">{{ i.name }}</option>
+                    </b-select>
+                </b-field>
+                <div class="columns">
+                    <div class="column is-half">
+                        <div v-if="smithingTab.metal" class="cultistContainer">
+                            <span v-for="i in forge.getItemsByMetal(smithingTab.metal)">
+                                <button  class="button is-dark is-info" @click="setSelectedItem(i)">{{i.shortName}}</button>
+                            </span>
+                        </div>
+                        <div v-else>
+                            Select a metal!
+                        </div>
+                    </div>
+                    <div class="column is-half">
+                        <div v-if=smithingTab.selectedItem>
+                            <div>{{smithingTab.selectedItem.name}}</div>
+                            <div>{{smithingTab.selectedItem.type}}</div>
+                            <div>{{ smithingTab.selectedItem.tier }}</div>
+                            <div>
+                                <ul>
+                                    <li v-for="i in smithingTab.selectedItem.modifiers">{{ i.modifier }} {{ i.job }} {{ i.type }}</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li v-for="value, key in smithingTab.selectedItem.craftCosts">{{ forge.getResourceName(key) }}: {{ value }}</li>
+                                </ul>
+                            </div>
+                            <button class="button is-dark mb-1 mr-2" :disabled="!forge.checkIfCanAffordItem(smithingTab.selectedItem)">Craft!</button>
+                        </div>
+                        <div v-else>
+                            Select an Item!
+                        </div>
+                    </div>
                 </div>
             </div>
         </b-tab-item>

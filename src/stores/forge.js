@@ -15,9 +15,9 @@ export const useForgeStore = defineStore("forge", {
                     name: "Actions",
                     tooltipType: "action",
                     buttons : {
-                        beEvil2: {
-                            id: "beEvil2",
-                            name: "Be Evil >:)",
+                        debugCopperBars: {
+                            id: "debugCopperBars",
+                            name: "debug copper bars",
                             desc: "Be Evil - and Gain 1 Evilness",
                             condition() {
                                 return true;
@@ -26,8 +26,8 @@ export const useForgeStore = defineStore("forge", {
                                 return true;
                             },
                             effect() {
-                                const resources = useResourcesStore();
-                                resources.modifyResource("evilness", 1)
+                                const forge = useForgeStore();
+                                forge.modifyResource("copperBars", 1000000)
                             }
                         }
                     }
@@ -238,9 +238,25 @@ export const useForgeStore = defineStore("forge", {
                     this.queues.smeltingQueue.shift();
             }
         },
+        //items
         instantiateItems() {
             this.items = items.forge;
+        },
+        getItemsByMetal(metalType) {
+            const returnArray = [];
+            for (var i in this.items) {
+                if (this.items[i].craftCosts[metalType]) {
+                    returnArray.push(this.items[i]);
+                }
+            }
+            return returnArray;
+        },
+        checkIfCanAffordItem(item) {
+            const resources = useResourcesStore();
+
+            const costs = item.craftCosts;
+
+            return resources.checkIfCanAfford(costs);
         }
-        
     }
 })
