@@ -131,6 +131,10 @@ function craftItem() {
                         </b-select>
                     </b-field>
                 </div>
+                <div>
+                    <div>Queue:</div>
+                    <div v-for="i in forge.getQueue('smith')">{{ i.name }}</div>
+                </div>
                 <div class="title is-5 mb-1 segment-title">Crafting</div>
                 <b-field label="Select Metal">
                     <b-select placeholder="Metal" value=""  v-model="smithingTab.metal">
@@ -163,7 +167,7 @@ function craftItem() {
                                     <li v-for="value, key in smithingTab.selectedItem.craftCosts">{{ forge.getResourceName(key) }}: {{ value }}</li>
                                 </ul>
                             </div>
-                            <button class="button is-dark mb-1 mr-2" :disabled="!forge.checkIfCanAffordItem(smithingTab.selectedItem)" @click="craftItem()">Craft!</button>
+                            <button class="button is-dark mb-1 mr-2" :disabled="!forge.checkIfCanAffordItem(smithingTab.selectedItem) || forge.getQueue('smith').length >= 10" @click="craftItem()">Craft!</button>
                         </div>
                         <div v-else>
                             Select an Item!
