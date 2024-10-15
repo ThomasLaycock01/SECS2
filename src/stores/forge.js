@@ -41,7 +41,10 @@ export const useForgeStore = defineStore("forge", {
                     name:"Copper Bars",
                     total: 0,
                     perSec: 0,
-                    consumedPerSec: 0, 
+                    consumedPerSec: 0,
+                    costs: {
+                        copper: 10
+                    }, 
                     showCondition() {
                         const expansions = useExpansionsStore();
                         return expansions.hasTier(2);
@@ -50,6 +53,9 @@ export const useForgeStore = defineStore("forge", {
                         return true;
                     }
                 }
+            },
+            queues: {
+                smeltingQueue: []
             },
             misc: {
                 smelterJobName: "Smelter",
@@ -84,6 +90,21 @@ export const useForgeStore = defineStore("forge", {
             }
             return returnArray;
         },
+        getResourceName(state) {
+            return (id) => state.resources[id].name;
+        },
+        getResourceCosts(state) {
+            return (id) => state.resources[id].costs;
+        },
+        getResourceCostsByAmount(state) {
+            return (id, amount) => {
+                const costsObj = {};
+                for (var i in state.resources[id].costs) {
+                    costsObj[i] = state.resources[id].costs[i] * amount;
+                }
+                return costsObj;
+            } 
+        },
         //workers
         getSmelter(state) {
             if (state.workers.smelter == null) {
@@ -97,6 +118,17 @@ export const useForgeStore = defineStore("forge", {
         },
         getNumOfWorkers(state) {
             return state.workers.workerArray.length;
+        },
+        //queues
+        getQueue(state) {
+            return (queueType) => {
+                switch (queueType) {
+                    case "smelter":
+                        return state.queues.smeltingQueue;
+                    default:
+                        console.log("error in forge.getQueue");
+                }
+            }
         }
     },
     actions: {
@@ -148,6 +180,17 @@ export const useForgeStore = defineStore("forge", {
         },
         removeWorker(cultistId) {
             this.workers.workerArray = this.workers.workerArray.filter((obj) => obj.id != cultistId);
+        },
+        //queues
+        CheckIfCanAffordOrder(resourceToAdd, amount) {
+            const resources = useResourcesStore();
+
+            const costs = this.getResourceCostsByAmount(resourceToAdd, amount);
+
+            return resources.checkIfCanAfford(costs);
+        },
+        addToSmeltingQueue(obj) {
+            this.queues.smeltingQueue.push(obj);
         }
     }
 })
