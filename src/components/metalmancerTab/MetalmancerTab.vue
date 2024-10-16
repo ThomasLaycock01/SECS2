@@ -1,13 +1,21 @@
 <script setup>
+import { reactive } from 'vue';
+
 import ActionList from '../ActionList.vue';
 
 import { useMetalmancerStore } from '@/stores/metalmancer';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
+import { useResourcesStore } from '@/stores/globalPinias/resources';
 
 import { addCultistToOtherJob, removeCultistFromOtherJob } from '@/functions';
 
 const metalmancer = useMetalmancerStore();
 const cultists = useCultistsStore();
+const resources = useResourcesStore();
+
+
+var golemCreation = reactive({});
+
 
 function addMetalmancer(e) {
     addCultistToOtherJob(e.target.value, metalmancer, "metalmancer");
@@ -41,5 +49,12 @@ function removeMetalmancer(e) {
             </div>
         </div>
     </div>
+    <!--Summoning-->
+    <div class="title is-5 mb-1 segment-title">Golem Creation</div>
+    <b-field label="Create Golem">
+        <b-select placeholder="Metal" value="" @input="addMetalmancer">
+            <option v-for="i in resources.getResourcesByPinia('mines', true, properties = {isGolem: true})">{{ i.name }}</option>
+        </b-select>
+    </b-field>
 
 </template>

@@ -107,6 +107,9 @@ export const useMinesStore = defineStore("mines", {
                     }, 
                     unlockCondition() {
                         return true;
+                    },
+                    properties: {
+                        isGolem: true
                     }
                 },
                 copper: {
@@ -121,6 +124,9 @@ export const useMinesStore = defineStore("mines", {
                     },
                     unlockCondition() {
                         return true;
+                    },
+                    properties: {
+                        isGolem: true
                     }
                 },
                 iron: {
@@ -135,6 +141,9 @@ export const useMinesStore = defineStore("mines", {
                     },
                     unlockCondition() {
                         return true;
+                    },
+                    properties: {
+                        isGolem: true
                     }
                 },
                 scavenge: {
@@ -148,6 +157,9 @@ export const useMinesStore = defineStore("mines", {
                     }, 
                     unlockCondition() {
                         return true;
+                    },
+                    properties: {
+                        isGolem: false
                     }
                 }
             },
@@ -186,13 +198,48 @@ export const useMinesStore = defineStore("mines", {
             return (id) => state.resources[id].consumedPerSec;
         },
         getUnlockResources(state) {
-            const returnArray = [];
-            for (var i in state.resources) {
-                if (state.resources[i].unlockCondition()) {
-                    returnArray.push(state.resources[i]);
+            return (properties = null) => {
+                const returnArray = [];
+
+                for (var i in state.resources) {
+                    if (properties) {
+                        for (var j in properties) {
+                            if (properties[j] == state.resources[i].properties[j] && state.resources[i].unlockCondition()) {
+                                returnArray.push(state.resources[i]);
+                            }
+                        }
+                    }
+                    else {
+                        if (state.resources[i].unlockCondition()) {
+                            returnArray.push(state.resources[i]);
+                        }
+                    }
                 }
+
+                return returnArray;
+                /*
+                for (var i in state.resources) {
+                    if (state.resources[i].unlockCondition()) {
+                        returnArray.push(state.resources[i]);
+                    }
+                }
+                */
             }
-            return returnArray;
+        },
+        getResourcesByProperties(state) {
+            return (properties) => {
+                const returnArray = [];
+
+                for (var i in state.resources) {
+                    for (var j in properties) {
+                        if (properties[j] == state.resources[i].properties[j]) {
+                            returnArray.push(state.resources[i]);
+                        }
+                    }
+                }
+
+                return returnArray;
+            }
         },
         //workers
         getOverseer(state) {

@@ -31,6 +31,9 @@ export const useMetalmancerStore = defineStore("metalmancer", {
             workers: {
                 metalmancer: []
             },
+            queues: {
+                summoning: []
+            },
             misc: {
                 metalmancerLimit: 3,
                 metalmancerJobName: "Metalmancer"
