@@ -1,6 +1,9 @@
 import { defineStore } from "pinia";
 
 import { useCultistsStore } from "./globalPinias/cultists";
+import { useResourcesStore } from "./globalPinias/resources";
+
+import { beginSummoning, endSummoning } from "@/functions";
 
 export const useMetalmancerStore = defineStore("metalmancer", {
     state: () => {
@@ -79,7 +82,10 @@ export const useMetalmancerStore = defineStore("metalmancer", {
     },
     actions: {
         tick() {
-            console.log("metalmancer tick")
+            //test code
+            if (this.queues.summoning.length > 0) {
+                this.endSummonGolem();
+            }
         },
         //workers
         assignOther(cultistId, jobId) {
@@ -99,6 +105,30 @@ export const useMetalmancerStore = defineStore("metalmancer", {
                 default:
                     console.log("error in metalmancer.removeOther")
             }
+        },
+        //queues
+        summonGolem(type) {
+
+            beginSummoning();
+
+            const queueObj = {
+                golemType: type,
+                summonCost: 1000
+            };
+
+            this.queues.summoning.push(queueObj);
+
+        },
+        endSummonGolem() {
+            const resources = useResourcesStore();
+
+            const resourceName = resources.getName(this.queues.summoning[0].golemType);
+
+            const golemSpecies = `${resourceName} Golem`;
+
+            endSummoning(golemSpecies);
+
+            this.queues.summoning.shift();
         }
     }
 })

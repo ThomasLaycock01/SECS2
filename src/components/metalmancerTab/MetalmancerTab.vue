@@ -25,6 +25,11 @@ function addMetalmancer(e) {
 function removeMetalmancer(e) {
     removeCultistFromOtherJob(metalmancer, "metalmancer", e.target.value, false)
 }
+
+function createGolemClick() {
+    metalmancer.summonGolem(golemCreation.metal);
+    golemCreation.metal = null;
+}
 </script>
 
 <template>
@@ -40,8 +45,8 @@ function removeMetalmancer(e) {
         </b-select>
     </b-field>
     <div v-if="metalmancer.getMetalmancers.length < 1">
-        You will not be able to summon Golems without a Metalmancer!<br>
-        All Golems will have a severe penalty to production without a Metalmancer!
+        You will not be able to summon Golems without at least one Metalmancer!<br>
+        All Golems will have a severe production penalty to production without at least one Metalmancer!
     </div>
     <div>
         <div v-for="i in metalmancer.getMetalmancers">
@@ -65,7 +70,7 @@ function removeMetalmancer(e) {
         <ul>
             <li v-for="value, key in metalmancer.getGolemCosts(golemCreation.metal)">{{ key }} : {{ value }}</li>
         </ul>
-        <button class="button is-dark">Create!</button>
+        <button class="button is-dark" @click="createGolemClick">Create!</button>
     </div>
 
 </template>

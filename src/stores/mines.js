@@ -234,6 +234,9 @@ export const useMinesStore = defineStore("mines", {
                 return returnArray;
             }
         },
+        getResourceName(state) {
+            return (id) => state.resources[id].name;
+        },
         //workers
         getOverseer(state) {
             if (state.workers.overseer == null) {
