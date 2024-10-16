@@ -36,7 +36,21 @@ export const useMetalmancerStore = defineStore("metalmancer", {
             },
             misc: {
                 metalmancerLimit: 3,
-                metalmancerJobName: "Metalmancer"
+                metalmancerJobName: "Metalmancer",
+                golemCosts: {
+                    stone: {
+                        stone: 500
+                    },
+                    copper: {
+                        copper: 500,
+                        stone: 250
+                    },
+                    iron: {
+                        iron: 500,
+                        copper: 250,
+                        stone: 125
+                    }
+                }
             }
         }
     },
@@ -55,6 +69,12 @@ export const useMetalmancerStore = defineStore("metalmancer", {
             }
 
             return returnArray;
+        },
+        //misc
+        getGolemCosts(state) {
+            return (resource) => {
+                return state.misc.golemCosts[resource];
+            }
         }
     },
     actions: {

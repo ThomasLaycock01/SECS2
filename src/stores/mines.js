@@ -204,7 +204,7 @@ export const useMinesStore = defineStore("mines", {
                 for (var i in state.resources) {
                     if (properties) {
                         for (var j in properties) {
-                            if (properties[j] == state.resources[i].properties[j] && state.resources[i].unlockCondition()) {
+                            if (properties[j] === state.resources[i].properties[j] && state.resources[i].unlockCondition()) {
                                 returnArray.push(state.resources[i]);
                             }
                         }
@@ -217,13 +217,6 @@ export const useMinesStore = defineStore("mines", {
                 }
 
                 return returnArray;
-                /*
-                for (var i in state.resources) {
-                    if (state.resources[i].unlockCondition()) {
-                        returnArray.push(state.resources[i]);
-                    }
-                }
-                */
             }
         },
         getResourcesByProperties(state) {
@@ -232,7 +225,7 @@ export const useMinesStore = defineStore("mines", {
 
                 for (var i in state.resources) {
                     for (var j in properties) {
-                        if (properties[j] == state.resources[i].properties[j]) {
+                        if (properties[j] === state.resources[i].properties[j]) {
                             returnArray.push(state.resources[i]);
                         }
                     }

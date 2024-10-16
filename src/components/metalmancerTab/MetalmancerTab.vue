@@ -14,7 +14,7 @@ const cultists = useCultistsStore();
 const resources = useResourcesStore();
 
 
-var golemCreation = reactive({});
+var golemCreation = reactive({metal: null});
 
 
 function addMetalmancer(e) {
@@ -39,6 +39,10 @@ function removeMetalmancer(e) {
             <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
         </b-select>
     </b-field>
+    <div v-if="metalmancer.getMetalmancers.length < 1">
+        You will not be able to summon Golems without a Metalmancer!<br>
+        All Golems will have a severe penalty to production without a Metalmancer!
+    </div>
     <div>
         <div v-for="i in metalmancer.getMetalmancers">
             <div class="inline-blockContainer">
@@ -52,9 +56,16 @@ function removeMetalmancer(e) {
     <!--Summoning-->
     <div class="title is-5 mb-1 segment-title">Golem Creation</div>
     <b-field label="Create Golem">
-        <b-select placeholder="Metal" value="" @input="addMetalmancer">
-            <option v-for="i in resources.getResourcesByPinia('mines', true, properties = {isGolem: true})">{{ i.name }}</option>
+        <b-select placeholder="Metal" v-model="golemCreation.metal">
+            <option v-for="i in resources.getResourcesByPinia('mines', true, {isGolem: true})" :value="i.id">{{ i.name }}</option>
         </b-select>
     </b-field>
+    <div v-if="golemCreation.metal">
+        <div>Creating that type of Golem will cost:</div>
+        <ul>
+            <li v-for="value, key in metalmancer.getGolemCosts(golemCreation.metal)">{{ key }} : {{ value }}</li>
+        </ul>
+        <button class="button is-dark">Create!</button>
+    </div>
 
 </template>
