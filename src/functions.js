@@ -67,6 +67,24 @@ export function addCultist(species) {
 }
 
 
+//for summoned cultists
+export function beginSummoning() {
+    const cultists = useCultistsStore();
+
+    cultists.addSummoning();
+
+    //NOTE TO SELF
+    //The cultist being summoned is stored in whichever pinia is summoning it
+}
+
+export function endSummoning(species) {
+    const cultists = useCultistsStore();
+
+    cultists.removeSummoning();
+
+    addCultist(species);
+}
+
 //adding cultists to a job/an overseer job
 export function addCultistToWorkerJob(obj, piniaObject) {
     const cultists = useCultistsStore();

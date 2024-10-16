@@ -7,15 +7,18 @@ import { deserializeCultist } from "@/functions";
 
 export const useCultistsStore = defineStore("cultists", {
     state: () => {
-        return {regular: [], special: [],
+        return {
+            regular: [], 
+            special: [],
             misc : {
-                cultistLimit: 2
+                cultistLimit: 2,
+                summoning: 0
             }
         }
     },
     getters: {
         numOfCultists(state) {
-            return state.regular.length;
+            return state.regular.length + state.misc.summoning;
         },
         regularCultists(state) {
             return state.regular;
@@ -80,7 +83,15 @@ export const useCultistsStore = defineStore("cultists", {
         },
         checkCultistSpace() {
             return !(this.numOfCultists == this.getCultistLimit);
-        }/*,
+        },
+        //summoning
+        addSummoning() {
+            this.summoning++;
+        },
+        removeSummoning() {
+            this.summoning--;
+        }
+        /*,
         saveData() {
             var data = JSON.parse(localStorage.getItem("SECSData"));
 
