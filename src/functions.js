@@ -111,6 +111,11 @@ export function removeCultistFromOtherJob(piniaObject, jobId, cultistId, isJobUn
         const cultist = cultists.getCultistById(cultistId);
         cultist.removeJob();
     }
+    else {
+        piniaObject.removeOther(jobId, cultistId);
+        const cultist = cultists.getCultistById(cultistId);
+        cultist.removeJob();
+    }
 }
 
 
