@@ -23,8 +23,8 @@ export const useHRStore = defineStore("HR", {
                             },
                             condition() {
                                 const resources = useResourcesStore();
-                                const HR = useHRStore();
-                                return resources.checkIfCanAfford(HR.getCultistCostBySpecies("human")) && HR.checkCultistSpace();
+                                const cultists = useCultistsStore();
+                                return resources.checkIfCanAfford(HR.getCultistCostBySpecies("human")) && cultists.checkCultistSpace();
                             },
                             showCondition() {
                                 return true;
@@ -62,11 +62,6 @@ export const useHRStore = defineStore("HR", {
 
             addCultist(species);
             
-        },
-        checkCultistSpace() {
-            const cultists = useCultistsStore();
-
-            return !(cultists.numOfCultists == cultists.getCultistLimit);
         }
     }
 })

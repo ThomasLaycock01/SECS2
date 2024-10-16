@@ -77,6 +77,9 @@ export const useCultistsStore = defineStore("cultists", {
             const buildingLimit = buildings.getTotalBuildingModifier("cultistLimit");
 
             this.misc.cultistLimit = 2 + buildingLimit;
+        },
+        checkCultistSpace() {
+            return !(this.numOfCultists == this.getCultistLimit);
         }/*,
         saveData() {
             var data = JSON.parse(localStorage.getItem("SECSData"));
