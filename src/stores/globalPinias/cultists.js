@@ -34,6 +34,9 @@ export const useCultistsStore = defineStore("cultists", {
         },
         getCultistLimit(state) {
             return state.misc.cultistLimit;
+        },
+        getSummoning(state) {
+            return state.misc.summoning;
         }
     },
     actions: {
