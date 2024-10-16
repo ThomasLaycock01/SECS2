@@ -27,6 +27,8 @@ function removeMetalmancer(e) {
 }
 
 function createGolemClick() {
+    resources.removeResources(metalmancer.getGolemCosts(golemCreation.metal));
+
     metalmancer.summonGolem(golemCreation.metal);
     golemCreation.metal = null;
 }
@@ -70,7 +72,7 @@ function createGolemClick() {
         <ul>
             <li v-for="value, key in metalmancer.getGolemCosts(golemCreation.metal)">{{ key }} : {{ value }}</li>
         </ul>
-        <button class="button is-dark" @click="createGolemClick">Create!</button>
+        <button class="button is-dark" @click="createGolemClick" :disabled="!cultists.checkCultistSpace() || !resources.checkIfCanAfford(metalmancer.getGolemCosts(golemCreation.metal))">Create!</button>
     </div>
 
 </template>
