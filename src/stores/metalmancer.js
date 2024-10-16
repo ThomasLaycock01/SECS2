@@ -40,6 +40,7 @@ export const useMetalmancerStore = defineStore("metalmancer", {
             misc: {
                 metalmancerLimit: 3,
                 metalmancerJobName: "Metalmancer",
+                currentSummoningProgress: 0,
                 golemCosts: {
                     stone: {
                         stone: 500
@@ -82,9 +83,14 @@ export const useMetalmancerStore = defineStore("metalmancer", {
     },
     actions: {
         tick() {
-            //test code
             if (this.queues.summoning.length > 0) {
-                this.endSummonGolem();
+                this.misc.currentSummoningProgress += 100 * this.getMetalmancerModifier();
+
+                if (this.misc.currentSummoningProgress >= this.queues.summoning[0].summonCost) {
+                    this.misc.currentSummoningProgress -= this.queues.summoning[0].summonCost;
+
+                    this.endSummonGolem();
+                }
             }
         },
         //workers
@@ -105,6 +111,22 @@ export const useMetalmancerStore = defineStore("metalmancer", {
                 default:
                     console.log("error in metalmancer.removeOther")
             }
+        },
+        getMetalmancerModifier() {
+            const cultists = useCultistsStore();
+
+            if (this.workers.metalmancer.length == 0) {
+                return 0;
+            }
+
+            var totalMod = 1;
+
+            for (var i in this.workers.metalmancer) {
+                const cultist = cultists.getCultistById(this.workers.metalmancer[i]);
+                totalMod += cultist.getGlobalModifiers("metalmancer")
+            }
+
+            return totalMod;
         },
         //queues
         summonGolem(type) {
