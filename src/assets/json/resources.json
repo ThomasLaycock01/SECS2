@@ -1,0 +1,9 @@
+{
+    "global": {
+        "evilness": {"id": "evilness", "name": "Evilness", "store": "global", "showConditions": {"alwaysTrue": true}, "properties": {"isGolem": false}},
+        "gold": {"id": "gold", "name": "Gold", "store": "global", "showConditions": {"alwaysTrue": true}, "properties": {"isGolem": true}}
+    },
+    "mines": {
+        
+    }
+}

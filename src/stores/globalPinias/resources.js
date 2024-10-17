@@ -28,7 +28,8 @@ export const useResourcesStore = defineStore("resources", {
             childPinias: [
                 {id:"mines", resources: ["stone", "copper", "iron"], piniaObject() {const mines = useMinesStore(); return mines}},
                 {id:"forge", resources: ["copperBars"], piniaObject() {const forge = useForgeStore(); return forge}}
-            ]
+            ],
+            lockedResources: ["evilness", "gold"]
         }
     },
     getters: {
@@ -127,11 +128,23 @@ export const useResourcesStore = defineStore("resources", {
         },
         getChildPinias(state) {
             return state.childPinias;
+        },
+        //locked/unlocked
+        getLocked(state) {
+            return state.lockedResources;
+        },
+        checkIfLocked(state) {
+            return (resourceId) => {
+                console.log(resourceId);
+                console.log(state.lockedResources.includes(resourceId))
+                return state.lockedResources.includes(resourceId);
+            }
         }
     },
     actions: {
         modifyResource(type, amount) {
             this.resources[type].total += amount;
+            this.updatedLocked();
         },
         setResourcePerSec(type, value) {
             this.resources[type].perSec = value;
@@ -179,6 +192,15 @@ export const useResourcesStore = defineStore("resources", {
                 }
             }*/
         },
+        //locked/unlocked
+        updatedLocked() {
+            for (var i in this.getLocked) {
+                if (this.getResourceTotal(this.getLocked[i]) >= 1) {
+                    this.lockedResources.splice(i, 1);
+                    console.log(this.getLocked);
+                }
+            }
+        }
         /*saveData() {
             var data = JSON.parse(localStorage.getItem("SECSData"));
 
