@@ -7,7 +7,6 @@ import { useBuildingsStore } from "./stores/globalPinias/buildings";
 import { useLairStore } from "./stores/lair";
 import { useExpansionsStore } from "./stores/expansions";
 import { useMiscStore } from "./stores/misc";
-import { useTextLogStore } from "./stores/textLog";
 //expansions
 import { useMinesStore } from "./stores/mines";
 import { useForgeStore } from "./stores/forge";
@@ -204,7 +203,6 @@ export function deserializeItem(object) {
     const mines = useMinesStore();
     const misc = useMiscStore();
     const resources = useResourcesStore();
-    const textLog = useTextLogStore();
 
     cultists.saveData();
     expansions.saveData();
@@ -212,7 +210,6 @@ export function deserializeItem(object) {
     mines.saveData();
     misc.saveData();
     resources.saveData();
-    textLog.saveData();
 }
 
 export function loadData() {
@@ -223,7 +220,6 @@ export function loadData() {
     const mines = useMinesStore();
     const misc = useMiscStore();
     const resources = useResourcesStore();
-    const textLog = useTextLogStore();
 
     cultists.loadData();
     expansions.loadData();
@@ -231,7 +227,6 @@ export function loadData() {
     mines.loadData();
     misc.loadData();
     resources.loadData();
-    textLog.loadData();
 }*/
 
 //instantiat files

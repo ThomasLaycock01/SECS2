@@ -5,7 +5,6 @@ import HRTab from "./components/HRTab/HRTab.vue";
 import MineTab from "./components/mineTab/MineTab.vue";
 import ForgeTab from "./components/forgeTab/ForgeTab.vue";
 import MetalmancerTab from "./components/metalmancerTab/MetalmancerTab.vue";
-//import TextLog from "./components/textLog/TextLog.vue";
 import InventoryTab from "./components/inventory/InventoryTab.vue";
 
 import { useExpansionsStore } from "./stores/expansions";
@@ -39,9 +38,6 @@ const expansions = useExpansionsStore();
       </b-tab-item>
     </b-tabs>
   </section>
-  <div class="column is-one-quarter">
-    <!--<TextLog/>-->
-  </div>
 </template>
 
 <script>
@@ -59,16 +55,13 @@ export default {
   },
   mounted() {
     /*const misc = useMiscStore();
-    const textLog = useTextLogStore();
 
-    textLog.loadConvos();
     instantiateItems();
 
     if (!misc.checkFirstLoad()) {
       localStorage.setItem("SECSData", JSON.stringify({}));
       saveData();
       setTimeout(function() {
-        textLog.playConvo(0);
       }, 1000)
     }
     else {

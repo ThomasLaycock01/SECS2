@@ -15,21 +15,7 @@ html {
 }
 
 
-/*Text log*/
-.textLog {
-    height: 48vh;
-    overflow: auto !important;
-    padding: 0 1rem;
-}
 
-.textLogSegment {
-    width: 100%;
-    padding: 1rem 0;
-}
-
-.nonBartyText {
-    text-align: right;
-}
 
 .tab-content {
     padding-left: 0 !important;
