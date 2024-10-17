@@ -39,24 +39,6 @@ export const useForgeStore = defineStore("forge", {
                 smith: null
             },
             resources: {
-                copperBars: {
-                    id:"copperBars",
-                    name:"Copper Bars",
-                    total: 0,
-                    perSec: 0,
-                    consumedPerSec: 0,
-                    costs: {
-                        copper: 10
-                    },
-                    smeltingCost: 1000, 
-                    showCondition() {
-                        const expansions = useExpansionsStore();
-                        return expansions.hasTier(2);
-                    },
-                    unlockCondition() {
-                        return true;
-                    }
-                }
             },
             queues: {
                 smeltingQueue: [],
