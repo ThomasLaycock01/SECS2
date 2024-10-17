@@ -64,7 +64,7 @@ function createGolemClick() {
     <div class="title is-5 mb-1 segment-title">Golem Creation</div>
     <b-field label="Create Golem">
         <b-select placeholder="Metal" v-model="golemCreation.metal">
-            <option v-for="i in resources.getResourcesByPinia('mines', true, {isGolem: true})" :value="i.id">{{ i.name }}</option>
+            <option v-for="i in resources.getResourcesByProperties({isGolem: true})" :value="i.id">{{ i.name }}</option>
         </b-select>
     </b-field>
     <div v-if="golemCreation.metal">

@@ -136,7 +136,7 @@ export const useMinesStore = defineStore("mines", {
                 returnArray.push(state.resources[i]);
             }
 
-            return returnArray;
+            return returnArray;   
             //kind cheating here, but for now this will just return everything
             /*return (properties = null) => {
                 const returnArray = [];

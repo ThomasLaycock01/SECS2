@@ -109,6 +109,26 @@ export const useResourcesStore = defineStore("resources", {
                 
             }
         },
+        getResourcesByProperties() {
+            return (properties) => {
+                const returnArray = [];
+                for (var i in this.getAll) {
+                    var addResource = true;
+                    const resource = this.getAll[i];
+                    for (var j in properties) {
+                        if (resource.properties[j] != properties[j]) {
+                            addResource = false;
+                        }
+                    }
+
+                    if (addResource) {
+                        returnArray.push(resource);
+                    }
+                }
+
+                return returnArray;
+            }
+        },
         //pinias
         getAll(state) {
             var returnObj = {};
