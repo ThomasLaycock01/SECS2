@@ -11,28 +11,18 @@ import { useCultistsStore } from '@/stores/globalPinias/cultists';
 const mines = useMinesStore();
 const cultists = useCultistsStore();
 
-var workerToAssign = reactive({worker: null});
-var resourceToAssign = reactive({resource: null});
-
-
-function setWorker(e) {
-    workerToAssign.worker = e.target.value;
-}
-
-function setResource(e) {
-    resourceToAssign.resource = e.target.value;
-}
+var workerAssigning = reactive({worker: null, resource: null});
 
 function assignWorker() {
     const obj = {
-        id: workerToAssign.worker,
-        resource: resourceToAssign.resource
+        id: workerAssigning.worker,
+        resource: workerAssigning.resource
     }
     
     addCultistToWorkerJob(obj, mines);
 
-    workerToAssign.worker = null;
-    resourceToAssign.resource = null;
+    workerAssigning.worker = null;
+    workerAssigning.resource = null;
 }
 
 function setOverseer(e) {
@@ -44,7 +34,6 @@ function removeOverseerClick() {
 }
 
 function removeWorkerClick(e) {
-    console.log(e.target.value);
     removeCultistFromWorkerJob(e.target.value, mines)
 }
 </script>
@@ -82,19 +71,19 @@ function removeWorkerClick(e) {
         <div class="inline-blockContainer">
             <div>
                 <b-field label="Worker">
-                    <b-select placeholder="Worker" @input="setWorker" v-model="workerToAssign.worker" :disabled="!cultists.checkUnemployed()">
+                    <b-select placeholder="Worker" v-model="workerAssigning.worker" :disabled="!cultists.checkUnemployed()">
                         <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
                     </b-select>
                 </b-field>
             </div>
-            <div v-if="workerToAssign.worker != null">
+            <div v-if="workerAssigning.worker != null">
                 <b-field label="Resource">
-                    <b-select placeholder="Resource" @input="setResource" v-model="resourceToAssign.resource">
+                    <b-select placeholder="Resource" v-model="workerAssigning.resource">
                         <option v-for="i in mines.getUnlockedResources" :value="i.id">{{ i.name }}</option>
                     </b-select>
                 </b-field>
             </div>
-            <div v-if="resourceToAssign.resource">
+            <div v-if="workerAssigning.resource">
                 <button class="button is-dark mb-1 mr-2" @click="assignWorker">Assign!</button>
             </div>
         </div>

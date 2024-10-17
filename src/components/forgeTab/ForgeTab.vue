@@ -17,14 +17,6 @@ var smithingTab = reactive({metal: null, selecteditem: null});
 
 
 
-function setBar(e) {
-    barToAdd.bar = e.target.value;
-}
-
-function setAmount(e) {
-   barToAdd.Amount = e.target.value;
-}
-
 function addToSmeltingQueue() {
     forge.addToSmeltingQueue(barToAdd.bar, barToAdd.amount);
 
@@ -86,14 +78,14 @@ function craftItem() {
                 <div class="inline-blockContainer">
                     <div>
                         <b-field label="Add To Queue">
-                            <b-select placeholder="Metal" @input="setBar" v-model="barToAdd.bar">
+                            <b-select placeholder="Metal" v-model="barToAdd.bar">
                                 <option v-for="i in forge.getUnlockedResources" :value="i.id">{{ i.name }}</option>
                             </b-select>
                         </b-field>
                     </div>
                     <div v-if="barToAdd.bar != null">
                         <b-field>
-                            <b-input placeholder="Amount" type="number" min="0" @input="setAmount" v-model="barToAdd.amount"/>
+                            <b-input placeholder="Amount" type="number" min="0" v-model="barToAdd.amount"/>
                         </b-field>
                     </div>
                 </div>
