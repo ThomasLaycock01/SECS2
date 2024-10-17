@@ -99,11 +99,11 @@ export const useMetalmancerStore = defineStore("metalmancer", {
     },
     actions: {
         tick() {
-            if (this.queues.summoning.length > 0) {
+            if (this.getCurrentSummoning) {
                 this.misc.currentSummoningProgress += 100 * this.getMetalmancerModifier();
 
-                if (this.misc.currentSummoningProgress >= this.queues.summoning[0].summonCost) {
-                    this.misc.currentSummoningProgress -= this.queues.summoning[0].summonCost;
+                if (this.getCurrentSummoningProgress >= this.getCurrentSummoning.summonCost) {
+                    this.misc.currentSummoningProgress -= this.getCurrentSummoning.summonCost;
 
                     this.endSummonGolem();
                 }
@@ -160,7 +160,7 @@ export const useMetalmancerStore = defineStore("metalmancer", {
         endSummonGolem() {
             const resources = useResourcesStore();
 
-            const resourceName = resources.getName(this.queues.summoning[0].golemType);
+            const resourceName = resources.getName(this.getCurrentSummoning.golemType);
 
             const golemSpecies = `${resourceName} Golem`;
 
