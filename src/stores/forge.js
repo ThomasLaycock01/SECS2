@@ -93,7 +93,7 @@ export const useForgeStore = defineStore("forge", {
         getResourceCostsByAmount(state) {
             return (id, amount) => {
                 const costsObj = {};
-                for (var i in state.resources[id].costs) {
+                for (var i in state.resources[id].properties.costs) {
                     costsObj[i] = state.resources[id].properties.costs[i] * amount;
                 }
                 return costsObj;
@@ -254,6 +254,8 @@ export const useForgeStore = defineStore("forge", {
             const resources = useResourcesStore();
 
             const costs = this.getResourceCostsByAmount(resourceToAdd, amount);
+
+            console.log(costs);
 
             return resources.checkIfCanAfford(costs);
         },
