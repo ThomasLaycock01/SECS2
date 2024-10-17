@@ -199,7 +199,7 @@ export const useResourcesStore = defineStore("resources", {
         //locked/unlocked
         updatedLocked() {
             for (var i in this.getLocked) {
-                if (this.getResourceTotal(this.getLocked[i]) >= 1) {
+                if (this.getResourceTotal(this.getLocked[i]) != 0) {
                     this.lockedResources.splice(i, 1);
                 }
             }

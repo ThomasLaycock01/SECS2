@@ -239,9 +239,10 @@ export const useMinesStore = defineStore("mines", {
                         resourceOutput += 1 * finalMod;
                     }
                 }
-                this.resources[i].perSec = Math.round(resourceOutput * overseerMod * 100) / 100;
-                this.resources[i].total += this.resources[i].perSec;
+                this.setResourcePerSec(i, Math.round(resourceOutput * overseerMod * 100) / 100);
             }
+
+            this.updateResources();
 
             //scavenge stuff
             if (this.getResourceTotal("scavenge") >= 100) {
@@ -273,8 +274,10 @@ export const useMinesStore = defineStore("mines", {
         setResourcePerSec(resource, amount) {
             this.resources[resource].perSec = amount;
         },
-        setResourceConsumedPerSec(resource, amount) {
-            this.resources[resource].consumedPerSec = amount;
+        updateResources() {
+            for (var i in this.resources) {
+                this.modifyResource(i, this.resources[i].perSec);
+            }
         },
         //items
         instantiateItems() {
