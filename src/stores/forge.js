@@ -106,19 +106,19 @@ export const useForgeStore = defineStore("forge", {
             return (id) => state.resources[id].properties;
         },
         getResourceCosts(state) {
-            return (id) => state.resources[id].costs;
+            return (id) => state.resources[id].properties.costs;
         },
         getResourceCostsByAmount(state) {
             return (id, amount) => {
                 const costsObj = {};
                 for (var i in state.resources[id].costs) {
-                    costsObj[i] = state.resources[id].costs[i] * amount;
+                    costsObj[i] = state.resources[id].properties.costs[i] * amount;
                 }
                 return costsObj;
             } 
         },
         getResourceSmeltingCost(state) {
-            return (id) => state.resources[id].smeltingCost;
+            return (id) => state.resources[id].properties.smeltingCost;
         },
         //workers
         getSmelter(state) {
@@ -195,7 +195,9 @@ export const useForgeStore = defineStore("forge", {
             this.resources[resourceObj.id] = resourceObj;
         },
         modifyResource(resource, amount) {
+            const resources = useResourcesStore();
             this.resources[resource].total += amount;
+            resources.updatedLocked();
         },
         setResourcePerSec(resource, amount) {
             this.resources[resource].perSec = amount;
