@@ -13,8 +13,8 @@ export const useResourcesStore = defineStore("resources", {
             resources: {
             },
             childPinias: [
-                {id:"mines", resources: ["stone", "copper", "iron"], piniaObject() {const mines = useMinesStore(); return mines}},
-                {id:"forge", resources: ["copperBars"], piniaObject() {const forge = useForgeStore(); return forge}}
+                {id:"mines", resources: [], piniaObject() {const mines = useMinesStore(); return mines}},
+                {id:"forge", resources: [], piniaObject() {const forge = useForgeStore(); return forge}}
             ],
             lockedResources: []
         }
@@ -58,9 +58,6 @@ export const useResourcesStore = defineStore("resources", {
                 }
             };
         },
-        getSpecificResource(state) {
-            return (resource) => state.resources[resource];
-        },
         getName(state) {
             return (resource) => {
                 switch (resource) {
@@ -71,6 +68,21 @@ export const useResourcesStore = defineStore("resources", {
                         for (var i in state.childPinias) {
                             if (state.childPinias[i].resources.includes(resource)) {
                                 return state.childPinias[i].piniaObject().getResourceName(resource);
+                            }
+                        }
+                }
+            }
+        },
+        getProperties(state) {
+            return (resource) => {
+                switch (resource) {
+                    case "evilness":
+                    case "gold":
+                        return state.resources[resource].properties;
+                    default:
+                        for (var i in state.childPinias) {
+                            if (state.childPinias[i].resources.includes(resource)) {
+                                return state.childPinias[i].piniaObject().getResourceProperties(resource);
                             }
                         }
                 }
@@ -135,6 +147,16 @@ export const useResourcesStore = defineStore("resources", {
             return (resourceId) => {
                 return state.lockedResources.includes(resourceId);
             }
+        },
+        //properties
+        checkIfResourceHasProperty(state) {
+            return (resourceId, propertyId) => {
+                const properties = this.getProperties(resourceId);
+                if (properties[propertyId]) {
+                    return true;
+                }
+                return false;
+            }
         }
     },
     actions: {
@@ -194,7 +216,16 @@ export const useResourcesStore = defineStore("resources", {
                     else {
                         const pinia = this.getChildPiniaByid(i);
                         pinia.instantiateResource(instantiateResource(resources[i][j]));
+                        this.addToChildPiniaArray(i, resources[i][j].id);
                     }
+                }
+            }
+        },
+        //helper function for adding to childPinia arrays
+        addToChildPiniaArray(piniaId, resourceId) {
+            for (var i in this.childPinias) {
+                if (this.childPinias[i].id == piniaId) {
+                    this.childPinias[i].resources.push(resourceId);
                 }
             }
         }

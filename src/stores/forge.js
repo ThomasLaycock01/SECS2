@@ -103,6 +103,9 @@ export const useForgeStore = defineStore("forge", {
         getResourceName(state) {
             return (id) => state.resources[id].name;
         },
+        getResourceProperties(state) {
+            return (id) => state.resources[id].properties;
+        },
         getResourceCosts(state) {
             return (id) => state.resources[id].costs;
         },
@@ -189,6 +192,9 @@ export const useForgeStore = defineStore("forge", {
             }
         },
         //resources
+        instantiateResource(resourceObj) {
+            this.resources[resourceObj.id] = resourceObj;
+        },
         modifyResource(resource, amount) {
             this.resources[resource].total += amount;
         },
