@@ -3,33 +3,20 @@ import {defineStore} from "pinia";
 import { useMinesStore } from "../mines";
 import { useForgeStore } from "../forge";
 
-import { posToNeg } from "@/functions";
+import { instantiateResource, posToNeg } from "@/functions";
+
+import resources from "@/assets/json/resources.json";
 
 export const useResourcesStore = defineStore("resources", {
     state: () => {
         return {
             resources: {
-                evilness: {id:"evilness",
-                    name: "Evilness",
-                    total: 0,
-                    perSec: 0,
-                    consumedPerSec: 0, 
-                    showCondition(){
-                        return true}},
-                gold: {
-                    id:"gold", 
-                    name:"Gold", 
-                    total: 0, 
-                    perSec: 0,
-                    consumedPerSec: 0, 
-                    showCondition(){
-                        return true}}
             },
             childPinias: [
                 {id:"mines", resources: ["stone", "copper", "iron"], piniaObject() {const mines = useMinesStore(); return mines}},
                 {id:"forge", resources: ["copperBars"], piniaObject() {const forge = useForgeStore(); return forge}}
             ],
-            lockedResources: ["evilness", "gold"]
+            lockedResources: []
         }
     },
     getters: {
@@ -129,14 +116,23 @@ export const useResourcesStore = defineStore("resources", {
         getChildPinias(state) {
             return state.childPinias;
         },
+        getChildPiniaByid(state) {
+            return (piniaId) => {
+                console.log(piniaId);
+                for (var i in state.childPinias) {
+                    if (state.childPinias[i].id == piniaId) {
+                        return state.childPinias[i].piniaObject(); 
+                    }
+                }
+                
+            }
+        },
         //locked/unlocked
         getLocked(state) {
             return state.lockedResources;
         },
         checkIfLocked(state) {
             return (resourceId) => {
-                console.log(resourceId);
-                console.log(state.lockedResources.includes(resourceId))
                 return state.lockedResources.includes(resourceId);
             }
         }
@@ -177,27 +173,28 @@ export const useResourcesStore = defineStore("resources", {
             }
 
             return canAfford;
-            //might not be necessary, but keep around as reference for how to grab the child pinias
-            /*for (var i in costsObj) {
-                if (this.getGlobal[i]) {
-                    //this can be used to grab resources from this pinia
-                    
-                } 
-                else {
-                    for (var j in this.getChildPinias) {
-                        if (this.getChildPinias[j].resources.includes(i)) {
-                            //this can be used to grab resources from the other pinias
-                        }
-                    }
-                }
-            }*/
         },
         //locked/unlocked
         updatedLocked() {
             for (var i in this.getLocked) {
                 if (this.getResourceTotal(this.getLocked[i]) >= 1) {
                     this.lockedResources.splice(i, 1);
-                    console.log(this.getLocked);
+                }
+            }
+        },
+        //onLoad
+        instantiateResources() {
+            for (var i in resources) {
+                for (var j in resources[i]) {
+                    this.lockedResources.push(resources[i][j].id);
+
+                    if (i == "global") {
+                        this.resources[j] = instantiateResource(resources[i][j]);
+                    }
+                    else {
+                        const pinia = this.getChildPiniaByid(i);
+                        pinia.instantiateResource(instantiateResource(resources[i][j]));
+                    }
                 }
             }
         }

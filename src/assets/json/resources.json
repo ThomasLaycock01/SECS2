@@ -1,9 +1,12 @@
 {
     "global": {
-        "evilness": {"id": "evilness", "name": "Evilness", "store": "global", "showConditions": {"alwaysTrue": true}, "properties": {"isGolem": false}},
-        "gold": {"id": "gold", "name": "Gold", "store": "global", "showConditions": {"alwaysTrue": true}, "properties": {"isGolem": true}}
+        "evilness": {"id": "evilness", "name": "Evilness", "store": "global", "properties": {}},
+        "gold": {"id": "gold", "name": "Gold", "store": "global", "properties": {"isGolem": true}}
     },
     "mines": {
-        
+        "stone": {"id": "stone", "name": "Stone", "store": "mines", "properties": {"isGolem": true}},
+        "copper": {"id": "copper", "name": "Copper", "store": "mines", "properties": {"isGolem": true}},
+        "iron": {"id": "iron", "name": "Iron", "store": "mines", "properties": {"isGolem": true}},
+        "scavenge": {"id": "scavenge", "name": "Scavenge", "store": "mines", "properties": {"neverShown": true}}
     }
 }

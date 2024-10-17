@@ -46,11 +46,16 @@ const expansions = useExpansionsStore();
 
 <script>
 
-import { tick, instantiateItems, instantiateBuildings } from "./functions";
+import { tick, instantiateResources, instantiateItems, instantiateBuildings } from "./functions";
 
 export default {
   data() {
     return {activeTab: 0}
+  },
+  beforeCreate() {
+    instantiateResources();
+    instantiateItems();
+    instantiateBuildings();
   },
   mounted() {
     /*const misc = useMiscStore();
@@ -69,8 +74,6 @@ export default {
     else {
       loadData();
     }*/
-    instantiateItems();
-    instantiateBuildings();
     setInterval(tick, 1000);
     //setInterval(saveData, 10000)
   }

@@ -95,73 +95,6 @@ export const useMinesStore = defineStore("mines", {
                 workerArray: []
             },
             resources: {
-                stone: {
-                    id:"stone",
-                    name:"Stone",
-                    total: 0, 
-                    perSec: 0, 
-                    consumedPerSec: 0, 
-                    showCondition(){
-                        const expansions = useExpansionsStore(); 
-                        return expansions.hasTier(1);
-                    }, 
-                    unlockCondition() {
-                        return true;
-                    },
-                    properties: {
-                        isGolem: true
-                    }
-                },
-                copper: {
-                    id:"copper",
-                    name: "Copper",
-                    total: 0,
-                    perSec: 0,
-                    consumedPerSec: 0, 
-                    showCondition() {
-                        const expansions = useExpansionsStore();
-                        return expansions.hasTier(1);
-                    },
-                    unlockCondition() {
-                        return true;
-                    },
-                    properties: {
-                        isGolem: true
-                    }
-                },
-                iron: {
-                    id:"iron",
-                    name: "Iron",
-                    total: 0,
-                    perSec: 0,
-                    consumedPerSec: 0, 
-                    showCondition() {
-                        const expansions = useExpansionsStore();
-                        return expansions.hasTier(1);
-                    },
-                    unlockCondition() {
-                        return true;
-                    },
-                    properties: {
-                        isGolem: true
-                    }
-                },
-                scavenge: {
-                    id:"scavenge",
-                    name:"Scavenge",
-                    total: 0, 
-                    perSec: 0, 
-                    consumedPerSec: 0, 
-                    showCondition(){
-                        return false;
-                    }, 
-                    unlockCondition() {
-                        return true;
-                    },
-                    properties: {
-                        isGolem: false
-                    }
-                }
             },
             items: {
             },
@@ -319,8 +252,13 @@ export const useMinesStore = defineStore("mines", {
 
         },
         //resources
+        instantiateResource(resourceObj) {
+            this.resources[resourceObj.id] = resourceObj;
+        },
         modifyResource(resource, amount) {
+            const resources = useResourcesStore();
             this.resources[resource].total += amount;
+            resources.updatedLocked();
         },
         setResourcePerSec(resource, amount) {
             this.resources[resource].perSec = amount;
