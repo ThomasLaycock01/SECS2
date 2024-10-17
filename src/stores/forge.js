@@ -139,22 +139,33 @@ export const useForgeStore = defineStore("forge", {
         getCurrentSmeltingItem(state) {
             return state.queues.smeltingQueue[0];
         },
+        getCurrentSmithingItem(state) {
+            return state.queues.smithingQueue[0];
+        },
         getNameOfCurrentBar(state) {
             return this.getResourceName(state.queues.smeltingQueue[0].barType);
         },
         getSmeltingCostOfCurrentBar(state) {
             return this.getResourceSmeltingCost(state.queues.smeltingQueue[0].barType);
         },
-        getCurrentSmeltingPercentage(state) {
-            return this.getCurrentSmeltingProgress / this.getSmeltingCostOfCurrentBar * 100
+        getCurrentSmeltingPercentage() {
+            return this.getCurrentSmeltingProgress / this.getSmeltingCostOfCurrentBar * 100;
+        },
+        getCurrentSmithingPercentage() {
+            return this.getCurrentSmithingProgress / this.getCurrentSmithingItem.smithCost * 100;
         },
         //misc
         getCurrentSmeltingProgress(state) {
             return state.misc.currentSmeltingProgress;
+        },
+        getCurrentSmithingProgress(state) {
+            return state.misc.currentSmithingProgress;
         }
     },
     actions: {
         tick() {
+            const inventory = useInventoryStore();
+
             //smelting
             if (this.getCurrentSmeltingItem) {
                 this.misc.currentSmeltingProgress += 100 * this.getSmelterModifier();
@@ -170,35 +181,13 @@ export const useForgeStore = defineStore("forge", {
                     }
                 }
             }
-            /*
-            if (this.getCurrentSmeltingItem) {
-                
-                this.misc.currentSmeltingProgress += 100 * this.getSmelterModifier();
-
-
-                console.log(this.queues.smeltingQueue);
-                if (this.misc.currentSmeltingProgress >= this.getSmeltingCostOfCurrentBar) {
-                    while (this.misc.currentSmeltingProgress >= this.getSmeltingCostOfCurrentBar) {
-
-                        this.misc.currentSmeltingProgress -= this.getSmeltingCostOfCurrentBar;
-                        this.queues.smeltingQueue[0].amount--;
-    
-                        this.modifyResource(this.getQueue("smelter")[0].barType, 1);
-    
-                        if (this.queues.smeltingQueue[0].amount == 0) {
-                            this.removeFirstQueueEntry("smelter");
-                        }
-                    }
-                }
-            }*/
             
             //smithing
-            if (this.getQueue("smith").length > 0) {
-                const inventory = useInventoryStore();
+            if (this.getCurrentSmithingItem) {
                 
                 this.misc.currentSmithingProgress += 100 * this.getSmithModifier();
 
-                const itemToSmith = this.getQueue("smith")[0];
+                const itemToSmith = this.getCurrentSmithingItem;
 
                 if (this.misc.currentSmithingProgress >= itemToSmith.smithCost) {
                     inventory.addItem(itemToSmith);

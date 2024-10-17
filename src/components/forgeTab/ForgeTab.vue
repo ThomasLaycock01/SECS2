@@ -125,7 +125,9 @@ function craftItem() {
                         </b-select>
                     </b-field>
                 </div>
-                <div>
+                <div v-if="forge.getQueue('smith').length > 0">
+                    <div>Currently Smithing: {{ forge.getCurrentSmithingItem.name }}</div>
+                    <div>Current Progress: {{forge.getCurrentSmithingPercentage}}%</div>
                     <div>Queue:</div>
                     <div v-for="i in forge.getQueue('smith')">{{ i.name }}</div>
                 </div>
