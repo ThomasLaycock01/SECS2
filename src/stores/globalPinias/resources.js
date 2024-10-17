@@ -229,31 +229,5 @@ export const useResourcesStore = defineStore("resources", {
                 }
             }
         }
-        /*saveData() {
-            var data = JSON.parse(localStorage.getItem("SECSData"));
-
-            const resourceObject = {};
-
-            for (var i in this["resources"]) {
-                resourceObject[i] = {total: this["resources"][i].total, perSec: this["resources"][i].perSec};
-            }
-
-            data.resources = resourceObject;
-
-            localStorage.setItem("SECSData", JSON.stringify(data));
-
-        },
-        loadData() {
-
-            const data = JSON.parse(localStorage.getItem("SECSData"));
-
-            const resources = data.resources;
-
-            for (var i in resources) {
-                const resource = resources[i];
-                this["resources"][i].total = resource.total;
-                this["resources"][i].perSec = resource.perSec;
-            }
-        }*/
     }
 })

@@ -5,8 +5,6 @@ import { useMinesStore } from "./mines";
 import { useForgeStore } from "./forge";
 import { useMetalmancerStore } from "./metalmancer";
 
-import { posToNeg } from "@/functions";
-
 export const useExpansionsStore = defineStore("expansions", {
     state: () => {
         return {built: {
@@ -140,18 +138,6 @@ export const useExpansionsStore = defineStore("expansions", {
                     pinia.tick();
                 }
             }
-        }/*,
-        saveData() {
-            var data = JSON.parse(localStorage.getItem("SECSData"));
-
-            data.expansions = this["built"];
-
-            localStorage.setItem("SECSData", JSON.stringify(data));
-        },
-        loadData() {
-            var data = JSON.parse(localStorage.getItem("SECSData"));
-
-            this["built"] = data.expansions;
-        }*/
+        }
     }
 })

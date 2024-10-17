@@ -3,8 +3,6 @@ import {defineStore} from "pinia";
 import { useResourcesStore } from "./resources";
 import { useBuildingsStore } from "./buildings";
 
-import { deserializeCultist } from "@/functions";
-
 export const useCultistsStore = defineStore("cultists", {
     state: () => {
         return {
@@ -94,30 +92,5 @@ export const useCultistsStore = defineStore("cultists", {
         removeSummoning() {
             this.summoning--;
         }
-        /*,
-        saveData() {
-            var data = JSON.parse(localStorage.getItem("SECSData"));
-
-            const cultistObject = {}
-
-            //serializing cultists to store them
-            for (var i in this["regular"]) {
-                const cultist = this["regular"][i];
-                cultistObject[cultist.getId()] = cultist.serialize();
-            }
-
-            data.cultists = cultistObject;
-
-            localStorage.setItem("SECSData", JSON.stringify(data));
-        },
-        loadData() {
-            var data = JSON.parse(localStorage.getItem("SECSData"));
-
-            for (var i in data.cultists) {
-                const cultistObject = data.cultists[i];
-
-                deserializeCultist(cultistObject);
-            }
-        }*/
     }
 });

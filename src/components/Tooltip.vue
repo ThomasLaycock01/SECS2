@@ -1,8 +1,4 @@
 <script setup>
-import { useBuildingsStore } from '@/stores/globalPinias/buildings';
-
-const buildings = useBuildingsStore();
-
 const props = defineProps({
     tooltipType: String,
     name: String,
