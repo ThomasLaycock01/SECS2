@@ -135,27 +135,62 @@ export const useForgeStore = defineStore("forge", {
                         console.log("error in forge.getQueue");
                 }
             }
+        },
+        getCurrentSmeltingItem(state) {
+            return state.queues.smeltingQueue[0];
+        },
+        getNameOfCurrentBar(state) {
+            return this.getResourceName(state.queues.smeltingQueue[0].barType);
+        },
+        getSmeltingCostOfCurrentBar(state) {
+            return this.getResourceSmeltingCost(state.queues.smeltingQueue[0].barType);
+        },
+        getCurrentSmeltingPercentage(state) {
+            return this.getCurrentSmeltingProgress / this.getSmeltingCostOfCurrentBar * 100
+        },
+        //misc
+        getCurrentSmeltingProgress(state) {
+            return state.misc.currentSmeltingProgress;
         }
     },
     actions: {
         tick() {
             //smelting
-            if (this.getQueue("smelter").length > 0) {
-                
+            if (this.getCurrentSmeltingItem) {
                 this.misc.currentSmeltingProgress += 100 * this.getSmelterModifier();
 
-                while (this.misc.currentSmeltingProgress >= this.getResourceSmeltingCost(this.getQueue("smelter")[0].barType)) {
+                if (this.misc.currentSmeltingProgress >= this.getSmeltingCostOfCurrentBar) {
+                    this.misc.currentSmeltingProgress = 0;
+                    this.getCurrentSmeltingItem.amount--;
 
-                    this.misc.currentSmeltingProgress -= this.getResourceSmeltingCost(this.getQueue("smelter")[0].barType);
-                    this.queues.smeltingQueue[0].amount--;
+                    this.modifyResource(this.getCurrentSmeltingItem.barType, 1);
 
-                    this.modifyResource(this.getQueue("smelter")[0].barType, 1);
-
-                    if (this.queues.smeltingQueue[0].amount == 0) {
+                    if (this.getCurrentSmeltingItem.amount == 0) {
                         this.removeFirstQueueEntry("smelter");
                     }
                 }
             }
+            /*
+            if (this.getCurrentSmeltingItem) {
+                
+                this.misc.currentSmeltingProgress += 100 * this.getSmelterModifier();
+
+
+                console.log(this.queues.smeltingQueue);
+                if (this.misc.currentSmeltingProgress >= this.getSmeltingCostOfCurrentBar) {
+                    while (this.misc.currentSmeltingProgress >= this.getSmeltingCostOfCurrentBar) {
+
+                        this.misc.currentSmeltingProgress -= this.getSmeltingCostOfCurrentBar;
+                        this.queues.smeltingQueue[0].amount--;
+    
+                        this.modifyResource(this.getQueue("smelter")[0].barType, 1);
+    
+                        if (this.queues.smeltingQueue[0].amount == 0) {
+                            this.removeFirstQueueEntry("smelter");
+                        }
+                    }
+                }
+            }*/
             
             //smithing
             if (this.getQueue("smith").length > 0) {

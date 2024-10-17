@@ -100,7 +100,9 @@ function craftItem() {
                     </div>
                 </div>
                 <div v-if="forge.getQueue('smelter').length > 0">
-                    Current Smelting Queue:
+                    <div>Currently Smelting: {{ forge.getNameOfCurrentBar }}</div>
+                    <div>Current Progress: {{ forge.getCurrentSmeltingPercentage }}%</div>
+                    Queue:
                     <div v-for="i in forge.getQueue('smelter')">
                         {{ forge.getResourceName(i.barType) }}: {{ i.amount }}
                     </div>
