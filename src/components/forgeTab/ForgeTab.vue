@@ -63,7 +63,7 @@ function craftItem() {
             <div>
                 <div class="title is-5 mb-1 segment-title">Smelting</div>
                 <div v-if="forge.getSmelter">
-                    <div>{{ forge.getSmelter.getName() }} - Currently boosting smelting speed by {{ "placeholder" }}%!</div>
+                    <div>{{ forge.getSmelter.getName() }} - Currently boosting smelting speed by {{ (forge.getSmelterModifier() - 1) * 100  }}%!</div>
                     <button type="button" class="button is-danger" @click="removeSmelter">Remove Smelter</button>
                 </div>
                 <div v-else>
