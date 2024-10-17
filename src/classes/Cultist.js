@@ -123,8 +123,8 @@ export class Cultist {
     }
 
     setLevelLimit() {
-        const misc = useMiscStore();
-        this.levelLimit = misc.getDefaultLevelLimit;
+        const cultists = useCultistsStore();
+        this.levelLimit = cultists.getDefaultLevelLimit;
     }
 
     equipItem(item) {

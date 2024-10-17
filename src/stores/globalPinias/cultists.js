@@ -10,7 +10,8 @@ export const useCultistsStore = defineStore("cultists", {
             special: [],
             misc : {
                 cultistLimit: 2,
-                summoning: 0
+                summoning: 0,
+                defaultLevelLimit: 10
             }
         }
     },
@@ -30,11 +31,15 @@ export const useCultistsStore = defineStore("cultists", {
         getEmployed(state) {
             return state.regular.filter((cultist) => cultist.getJob() != null);
         },
+        //misc
         getCultistLimit(state) {
             return state.misc.cultistLimit;
         },
         getSummoning(state) {
             return state.misc.summoning;
+        },
+        getDefaultLevelLimit(state) {
+            return state.misc.defaultLevelLimit;
         }
     },
     actions: {

@@ -54,21 +54,7 @@ export default {
     instantiateBuildings();
   },
   mounted() {
-    /*const misc = useMiscStore();
-
-    instantiateItems();
-
-    if (!misc.checkFirstLoad()) {
-      localStorage.setItem("SECSData", JSON.stringify({}));
-      saveData();
-      setTimeout(function() {
-      }, 1000)
-    }
-    else {
-      loadData();
-    }*/
     setInterval(tick, 1000);
-    //setInterval(saveData, 10000)
   }
 }
 

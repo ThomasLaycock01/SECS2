@@ -6,7 +6,6 @@ import { useBuildingsStore } from "./stores/globalPinias/buildings";
 
 import { useLairStore } from "./stores/lair";
 import { useExpansionsStore } from "./stores/expansions";
-import { useMiscStore } from "./stores/misc";
 //expansions
 import { useMinesStore } from "./stores/mines";
 import { useForgeStore } from "./stores/forge";
@@ -193,41 +192,6 @@ export function deserializeItem(object) {
 
 
 
-
-//localStorage functions
-/*export function saveData() {
-    //have each pinia store save their data seperately
-    const cultists = useCultistsStore();
-    const expansions = useExpansionsStore();
-    const inventory = useInventoryStore();
-    const mines = useMinesStore();
-    const misc = useMiscStore();
-    const resources = useResourcesStore();
-
-    cultists.saveData();
-    expansions.saveData();
-    //inventory.saveData();
-    mines.saveData();
-    misc.saveData();
-    resources.saveData();
-}
-
-export function loadData() {
-    //same as save, but this time it's the load
-    const cultists = useCultistsStore();
-    const expansions = useExpansionsStore();
-    const inventory = useInventoryStore();
-    const mines = useMinesStore();
-    const misc = useMiscStore();
-    const resources = useResourcesStore();
-
-    cultists.loadData();
-    expansions.loadData();
-    //inventory.loadData();
-    mines.loadData();
-    misc.loadData();
-    resources.loadData();
-}*/
 
 //instantiat files
 export function instantiateItems() {
