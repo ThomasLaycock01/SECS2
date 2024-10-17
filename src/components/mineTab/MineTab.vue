@@ -90,7 +90,7 @@ function removeWorkerClick(e) {
             <div v-if="workerToAssign.worker != null">
                 <b-field label="Resource">
                     <b-select placeholder="Resource" @input="setResource" v-model="resourceToAssign.resource">
-                        <option v-for="i in mines.getUnlockResources" :value="i.id">{{ i.name }}</option>
+                        <option v-for="i in mines.getUnlockedResources" :value="i.id">{{ i.name }}</option>
                     </b-select>
                 </b-field>
             </div>

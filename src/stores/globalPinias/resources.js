@@ -100,7 +100,7 @@ export const useResourcesStore = defineStore("resources", {
                 }
 
                 if (unlocked) {
-                    return childPinia.getUnlockResources(properties);
+                    return childPinia.getUnlockedResources(properties);
                 }
                 else {
                     return childPinia.getResourcesByProperties(properties);

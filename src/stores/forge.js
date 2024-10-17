@@ -91,12 +91,11 @@ export const useForgeStore = defineStore("forge", {
         getResourcePerSec(state) {
             return (id) => state.resources[id].perSec;
         },
-        getUnlockResources(state) {
+        getUnlockedResources(state) {
+            //doing same cheat as mines here for now - fix once actual resource unlocks are implemented
             const returnArray = [];
             for (var i in state.resources) {
-                if (state.resources[i].unlockCondition()) {
                     returnArray.push(state.resources[i]);
-                }
             }
             return returnArray;
         },

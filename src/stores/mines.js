@@ -130,7 +130,7 @@ export const useMinesStore = defineStore("mines", {
         getResourceConsumedPerSec(state) {
             return (id) => state.resources[id].consumedPerSec;
         },
-        getUnlockResources(state) {
+        getUnlockedResources(state) {
             const returnArray = [];
             for (var i in state.resources) {
                 returnArray.push(state.resources[i]);
