@@ -10,6 +10,6 @@
         "scavenge": {"id": "scavenge", "name": "Scavenge", "store": "mines", "properties": {"neverShown": true}}
     },
     "forge": {
-        "copperBars": {"id": "copperBars", "name": "Copper Bars", "store": "forge", "properties": {"costs": {"copper": 10}, "smeltingCost": 1000}}
+        "copperBars": {"id": "copperBars", "name": "Copper Bars", "store": "forge", "properties": {"costs": {"copper": 10}, "smeltingCost": 1000, "noPerSec": true}}
     }
 }
