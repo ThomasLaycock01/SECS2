@@ -131,7 +131,14 @@ export const useMinesStore = defineStore("mines", {
             return (id) => state.resources[id].consumedPerSec;
         },
         getUnlockResources(state) {
-            return (properties = null) => {
+            const returnArray = [];
+            for (var i in state.resources) {
+                returnArray.push(state.resources[i]);
+            }
+
+            return returnArray;
+            //kind cheating here, but for now this will just return everything
+            /*return (properties = null) => {
                 const returnArray = [];
 
                 for (var i in state.resources) {
@@ -150,7 +157,7 @@ export const useMinesStore = defineStore("mines", {
                 }
 
                 return returnArray;
-            }
+            }*/
         },
         getResourcesByProperties(state) {
             return (properties) => {
