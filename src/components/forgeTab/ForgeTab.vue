@@ -12,16 +12,16 @@ const forge = useForgeStore();
 const cultists = useCultistsStore();
 
 
-var barToAdd = reactive({bar: null, amount: null});
+var smeltingTab = reactive({bar: null, amount: null});
 var smithingTab = reactive({metal: null, selecteditem: null});
 
 
 
 function addToSmeltingQueue() {
-    forge.addToSmeltingQueue(barToAdd.bar, barToAdd.amount);
+    forge.addToSmeltingQueue(smeltingTab.bar, smeltingTab.amount);
 
-    barToAdd.bar = null;
-    barToAdd.amount = null;
+    smeltingTab.bar = null;
+    smeltingTab.amount = null;
 }
 
 function setSmelter(e) {
@@ -78,25 +78,25 @@ function craftItem() {
                 <div class="inline-blockContainer">
                     <div>
                         <b-field label="Add To Queue">
-                            <b-select placeholder="Metal" v-model="barToAdd.bar">
+                            <b-select placeholder="Metal" v-model="smeltingTab.bar">
                                 <option v-for="i in forge.getUnlockedResources" :value="i.id">{{ i.name }}</option>
                             </b-select>
                         </b-field>
                     </div>
-                    <div v-if="barToAdd.bar != null">
+                    <div v-if="smeltingTab.bar != null">
                         <b-field>
-                            <b-input placeholder="Amount" type="number" min="0" v-model="barToAdd.amount"/>
+                            <b-input placeholder="Amount" type="number" min="0" v-model="smeltingTab.amount"/>
                         </b-field>
                     </div>
                 </div>
-                <div v-if="barToAdd.amount != 0 && barToAdd.amount">
-                    Ordering {{ barToAdd.Amount }} {{ forge.getResourceName(barToAdd.bar) }}(s) would cost:
-                    <div v-for="value, key in forge.getResourceCosts(barToAdd.bar)">
-                        {{ value * barToAdd.amount }} {{ key }}
+                <div v-if="smeltingTab.amount != 0 && smeltingTab.amount">
+                    Ordering {{ smeltingTab.Amount }} {{ forge.getResourceName(smeltingTab.bar) }}(s) would cost:
+                    <div v-for="value, key in forge.getResourceCosts(smeltingTab.bar)">
+                        {{ value * smeltingTab.amount }} {{ key }}
                     </div>
                     <br>
                     <div>
-                        <button class="button is-dark mb-1 mr-2" @click="addToSmeltingQueue" :disabled="!forge.CheckIfCanAffordOrder(barToAdd.bar, barToAdd.amount)">Assign!</button>
+                        <button class="button is-dark mb-1 mr-2" @click="addToSmeltingQueue" :disabled="!forge.CheckIfCanAffordOrder(smeltingTab.bar, smeltingTab.amount)">Assign!</button>
                     </div>
                 </div>
                 <div v-if="forge.getQueue('smelter').length > 0">
