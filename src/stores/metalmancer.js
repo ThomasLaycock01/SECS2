@@ -53,6 +53,9 @@ export const useMetalmancerStore = defineStore("metalmancer", {
                         iron: 500,
                         copper: 250,
                         stone: 125
+                    },
+                    gold: {
+                        gold: 4000
                     }
                 }
             }
