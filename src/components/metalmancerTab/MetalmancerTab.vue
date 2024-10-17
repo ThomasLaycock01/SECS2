@@ -74,5 +74,15 @@ function createGolemClick() {
         </ul>
         <button class="button is-dark" @click="createGolemClick" :disabled="!cultists.checkCultistSpace() || !resources.checkIfCanAfford(metalmancer.getGolemCosts(golemCreation.metal))">Create!</button>
     </div>
+    <div v-if="metalmancer.getSummoningQueue.length > 0">
+        <div>Currently Summoning: {{ metalmancer.getCurrentSummoning.golemType }}</div>
+        <div>Current Progress: {{ metalmancer.getCurrentSummoningPercentage }}%</div>
+        <div>
+            Queue:
+        </div>
+        <div v-for="i in metalmancer.getSummoningQueue">
+            {{i.golemType}}
+        </div>
+    </div>
 
 </template>

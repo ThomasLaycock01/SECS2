@@ -77,11 +77,24 @@ export const useMetalmancerStore = defineStore("metalmancer", {
 
             return returnArray;
         },
+        //queues
+        getSummoningQueue(state) {
+            return state.queues.summoning;
+        },
+        getCurrentSummoning(state) {
+            return state.queues.summoning[0];
+        },
+        getCurrentSummoningPercentage() {
+            return this.getCurrentSummoningProgress / this.getCurrentSummoning.summonCost * 100;
+        },
         //misc
         getGolemCosts(state) {
             return (resource) => {
                 return state.misc.golemCosts[resource];
             }
+        },
+        getCurrentSummoningProgress(state) {
+            return state.misc.currentSummoningProgress;
         }
     },
     actions: {
