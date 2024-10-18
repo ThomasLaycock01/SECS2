@@ -154,52 +154,34 @@ export class Cultist {
         return (this.getLevel() - 1) * 0.1
     }
 
-    getGlobalModifiers(job, incLevel = true) {
+    getModifiers(type, altType = null, incLevel = true) {
         var modVal = 0;
 
         for (var i in this.getEquipment()) {
             if (this.getEquipment()[i]) {
-                for (var j in this.getEquipment()[i].getModifiersByJob(job, "global")) {
-                    modVal += this.getEquipment()[i].getModifiersByJob(job, "global")[j]["modifier"];
+                for (var j in this.getEquipment()[i].getModifiersByType(type, altType)) {
+                    modVal += this.getEquipment()[i].getModifiersByType(type, altType)[j]["modifier"];
                 }
             }
         }
         
         for (var i in this.getPerks()) {
             for (var j in this.getPerks()[i]["modifiers"]) {
-                if (this.getPerks()[i]["modifiers"][j]["type"] == "global" && this.getPerks()[i]["modifiers"][j]["job"] == job) {
-                    modVal += this.getPerks()[i]["modifiers"][j]["modifier"];
-                }
-            }
-        }
-
-        //adding the levelMod
-        if (incLevel) {
-            modVal += this.getLevelModifier();
-        }
-
-        return modVal;
-    }
-
-    getModifiersByType(job, type, incLevel = false) {
-        var modVal = 0;
-
-        for (var i in this.getEquipment()) {
-            if (this.getEquipment()[i]) {
-                for (var j in this.getEquipment()[i].getModifiersByJob(job, type)) {
-                    modVal += this.getEquipment()[i].getModifiersByJob(job, type)[j]["modifier"];
+                if (this.getPerks()[i]["modifiers"][j]["type"] == type || this.getPerks()[i]["modifiers"][j]["type"] == "global") {
+                    if (altType) {
+                        if (this.getPerks()[i]["modifiers"][j]["altType"] == altType || !this.getPerks()[i]["modifiers"][j]["altType"]) {
+                            modVal += this.getPerks()[i]["modifiers"][j]["modifier"];
+                        }
+                    }
+                    else {
+                        if (!this.getPerks()[i]["modifiers"][j]["altType"]) {
+                            modVal += this.getPerks()[i]["modifiers"][j]["modifier"];
+                        }
+                    }
                 }
             }
         }
         
-        for (var i in this.getPerks()) {
-            for (var j in this.getPerks()[i]["modifiers"]) {
-                if (this.getPerks()[i]["modifiers"][j]["type"] == type && this.getPerks()[i]["modifiers"][j]["job"] == job) {
-                    modVal += this.getPerks()[i]["modifiers"][j]["modifier"];
-                }
-            }
-        }
-
         //adding the levelMod
         if (incLevel) {
             modVal += this.getLevelModifier();

@@ -139,7 +139,7 @@ export const useMetalmancerStore = defineStore("metalmancer", {
 
             for (var i in this.workers.metalmancer) {
                 const cultist = cultists.getCultistById(this.workers.metalmancer[i]);
-                totalMod += cultist.getGlobalModifiers("metalmancer")
+                totalMod += cultist.getModifiers("metalmancer")
             }
 
             return totalMod;

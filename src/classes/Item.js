@@ -38,11 +38,20 @@ export class Item {
         return this.modifiers;
     }
 
-    getModifiersByJob(job, type) {
+    getModifiersByType(type, altType = null) {
         const returnArray = [];
         for (var i in this.getModifiers()) {
-            if (this.getModifiers()[i].job == job && this.getModifiers()[i].type == type) {
-                returnArray.push(this.modifiers[i]);
+            if (this.getModifiers()[i].type == type || this.getModifiers()[i].type == "global") {
+                if (altType) {
+                    if (this.getModifiers()[i].altType == altType || !this.getModifiers()[i].altType) {
+                        returnArray.push(this.getModifiers()[i]);
+                    }
+                }
+                else {
+                    if (!this.getModifiers()[i].altType) {
+                        returnArray.push(this.getModifiers()[i]);
+                    }
+                }
             }
         }
         return returnArray;

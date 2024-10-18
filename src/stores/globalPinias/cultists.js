@@ -57,7 +57,7 @@ export const useCultistsStore = defineStore("cultists", {
             //calculating evilness
             var evilnessOutput = 0;
             for (var i in this.regularCultists) {
-                evilnessOutput += 1 * (1 + this.regularCultists[i].getGlobalModifiers("evilness"));
+                evilnessOutput += 1 * (1 + this.regularCultists[i].getModifiers("evilness"));
             }
 
             resources.setResourcePerSec("evilness", evilnessOutput);

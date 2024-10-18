@@ -232,7 +232,7 @@ export const useMinesStore = defineStore("mines", {
                     if (this.getWorkerArray[j].resource == i) {
                         const cultist = cultists.getCultistById(this.getWorkerArray[j].id);
                         //output 
-                        const cultistMod = cultist.getGlobalModifiers("mineWorker") + cultist.getModifiersByType("mineWorker", i);
+                        const cultistMod = cultist.getModifiers("mineWorker", i);
                         const buildingMod = buildings.getGlobalBuildingJobModifier("mineWorker") + buildings.getSpecificBuildingJobModifier("mineWorker", i);
                         const finalMod = 1 + cultistMod + buildingMod;
 
@@ -313,7 +313,7 @@ export const useMinesStore = defineStore("mines", {
                 return 0.5;
             }
 
-            return overseer.getGlobalModifiers("mineOverseer") + 1;
+            return overseer.getModifiers("mineOverseer") + 1;
         },
         addWorker(obj) {
             this.workers.workerArray.push(obj);

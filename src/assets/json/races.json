@@ -1,7 +1,7 @@
 {
     "human": {"id":"human", "name": "Human", "racialModifier":{"type": "xpGain", "modifier": 0.5}, "type": "recruited", "recruitCosts": {"gold": 20}},
-    "stoneGolem": {"id": "stoneGolem", "name": "Stone Golem", "racialModifier": {"job": "mineWorker", "type": "stone", "modifier": 0.3}, "type": "summon", "summonCosts": {"stone": 500}},
-    "copperGolem": {"id": "copperGolem", "name": "Copper Golem", "racialModifier": {"job": "mineWorker", "type": "copper", "modifier": 0.3}, "type": "summon", "summonCosts": {"copper": 500}},
-    "ironGolem": {"id": "ironGolem", "name": "Iron Golem", "racialModifier": {"job": "mineWorker", "type": "iron", "modifier": 0.3}, "type": "summon", "summonCosts": {"iron": 500}},
-    "goldGolem": {"id": "goldGolem", "name": "Gold Golem", "racialModifier": {"job": "mineWorker", "type": "gold", "modifier": 0.3}, "type": "summon", "summonCosts": {"gold": 500}}
+    "stoneGolem": {"id": "stoneGolem", "name": "Stone Golem", "racialModifier": {"type": "mineWorker", "altType": "stone", "modifier": 0.3}, "type": "summon", "summonCosts": {"stone": 500}},
+    "copperGolem": {"id": "copperGolem", "name": "Copper Golem", "racialModifier": {"type": "mineWorker", "altType": "copper", "modifier": 0.3}, "type": "summon", "summonCosts": {"copper": 500}},
+    "ironGolem": {"id": "ironGolem", "name": "Iron Golem", "racialModifier": {"type": "mineWorker", "altType": "iron", "modifier": 0.3}, "type": "summon", "summonCosts": {"iron": 500}},
+    "goldGolem": {"id": "goldGolem", "name": "Gold Golem", "racialModifier": {"type": "mineWorker", "altType": "gold", "modifier": 0.3}, "type": "summon", "summonCosts": {"gold": 500}}
 }
