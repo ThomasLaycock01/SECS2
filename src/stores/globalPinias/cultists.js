@@ -3,11 +3,14 @@ import {defineStore} from "pinia";
 import { useResourcesStore } from "./resources";
 import { useBuildingsStore } from "./buildings";
 
+import races from "@/assets/json/races.json";
+
 export const useCultistsStore = defineStore("cultists", {
     state: () => {
         return {
             regular: [], 
             special: [],
+            races: {},
             misc : {
                 cultistLimit: 2,
                 summoning: 0,
@@ -30,6 +33,12 @@ export const useCultistsStore = defineStore("cultists", {
         },
         getEmployed(state) {
             return state.regular.filter((cultist) => cultist.getJob() != null);
+        },
+        //races
+        getRaceTemplate(state) {
+            return (raceId) => {
+                return state.races[raceId];
+            }
         },
         //misc
         getCultistLimit(state) {
@@ -96,6 +105,10 @@ export const useCultistsStore = defineStore("cultists", {
         },
         removeSummoning() {
             this.summoning--;
+        },
+        //races
+        instantiateRaces() {
+            this.races = races;
         }
     }
 });

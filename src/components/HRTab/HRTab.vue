@@ -125,7 +125,7 @@ function assignPerk(e) {
             <!--Cultist screen - appears when a cultist is selected-->
             <div v-else-if="activeCultist.cultist">
                 <div class="title is-5 mb-1 segment-title">{{ activeCultist.cultist.getName() }}</div>
-                <div>{{ activeCultist.cultist.getSpecies() }}</div>
+                <div>{{ activeCultist.cultist.getRace() }}</div>
                 <div>{{activeCultist.cultist.getJob() ? activeCultist.cultist.getJob() : "Unemployed"}}</div>
                 <div>Level {{ activeCultist.cultist.getLevel() }} / {{ activeCultist.cultist.getLevelLimit() }}</div>
                 <div>{{ activeCultist.cultist.getXp() }} / {{ activeCultist.cultist.getXpNeeded() }}</div>

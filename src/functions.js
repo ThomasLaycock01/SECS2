@@ -47,7 +47,7 @@ export function deserializeCultist(obj) {
 }
 
 //creating new cultists
-export function addCultist(species) {
+export function addCultist(race) {
     const cultists = useCultistsStore();
 
     var id = cultists.numOfCultists;
@@ -58,7 +58,11 @@ export function addCultist(species) {
 
     const name = "cultist " + id;
 
-    const cultist = createCultist(id, name, species)
+    const raceTemplate = cultists.getRaceTemplate(race);
+
+    console.log(raceTemplate);
+
+    const cultist = createCultist(id, name, raceTemplate)
 
     cultists.addCultist(cultist);
     

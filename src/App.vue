@@ -41,15 +41,18 @@ const expansions = useExpansionsStore();
 </template>
 
 <script>
-
 import { tick, instantiateResources, instantiateItems, instantiateBuildings } from "./functions";
+
+import { useCultistsStore } from "./stores/globalPinias/cultists";
 
 export default {
   data() {
     return {activeTab: 0}
   },
   beforeCreate() {
+    const cultists = useCultistsStore();
     instantiateResources();
+    cultists.instantiateRaces();
     instantiateItems();
     instantiateBuildings();
   },
