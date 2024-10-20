@@ -34,9 +34,21 @@ export const useForgeStore = defineStore("forge", {
                     }
                 }
             },
-            workers: {
-                smelter: null,
-                smith: null
+            jobs: {
+                smelter: {
+                    id: "smelter",
+                    cultistArray: [],
+                    name: "Smelter",
+                    xpOutput: 2,
+                    limit: 2
+                },
+                smith: {
+                    id: "smith",
+                    cultistArray: [],
+                    name: "Blacksmith",
+                    xpOutput: 3,
+                    limit: 1
+                }
             },
             resources: {
             },
@@ -209,28 +221,25 @@ export const useForgeStore = defineStore("forge", {
             this.resources[resource].perSec = amount;
         },
         //workers
-        assignOther(cultistId, jobId) {
-            switch (jobId) {
-                case "smelter":
-                    this.workers.smelter = cultistId;
-                    return this.misc.smelterJobName;
-                case "smith":
-                    this.workers.smith = cultistId;
-                    return this.misc.smithJobName;
-                default:
-                    console.log("something went wrong in forge.assignOther")
+        addToJob(jobId, cultistId = null, obj = null) {
+            const job = this.getJobObject(jobId);
+
+            if (job.isUnique) {
+                this.jobs[jobId].cultistId = cultistId;
+            }
+            else {
+                this.jobs[jobId].cultistArray.push(obj);
             }
         },
-        removeOther(jobId) {
-            switch (jobId) {
-                case "smelter":
-                    this.workers.smelter = null;
-                    break;
-                case "smith":
-                    this.workers.smith = null;
-                    break;
-                default:
-                    console.log("something went wrong in forge.removeOther")
+        removeFromJob(jobId, cultistId = null) {
+            if (!cultistId) {
+                const cultists = useCultistsStore();
+                const cultist = cultists.getCultistById(this.jobs[jobId].cultistId);
+                cultist.removeJob();
+                this.jobs[jobId].cultistId = null;
+            }
+            else {
+                this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(obj => obj.cultistId != cultistId);
             }
         },
         getSmelterModifier() {

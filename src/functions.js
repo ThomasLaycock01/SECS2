@@ -108,6 +108,7 @@ export function addCultistToJob(piniaObject, jobId, cultistId = null, cultistObj
 
 }
 
+//removing cultists from a job
 export function removeCultistFromJob(piniaObject, jobId, cultistId = null) {    
     if (cultistId) {
         const cultists = useCultistsStore();
@@ -119,29 +120,9 @@ export function removeCultistFromJob(piniaObject, jobId, cultistId = null) {
 }
 
 
-export function addCultistToWorkerJob(obj, piniaObject) {
-    const cultists = useCultistsStore();
 
-    const cultist = cultists.getCultistById(obj.id)
 
-    piniaObject.addWorker(obj);
 
-    const jobName = piniaObject.getWorkerJobName;
-
-    cultist.setJob(jobName);
-}
-
-export function addCultistToOverseerJob(cultistId, piniaObject) {
-    const cultists = useCultistsStore();
-
-    piniaObject.assignOverseer(cultistId);
-
-    const jobName = piniaObject.getOverseerJobName;
-
-    const cultist = cultists.getCultistById(cultistId);
-
-    cultist.setJob(jobName);
-}
 
 export function addCultistToOtherJob(cultistId, piniaObject, jobId) {
     const cultists = useCultistsStore();
@@ -170,24 +151,7 @@ export function removeCultistFromOtherJob(piniaObject, jobId, cultistId, isJobUn
 }
 
 
-//removing cultists from a job/an overseer job
-export function removeCultistFromOverseerJob(piniaObject) {
-    const cultist = piniaObject.getOverseer;
 
-    cultist.removeJob();
-
-    piniaObject.removeOverseer();
-}
-
-export function removeCultistFromWorkerJob(cultistId, piniaObject) {
-    const cultists = useCultistsStore();
-
-    const cultist = cultists.getCultistById(cultistId);
-
-    cultist.removeJob();
-
-    piniaObject.removeWorker(cultistId);
-}
 
 //firing a cultist
 export function fireCultist(cultistId) {

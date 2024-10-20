@@ -344,9 +344,6 @@ export const useMinesStore = defineStore("mines", {
                 this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(obj => obj.cultistId != cultistId);
             }
         },
-        removeOverseer() {
-            this.workers.overseer = null;
-        },
         getOverseerModifier() {
             const overseer = this.getOverseer;
             if (overseer == null) {
@@ -354,9 +351,6 @@ export const useMinesStore = defineStore("mines", {
             }
 
             return overseer.getModifiers("mineOverseer") + 1;
-        },
-        removeWorker(cultistId) {
-            this.workers.workerArray = this.workers.workerArray.filter((obj) => obj.id != cultistId);
         },
         //buildings
         buildBuilding(buildingId) {

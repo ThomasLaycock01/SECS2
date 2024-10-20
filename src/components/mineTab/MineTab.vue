@@ -3,7 +3,7 @@ import { reactive } from 'vue';
 
 import ActionList from '../ActionList.vue';
 
-import { addCultistToJob, removeCultistFromJob, addCultistToOverseerJob, addCultistToWorkerJob, removeCultistFromOverseerJob, removeCultistFromWorkerJob } from '@/functions';
+import { addCultistToJob, removeCultistFromJob } from '@/functions';
 
 import { useMinesStore } from '@/stores/mines';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
