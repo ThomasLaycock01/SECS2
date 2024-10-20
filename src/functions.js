@@ -87,7 +87,38 @@ export function endSummoning(species) {
     addCultist(species);
 }
 
-//adding cultists to a job/an overseer job
+//adding cultists to a job
+export function addCultistToJob(piniaObject, jobId, cultistId = null, cultistObj = null) {
+    const cultists = useCultistsStore();
+
+    if (cultistId) {
+        const cultist = cultists.getCultistById(cultistId);
+        cultist.setJob(piniaObject.getJobName(jobId));
+    }
+    else if (cultistObj) {
+        const cultist = cultists.getCultistById(cultistObj.cultistId);
+        cultist.setJob(piniaObject.getJobName(jobId));
+    }
+    else {
+        console.log("error in addToJob - needs either obj or cultistId");
+        return;
+    }
+
+    piniaObject.addToJob(jobId, cultistId, cultistObj);
+
+}
+
+export function removeCultistFromJob(piniaObject, jobId, cultistId = null) {    
+    if (cultistId) {
+        const cultists = useCultistsStore();
+        const cultist = cultists.getCultistById(cultistId);
+        cultist.removeJob();
+    }
+    
+    piniaObject.removeFromJob(jobId, cultistId);
+}
+
+
 export function addCultistToWorkerJob(obj, piniaObject) {
     const cultists = useCultistsStore();
 

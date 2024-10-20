@@ -3,7 +3,7 @@ import { reactive } from 'vue';
 
 import ActionList from '../ActionList.vue';
 
-import { addCultistToOverseerJob, addCultistToWorkerJob, removeCultistFromOverseerJob, removeCultistFromWorkerJob } from '@/functions';
+import { addCultistToJob, removeCultistFromJob, addCultistToOverseerJob, addCultistToWorkerJob, removeCultistFromOverseerJob, removeCultistFromWorkerJob } from '@/functions';
 
 import { useMinesStore } from '@/stores/mines';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
@@ -15,26 +15,26 @@ var workerAssigning = reactive({worker: null, resource: null});
 
 function assignWorker() {
     const obj = {
-        id: workerAssigning.worker,
+        cultistId: workerAssigning.worker,
         resource: workerAssigning.resource
     }
     
-    addCultistToWorkerJob(obj, mines);
+    addCultistToJob(mines, "mineWorker", null, obj);
 
     workerAssigning.worker = null;
     workerAssigning.resource = null;
 }
 
 function setOverseer(e) {
-    addCultistToOverseerJob(e.target.value, mines)
+    addCultistToJob(mines, "mineOverseer", e.target.value);
 }
 
 function removeOverseerClick() {
-    removeCultistFromOverseerJob(mines)
+    removeCultistFromJob(mines, "mineOverseer");
 }
 
 function removeWorkerClick(e) {
-    removeCultistFromWorkerJob(e.target.value, mines)
+    removeCultistFromJob(mines, "mineWorker", e.target.value);
 }
 </script>
 
@@ -91,9 +91,9 @@ function removeWorkerClick(e) {
         <!--Displaying workers already working-->
         <div>
             <div v-for="i in mines.getWorkerArray">
-                <div>{{ cultists.getCultistById(i.id).getName() }} - Lvl {{ cultists.getCultistById(i.id).getLevel() }} - {{ i.resource == "scavenge" ? "Scavenging" : `Mining ${i. resource}` }}</div>
+                <div>{{ cultists.getCultistById(i.cultistId).getName() }} - Lvl {{ cultists.getCultistById(i.cultistId).getLevel() }} - {{ i.resource == "scavenge" ? "Scavenging" : `Mining ${i.resource}` }}</div>
                 <button class="button is-small is-info">Switch resource</button>
-                <button class="button is-small is-danger" :value="i.id" @click="removeWorkerClick">Remove</button></div>
+                <button class="button is-small is-danger" :value="i.cultistId" @click="removeWorkerClick">Remove</button></div>
         </div>
     </div>
 
