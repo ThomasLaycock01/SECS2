@@ -182,6 +182,8 @@ export const useMetalmancerStore = defineStore("metalmancer", {
         },
         //queues
         summonGolem(type) {
+            const cultists = useCultistsStore();
+            const resources = useResourcesStore();
 
             beginSummoning();
 
@@ -191,6 +193,10 @@ export const useMetalmancerStore = defineStore("metalmancer", {
             };
 
             this.queues.summoning.push(queueObj);
+
+            const costs = cultists.getRaceCosts(type);
+
+            resources.removeResources(costs);
 
         },
         endSummonGolem() {
