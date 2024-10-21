@@ -150,11 +150,11 @@ export class Cultist {
         this.decrementPerkPoint();
     }
 
-    getLevelModifier() {
-        return (this.getLevel() - 1) * 0.1
+    getLevelModifier(levelMod) {
+        return (this.getLevel() - 1) * levelMod;
     }
 
-    getModifiers(type, altType = null, incLevel = true) {
+    getModifiers(type, altType = null, levelMod = 0) {
         var modVal = 0;
 
         for (var i in this.getEquipment()) {
@@ -183,8 +183,8 @@ export class Cultist {
         }
         
         //adding the levelMod
-        if (incLevel) {
-            modVal += this.getLevelModifier();
+        if (levelMod) {
+            modVal += this.getLevelModifier(levelMod);
         }
 
         return modVal;
