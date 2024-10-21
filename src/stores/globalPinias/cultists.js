@@ -55,10 +55,10 @@ export const useCultistsStore = defineStore("cultists", {
                 return state.races[race].costs;
             }
         },
-        checkIfHasRace(state) {
-            return (race) => {
+        checkIfHasRacialGroup(state) {
+            return (racialGroup) => {
                 for (var i in state.regular) {
-                    if (state.regular[i].getRace() == race) {
+                    if (state.regular[i].getRacialGroup() == racialGroup) {
                         return true;
                     }
                 }

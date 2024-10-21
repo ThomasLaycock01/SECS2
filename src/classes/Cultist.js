@@ -9,7 +9,9 @@ export class Cultist {
         this.xpIncrement = xpIncrement;
         this.levelLimit = levelLimit;
         
-        this.race = raceTemplate.name;
+        this.raceId = raceTemplate.id;
+        this.raceName = raceTemplate.name;
+        this.racialGroup = raceTemplate.racialGroup;
         this.racialModifier = raceTemplate.racialModifier;
 
         this.perks = perks;
@@ -50,8 +52,16 @@ export class Cultist {
         return this.levelLimit;
     }
 
-    getRace() {
-        return this.race;
+    getRaceId() {
+        return this.raceId;
+    }
+
+    getRaceName() {
+        return this.raceName;
+    }
+
+    getRacialGroup() {
+        return this.racialGroup;
     }
 
     getEquipment() {

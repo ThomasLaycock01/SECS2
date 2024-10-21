@@ -130,7 +130,7 @@ export const useMetalmancerStore = defineStore("metalmancer", {
                 }
             }
 
-            if (cultists.checkIfHasRace("golem")) {
+            if (cultists.checkIfHasRacialGroup("golem")) {
                 for (var i in this.getMetalmancerArray) {
                     const cultist = cultists.getCultistById(this.getMetalmancerArray[i]);
                     cultist.addXp(this.getXpAmount("metalmancer") / 2);
