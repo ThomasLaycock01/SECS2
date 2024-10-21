@@ -13,7 +13,7 @@ const cultists = useCultistsStore();
 
 
 var smeltingTab = reactive({smelterToAssign: null, bar: null, amount: null});
-var smithingTab = reactive({metal: null, selecteditem: null});
+var smithingTab = reactive({smithToAssign: null, metal: null, selecteditem: null});
 
 
 
@@ -24,7 +24,7 @@ function addToSmeltingQueue() {
     smeltingTab.amount = null;
 }
 
-function assignSmelter(e) {
+function assignSmelter() {
     addCultistToJob(forge, "smelter", smeltingTab.smelterToAssign);
 
     smeltingTab.smelterToAssign = null;
@@ -34,12 +34,14 @@ function removeSmelter(e) {
     removeCultistFromJob(forge, "smelter", e.target.value);
 }
 
-function setSmith(e) {
-    addCultistToJob(forge, "smith", e.target.value);
+function assignSmith() {
+    addCultistToJob(forge, "smith", smithingTab.smithToAssign);
+
+    smithingTab.smithToAssign = null;
 }
 
-function removeSmith() {
-    removeCultistFromJob(forge, "smelter", e.target.value);
+function removeSmith(e) {
+    removeCultistFromJob(forge, "smith", e.target.value);
 }
 
 function setSelectedItem(item) {
@@ -128,13 +130,13 @@ function craftItem() {
                         </div>
                     </div>
                 </div>
-                <div >
-                    You need a cultist assigned to smithing to refine bars into items!
+                <div>
                     <b-field label="Assign Smith">
-                        <b-select placeholder="Cultist" value="" @input="setSmith" :disabled="!cultists.checkUnemployed()">
+                        <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed()" v-model="smithingTab.smithToAssign">
                             <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
                         </b-select>
                     </b-field>
+                    <button v-if="smithingTab.smithToAssign != null" class="button is-dark" @click="assignSmith">Assign</button>
                 </div>
                 <div v-if="forge.getQueue('smith').length > 0">
                     <div>Currently Smithing: {{ forge.getCurrentSmithingItem.name }}</div>
