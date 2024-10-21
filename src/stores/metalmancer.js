@@ -91,6 +91,16 @@ export const useMetalmancerStore = defineStore("metalmancer", {
                 return state.jobs[jobId].xpOutput;
             }
         },
+        getJobLimit(state) {
+            return (jobId) => {
+                return state.jobs[jobId].limit;
+            }
+        },
+        checkIfJobHasSpace(state) {
+            return (jobId) => {
+                return state.jobs[jobId].cultistArray.length < state.jobs[jobId].limit;
+            }
+        },
         //queues
         getSummoningQueue(state) {
             return state.queues.summoning;
