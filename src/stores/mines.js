@@ -192,11 +192,10 @@ export const useMinesStore = defineStore("mines", {
         getNumOfWorkers(state) {
             return state.jobs.mineWorker.cultistArray.length;
         },
-        getWorkerXpAmount(state) {
-            return state.jobs.mineWorker.xpOutput;
-        },
-        getOverseerXpAmount(state) {
-            return state.jobs.mineOverseer.xpOutput;
+        getXpAmount(state) {
+            return (jobId) => {
+                return state.jobs[jobId].xpOutput;
+            }
         },
         //items
         getItems(state) {
@@ -245,12 +244,12 @@ export const useMinesStore = defineStore("mines", {
             //adding XP
             for (var i in this.getWorkerArray) {
                 const cultist = cultists.getCultistById(this.getWorkerArray[i].cultistId);
-                cultist.addXp(this.getWorkerXpAmount);
+                cultist.addXp(this.getXpAmount("mineWorker"));
             }
 
             if (this.getOverseer && this.getNumOfWorkers > 0) {
                 const overseer = this.getOverseer;
-                overseer.addXp(this.getOverseerXpAmount);
+                overseer.addXp(this.getXpAmount("mineOverseer"));
             }
 
         },
