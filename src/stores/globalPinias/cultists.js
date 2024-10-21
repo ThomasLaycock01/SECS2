@@ -67,8 +67,7 @@ export const useCultistsStore = defineStore("cultists", {
             }
 
             resources.setResourcePerSec("evilness", evilnessOutput);
-            resources.updateResourceOnTick("evilness");
-
+            resources.updateResources();
         },
         addCultist(cultist) {
             this.regular.push(cultist);

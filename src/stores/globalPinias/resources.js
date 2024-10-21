@@ -104,7 +104,7 @@ export const useResourcesStore = defineStore("resources", {
 
             return returnObj;
         },
-        getChildPiniaByid(state) {
+        getChildPiniaById(state) {
             return (piniaId) => {
                 console.log(piniaId);
                 for (var i in state.childPinias) {
@@ -143,7 +143,10 @@ export const useResourcesStore = defineStore("resources", {
         setResourcePerSec(type, value) {
             this.resources[type].perSec = value;
         },
-        updateResourceOnTick(type) {
+        updateResources() {
+            for (var i in this.resources) {
+                this.modifyResource(i, this.resources[i].perSec)
+            }
             this.resources[type].total += this.resources[type].perSec;
         },
         removeResources(obj) {
@@ -190,7 +193,7 @@ export const useResourcesStore = defineStore("resources", {
                         this.resources[j] = instantiateResource(resources[i][j]);
                     }
                     else {
-                        const pinia = this.getChildPiniaByid(i);
+                        const pinia = this.getChildPiniaById(i);
                         pinia.instantiateResource(instantiateResource(resources[i][j]));
                         this.addToChildPiniaArray(i, resources[i][j].id);
                     }
