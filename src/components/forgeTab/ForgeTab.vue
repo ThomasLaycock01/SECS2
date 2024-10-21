@@ -12,7 +12,7 @@ const forge = useForgeStore();
 const cultists = useCultistsStore();
 
 
-var smeltingTab = reactive({bar: null, amount: null});
+var smeltingTab = reactive({smelterToAssign: null, bar: null, amount: null});
 var smithingTab = reactive({metal: null, selecteditem: null});
 
 
@@ -24,8 +24,10 @@ function addToSmeltingQueue() {
     smeltingTab.amount = null;
 }
 
-function setSmelter(e) {
-    addCultistToJob(forge, "smelter", e.target.value);
+function assignSmelter(e) {
+    addCultistToJob(forge, "smelter", smeltingTab.smelterToAssign);
+
+    smeltingTab.smelterToAssign = null;
 }
 
 function removeSmelter(e) {
@@ -73,10 +75,11 @@ function craftItem() {
                 <div>
                     You need a cultist assigned to smelting to refine metal into bars!
                     <b-field label="Assign Smelter">
-                        <b-select placeholder="Cultist" value="" @input="setSmelter" :disabled="!cultists.checkUnemployed()">
+                        <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed()" v-model="smeltingTab.smelterToAssign">
                             <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
                         </b-select>
                     </b-field>
+                    <button v-if="smeltingTab.smelterToAssign != null" class="button is-dark" @click="assignSmelter">Assign</button>
                 </div>
                 <!--The display for adding a to smelting queue-->
                 <div class="inline-blockContainer">

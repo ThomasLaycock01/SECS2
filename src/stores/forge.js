@@ -227,7 +227,7 @@ export const useForgeStore = defineStore("forge", {
             if (job.isUnique) {
                 this.jobs[jobId].cultistId = cultistId;
             }
-            else if (cultistId) {
+            else if (cultistId != null) {
                 this.jobs[jobId].cultistArray.push(cultistId);
             }
             else {
@@ -235,8 +235,6 @@ export const useForgeStore = defineStore("forge", {
             }
         },
         removeFromJob(jobId, cultistId = null) {
-            console.log(jobId);
-            console.log(cultistId);
             if (cultistId === null) {
                 const cultists = useCultistsStore();
                 const cultist = cultists.getCultistById(this.jobs[jobId].cultistId);
@@ -244,7 +242,7 @@ export const useForgeStore = defineStore("forge", {
                 this.jobs[jobId].cultistId = null;
             }
             else {
-                this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(obj => obj.cultistId == cultistId);
+                this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(val => val != cultistId);
             }
         },
         getSmelterModifier() {

@@ -91,7 +91,7 @@ export function endSummoning(species) {
 export function addCultistToJob(piniaObject, jobId, cultistId = null, cultistObj = null) {
     const cultists = useCultistsStore();
 
-    if (cultistId) {
+    if (cultistId != null) {
         const cultist = cultists.getCultistById(cultistId);
         cultist.setJob(piniaObject.getJobName(jobId));
     }

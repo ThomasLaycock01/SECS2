@@ -329,7 +329,7 @@ export const useMinesStore = defineStore("mines", {
             if (job.isUnique) {
                 this.jobs[jobId].cultistId = cultistId;
             }
-            else if (cultistId) {
+            else if (cultistId != null) {
                 this.jobs[jobId].cultistArray.push(cultistId);
             }
             else {
@@ -344,7 +344,7 @@ export const useMinesStore = defineStore("mines", {
                 this.jobs[jobId].cultistId = null;
             }
             else {
-                this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(obj => obj.cultistId == cultistId);
+                this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(obj => obj.cultistId != cultistId);
             }
         },
         getOverseerModifier() {
