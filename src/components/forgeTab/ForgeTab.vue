@@ -65,7 +65,7 @@ function craftItem() {
         <b-tab-item label="Smelting">
             <!--Smelting-->
             <div>
-                <div class="title is-5 mb-1 segment-title">Smelting</div>
+                <div class="title is-5 mb-1 segment-title">Smelting - {{ forge.getSmelterArray.length }} / {{ forge.getJobLimit("smelter") }}</div>
                 <div v-if="forge.getSmelterArray">
                     <div v-for="i in forge.getSmelterArray">
                         <div class="inline-blockContainer">
@@ -77,7 +77,7 @@ function craftItem() {
                 <div>
                     You need a cultist assigned to smelting to refine metal into bars!
                     <b-field label="Assign Smelter">
-                        <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed()" v-model="smeltingTab.smelterToAssign">
+                        <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed() || !forge.checkIfJobHasSpace('smelter')" v-model="smeltingTab.smelterToAssign">
                             <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
                         </b-select>
                     </b-field>
@@ -121,7 +121,7 @@ function craftItem() {
         <b-tab-item label="Smithing">
             <!--Smithing-->
             <div>
-                <div class="title is-5 mb-1 segment-title">Smithing</div>
+                <div class="title is-5 mb-1 segment-title">Smithing - {{ forge.getSmithArray.length }} / {{ forge.getJobLimit("smith") }}</div>
                 <div v-if="forge.getSmithArray">
                     <div v-for="i in forge.getSmithArray">
                         <div class=inline-blockContainer>
@@ -132,7 +132,7 @@ function craftItem() {
                 </div>
                 <div>
                     <b-field label="Assign Smith">
-                        <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed()" v-model="smithingTab.smithToAssign">
+                        <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed() || !forge.checkIfJobHasSpace('smith')" v-model="smithingTab.smithToAssign">
                             <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
                         </b-select>
                     </b-field>

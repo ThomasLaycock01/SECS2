@@ -120,20 +120,24 @@ export const useForgeStore = defineStore("forge", {
             }
         },
         getSmelterArray(state) {
-            if (state.jobs.smelter.cultistArray.length < 1) {
-                return null;
-            }
             return state.jobs.smelter.cultistArray;
         },
         getSmithArray(state) {
-            if (state.jobs.smith.cultistArray.length < 1) {
-                return null;
-            }
             return state.jobs.smith.cultistArray;
         },
         getXpAmount(state) {
             return (jobId) => {
                 return state.jobs[jobId].xpOutput;
+            }
+        },
+        getJobLimit(state) {
+            return (jobId) => {
+                return state.jobs[jobId].limit;
+            }
+        },
+        checkIfJobHasSpace(state) {
+            return (jobId) => {
+                return state.jobs[jobId].cultistArray.length < state.jobs[jobId].limit;
             }
         },
         //queues
