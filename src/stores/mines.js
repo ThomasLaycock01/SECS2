@@ -230,7 +230,7 @@ export const useMinesStore = defineStore("mines", {
             const overseerMod = this.getOverseerModifier();
 
             //second - calculate output of each resource
-            for (var i in this.getResources) {
+            for (var i in this.getAll) {
                 var resourceOutput = 0;
                 for (var j in this.getWorkerArray) {
                     if (this.getWorkerArray[j].resource == i) {
