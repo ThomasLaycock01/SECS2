@@ -37,9 +37,20 @@ export const useBuildingsStore = defineStore("buildings", {
                     for (var j in state.childPinias[i].buildings) {
                         const buildingId = state.childPinias[i].buildings[j];
                         for (var k in state.buildings[i][buildingId].modifiers) {
-                            if (state.buildings[i][buildingId].modifiers[k].type == type) {
-                                const modifierObj = state.buildings[i][buildingId].modifiers[k];
-                                totalMod += modifierObj.modifier * state.getNumOfBuildings(buildingId);
+                            if (state.buildings[i][buildingId].modifiers[k].type == type || state.buildings[i][buildingId].modifiers[k].type == "global") {
+                                if (altType) {
+                                    if (state.buildings[i][buildingId].modifiers[k].altType == altType || !state.buildings[i][buildingId].modifiers[k].altType) {
+                                        const modifierObj = state.buildings[i][buildingId].modifiers[k];
+                                        totalMod += modifierObj.modifier * state.getNumOfBuildings(buildingId);
+                                    }
+                                }
+                                else {
+                                    if (!state.buildings[i][buildingId].modifiers[k].altType) {
+                                        const modifierObj = state.buildings[i][buildingId].modifiers[k];
+                                        totalMod += modifierObj.modifier * state.getNumOfBuildings(buildingId);
+                                    }
+                                }
+                                
                             }
                         }
                     }
