@@ -197,6 +197,16 @@ export const useMinesStore = defineStore("mines", {
                 return state.jobs[jobId].xpOutput;
             }
         },
+        getJobLimit(state) {
+            return (jobId) => {
+                return state.jobs[jobId].limit;
+            }
+        },
+        checkIfJobHasSpace(state) {
+            return (jobId) => {
+                return state.jobs[jobId].cultistArray.length < state.jobs[jobId].limit;
+            }
+        },
         //items
         getItems(state) {
             return state.items;

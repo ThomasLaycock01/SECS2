@@ -66,12 +66,12 @@ function removeWorkerClick(e) {
     </div>
     <!--Workers-->
     <div>
-        <div class="title is-5 mb-1 segment-title">Workers</div>
+        <div class="title is-5 mb-1 segment-title">Workers - {{ mines.getNumOfWorkers }} / {{ mines.getJobLimit("mineWorker") }}</div>
         <!--The display for adding a worker-->
         <div class="inline-blockContainer">
             <div>
                 <b-field label="Worker">
-                    <b-select placeholder="Worker" v-model="workerAssigning.worker" :disabled="!cultists.checkUnemployed()">
+                    <b-select placeholder="Worker" v-model="workerAssigning.worker" :disabled="!cultists.checkUnemployed() || !mines.checkIfJobHasSpace('mineWorker')">
                         <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
                     </b-select>
                 </b-field>
