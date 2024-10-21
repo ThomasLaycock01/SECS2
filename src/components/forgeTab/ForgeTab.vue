@@ -3,7 +3,7 @@ import { reactive } from 'vue';
 
 import ActionList from '../ActionList.vue';
 
-import { addCultistToOtherJob, removeCultistFromOtherJob } from '@/functions';
+import { addCultistToJob, removeCultistFromJob } from '@/functions';
 
 import { useForgeStore } from '@/stores/forge';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
@@ -25,19 +25,19 @@ function addToSmeltingQueue() {
 }
 
 function setSmelter(e) {
-    addCultistToOtherJob(e.target.value, forge, "smelter");
+    addCultistToJob(forge, "smelter", e.target.value);
 }
 
-function removeSmelter() {
-    removeCultistFromOtherJob(forge, "smelter", forge.getSmelter.getId())
+function removeSmelter(e) {
+    removeCultistFromJob(forge, "smelter", e.target.value);
 }
 
 function setSmith(e) {
-    addCultistToOtherJob(e.target.value, forge, "smith");
+    addCultistToJob(forge, "smith", e.target.value);
 }
 
 function removeSmith() {
-    removeCultistFromOtherJob(forge, "smith", forge.getSmith.getId())
+    removeCultistFromJob(forge, "smelter", e.target.value);
 }
 
 function setSelectedItem(item) {
@@ -62,11 +62,15 @@ function craftItem() {
             <!--Smelting-->
             <div>
                 <div class="title is-5 mb-1 segment-title">Smelting</div>
-                <div v-if="forge.getSmelter">
-                    <div>{{ forge.getSmelter.getName() }} - Currently boosting smelting speed by {{ (forge.getSmelterModifier() - 1) * 100  }}%!</div>
-                    <button type="button" class="button is-danger" @click="removeSmelter">Remove Smelter</button>
+                <div v-if="forge.getSmelterArray">
+                    <div v-for="i in forge.getSmelterArray">
+                        <div class="inline-blockContainer">
+                            <div>{{ cultists.getCultistById(i).getName() }}</div>
+                            <button class="button is-small is-danger" :value="i" @click="removeSmelter">Remove</button>
+                        </div>
+                    </div>
                 </div>
-                <div v-else>
+                <div>
                     You need a cultist assigned to smelting to refine metal into bars!
                     <b-field label="Assign Smelter">
                         <b-select placeholder="Cultist" value="" @input="setSmelter" :disabled="!cultists.checkUnemployed()">
@@ -113,11 +117,15 @@ function craftItem() {
             <!--Smithing-->
             <div>
                 <div class="title is-5 mb-1 segment-title">Smithing</div>
-                <div v-if="forge.getSmith">
-                    <div>{{ forge.getSmith.getName() }} - Currently boosting smithing speed by {{ "placeholder" }}%!</div>
-                    <button type="button" class="button is-danger" @click="removeSmith">Remove Smelter</button>
+                <div v-if="forge.getSmithArray">
+                    <div v-for="i in forge.getSmithArray">
+                        <div class=inline-blockContainer>
+                            <div>{{ cultists.getCultistById(i).getName() }}</div>
+                            <button class="button is-small is-danger" :value="i" @click="removeSmith">Remove</button>
+                        </div>
+                    </div>
                 </div>
-                <div v-else>
+                <div >
                     You need a cultist assigned to smithing to refine bars into items!
                     <b-field label="Assign Smith">
                         <b-select placeholder="Cultist" value="" @input="setSmith" :disabled="!cultists.checkUnemployed()">

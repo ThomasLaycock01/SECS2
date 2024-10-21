@@ -1,9 +1,7 @@
 import { defineStore } from "pinia";
 
 import { useResourcesStore } from "./globalPinias/resources";
-import { useExpansionsStore } from "./expansions";
 import { useCultistsStore } from "./globalPinias/cultists";
-import { useInventoryStore } from "./globalPinias/inventory";
 
 import items from "../assets/json/items.json";
 
@@ -60,8 +58,6 @@ export const useForgeStore = defineStore("forge", {
 
             },
             misc: {
-                smelterJobName: "Smelter",
-                smithJobName: "Blacksmith",
                 currentSmeltingProgress: 0,
                 currentSmithingProgress: 0
             }
@@ -115,19 +111,27 @@ export const useForgeStore = defineStore("forge", {
             return (id) => state.resources[id].properties.smeltingCost;
         },
         //workers
-        getSmelter(state) {
-            if (state.workers.smelter == null) {
-                return null;
+        getJobObject(state) {
+            return (jobId) => {
+                return state.jobs[jobId];
             }
-            const cultists = useCultistsStore();
-            return cultists.getCultistById(state.workers.smelter);
         },
-        getSmith(state) {
-            if (state.workers.smith == null) {
+        getJobName(state) {
+            return (jobId) => {
+                return state.jobs[jobId].name;
+            }
+        },
+        getSmelterArray(state) {
+            if (state.jobs.smelter.cultistArray.length < 1) {
                 return null;
             }
-            const cultists = useCultistsStore();
-            return cultists.getCultistById(state.workers.smith);
+            return state.jobs.smelter.cultistArray;
+        },
+        getSmithArray(state) {
+            if (state.jobs.smith.cultistArray.length < 1) {
+                return null;
+            }
+            return state.jobs.smith.cultistArray;
         },
         getWorkerArray(state) {
             return state.workers.workerArray;
@@ -176,6 +180,7 @@ export const useForgeStore = defineStore("forge", {
     },
     actions: {
         tick() {
+            
             const inventory = useInventoryStore();
 
             //smelting
@@ -193,7 +198,7 @@ export const useForgeStore = defineStore("forge", {
                     }
                 }
             }
-            
+            /*
             //smithing
             if (this.getCurrentSmithingItem) {
                 
@@ -206,7 +211,7 @@ export const useForgeStore = defineStore("forge", {
                     this.misc.currentSmithingProgress = 0;
                     this.queues.smithingQueue.shift();
                 }
-            }
+            }*/
         },
         //resources
         instantiateResource(resourceObj) {
@@ -226,6 +231,9 @@ export const useForgeStore = defineStore("forge", {
 
             if (job.isUnique) {
                 this.jobs[jobId].cultistId = cultistId;
+            }
+            else if (cultistId) {
+                this.jobs[jobId].cultistArray.push(cultistId);
             }
             else {
                 this.jobs[jobId].cultistArray.push(obj);

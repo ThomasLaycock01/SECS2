@@ -329,6 +329,9 @@ export const useMinesStore = defineStore("mines", {
             if (job.isUnique) {
                 this.jobs[jobId].cultistId = cultistId;
             }
+            else if (cultistId) {
+                this.jobs[jobId].cultistArray.push(cultistId);
+            }
             else {
                 this.jobs[jobId].cultistArray.push(obj);
             }
