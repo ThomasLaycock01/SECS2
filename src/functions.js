@@ -60,8 +60,6 @@ export function addCultist(race) {
 
     const raceTemplate = cultists.getRaceTemplate(race);
 
-    console.log(raceTemplate);
-
     const cultist = createCultist(id, name, raceTemplate)
 
     cultists.addCultist(cultist);

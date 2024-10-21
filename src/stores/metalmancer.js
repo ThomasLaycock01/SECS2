@@ -194,13 +194,7 @@ export const useMetalmancerStore = defineStore("metalmancer", {
 
         },
         endSummonGolem() {
-            const resources = useResourcesStore();
-
-            const resourceName = resources.getName(this.getCurrentSummoning.golemType);
-
-            const golemSpecies = `${resourceName} Golem`;
-
-            endSummoning(golemSpecies);
+            endSummoning(this.getCurrentSummoning.golemType);
 
             this.queues.summoning.shift();
         }
