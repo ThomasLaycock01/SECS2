@@ -189,20 +189,4 @@ export class Cultist {
 
         return modVal;
     }
-
-    /*serialize() {
-        const serializedCultist = {
-            id: this.id,
-            name: this.name,
-            job: this.job,
-            level: this.level,
-            currentXp: this.currentXp,
-            xpNeeded: this.xpNeeded,
-            xpIncrement: this.xpIncrement,
-            levelLimit: this.levelLimit,
-            species: this.species
-        }
-
-        return serializedCultist;
-    }*/
 }

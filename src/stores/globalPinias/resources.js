@@ -88,47 +88,6 @@ export const useResourcesStore = defineStore("resources", {
                 }
             }
         },
-        getResourcesByPinia(state) {
-            return (piniaId, unlocked = true, properties = null) => {
-
-                var childPinia;
-
-                for (var i in state.childPinias) {
-                    if (state.childPinias[i].id == piniaId) {
-                        childPinia = state.childPinias[i].piniaObject();
-                    }
-                }
-
-                if (unlocked) {
-                    return childPinia.getUnlockedResources(properties);
-                }
-                else {
-                    return childPinia.getResourcesByProperties(properties);
-                }
-
-                
-            }
-        },
-        getResourcesByProperties() {
-            return (properties) => {
-                const returnArray = [];
-                for (var i in this.getAll) {
-                    var addResource = true;
-                    const resource = this.getAll[i];
-                    for (var j in properties) {
-                        if (resource.properties[j] != properties[j]) {
-                            addResource = false;
-                        }
-                    }
-
-                    if (addResource) {
-                        returnArray.push(resource);
-                    }
-                }
-
-                return returnArray;
-            }
-        },
         //pinias
         getAll(state) {
             var returnObj = {};
@@ -144,9 +103,6 @@ export const useResourcesStore = defineStore("resources", {
             }
 
             return returnObj;
-        },
-        getChildPinias(state) {
-            return state.childPinias;
         },
         getChildPiniaByid(state) {
             return (piniaId) => {

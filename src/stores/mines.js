@@ -127,12 +127,6 @@ export const useMinesStore = defineStore("mines", {
             return state.actions;
         },
         //resources
-        getResources(state) {
-            return state.resources;
-        },
-        getResourceObject(state) {
-            return (id) => state.resources[id];
-        },
         getResourceTotal(state) {
             return (id) => state.resources[id].total;
         },
@@ -170,21 +164,6 @@ export const useMinesStore = defineStore("mines", {
 
                 return returnArray;
             }*/
-        },
-        getResourcesByProperties(state) {
-            return (properties) => {
-                const returnArray = [];
-
-                for (var i in state.resources) {
-                    for (var j in properties) {
-                        if (properties[j] === state.resources[i].properties[j]) {
-                            returnArray.push(state.resources[i]);
-                        }
-                    }
-                }
-
-                return returnArray;
-            }
         },
         getResourceName(state) {
             return (id) => state.resources[id].name;
@@ -405,19 +384,6 @@ export const useMinesStore = defineStore("mines", {
                 }
             }
         },
-        //saving/loading
-        /*saveData() {
-            var data = JSON.parse(localStorage.getItem("SECSData"));
-
-            data.mines = this.workers;
-
-            localStorage.setItem("SECSData", JSON.stringify(data));
-        },
-        loadData() {
-            var data = JSON.parse(localStorage.getItem("SECSData"));
-
-            this.workers = data.mines;
-        },*/
         //misc
         completeScavenge() {
             const index = Math.random();
