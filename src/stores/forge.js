@@ -256,7 +256,7 @@ export const useForgeStore = defineStore("forge", {
                 return 0;
             }
 
-            return smelter.getModifiers("smelter") + 1;
+            return smelter.getModifiers("smelter", null, 0.1) + 1;
         },
         getSmithModifier() {
             const smelter = this.getSmith;
@@ -264,7 +264,7 @@ export const useForgeStore = defineStore("forge", {
                 return 0;
             }
 
-            return smelter.getModifiers("smith") + 1;
+            return smelter.getModifiers("smith", null, 0.1) + 1;
         },
         //queues
         CheckIfCanAffordOrder(resourceToAdd, amount) {
