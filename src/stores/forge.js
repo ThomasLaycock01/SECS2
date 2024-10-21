@@ -131,6 +131,11 @@ export const useForgeStore = defineStore("forge", {
             }
             return state.jobs.smith.cultistArray;
         },
+        getXpAmount(state) {
+            return (jobId) => {
+                return state.jobs[jobId].xpOutput;
+            }
+        },
         //queues
         getQueue(state) {
             return (queueType) => {
@@ -172,7 +177,7 @@ export const useForgeStore = defineStore("forge", {
     },
     actions: {
         tick() {
-            
+            const cultists = useCultistsStore();
             const inventory = useInventoryStore();
 
             //smelting
@@ -189,6 +194,11 @@ export const useForgeStore = defineStore("forge", {
                         this.removeFirstQueueEntry("smelter");
                     }
                 }
+
+                for (var i in this.getSmelterArray) {
+                    const cultist = cultists.getCultistById(this.getSmelterArray[i]);
+                    cultist.addXp(this.getXpAmount("smelter"));
+                }
             }
             
             //smithing
@@ -202,6 +212,11 @@ export const useForgeStore = defineStore("forge", {
                     inventory.addItem(itemToSmith);
                     this.misc.currentSmithingProgress = 0;
                     this.removeFirstQueueEntry("smith");
+                }
+
+                for (var i in this.getSmithArray) {
+                    const cultist = cultists.getCultistById(this.getSmithArray[i]);
+                    cultist.addXp(this.getXpAmount("smith"));
                 }
             }
         },
