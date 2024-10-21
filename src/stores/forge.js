@@ -235,15 +235,16 @@ export const useForgeStore = defineStore("forge", {
             }
         },
         removeFromJob(jobId, cultistId = null) {
-            console.log("getting here")
-            if (!cultistId) {
+            console.log(jobId);
+            console.log(cultistId);
+            if (cultistId === null) {
                 const cultists = useCultistsStore();
                 const cultist = cultists.getCultistById(this.jobs[jobId].cultistId);
                 cultist.removeJob();
                 this.jobs[jobId].cultistId = null;
             }
             else {
-                this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(obj => obj.cultistId != cultistId);
+                this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(obj => obj.cultistId == cultistId);
             }
         },
         getSmelterModifier() {
