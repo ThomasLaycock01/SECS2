@@ -127,6 +127,9 @@ export const useMinesStore = defineStore("mines", {
             return state.actions;
         },
         //resources
+        getAll(state) {
+            return state.resources;
+        },
         getResourceTotal(state) {
             return (id) => state.resources[id].total;
         },

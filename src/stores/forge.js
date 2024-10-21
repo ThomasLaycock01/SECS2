@@ -70,6 +70,9 @@ export const useForgeStore = defineStore("forge", {
             return state.actions;
         },
         //resources
+        getAll(state) {
+            return state.resources;
+        },
         getResourceTotal(state) {
             return (id) => state.resources[id].total;
         },

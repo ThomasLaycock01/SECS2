@@ -97,8 +97,8 @@ export const useResourcesStore = defineStore("resources", {
             }
 
             for (var i in state.childPinias) {
-                for (var j in state.childPinias[i].piniaObject().getResources) {
-                    returnObj[j] = state.childPinias[i].piniaObject().getResources[j];
+                for (var j in state.childPinias[i].piniaObject().getAll) {
+                    returnObj[j] = state.childPinias[i].piniaObject().getAll[j];
                 }
             }
 
@@ -128,7 +128,7 @@ export const useResourcesStore = defineStore("resources", {
         checkIfResourceHasProperty(state) {
             return (resourceId, propertyId) => {
                 const properties = this.getProperties(resourceId);
-                if (properties[propertyId]) {
+                if (properties[propertyId] == true) {
                     return true;
                 }
                 return false;
@@ -147,7 +147,6 @@ export const useResourcesStore = defineStore("resources", {
             for (var i in this.resources) {
                 this.modifyResource(i, this.resources[i].perSec)
             }
-            this.resources[type].total += this.resources[type].perSec;
         },
         removeResources(obj) {
             for (var i in obj) {
