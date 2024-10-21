@@ -49,6 +49,12 @@ export const useCultistsStore = defineStore("cultists", {
         },
         getDefaultLevelLimit(state) {
             return state.misc.defaultLevelLimit;
+        },
+        //races
+        getRaceCosts(state) {
+            return (race) => {
+                return state.races[race].costs;
+            }
         }
     },
     actions: {
@@ -109,6 +115,15 @@ export const useCultistsStore = defineStore("cultists", {
         //races
         instantiateRaces() {
             this.races = races;
+        },
+        getRacesByRacialGroup(racialGroup) {
+            const returnArray = [];
+            for (var i in this.races) {
+                if (this.races[i].racialGroup == racialGroup) {
+                    returnArray.push(this.races[i]);
+                }
+            }
+            return returnArray;
         }
     }
 });

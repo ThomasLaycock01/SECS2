@@ -31,8 +31,14 @@ export const useMetalmancerStore = defineStore("metalmancer", {
                     }
                 }
             },
-            workers: {
-                metalmancer: []
+            jobs: {
+                metalmancer: {
+                    id: "metalmancer",
+                    cultistArray: [],
+                    name: "Metalmancer",
+                    xpOutput: 2,
+                    limit: 3
+                }
             },
             queues: {
                 summoning: []
@@ -66,16 +72,19 @@ export const useMetalmancerStore = defineStore("metalmancer", {
         getActions(state) {
             return state.actions;
         },
-        //workers
-        getMetalmancers(state) {
-            const cultists = useCultistsStore();
-            const returnArray = [];
-
-            for (var i in state.workers.metalmancer) {
-                returnArray.push(cultists.getCultistById(state.workers.metalmancer[i]));
+        //jobs
+        getJobObject(state) {
+            return (jobId) => {
+                return state.jobs[jobId];
             }
-
-            return returnArray;
+        },
+        getJobName(state) {
+            return (jobId) => {
+                return state.jobs[jobId].name;
+            }
+        },
+        getMetalmancerArray(state) {
+            return state.jobs.metalmancer.cultistArray;
         },
         //queues
         getSummoningQueue(state) {
@@ -109,23 +118,31 @@ export const useMetalmancerStore = defineStore("metalmancer", {
                 }
             }
         },
-        //workers
-        assignOther(cultistId, jobId) {
-            switch (jobId) {
-                case "metalmancer":
-                    this.workers.metalmancer.push(cultistId);
-                    return this.misc.metalmancerJobName;
-                default:
-                    console.log("error in metalmancer.assignOther")
+        //jobs
+        addToJob(jobId, cultistId = null, obj = null) {
+            const job = this.getJobObject(jobId);
+
+            if (job.isUnique) {
+                this.jobs[jobId].cultistId = cultistId;
+            }
+            else if (cultistId != null) {
+                this.jobs[jobId].cultistArray.push(cultistId);
+            }
+            else {
+                this.jobs[jobId].cultistArray.push(obj);
             }
         },
-        removeOther(jobId, cultistId) {
-            switch(jobId) {
-                case "metalmancer":
-                    this.workers.metalmancer = this.workers.metalmancer.filter(obj => obj != cultistId);
-                    break;
-                default:
-                    console.log("error in metalmancer.removeOther")
+        removeFromJob(jobId, cultistId = null) {
+            console.log(jobId);
+            console.log(cultistId);
+            if (cultistId === null) {
+                const cultists = useCultistsStore();
+                const cultist = cultists.getCultistById(this.jobs[jobId].cultistId);
+                cultist.removeJob();
+                this.jobs[jobId].cultistId = null;
+            }
+            else {
+                this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(val => val != cultistId);
             }
         },
         getMetalmancerModifier() {
