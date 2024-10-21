@@ -97,7 +97,7 @@ export const useCultistsStore = defineStore("cultists", {
         calculateCultistLimit() {
             const buildings = useBuildingsStore();
 
-            const buildingLimit = buildings.getTotalBuildingModifier("cultistLimit");
+            const buildingLimit = buildings.getBuildingModifier("cultistLimit");
 
             this.misc.cultistLimit = 2 + buildingLimit;
         },

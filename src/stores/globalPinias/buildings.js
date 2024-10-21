@@ -30,52 +30,16 @@ export const useBuildingsStore = defineStore("buildings", {
                 }
             }
         },
-        getTotalBuildingModifier(state) {
-            return (modifierId) => {
+        getBuildingModifier(state) {
+            return (type, altType = null) => {
                 var totalMod = 0;
                 for (var i in state.childPinias) {
                     for (var j in state.childPinias[i].buildings) {
-                        const buildingId = state.childPinias[i].buildings;
-                        if (state.buildings[i][buildingId].modifiers[modifierId]) {
-                            const building = state.buildings[i][buildingId];
-                            totalMod += building.modifiers[modifierId] * state.getNumOfBuildings(building.id);
-                        }
-                    }
-                }
-                return totalMod;
-            }
-        },
-        getGlobalBuildingJobModifier(state) {
-            return (job) => {
-                var totalMod = 0;
-                for (var i in state.childPinias) {
-                    for (var j in state.childPinias[i].buildings) {
-                        const buildingId = state.childPinias[i].buildings;
-                        if (state.buildings[i][buildingId].modifiers["jobs"]) {
-                            const building = state.buildings[i][buildingId];
-                            for (var k in building.modifiers["jobs"]) {
-                                if (building.modifiers["jobs"][k].job == job && building.modifiers["jobs"][k].type == "global") {
-                                    totalMod += building.modifiers["jobs"][k].modifier * state.getNumOfBuildings(building.id);
-                                }
-                            }
-                        }
-                    }
-                }
-                return totalMod;
-            }
-        },
-        getSpecificBuildingJobModifier(state) {
-            return (job, type) => {
-                var totalMod = 0;
-                for (var i in state.childPinias) {
-                    for (var j in state.childPinias[i].buildings) {
-                        const buildingId = state.childPinias[i].buildings;
-                        if (state.buildings[i][buildingId].modifiers["jobs"]) {
-                            const building = state.buildings[i][buildingId];
-                            for (var k in building.modifiers["jobs"]) {
-                                if (building.modifiers["jobs"][k].job == job && building.modifiers["jobs"][k].type == type) {
-                                    totalMod += building.modifiers["jobs"][k].modifier * state.getNumOfBuildings(building.id);
-                                }
+                        const buildingId = state.childPinias[i].buildings[j];
+                        for (var k in state.buildings[i][buildingId].modifiers) {
+                            if (state.buildings[i][buildingId].modifiers[k].type == type) {
+                                const modifierObj = state.buildings[i][buildingId].modifiers[k];
+                                totalMod += modifierObj.modifier * state.getNumOfBuildings(buildingId);
                             }
                         }
                     }
