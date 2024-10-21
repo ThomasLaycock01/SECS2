@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 
 import { useResourcesStore } from "./globalPinias/resources";
 import { useCultistsStore } from "./globalPinias/cultists";
+import { useInventoryStore } from "./globalPinias/inventory";
 
 import items from "../assets/json/items.json";
 
@@ -133,12 +134,6 @@ export const useForgeStore = defineStore("forge", {
             }
             return state.jobs.smith.cultistArray;
         },
-        getWorkerArray(state) {
-            return state.workers.workerArray;
-        },
-        getNumOfWorkers(state) {
-            return state.workers.workerArray.length;
-        },
         //queues
         getQueue(state) {
             return (queueType) => {
@@ -198,7 +193,7 @@ export const useForgeStore = defineStore("forge", {
                     }
                 }
             }
-            /*
+            
             //smithing
             if (this.getCurrentSmithingItem) {
                 
@@ -209,9 +204,9 @@ export const useForgeStore = defineStore("forge", {
                 if (this.misc.currentSmithingProgress >= itemToSmith.smithCost) {
                     inventory.addItem(itemToSmith);
                     this.misc.currentSmithingProgress = 0;
-                    this.queues.smithingQueue.shift();
+                    this.removeFirstQueueEntry("smith");
                 }
-            }*/
+            }
         },
         //resources
         instantiateResource(resourceObj) {
@@ -240,6 +235,7 @@ export const useForgeStore = defineStore("forge", {
             }
         },
         removeFromJob(jobId, cultistId = null) {
+            console.log("getting here")
             if (!cultistId) {
                 const cultists = useCultistsStore();
                 const cultist = cultists.getCultistById(this.jobs[jobId].cultistId);
@@ -251,20 +247,38 @@ export const useForgeStore = defineStore("forge", {
             }
         },
         getSmelterModifier() {
-            const smelter = this.getSmelter;
-            if (smelter == null) {
+            const cultists = useCultistsStore();
+
+            const smelterArray = this.getSmelterArray;
+            if (smelterArray.length < 1) {
                 return 0;
             }
 
-            return smelter.getModifiers("smelter", null, 0.1) + 1;
+            var totalMod = 0;
+
+            for (var i in smelterArray) {
+                const smelter = cultists.getCultistById(smelterArray[i]);
+                totalMod += smelter.getModifiers("smelter", null, 0.01);
+            }
+
+            return totalMod + 1;
         },
         getSmithModifier() {
-            const smelter = this.getSmith;
-            if (smelter == null) {
+            const cultists = useCultistsStore();
+
+            const smithArray = this.getSmithArray;
+            if (smithArray.length < 1) {
                 return 0;
             }
 
-            return smelter.getModifiers("smith", null, 0.1) + 1;
+            var totalMod = 0;
+
+            for (var i in smithArray) {
+                const smith = cultists.getCultistById(smithArray[i]);
+                totalMod += smith.getModifiers("smith", null, 0.01);
+            }
+
+            return totalMod + 1;
         },
         //queues
         CheckIfCanAffordOrder(resourceToAdd, amount) {
@@ -301,6 +315,12 @@ export const useForgeStore = defineStore("forge", {
             switch (type) {
                 case "smelter":
                     this.queues.smeltingQueue.shift();
+                    break;
+                case "smith":
+                    this.queues.smithingQueue.shift();
+                    break;
+                default:
+                    console.log("error in forge.removeFirstQueueEntry");
             }
         },
         //items
