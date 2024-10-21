@@ -86,6 +86,11 @@ export const useMetalmancerStore = defineStore("metalmancer", {
         getMetalmancerArray(state) {
             return state.jobs.metalmancer.cultistArray;
         },
+        getXpAmount(state) {
+            return (jobId) => {
+                return state.jobs[jobId].xpOutput;
+            }
+        },
         //queues
         getSummoningQueue(state) {
             return state.queues.summoning;
@@ -108,6 +113,8 @@ export const useMetalmancerStore = defineStore("metalmancer", {
     },
     actions: {
         tick() {
+            const cultists = useCultistsStore();
+
             if (this.getCurrentSummoning) {
                 this.misc.currentSummoningProgress += 100 * this.getMetalmancerModifier();
 
@@ -115,6 +122,18 @@ export const useMetalmancerStore = defineStore("metalmancer", {
                     this.misc.currentSummoningProgress -= this.getCurrentSummoning.summonCost;
 
                     this.endSummonGolem();
+                }
+
+                for (var i in this.getMetalmancerArray) {
+                    const cultist = cultists.getCultistById(this.getMetalmancerArray[i]);
+                    cultist.addXp(this.getXpAmount("metalmancer"));
+                }
+            }
+
+            if (cultists.checkIfHasRace("golem")) {
+                for (var i in this.getMetalmancerArray) {
+                    const cultist = cultists.getCultistById(this.getMetalmancerArray[i]);
+                    cultist.addXp(this.getXpAmount("metalmancer") / 2);
                 }
             }
         },
@@ -148,14 +167,14 @@ export const useMetalmancerStore = defineStore("metalmancer", {
         getMetalmancerModifier() {
             const cultists = useCultistsStore();
 
-            if (this.workers.metalmancer.length == 0) {
+            if (this.getMetalmancerArray.length == 0) {
                 return 0;
             }
 
             var totalMod = 1;
 
-            for (var i in this.workers.metalmancer) {
-                const cultist = cultists.getCultistById(this.workers.metalmancer[i]);
+            for (var i in this.getMetalmancerArray) {
+                const cultist = cultists.getCultistById(this.getMetalmancerArray[i]);
                 totalMod += cultist.getModifiers("metalmancer", null, 0.1)
             }
 

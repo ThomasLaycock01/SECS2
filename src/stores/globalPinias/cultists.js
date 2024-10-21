@@ -34,12 +34,6 @@ export const useCultistsStore = defineStore("cultists", {
         getEmployed(state) {
             return state.regular.filter((cultist) => cultist.getJob() != null);
         },
-        //races
-        getRaceTemplate(state) {
-            return (raceId) => {
-                return state.races[raceId];
-            }
-        },
         //misc
         getCultistLimit(state) {
             return state.misc.cultistLimit;
@@ -51,9 +45,25 @@ export const useCultistsStore = defineStore("cultists", {
             return state.misc.defaultLevelLimit;
         },
         //races
+        getRaceTemplate(state) {
+            return (raceId) => {
+                return state.races[raceId];
+            }
+        },
         getRaceCosts(state) {
             return (race) => {
                 return state.races[race].costs;
+            }
+        },
+        checkIfHasRace(state) {
+            return (race) => {
+                for (var i in state.regular) {
+                    if (state.regular[i].getRace() == race) {
+                        return true;
+                    }
+                }
+
+                return false;
             }
         }
     },
