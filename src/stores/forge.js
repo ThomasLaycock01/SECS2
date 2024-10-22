@@ -332,8 +332,6 @@ export const useForgeStore = defineStore("forge", {
 
             const costs = this.getResourceCostsByAmount(resourceToAdd, amount);
 
-            console.log(costs);
-
             return resources.checkIfCanAfford(costs);
         },
         addToSmeltingQueue(barToAdd, amountToAdd) {
