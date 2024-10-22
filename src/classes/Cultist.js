@@ -1,3 +1,5 @@
+import { useJobsStore } from "@/stores/globalPinias/jobs";
+
 export class Cultist {
     constructor(id, name, raceTemplate, job, level, currentXp, xpNeeded, xpIncrement, levelLimit, perks, perkPoints, equipment) {
         this.id = id;
@@ -200,7 +202,12 @@ export class Cultist {
         for (var i in this.getRacialModifiers()) {
             const modObj = this.getRacialModifiers()[i];
 
-            if (modObj.type == type || modObj.type == "global") {
+            if (modObj.type == "grabProd") {
+                const jobs = useJobsStore();
+                modVal += jobs.getProdModifier(modObj.altType) * modObj.modifier;
+                console.log(jobs.getProdModifier(modObj.altType) * modObj.modifier);
+            }
+            else if (modObj.type == type || modObj.type == "global") {
                 if (altType) {
                     if (modObj.altType == altType || !modObj.altType) {
                         modVal += modObj.modifier;

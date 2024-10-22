@@ -101,6 +101,24 @@ export const useMetalmancerStore = defineStore("metalmancer", {
                 return state.jobs[jobId].cultistArray.length < state.jobs[jobId].limit;
             }
         },
+        getJobModifier(state) {
+            return (jobId) => {
+                if (state.jobs[jobId].cultistArray.length == 0) {
+                    return 0;
+                }
+
+                const cultists = useCultistsStore();
+
+                var totalMod = 0;
+
+                for (var i in state.jobs[jobId].cultistArray) {
+                    const cultist = cultists.getCultistById(state.jobs[jobId].cultistArray[i]);
+                    totalMod += cultist.getModifiers(jobId, null, 0.1)
+                }
+
+                return totalMod;
+            }
+        },
         //queues
         getSummoningQueue(state) {
             return state.queues.summoning;
