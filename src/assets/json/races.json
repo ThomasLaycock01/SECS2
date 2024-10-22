@@ -1,7 +1,7 @@
 {
-    "human": {"id":"human", "name": "Human", "racialGroup": "humanoid", "racialModifier":{"type": "xpGain", "modifier": 0.5}, "type": "recruited", "costs": {"gold": 20}},
-    "stoneGolem": {"id": "stoneGolem", "name": "Stone Golem", "racialGroup": "golem", "racialModifier": {"type": "mineWorker", "altType": "stone", "modifier": 0.3}, "type": "summon", "costs": {"stone": 500}},
-    "copperGolem": {"id": "copperGolem", "name": "Copper Golem", "racialGroup": "golem", "racialModifier": {"type": "mineWorker", "altType": "copper", "modifier": 0.3}, "type": "summon", "costs": {"copper": 500}},
-    "ironGolem": {"id": "ironGolem", "name": "Iron Golem", "racialGroup": "golem", "racialModifier": {"type": "mineWorker", "altType": "iron", "modifier": 0.3}, "type": "summon", "costs": {"iron": 500}},
-    "goldGolem": {"id": "goldGolem", "name": "Gold Golem", "racialGroup": "golem", "racialModifier": {"type": "mineWorker", "altType": "gold", "modifier": 0.3}, "type": "summon", "costs": {"gold": 500}}
+    "human": {"id":"human", "name": "Human", "racialGroup": "humanoid", "racialModifiers": [{"type": "xpGain", "modifier": 0.5}], "type": "recruited", "costs": {"gold": 20}},
+    "stoneGolem": {"id": "stoneGolem", "name": "Stone Golem", "racialGroup": "golem", "racialModifiers": [{"type": "mineWorker", "altType": "stone", "modifier": 0.3}, {"type": "grabProd", "altType": "metalmancer", "modifier": 0.1}], "type": "summon", "costs": {"stone": 500}},
+    "copperGolem": {"id": "copperGolem", "name": "Copper Golem", "racialGroup": "golem", "racialModifiers": [{"type": "mineWorker", "altType": "copper", "modifier": 0.3}], "type": "summon", "costs": {"copper": 500}},
+    "ironGolem": {"id": "ironGolem", "name": "Iron Golem", "racialGroup": "golem", "racialModifiers": [{"type": "mineWorker", "altType": "iron", "modifier": 0.3}], "type": "summon", "costs": {"iron": 500}},
+    "goldGolem": {"id": "goldGolem", "name": "Gold Golem", "racialGroup": "golem", "racialModifiers": [{"type": "mineWorker", "altType": "gold", "modifier": 0.3}], "type": "summon", "costs": {"gold": 500}}
 }

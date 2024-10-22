@@ -12,7 +12,7 @@ export class Cultist {
         this.raceId = raceTemplate.id;
         this.raceName = raceTemplate.name;
         this.racialGroup = raceTemplate.racialGroup;
-        this.racialModifier = raceTemplate.racialModifier;
+        this.racialModifiers = raceTemplate.racialModifiers;
 
         this.perks = perks;
         this.perkPoints = perkPoints;
@@ -103,11 +103,12 @@ export class Cultist {
     }
 
     addXp(amount) {
+        const modifier = 1 + this.getModifiers("xpGain");
         if (this.level == this.levelLimit) {
             this.currentXp = 0;
         }
         else {
-            this.currentXp += amount;
+            this.currentXp += amount * modifier;
             this.checkLevelUp();
         }
     }
@@ -164,6 +165,10 @@ export class Cultist {
         return (this.getLevel() - 1) * levelMod;
     }
 
+    getRacialModifiers() {
+        return this.racialModifiers;
+    }
+
     getModifiers(type, altType = null, levelMod = 0) {
         var modVal = 0;
 
@@ -190,6 +195,23 @@ export class Cultist {
                     }
                 }
             }
+        }
+
+        for (var i in this.getRacialModifiers()) {
+            const modObj = this.getRacialModifiers()[i];
+
+            if (modObj.type == type || modObj.type == "global") {
+                if (altType) {
+                    if (modObj.altType == altType || !modObj.altType) {
+                        modVal += modObj.modifier;
+                    } 
+                }
+                else {
+                    if (!modObj.altType) {
+                        modVal += modObj.modifier;
+                    }
+                }
+            } 
         }
         
         //adding the levelMod
