@@ -371,7 +371,8 @@ export const useMinesStore = defineStore("mines", {
                     showCondition() {
                         const resources = useResourcesStore();
                         const expansions = useExpansionsStore();
-                        return resources.getEvilness >= buildingObj.reqs.evilness && expansions.hasTier(buildingObj.reqs.expansionTier);
+                        const buildings = useBuildingsStore();
+                        return resources.getEvilness >= buildingObj.reqs.evilness && expansions.hasTier(buildingObj.reqs.expansionTier) && (buildings.checkBuildingReqs(buildingObj.reqs.buildings) || !buildingObj.reqs.buildings);
                     },
                     effect() {
                         const buildings = useBuildingsStore();

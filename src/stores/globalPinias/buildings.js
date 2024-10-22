@@ -30,6 +30,16 @@ export const useBuildingsStore = defineStore("buildings", {
                 }
             }
         },
+        checkBuildingReqs(state) {
+            return (buildingsObj) => {
+                for (var i in buildingsObj) {
+                    if (this.getNumOfBuildings(i) < buildingsObj[i]) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        },
         getBuildingModifier(state) {
             return (type, altType = null) => {
                 var totalMod = 0;
