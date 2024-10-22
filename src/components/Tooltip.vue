@@ -1,4 +1,8 @@
 <script setup>
+import { useResourcesStore } from '@/stores/globalPinias/resources';
+
+const resources = useResourcesStore();
+
 const props = defineProps({
     tooltipType: String,
     name: String,
@@ -39,7 +43,7 @@ const props = defineProps({
             </p>
             <div class="mb-2" v-if="props.owned() < props.limit">
                 <ul v-for="value, key in props.costs()">
-                    <li>{{ key }} : {{ value }}</li>
+                    <li>{{ resources.getName(key) }} : {{ value }}</li>
                 </ul>
             </div>
             <p class="mb-2">
@@ -50,7 +54,7 @@ const props = defineProps({
         <span v-if="props.tooltipType=='expansion'">
             <div class="mb-2">
                 <ul v-for="value, key in props.costs()">
-                    <li>{{ key }} : {{ value }}</li>
+                    <li>{{ resources.getName(key) }} : {{ value }}</li>
                 </ul>
             </div>
         </span>
@@ -58,7 +62,7 @@ const props = defineProps({
         <span v-if="props.tooltipType=='recruitment'">
             <div class="mb-2">
                 <ul v-for="value, key in props.costs()">
-                    <li>{{ key }} : {{ value }}</li>
+                    <li>{{ resources.getName(key) }} : {{ value }}</li>
                 </ul>
             </div>
         </span>
