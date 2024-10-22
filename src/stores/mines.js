@@ -353,25 +353,27 @@ export const useMinesStore = defineStore("mines", {
                     name: buildingObj["name"],
                     desc: buildingObj["desc"],
                     effectDesc: buildingObj["effectDesc"],
+                    limit: buildingObj["limit"],
                     owned() {
                         const buildings = useBuildingsStore();
-                        return buildings.getNumOfBuildings(buildingObj["id"]);
+                        return buildings.getNumOfBuildings(buildingObj.id);
                     },
                     costs() {
                         return buildingObj["costs"];
                     },
                     condition() {
                         const resources = useResourcesStore();
-                        return resources.checkIfCanAfford(buildingObj["costs"]);
+                        const buildings = useBuildingsStore();
+                        return resources.checkIfCanAfford(buildingObj.costs) && this.owned() < buildingObj.limit;
                     },
                     showCondition() {
                         const resources = useResourcesStore();
                         const expansions = useExpansionsStore();
-                        return resources.getEvilness >= buildingObj["reqs"]["evilness"] && expansions.hasTier(buildingObj["reqs"]["expansionTier"]);
+                        return resources.getEvilness >= buildingObj.reqs.evilness && expansions.hasTier(buildingObj.reqs.expansionTier);
                     },
                     effect() {
                         const buildings = useBuildingsStore();
-                        buildings.buildBuildings(id, buildingObj["id"]);
+                        buildings.buildBuildings(id, buildingObj.id);
                     }
                 }
             }
