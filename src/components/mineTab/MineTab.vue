@@ -91,7 +91,7 @@ function removeWorkerClick(e) {
         <!--Displaying workers already working-->
         <div>
             <div v-for="i in mines.getWorkerArray">
-                <div>{{ cultists.getCultistById(i.cultistId).getName() }} - Lvl {{ cultists.getCultistById(i.cultistId).getLevel() }} - {{ i.resource == "scavenge" ? "Scavenging" : `Mining ${i.resource}` }}</div>
+                <div>{{ cultists.getCultistById(i.cultistId).getName() }} - Lvl {{ cultists.getCultistById(i.cultistId).getLevel() }} - {{ i.resource == "scavenge" ? "Scavenging" : `Mining ${mines.getResourceName(i.resource)}` }}</div>
                 <button class="button is-small is-info">Switch resource</button>
                 <button class="button is-small is-danger" :value="i.cultistId" @click="removeWorkerClick">Remove</button></div>
         </div>
