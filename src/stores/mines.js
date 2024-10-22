@@ -107,11 +107,12 @@ export const useMinesStore = defineStore("mines", {
                 }
             },
             resources: {
+                resources: {},
+                locked: []
             },
             items: {
             },
             buildings: {
-
             }
         }
     },
@@ -122,51 +123,36 @@ export const useMinesStore = defineStore("mines", {
         },
         //resources
         getAll(state) {
-            return state.resources;
+            return state.resources.resources;
         },
         getResourceTotal(state) {
-            return (id) => state.resources[id].total;
+            return (id) => state.resources.resources[id].total;
         },
         getResourcePerSec(state) {
-            return (id) => state.resources[id].perSec;
+            return (id) => state.resources.resources[id].perSec;
         },
         getResourceConsumedPerSec(state) {
-            return (id) => state.resources[id].consumedPerSec;
+            return (id) => state.resources.resources[id].consumedPerSec;
+        },
+        checkIfLocked(state) {
+            return (id) => state.resources.locked.includes(id);
         },
         getUnlockedResources(state) {
             const returnArray = [];
-            for (var i in state.resources) {
-                returnArray.push(state.resources[i]);
+            for (var i in state.resources.resources) {
+                const id = state.resources.resources[i].id;
+                if (!state.checkIfLocked(id)) {
+                    returnArray.push(state.resources.resources[i]);
+                }
             }
 
-            return returnArray;   
-            //kind cheating here, but for now this will just return everything
-            /*return (properties = null) => {
-                const returnArray = [];
-
-                for (var i in state.resources) {
-                    if (properties) {
-                        for (var j in properties) {
-                            if (properties[j] === state.resources[i].properties[j] && state.resources[i].unlockCondition()) {
-                                returnArray.push(state.resources[i]);
-                            }
-                        }
-                    }
-                    else {
-                        if (state.resources[i].unlockCondition()) {
-                            returnArray.push(state.resources[i]);
-                        }
-                    }
-                }
-
-                return returnArray;
-            }*/
+            return returnArray;
         },
         getResourceName(state) {
-            return (id) => state.resources[id].name;
+            return (id) => state.resources.resources[id].name;
         },
         getResourceProperties(state) {
-            return (id) => state.resources[id].properties;
+            return (id) => state.resources.resources[id].properties;
         },
         //workers
         getJobObject(state) {
@@ -265,20 +251,26 @@ export const useMinesStore = defineStore("mines", {
         },
         //resources
         instantiateResource(resourceObj) {
-            this.resources[resourceObj.id] = resourceObj;
+            this.resources.resources[resourceObj.id] = resourceObj;
+            if (resourceObj.id != "stone") {
+                this.resources.locked.push(resourceObj.id);
+            }
         },
         modifyResource(resource, amount) {
             const resources = useResourcesStore();
-            this.resources[resource].total += amount;
+            this.resources.resources[resource].total += amount;
             resources.updatedLocked();
         },
         setResourcePerSec(resource, amount) {
-            this.resources[resource].perSec = amount;
+            this.resources.resources[resource].perSec = amount;
         },
         updateResources() {
-            for (var i in this.resources) {
-                this.modifyResource(i, this.resources[i].perSec);
+            for (var i in this.resources.resources) {
+                this.modifyResource(i, this.resources.resources[i].perSec);
             }
+        },
+        unlockResource(resourceId) {
+            this.resources.locked = this.resource.locked.filter(val => val != resourceId);
         },
         //items
         instantiateItems() {
