@@ -7,6 +7,7 @@
         "stone": {"id": "stone", "name": "Stone", "store": "mines", "properties": {"isGolem": true}},
         "copper": {"id": "copper", "name": "Copper", "store": "mines", "properties": {"isGolem": true}},
         "iron": {"id": "iron", "name": "Iron", "store": "mines", "properties": {"isGolem": true}},
+        "goldProd": {"id": "goldProd", "name": "Gold", "store": "mines", "properties": {}},
         "scavenge": {"id": "scavenge", "name": "Scavenge", "store": "mines", "properties": {"alwaysLocked": true}}
     },
     "forge": {

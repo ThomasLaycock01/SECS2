@@ -205,7 +205,9 @@ export const useResourcesStore = defineStore("resources", {
         instantiateResources() {
             for (var i in resources) {
                 for (var j in resources[i]) {
-                    this.lockedResources.push(resources[i][j].id);
+                    if (!this.lockedResources.includes(resources[i][j].id)) {
+                        this.lockedResources.push(resources[i][j].id);
+                    }
 
                     if (i == "global") {
                         this.resources[j] = instantiateResource(resources[i][j]);

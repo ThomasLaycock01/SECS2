@@ -208,6 +208,7 @@ export const useMinesStore = defineStore("mines", {
             //pinia stores
             const cultists = useCultistsStore();
             const buildings = useBuildingsStore();
+            const resources = useResourcesStore();
             //first - get overseer modifier
             const overseerMod = this.getOverseerModifier();
 
@@ -226,9 +227,14 @@ export const useMinesStore = defineStore("mines", {
                         resourceOutput += 1 * finalMod;
                     }
                 }
-                this.setResourcePerSec(i, Math.round(resourceOutput * overseerMod * 100) / 100);
+                if (i == "goldProd") {
+                    resources.setResourcePerSec("gold", Math.round(resourceOutput * overseerMod * 100) / 100);
+                }
+                else {
+                    this.setResourcePerSec(i, Math.round(resourceOutput * overseerMod * 100) / 100);
+                }
             }
-
+            resources.updateResources();
             this.updateResources();
 
             //scavenge stuff
@@ -252,7 +258,7 @@ export const useMinesStore = defineStore("mines", {
         //resources
         instantiateResource(resourceObj) {
             this.resources.resources[resourceObj.id] = resourceObj;
-            if (resourceObj.id != "stone") {
+            if (resourceObj.id != "stone" && resourceObj.id != "goldProd") {
                 this.resources.locked.push(resourceObj.id);
             }
         },
