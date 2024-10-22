@@ -10,6 +10,8 @@
         "scavenge": {"id": "scavenge", "name": "Scavenge", "store": "mines", "properties": {"alwaysLocked": true}}
     },
     "forge": {
-        "copperBars": {"id": "copperBars", "name": "Copper Bars", "store": "forge", "properties": {"costs": {"copper": 10}, "smeltingCost": 1000, "noPerSec": true}}
+        "stoneBlocks": {"id": "stoneBlocks", "name": "Stone Blocks", "store": "forge", "properties": {"costs": {"stone": 10}, "smeltingCost": 900, "noPerSec": true}},
+        "copperBars": {"id": "copperBars", "name": "Copper Bars", "store": "forge", "properties": {"costs": {"copper": 15}, "smeltingCost": 1000, "noPerSec": true}},
+        "ironBars": {"id": "ironBars", "name": "Iron Bars", "store": "forge", "properties": {"costs": {"iron": 25}, "smeltingCost": 1500, "noPerSec": true}}
     }
 }

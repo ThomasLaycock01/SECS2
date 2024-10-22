@@ -3,8 +3,11 @@ import { defineStore } from "pinia";
 import { useResourcesStore } from "./globalPinias/resources";
 import { useCultistsStore } from "./globalPinias/cultists";
 import { useInventoryStore } from "./globalPinias/inventory";
+import { useExpansionsStore } from "./expansions";
+import { useBuildingsStore } from "./globalPinias/buildings";
 
 import items from "../assets/json/items.json";
+import buildings from "../assets/json/buildings.json";
 
 export const useForgeStore = defineStore("forge", {
     state: () => {
@@ -30,6 +33,14 @@ export const useForgeStore = defineStore("forge", {
                                 forge.modifyResource("copperBars", 1000000)
                             }
                         }
+                    }
+                },
+                buildings: {
+                    id: "buildings",
+                    name: "Buildings",
+                    tooltipType: "building",
+                    buttons: {
+
                     }
                 }
             },
@@ -57,6 +68,8 @@ export const useForgeStore = defineStore("forge", {
             },
             items: {
 
+            },
+            buildings: {
             },
             misc: {
                 currentSmeltingProgress: 0,
@@ -170,6 +183,10 @@ export const useForgeStore = defineStore("forge", {
         },
         getCurrentSmithingPercentage() {
             return this.getCurrentSmithingProgress / this.getCurrentSmithingItem.smithCost * 100;
+        },
+        //buildings
+        getNumOfBuilding(state) {
+            return (buildingId) => state.buildings[buildingId].owned;
         },
         //misc
         getCurrentSmeltingProgress(state) {
@@ -357,6 +374,61 @@ export const useForgeStore = defineStore("forge", {
             const costs = item.craftCosts;
 
             return resources.checkIfCanAfford(costs);
+        },
+        //buildings
+        buildBuilding(buildingId) {
+            this.buildings[buildingId].owned += 1;
+
+            return this.buildings[buildingId].costs;
+        },
+        updateBuildingCost(buildingId) {
+            if (this.buildings[buildingId].exponents) {
+                for (var i in this.buildings[buildingId].costs) {
+                    this.buildings[buildingId].costs[i] = this.buildings[buildingId].costs[i] * this.buildings[buildingId].exponents[i]
+                }
+            }
+        },
+        instantiateBuildings() {
+            const id = this.$id;
+
+            this.buildings = buildings["forge"];
+            for (var i in this.buildings) {
+                this.buildings[i]["owned"] = 0;
+            }
+
+            for (var i in this.buildings) {
+                const buildingObj = this.buildings[i];
+
+                this.actions.buildings.buttons[i] = {
+                    id: buildingObj["id"],
+                    name: buildingObj["name"],
+                    desc: buildingObj["desc"],
+                    effectDesc: buildingObj["effectDesc"],
+                    limit: buildingObj["limit"],
+                    owned() {
+                        const buildings = useBuildingsStore();
+                        return buildings.getNumOfBuildings(buildingObj.id);
+                    },
+                    costs() {
+                        return buildingObj["costs"];
+                    },
+                    condition() {
+                        const resources = useResourcesStore();
+                        const buildings = useBuildingsStore();
+                        return resources.checkIfCanAfford(buildingObj.costs) && this.owned() < buildingObj.limit;
+                    },
+                    showCondition() {
+                        const resources = useResourcesStore();
+                        const expansions = useExpansionsStore();
+                        const buildings = useBuildingsStore();
+                        return resources.getEvilness >= buildingObj.reqs.evilness && expansions.hasTier(buildingObj.reqs.expansionTier) && (buildings.checkBuildingReqs(buildingObj.reqs.buildings) || !buildingObj.reqs.buildings);
+                    },
+                    effect() {
+                        const buildings = useBuildingsStore();
+                        buildings.buildBuildings(id, buildingObj.id);
+                    }
+                }
+            }
         }
     }
 })
