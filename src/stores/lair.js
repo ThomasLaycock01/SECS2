@@ -202,25 +202,28 @@ export const useLairStore = defineStore("lair", {
                     name: buildingObj["name"],
                     desc: buildingObj["desc"],
                     effectDesc: buildingObj["effectDesc"],
+                    limit: buildingObj["limit"],
                     owned() {
                         const buildings = useBuildingsStore();
-                        return buildings.getNumOfBuildings(buildingObj["id"]);
+                        return buildings.getNumOfBuildings(buildingObj.id);
                     },
                     costs() {
                         return buildingObj["costs"];
                     },
                     condition() {
                         const resources = useResourcesStore();
-                        return resources.checkIfCanAfford(buildingObj["costs"]);
+                        const buildings = useBuildingsStore();
+                        return resources.checkIfCanAfford(buildingObj.costs) && this.owned() < buildingObj.limit;
                     },
                     showCondition() {
                         const resources = useResourcesStore();
                         const expansions = useExpansionsStore();
-                        return resources.getEvilness >= buildingObj["reqs"]["evilness"] && expansions.hasTier(buildingObj["reqs"]["expansionTier"]);
+                        const buildings = useBuildingsStore();
+                        return resources.getEvilness >= buildingObj.reqs.evilness && expansions.hasTier(buildingObj.reqs.expansionTier) && (buildings.checkBuildingReqs(buildingObj.reqs.buildings) || !buildingObj.reqs.buildings);
                     },
                     effect() {
                         const buildings = useBuildingsStore();
-                        buildings.buildBuildings(id, buildingObj["id"]);
+                        buildings.buildBuildings(id, buildingObj.id);
                     }
                 }
             }

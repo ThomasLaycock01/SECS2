@@ -15,7 +15,7 @@ export const useBuildingsStore = defineStore("buildings", {
 
             },
             childPinias: {
-                lair: {id:"lair", buildings: ["chambers"], piniaObject() {const lair = useLairStore(); return lair}},
+                lair: {id:"lair", buildings: ["chambers", "evilShrine"], piniaObject() {const lair = useLairStore(); return lair}},
                 mines: {id:"mines", buildings: ["tunnel", "prospector1", "prospector2"], piniaObject() {const mines = useMinesStore(); return mines}}
             }
         }

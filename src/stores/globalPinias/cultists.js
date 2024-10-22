@@ -70,10 +70,11 @@ export const useCultistsStore = defineStore("cultists", {
     actions: {
         tick() {
             const resources = useResourcesStore();
+            const buildings = useBuildingsStore();
             //calculating evilness
             var evilnessOutput = 0;
             for (var i in this.regularCultists) {
-                evilnessOutput += 1 * (1 + this.regularCultists[i].getModifiers("evilness", null, 0.1));
+                evilnessOutput += 1 * (1 + this.regularCultists[i].getModifiers("evilness", null, 0.1) + buildings.getBuildingModifier("evilness"));
             }
 
             resources.setResourcePerSec("evilness", evilnessOutput);
