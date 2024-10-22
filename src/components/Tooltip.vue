@@ -54,5 +54,13 @@ const props = defineProps({
                 </ul>
             </div>
         </span>
+        <!--Recruitment-->
+        <span v-if="props.tooltipType=='recruitment'">
+            <div class="mb-2">
+                <ul v-for="value, key in props.costs()">
+                    <li>{{ key }} : {{ value }}</li>
+                </ul>
+            </div>
+        </span>
     </div>
 </template>

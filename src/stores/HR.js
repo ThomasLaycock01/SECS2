@@ -12,20 +12,20 @@ export const useHRStore = defineStore("HR", {
                 recruitment: {
                     id: "recruitment",
                     name: "Recruitment",
+                    tooltipType: "recruitment",
                     buttons : {
                         hireHuman: {
                             id: "hireHuman",
                             name: "Hire Human Cultist",
                             desc: "Hire a Human Cultist",
                             costs() {
-                                const HR = useHRStore();
-                                return HR.getCultistCostBySpecies("human");
+                                const cultists = useCultistsStore();
+                                return cultists.getRaceCosts("human");
                             },
                             condition() {
                                 const resources = useResourcesStore();
                                 const cultists = useCultistsStore();
-                                const HR = useHRStore();
-                                return resources.checkIfCanAfford(HR.getCultistCostBySpecies("human")) && cultists.checkCultistSpace();
+                                return resources.checkIfCanAfford(cultists.getRaceCosts("human")) && cultists.checkCultistSpace();
                             },
                             showCondition() {
                                 return true;
@@ -37,11 +37,6 @@ export const useHRStore = defineStore("HR", {
                         }  
                     }
                 }
-            },
-            misc: {
-                costs: {
-                    human: {gold: 20}
-                }
             }
         }
     },
@@ -49,17 +44,14 @@ export const useHRStore = defineStore("HR", {
         //actions
         getActions(state) {
             return state.actions;
-        },
-        //misc
-        getCultistCostBySpecies(state) {
-            return (species) => state.misc.costs[species];
         }
     },
     actions: {
         hireCultist(species) {
             const resources = useResourcesStore();
+            const cultists = useCultistsStore();
             
-            resources.removeResources(this.getCultistCostBySpecies(species));
+            resources.removeResources(cultists.getRaceCosts(species));
 
             addCultist(species);
             
