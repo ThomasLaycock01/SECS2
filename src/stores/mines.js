@@ -333,8 +333,10 @@ export const useMinesStore = defineStore("mines", {
             return this.buildings[buildingId].costs;
         },
         updateBuildingCost(buildingId) {
-            for (var i in this.buildings[buildingId].costs) {
-                this.buildings[buildingId].costs[i] = this.buildings[buildingId].costs[i] * this.buildings[buildingId].exponents[i]
+            if (this.buildings[buildingId].exponents) {
+                for (var i in this.buildings[buildingId].costs) {
+                    this.buildings[buildingId].costs[i] = this.buildings[buildingId].costs[i] * this.buildings[buildingId].exponents[i]
+                }
             }
         },
         instantiateBuildings() {
