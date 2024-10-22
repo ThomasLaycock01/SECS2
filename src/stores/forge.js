@@ -61,6 +61,8 @@ export const useForgeStore = defineStore("forge", {
                 }
             },
             resources: {
+                resources: {},
+                locked: []
             },
             queues: {
                 smeltingQueue: [],
@@ -84,42 +86,48 @@ export const useForgeStore = defineStore("forge", {
         },
         //resources
         getAll(state) {
-            return state.resources;
+            return state.resources.resources;
         },
         getResourceTotal(state) {
-            return (id) => state.resources[id].total;
+            return (id) => state.resources.resources[id].total;
         },
         getResourcePerSec(state) {
-            return (id) => state.resources[id].perSec;
+            return (id) => state.resources.resources[id].perSec;
+        },
+        checkIfLocked(state) {
+            return (id) => state.resources.locked.includes(id);
         },
         getUnlockedResources(state) {
-            //doing same cheat as mines here for now - fix once actual resource unlocks are implemented
             const returnArray = [];
-            for (var i in state.resources) {
-                    returnArray.push(state.resources[i]);
+            for (var i in state.resources.resources) {
+                const id = state.resources.resources[i].id;
+                if (!state.checkIfLocked(id)) {
+                    returnArray.push(state.resources.resources[i]);
+                }
             }
+
             return returnArray;
         },
         getResourceName(state) {
-            return (id) => state.resources[id].name;
+            return (id) => state.resources.resources[id].name;
         },
         getResourceProperties(state) {
-            return (id) => state.resources[id].properties;
+            return (id) => state.resources.resources[id].properties;
         },
         getResourceCosts(state) {
-            return (id) => state.resources[id].properties.costs;
+            return (id) => state.resources.resources[id].properties.costs;
         },
         getResourceCostsByAmount(state) {
             return (id, amount) => {
                 const costsObj = {};
-                for (var i in state.resources[id].properties.costs) {
-                    costsObj[i] = state.resources[id].properties.costs[i] * amount;
+                for (var i in state.resources.resources[id].properties.costs) {
+                    costsObj[i] = state.resources.resources[id].properties.costs[i] * amount;
                 }
                 return costsObj;
             } 
         },
         getResourceSmeltingCost(state) {
-            return (id) => state.resources[id].properties.smeltingCost;
+            return (id) => state.resources.resources[id].properties.smeltingCost;
         },
         //workers
         getJobObject(state) {
@@ -243,15 +251,21 @@ export const useForgeStore = defineStore("forge", {
         },
         //resources
         instantiateResource(resourceObj) {
-            this.resources[resourceObj.id] = resourceObj;
+            this.resources.resources[resourceObj.id] = resourceObj;
+            if (resourceObj.id != "stoneBlocks") {
+                this.resources.locked.push(resourceObj.id);
+            }
         },
         modifyResource(resource, amount) {
             const resources = useResourcesStore();
-            this.resources[resource].total += amount;
+            this.resources.resources[resource].total += amount;
             resources.updatedLocked();
         },
         setResourcePerSec(resource, amount) {
-            this.resources[resource].perSec = amount;
+            this.resources.resources[resource].perSec = amount;
+        },
+        unlockResource(resourceId) {
+            this.resources.locked = this.resources.locked.filter(val => val != resourceId);
         },
         //workers
         addToJob(jobId, cultistId = null, obj = null) {
