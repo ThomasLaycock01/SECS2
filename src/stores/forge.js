@@ -187,10 +187,10 @@ export const useForgeStore = defineStore("forge", {
             return this.getResourceSmeltingCost(state.queues.smeltingQueue[0].barType);
         },
         getCurrentSmeltingPercentage() {
-            return this.getCurrentSmeltingProgress / this.getSmeltingCostOfCurrentBar * 100;
+            return Math.round(this.getCurrentSmeltingProgress / this.getSmeltingCostOfCurrentBar * 100);
         },
         getCurrentSmithingPercentage() {
-            return this.getCurrentSmithingProgress / this.getCurrentSmithingItem.smithCost * 100;
+            return Math.round(this.getCurrentSmithingProgress / this.getCurrentSmithingItem.smithCost * 100);
         },
         //buildings
         getNumOfBuilding(state) {
@@ -396,7 +396,7 @@ export const useForgeStore = defineStore("forge", {
         updateBuildingCost(buildingId) {
             if (this.buildings[buildingId].exponents) {
                 for (var i in this.buildings[buildingId].costs) {
-                    this.buildings[buildingId].costs[i] = this.buildings[buildingId].costs[i] * this.buildings[buildingId].exponents[i]
+                    this.buildings[buildingId].costs[i] = Math.round(this.buildings[buildingId].costs[i] * this.buildings[buildingId].exponents[i]);
                 }
             }
         },

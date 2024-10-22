@@ -183,7 +183,7 @@ export const useLairStore = defineStore("lair", {
         },
         updateBuildingCost(buildingId) {
             for (var i in this.buildings[buildingId].costs) {
-                this.buildings[buildingId].costs[i] = this.buildings[buildingId].costs[i] * this.buildings[buildingId].exponents[i]
+                this.buildings[buildingId].costs[i] = Math.round(this.buildings[buildingId].costs[i] * this.buildings[buildingId].exponents[i]);
             }
         },
         instantiateBuildings() {

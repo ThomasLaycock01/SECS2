@@ -341,7 +341,7 @@ export const useMinesStore = defineStore("mines", {
         updateBuildingCost(buildingId) {
             if (this.buildings[buildingId].exponents) {
                 for (var i in this.buildings[buildingId].costs) {
-                    this.buildings[buildingId].costs[i] = this.buildings[buildingId].costs[i] * this.buildings[buildingId].exponents[i]
+                    this.buildings[buildingId].costs[i] = Math.round(this.buildings[buildingId].costs[i] * this.buildings[buildingId].exponents[i]);
                 }
             }
         },
