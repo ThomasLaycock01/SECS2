@@ -7,9 +7,11 @@ import { addCultistToJob, removeCultistFromJob } from '@/functions';
 
 import { useForgeStore } from '@/stores/forge';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
+import { useResourcesStore } from '@/stores/globalPinias/resources';
 
 const forge = useForgeStore();
 const cultists = useCultistsStore();
+const resources = useResourcesStore();
 
 
 var smeltingTab = reactive({smelterToAssign: null, bar: null, amount: null});
@@ -147,7 +149,7 @@ function craftItem() {
                 <div class="title is-5 mb-1 segment-title">Crafting</div>
                 <b-field label="Select Metal">
                     <b-select placeholder="Metal" value=""  v-model="smithingTab.metal">
-                        <option v-for="i in forge.getUnlockedResources" :value="i.id">{{ i.name }}</option>
+                        <option v-for="i in resources.getResourcesByProperty('canSmith')" :value="i.id">{{ i.name }}</option>
                     </b-select>
                 </b-field>
                 <div class="columns">
