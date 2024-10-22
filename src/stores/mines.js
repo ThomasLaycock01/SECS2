@@ -270,7 +270,7 @@ export const useMinesStore = defineStore("mines", {
             }
         },
         unlockResource(resourceId) {
-            this.resources.locked = this.resource.locked.filter(val => val != resourceId);
+            this.resources.locked = this.resources.locked.filter(val => val != resourceId);
         },
         //items
         instantiateItems() {

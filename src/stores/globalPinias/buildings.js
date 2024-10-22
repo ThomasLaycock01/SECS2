@@ -16,7 +16,7 @@ export const useBuildingsStore = defineStore("buildings", {
             },
             childPinias: {
                 lair: {id:"lair", buildings: ["chambers"], piniaObject() {const lair = useLairStore(); return lair}},
-                mines: {id:"mines", buildings: ["tunnel"], piniaObject() {const mines = useMinesStore(); return mines}}
+                mines: {id:"mines", buildings: ["tunnel", "prospector"], piniaObject() {const mines = useMinesStore(); return mines}}
             }
         }
     },
@@ -83,11 +83,15 @@ export const useBuildingsStore = defineStore("buildings", {
         },
         resolveOnBuildEffects(effectArray) {
             const cultists = useCultistsStore();
+            const resources = useResourcesStore();
 
             for (var i in effectArray) {
-                switch (effectArray[i]) {
+                switch (effectArray[i].type) {
                     case "recalcCultistLimit":
                         cultists.calculateCultistLimit();
+                        break;
+                    case "unlockResource":
+                        resources.unlockResource(effectArray[i].resource);
                         break;
                     default:
                         break;

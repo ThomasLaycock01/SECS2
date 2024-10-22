@@ -182,6 +182,14 @@ export const useResourcesStore = defineStore("resources", {
                 }
             }
         },
+        unlockResource(resourceId) {
+            for (var i in this.childPinias) {
+                if (this.childPinias[i].resources.includes(resourceId)) {
+                    const pinia = this.childPinias[i].piniaObject();
+                    pinia.unlockResource(resourceId);
+                }
+            }
+        },
         //onLoad
         instantiateResources() {
             for (var i in resources) {
