@@ -52,6 +52,10 @@ const props = defineProps({
         </span>
         <!--Expansions-->
         <span v-if="props.tooltipType=='expansion'">
+            <div class=has-text-warning>
+                This is mutual exclusive with expansions of the same tier!
+            </div>
+
             <div class="mb-2">
                 <ul v-for="value, key in props.costs()">
                     <li>{{ resources.getName(key) }} : {{ value }}</li>

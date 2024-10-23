@@ -92,7 +92,7 @@ export const useLairStore = defineStore("lair", {
                     buttons: {
                         expansionMines: {
                             id: "expansionMines",
-                            name: "Expansion: Mines",
+                            name: "T1 Expansion: Mines",
                             desc: "Start digging a mineshaft underneath your evil lair!",
                             costs() {
                                 const expansions = useExpansionsStore();
@@ -114,7 +114,7 @@ export const useLairStore = defineStore("lair", {
                         },
                         expansionMetalmancer: {
                             id: "expansionMetalmancer",
-                            name: "Expansion: Metalmancer",
+                            name: "T2 Expansion: Metalmancer",
                             desc: "Build a tower for a Metalmancer.",
                             costs() {
                                 const expansions = useExpansionsStore();
@@ -136,7 +136,7 @@ export const useLairStore = defineStore("lair", {
                         },
                         expansionForge: {
                             id: "expansionForge",
-                            name: "Expansion: Forge",
+                            name: "T2 Expansion: Forge",
                             desc: "Build a forge for smithing gear.",
                             costs() {
                                 const expansions = useExpansionsStore();
