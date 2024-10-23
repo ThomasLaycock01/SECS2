@@ -99,8 +99,8 @@ export const useBuildingsStore = defineStore("buildings", {
 
             for (var i in effectArray) {
                 switch (effectArray[i].type) {
-                    case "recalcCultistLimit":
-                        cultists.calculateCultistLimit();
+                    case "recalcRegularLimit":
+                        cultists.calculateRegularLimit();
                         break;
                     case "unlockResource":
                         resources.unlockResource(effectArray[i].resource);

@@ -73,7 +73,7 @@ function createGolemClick() {
         <ul>
             <li v-for="value, key in cultists.getRaceCosts(metalmancerTab.golemType)">{{ key }} : {{ value }}</li>
         </ul>
-        <button class="button is-dark" @click="createGolemClick" :disabled="!cultists.checkCultistSpace() || !resources.checkIfCanAfford(cultists.getRaceCosts(metalmancerTab.golemType))">Create!</button>
+        <button class="button is-dark" @click="createGolemClick" :disabled="!cultists.checkSummonedCultistSpace() || !resources.checkIfCanAfford(cultists.getRaceCosts(metalmancerTab.golemType))">Create!</button>
     </div>
     <div v-if="metalmancer.getSummoningQueue.length > 0">
         <div>Currently Summoning: {{ metalmancer.getCurrentSummoning.golemType }}</div>

@@ -15,6 +15,7 @@ export class Cultist {
         this.raceName = raceTemplate.name;
         this.racialGroup = raceTemplate.racialGroup;
         this.racialModifiers = raceTemplate.racialModifiers;
+        this.type = raceTemplate.type;
 
         this.perks = perks;
         this.perkPoints = perkPoints;
@@ -64,6 +65,10 @@ export class Cultist {
 
     getRacialGroup() {
         return this.racialGroup;
+    }
+
+    getType() {
+        return this.type;
     }
 
     getEquipment() {

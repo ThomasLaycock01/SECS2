@@ -3,9 +3,11 @@ import Resource from "./Resource.vue";
 
 import {useResourcesStore} from "@/stores/globalPinias/resources.js";
 import { useCultistsStore } from "@/stores/globalPinias/cultists";
+import { useExpansionsStore } from "@/stores/expansions";
 
 const resources = useResourcesStore();
 const cultists = useCultistsStore();
+const expansions = useExpansionsStore();
 </script>
 
 <template>
@@ -27,7 +29,12 @@ const cultists = useCultistsStore();
                 <tr>
                     <th>Cultists</th>
                     <th></th>
-                    <th>{{ cultists.numOfCultists }} / {{ cultists.getCultistLimit }}</th>
+                    <th>{{ cultists.getNumOfRegular }} / {{ cultists.getRegularLimit }}</th>
+                </tr>
+                <tr v-if="expansions.checkIfSummonAvailable">
+                    <th>Summons</th>
+                    <th></th>
+                    <th>{{ cultists.getNumOfSummoned }} / {{ cultists.getSummonLimit }}</th>
                 </tr>
             </tbody>
         </table>

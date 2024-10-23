@@ -37,7 +37,8 @@ export const useExpansionsStore = defineStore("expansions", {
                 costs: {
                     stone: 500,
                     gold: 2000
-                }
+                },
+                hasSummon: true
             },
             {
                 id: "forge",
@@ -116,6 +117,20 @@ export const useExpansionsStore = defineStore("expansions", {
                 console.log("error in getCostObject funciton");
 
             }
+        },
+        checkIfSummonAvailable(state) {
+            for (var i in state.built) {
+                if (state.built[i]) {
+                    for (var j in state.all) {
+                        if (state.all[j].id == state.built[i]) {
+                            if (state.all[j].hasSummon) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
         }
     },
     actions: {

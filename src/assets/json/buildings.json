@@ -1,6 +1,6 @@
 {
     "lair": {
-        "chambers": {"id": "chambers", "name": "Chambers", "desc":"Some chambers for your cultists to sleep in.", "effectDesc":"+1 cultist limit", "modifiers": [{"type": "cultistLimit", "modifier": 1}], "onBuildEffects": [{"type": "recalcCultistLimit"}], "costs": {"gold": 10, "stone": 20}, "exponents": {"gold": 2, "stone": 2}, "reqs": {"evilness": 40, "expansionTier": 1}, "limit": 5},
+        "chambers": {"id": "chambers", "name": "Chambers", "desc":"Some chambers for your cultists to sleep in.", "effectDesc":"+1 cultist limit", "modifiers": [{"type": "regularLimit", "modifier": 1}], "onBuildEffects": [{"type": "recalcRegularLimit"}], "costs": {"gold": 10, "stone": 20}, "exponents": {"gold": 2, "stone": 2}, "reqs": {"evilness": 40, "expansionTier": 1}, "limit": 5},
         "evilShrine": {"id": "evilShrine", "name": "Evil Shrine", "desc":"An EVIL shrine", "effectDesc":"+10% evilness output on all cultists", "modifiers": [{"type": "evilness", "modifier": 0.1}], "costs": {"gold": 15, "copper": 20}, "exponents": {"gold": 1.5, "copper": 1.5}, "reqs": {"evilness": 100, "expansionTier": 1}, "limit": 5}
     },
     "mines": {

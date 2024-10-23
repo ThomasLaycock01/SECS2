@@ -7,12 +7,14 @@ import { reactive } from 'vue';
 import { useHRStore } from '@/stores/HR';
 import { useCultistsStore } from "@/stores/globalPinias/cultists";
 import { useInventoryStore } from '@/stores/globalPinias/inventory';
+import { useExpansionsStore } from '@/stores/expansions';
 
 import perks from "@/assets/json/perks.json";
 
 const cultists = useCultistsStore();
 const HR = useHRStore();
 const inventory = useInventoryStore();
+const expansions = useExpansionsStore();
 
 var activeCultist = reactive({cultist: null});
 var equipmentScreen = reactive({check: false, type: null, selectedItem: null});
@@ -89,16 +91,25 @@ function assignPerk(e) {
     </div>
     <div class="columns">
         <div class="column is-half">
+            <div class="title is-5 mb-1 segment-title">Cultists</div>
             <div class="cultistContainer">
-                <span v-for="i in cultists.regularCultists">
+                <span v-for="i in cultists.getRegularCultists">
                     <button  class="button is-dark is-info cultistGridItem" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
                 </span>
-                <span v-for="i in cultists.getSummoning">
-                    <button  class="button is-dark is-info cultistGridItem" disabled>Summoning...</button>
-                </span>
-                <span v-for="i in cultists.getCultistLimit - cultists.numOfCultists - cultists.getSummoning">
+                <span v-for="i in cultists.getRegularLimit - cultists.getNumOfRegular">
                     <div class="button is-outlined cultistGridItem" disabled>Empty</div>
                 </span>
+            </div>
+            <div v-if="expansions.checkIfSummonAvailable">
+                <div class="title is-5 mb-1 segment-title">Summons</div>
+                <div class="cultistContainer">
+                    <span v-for="i in cultists.getSummonedCultists">
+                        <button  class="button is-dark is-info cultistGridItem" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
+                    </span>
+                    <span v-for="i in cultists.getSummonLimit - cultists.getNumOfSummoned">
+                        <div class="button is-outlined cultistGridItem" disabled>Empty</div>
+                    </span>
+                </div>
             </div>
         </div>
         <div class="column is-half">

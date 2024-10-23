@@ -8,11 +8,13 @@ import races from "@/assets/json/races.json";
 export const useCultistsStore = defineStore("cultists", {
     state: () => {
         return {
-            regular: [], 
+            regular: [],
+            summoned: [], 
             special: [],
             races: {},
             misc : {
-                cultistLimit: 2,
+                regularLimit: 2,
+                summonLimit: 1,
                 summoning: 0,
                 defaultLevelLimit: 10
             }
@@ -20,10 +22,22 @@ export const useCultistsStore = defineStore("cultists", {
     },
     getters: {
         numOfCultists(state) {
-            return state.regular.length + state.misc.summoning;
+            return state.regular.length + + state.summoned.length + state.misc.summoning;
         },
-        regularCultists(state) {
+        getNumOfRegular(state) {
+            return state.regular.length;
+        },
+        getNumOfSummoned(state) {
+            return state.summoned.length + state.misc.summoning;
+        },
+        getAllNonSpecial(state) {
+            return state.regular.concat(state.summoned);
+        },
+        getRegularCultists(state) {
             return state.regular;
+        },
+        getSummonedCultists(state) {
+            return state.summoned;
         },
         getCultistById: (state) => {
             return (cultistId) => state.regular.find((cultist) => cultist.getId() == cultistId);
@@ -32,11 +46,14 @@ export const useCultistsStore = defineStore("cultists", {
             return state.regular.filter((cultist) => cultist.getJob() == null);
         },
         getEmployed(state) {
-            return state.regular.filter((cultist) => cultist.getJob() != null);
+            return state.getAllNonSpecial.filter((cultist) => cultist.getJob() != null);
         },
         //misc
-        getCultistLimit(state) {
-            return state.misc.cultistLimit;
+        getRegularLimit(state) {
+            return state.misc.regularLimit;
+        },
+        getSummonLimit(state) {
+            return state.misc.summonLimit;
         },
         getSummoning(state) {
             return state.misc.summoning;
@@ -81,7 +98,12 @@ export const useCultistsStore = defineStore("cultists", {
             resources.updateResources();
         },
         addCultist(cultist) {
-            this.regular.push(cultist);
+            if (cultist.getType() == "summon") {
+                this.summoned.push(cultist);
+            }
+            else {
+                this.regular.push(cultist);
+            }
         },
         removeCultist(cultistId) {
             this.regular = this.regular.filter((cultist) => cultist.getId() != cultistId)
@@ -105,22 +127,28 @@ export const useCultistsStore = defineStore("cultists", {
 
             return false;
         },
-        calculateCultistLimit() {
+        calculateRegularLimit() {
             const buildings = useBuildingsStore();
 
-            const buildingLimit = buildings.getBuildingModifier("cultistLimit");
+            const buildingLimit = buildings.getBuildingModifier("regularLimit");
 
-            this.misc.cultistLimit = 2 + buildingLimit;
+            this.misc.regularLimit = 2 + buildingLimit;
         },
         checkCultistSpace() {
-            return !(this.numOfCultists == this.getCultistLimit);
+            return !(this.numOfCultists == this.getRegularLimit);
+        },
+        checkRegularCultistSpace() {
+            return !(this.getNumOfRegular == this.getRegularLimit);
+        },
+        checkSummonedCultistSpace() {
+            return !(this.getNumOfSummoned == this.getSummonLimit);
         },
         //summoning
         addSummoning() {
-            this.summoning++;
+            this.misc.summoning++;
         },
         removeSummoning() {
-            this.summoning--;
+            this.misc.summoning--;
         },
         //races
         instantiateRaces() {

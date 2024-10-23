@@ -71,6 +71,7 @@ export function addCultist(race) {
 export function beginSummoning() {
     const cultists = useCultistsStore();
 
+
     cultists.addSummoning();
 
     //NOTE TO SELF
