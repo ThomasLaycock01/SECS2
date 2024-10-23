@@ -215,9 +215,13 @@ export const useMetalmancerStore = defineStore("metalmancer", {
 
             beginSummoning();
 
+            console.log(type);
+
+            const summonCosts = cultists.getRaceSummonCost(type);
+
             const queueObj = {
                 golemType: type,
-                summonCost: 1000
+                summonCost: summonCosts
             };
 
             this.queues.summoning.push(queueObj);

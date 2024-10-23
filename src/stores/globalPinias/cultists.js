@@ -72,6 +72,11 @@ export const useCultistsStore = defineStore("cultists", {
                 return state.races[race].costs;
             }
         },
+        getRaceSummonCost(state) {
+            return (race) => {
+                return state.races[race].summonCost;
+            }
+        },
         checkIfHasRacialGroup(state) {
             return (racialGroup) => {
                 for (var i in state.regular) {
