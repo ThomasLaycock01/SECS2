@@ -1,18 +1,18 @@
 {
     "mines": {
-        "1000": {"itemId": "1000", "type": "tool", "name": "Rusty Shovel", "shortName": "R. Shov", "modifiers": [{"type": "mineWorker", "modifier": 0.05}], "sellPrice": 10, "tier": 0},
-        "1001": {"itemId": "1001", "type": "body", "name": "Rusty Cuirass", "shortName": "R. Cuir", "modifiers": [{"type": "mineWorker", "modifier": 0.05}], "sellPrice": 10, "tier": 0},
-        "1002": {"itemId": "1002", "type": "accessory", "name": "Rusty Ring", "shortName": "R. Ring", "modifiers": [{"type": "mineWorker","modifier": 0.05}], "sellPrice": 10, "tier": 0},
-        "1101": {"itemId": "1101", "type": "tool", "name": "Ancient Pickaxe", "shortName": "A. Pick", "modifiers": [{"type": "mineWorker", "modifier": 0.15}], "sellPrice": 25, "tier": 1},
-        "1102": {"itemId": "1102", "type": "body", "name": "Ancient Robe", "shortName": "A. Robe", "modifiers": [{"type": "mineWorker", "modifier": 0.15}], "sellPrice": 25, "tier": 1},
-        "1103": {"itemId": "1103", "type": "accessory", "name": "Ancient Necklace", "shortName": "A. Neck", "modifiers": [{"type": "mineWorker", "modifier": 0.15}], "sellPrice": 25, "tier": 1}
+        "1000": {"itemId": "1000", "type": "tool", "name": "Rusty Shovel", "shortName": "R. Shov", "modifiers": [{"type": "mineWorker", "modifier": 0.05}], "sellPrice": 10, "tier": 0, "effectDesc": "+5% output on Mine Workers"},
+        "1001": {"itemId": "1001", "type": "body", "name": "Rusty Cuirass", "shortName": "R. Cuir", "modifiers": [{"type": "mineWorker", "modifier": 0.05}], "sellPrice": 10, "tier": 0, "effectDesc": "+5% output on Mine Workers"},
+        "1002": {"itemId": "1002", "type": "accessory", "name": "Rusty Ring", "shortName": "R. Ring", "modifiers": [{"type": "mineWorker","modifier": 0.05}], "sellPrice": 10, "tier": 0, "effectDesc": "+5% output on Mine Workers"},
+        "1101": {"itemId": "1101", "type": "tool", "name": "Ancient Pickaxe", "shortName": "A. Pick", "modifiers": [{"type": "mineWorker", "modifier": 0.15}], "sellPrice": 25, "tier": 1, "effectDesc": "+15% output on Mine Workers"},
+        "1102": {"itemId": "1102", "type": "body", "name": "Ancient Robe", "shortName": "A. Robe", "modifiers": [{"type": "mineWorker", "modifier": 0.15}], "sellPrice": 25, "tier": 1, "effectDesc": "+15% output on Mine Workers"},
+        "1103": {"itemId": "1103", "type": "accessory", "name": "Ancient Necklace", "shortName": "A. Neck", "modifiers": [{"type": "mineWorker", "modifier": 0.15}], "sellPrice": 25, "tier": 1, "effectDesc": "+15% output on Mine Workers"}
     },
     "forge": {
-        "2000": {"itemId": "2000", "type": "tool", "name": "Copper Pickaxe", "shortName": "C. Pick", "modifiers": [{"type": "mineWorker", "modifier": 0.05}], "sellPrice": 20, "tier": 1, "craftCosts": {"copperBars": 2}, "smithCost": 1000},
-        "2001": {"itemId": "2001", "type": "body", "name": "Copper Mail", "shortName": "C. Mail", "modifiers": [{"type": "mineWorker", "modifier": 0.07}], "sellPrice": 30, "tier": 1, "craftCosts": {"copperBars": 3}, "smithCost": 1200},
-        "2002": {"itemId": "2002", "type": "accessory", "name": "Copper Ring", "shortName": "C. Ring", "modifiers": [{"type": "mineWorker", "modifier": 0.05}], "sellPrice": 20, "tier": 1, "craftCosts": {"copperBars": 2}, "smithCost": 1000},
-        "2010": {"itemId": "2010", "type": "tool", "name": "Iron Pickaxe", "shortName": "I. Pick", "modifiers": [{"type": "mineWorker", "modifier": 0.1}], "sellPrice": 50, "tier": 1, "craftCosts": {"ironBars": 3}, "smithCost": 1400},
-        "2011": {"itemId": "2011", "type": "body", "name": "Iron Cuirass", "shortName": "I. Cuirass", "modifiers": [{"type": "mineWorker", "modifier": 0.15}], "sellPrice": 70, "tier": 1, "craftCosts": {"ironBars": 4}, "smithCost": 1700},
-        "2012": {"itemId": "2012", "type": "accessory", "name": "Iron Belt", "shortName": "I. Belt", "modifiers": [{"type": "mineWorker", "modifier": 0.09}], "sellPrice": 45, "tier": 1, "craftCosts": {"ironBars": 3}, "smithCost": 1100}
+        "2000": {"itemId": "2000", "type": "tool", "name": "Copper Pickaxe", "shortName": "C. Pick", "modifiers": [{"type": "mineWorker", "modifier": 0.05}], "sellPrice": 20, "tier": 1, "craftCosts": {"copperBars": 2}, "smithCost": 1000, "effectDesc": "+5% output on Mine Workers"},
+        "2001": {"itemId": "2001", "type": "body", "name": "Copper Mail", "shortName": "C. Mail", "modifiers": [{"type": "mineWorker", "modifier": 0.07}], "sellPrice": 30, "tier": 1, "craftCosts": {"copperBars": 3}, "smithCost": 1200, "effectDesc": "+7% output on Mine Workers"},
+        "2002": {"itemId": "2002", "type": "accessory", "name": "Copper Ring", "shortName": "C. Ring", "modifiers": [{"type": "mineWorker", "modifier": 0.05}], "sellPrice": 20, "tier": 1, "craftCosts": {"copperBars": 2}, "smithCost": 1000}, "effectDesc": "+5% output on Mine Workers",
+        "2010": {"itemId": "2010", "type": "tool", "name": "Iron Pickaxe", "shortName": "I. Pick", "modifiers": [{"type": "mineWorker", "modifier": 0.1}], "sellPrice": 50, "tier": 1, "craftCosts": {"ironBars": 3}, "smithCost": 1400, "effectDesc": "+10% output on Mine Workers"},
+        "2011": {"itemId": "2011", "type": "body", "name": "Iron Cuirass", "shortName": "I. Cuirass", "modifiers": [{"type": "mineWorker", "modifier": 0.15}], "sellPrice": 70, "tier": 1, "craftCosts": {"ironBars": 4}, "smithCost": 1700, "effectDesc": "+15% output on Mine Workers"},
+        "2012": {"itemId": "2012", "type": "accessory", "name": "Iron Belt", "shortName": "I. Belt", "modifiers": [{"type": "mineWorker", "modifier": 0.09}], "sellPrice": 45, "tier": 1, "craftCosts": {"ironBars": 3}, "smithCost": 1100, "effectDesc": "+9% output on Mine Workers"}
     }
 }
