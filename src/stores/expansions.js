@@ -12,9 +12,9 @@ export const useExpansionsStore = defineStore("expansions", {
             2: null,
             3: null
         },
-        all: [
+        all: {
             //mines
-            {
+            mines: {
                 id: "mines", 
                 name: "Mines", 
                 tier: 1, 
@@ -26,7 +26,7 @@ export const useExpansionsStore = defineStore("expansions", {
                     gold: 30
                 }
             },
-            {
+            metalmancer: {
                 id: "metalmancer",
                 name: "Metalmancer",
                 tier: 2,
@@ -40,7 +40,7 @@ export const useExpansionsStore = defineStore("expansions", {
                 },
                 hasSummon: true
             },
-            {
+            forge: {
                 id: "forge",
                 name: "Forge",
                 tier: 2,
@@ -52,13 +52,14 @@ export const useExpansionsStore = defineStore("expansions", {
                     stone: 500,
                     gold: 2000
                 }
-            },
+            }
+            /*
             {id: "laboratory", name: "Laboratory", tier: "tier1"},
             {id: "barracks", name: "Barracks", tier: "tier2"},
             {id: "tower", name: "Tower", tier: "tier2"},
             {id: "academy", name: "Academy", tier: "tier3"},
-            {id: "dungeons", name: "Dungeons", tier: "tier3"}
-        ]
+            {id: "dungeons", name: "Dungeons", tier: "tier3"}*/
+        }
         }
     },
     getters: {
@@ -100,33 +101,19 @@ export const useExpansionsStore = defineStore("expansions", {
         },
         getObjectById(state) {
             return (expansionId) =>  {
-                for (var i in state.all) {
-                    if (state.all[i].id == expansionId) {
-                        return state.all[i];
-                    }
-                }
+                return state.all[expansionId];
             }
         },
         getCostObject(state) {
             return (expansionId) => {
-                for (var i in state.all) {
-                    if (state.all[i].id === expansionId) {
-                        return state.all[i].costs;
-                    }
-                }
-                console.log("error in getCostObject funciton");
-
+                return state.all[expansionId].costs;
             }
         },
         checkIfSummonAvailable(state) {
             for (var i in state.built) {
                 if (state.built[i]) {
-                    for (var j in state.all) {
-                        if (state.all[j].id == state.built[i]) {
-                            if (state.all[j].hasSummon) {
-                                return true;
-                            }
-                        }
+                    if (state.all[state.built[i]].hasSummon) {
+                        return true;
                     }
                 }
             }
