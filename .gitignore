@@ -31,3 +31,4 @@ coverage
 
 #dont track the plan
 src/plan.txt
+src/changelog.txt
