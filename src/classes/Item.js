@@ -9,6 +9,7 @@ export class Item {
         this.modifiers = data.modifiers;
         this.sellPrice = data.sellPrice;
         this.tier = data.tier;
+        this.effectDesc = data.effectDesc;
 
         this.equippedCultistId = null;
     }
@@ -32,6 +33,10 @@ export class Item {
 
     getType() {
         return this.type;
+    }
+
+    getEffectDesc() {
+        return this.effectDesc;
     }
 
     getModifiers() {

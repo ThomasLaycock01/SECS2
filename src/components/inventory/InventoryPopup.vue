@@ -27,7 +27,10 @@ function closeButtonClick() {
         <h6>{{props.object.getName()}}</h6>
         <p>Tier {{ props.object.getTier() }}</p>
         <p>Sell value: {{ props.object.getSellPrice() }} Gold</p>
-        <span v-if="props.object.getEquippedCultistId()">
+        <br>
+        <p>{{ props.object.getEffectDesc() }}</p>
+        <br>
+        <span v-if="props.object.getEquippedCultistId() != null">
             <p>Equipped by {{ cultists.getCultistById(props.object.getEquippedCultistId()).getName() }}</p>
         </span>
         <span v-else>
