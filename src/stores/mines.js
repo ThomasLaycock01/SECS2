@@ -324,6 +324,13 @@ export const useMinesStore = defineStore("mines", {
                 this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(obj => obj.cultistId != cultistId);
             }
         },
+        switchResource(cultistId, newResourceId) {
+            for (var i in this.jobs.mineWorker.cultistArray) {
+                if (this.jobs.mineWorker.cultistArray[i].cultistId == cultistId) {
+                    this.jobs.mineWorker.cultistArray[i].resource = newResourceId;
+                }
+            }
+        },
         getOverseerModifier() {
             const overseer = this.getOverseer;
             if (overseer == null) {

@@ -12,6 +12,7 @@ const mines = useMinesStore();
 const cultists = useCultistsStore();
 
 var workerAssigning = reactive({worker: null, resource: null});
+var switchingResource = reactive({worker: null, resource: null});
 
 function assignWorker() {
     const obj = {
@@ -35,6 +36,18 @@ function removeOverseerClick() {
 
 function removeWorkerClick(e) {
     removeCultistFromJob(mines, "mineWorker", e.target.value);
+}
+
+function switchResourceClick(worker, resource) {
+    switchingResource.worker = worker;
+    switchingResource.resource = resource;
+}
+
+function switchResourceConfirm() {
+    mines.switchResource(switchingResource.worker, switchingResource.resource);
+
+    switchingResource.worker = null;
+    switchingResource.resource = null;
 }
 </script>
 
@@ -92,8 +105,20 @@ function removeWorkerClick(e) {
         <div>
             <div v-for="i in mines.getWorkerArray">
                 <div>{{ cultists.getCultistById(i.cultistId).getName() }} - Lvl {{ cultists.getCultistById(i.cultistId).getLevel() }} - {{ i.resource == "scavenge" ? "Scavenging" : `Mining ${mines.getResourceName(i.resource)}` }}</div>
-                <button class="button is-small is-info">Switch resource</button>
-                <button class="button is-small is-danger" :value="i.cultistId" @click="removeWorkerClick">Remove</button></div>
+                <div v-if="switchingResource.worker == i.cultistId">
+                    <div class=inline-blockContainer>
+                        <b-field>
+                            <b-select class="select is-small" placeholder="Resource" v-model="switchingResource.resource">
+                                <option v-for="i in mines.getUnlockedResources" :value="i.id">{{ i.name }}</option>
+                            </b-select>
+                        </b-field>
+                        <button class="button is-dark is-small" @click="switchResourceConfirm">Assign!</button>
+                    </div>
+                </div>
+                <div v-else>
+                    <button class="button is-small is-info" @click="switchResourceClick(i.cultistId, i.resource)">Switch resource</button>
+                    <button class="button is-small is-danger" :value="i.cultistId" @click="removeWorkerClick">Remove</button></div>
+                </div>
         </div>
     </div>
 
