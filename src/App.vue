@@ -27,13 +27,13 @@ const expansions = useExpansionsStore();
       <b-tab-item label="Inventory">
         <InventoryTab/>
       </b-tab-item>
-      <b-tab-item label="Mines" v-if="expansions.checkIfBuilt('mines')">
+      <b-tab-item label="Mines" v-if="expansions.hasExpansion('mines')">
         <MineTab/>
       </b-tab-item>
-      <b-tab-item label="Forge" v-if="expansions.checkIfBuilt('forge')">
+      <b-tab-item label="Forge" v-if="expansions.hasExpansion('forge')">
         <ForgeTab/>
       </b-tab-item>
-      <b-tab-item label="Metalmancer" v-if="expansions.checkIfBuilt('metalmancer')">
+      <b-tab-item label="Metalmancer" v-if="expansions.hasExpansion('metalmancer')">
         <MetalmancerTab/>
       </b-tab-item>
     </b-tabs>

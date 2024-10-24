@@ -8,9 +8,9 @@ import { useMetalmancerStore } from "./metalmancer";
 export const useExpansionsStore = defineStore("expansions", {
     state: () => {
         return {built: {
-            1: null,
-            2: null,
-            3: null
+            1: [],
+            2: [],
+            3: []
         },
         all: {
             //mines
@@ -78,7 +78,7 @@ export const useExpansionsStore = defineStore("expansions", {
         hasExpansion(state){
             return (expansionId) => {
                 for (var i in state.built) {
-                    if (state.built[i] == expansionId) {
+                    if (state.built[i].includes(expansionId)) {
                         return true;
                     }
                 }
@@ -87,9 +87,10 @@ export const useExpansionsStore = defineStore("expansions", {
         },
         hasTier(state) {
             return (tier) => {
-                return state.built[tier] ? true : false;
+                return state.built[tier].length > 0 ? true : false;
             }
         },
+        /*
         checkIfBuilt(state) {
             return (expansionId) => {
                 const expansionObject = this.getObjectById(expansionId);
@@ -98,7 +99,7 @@ export const useExpansionsStore = defineStore("expansions", {
                 }
                 return false;
             };
-        },
+        },*/
         getObjectById(state) {
             return (expansionId) =>  {
                 return state.all[expansionId];
@@ -111,8 +112,8 @@ export const useExpansionsStore = defineStore("expansions", {
         },
         checkIfSummonAvailable(state) {
             for (var i in state.built) {
-                if (state.built[i]) {
-                    if (state.all[state.built[i]].hasSummon) {
+                for (var j in state.built[i]) {
+                    if (state.all[state.built[i][j]].hasSummon) {
                         return true;
                     }
                 }
@@ -126,7 +127,7 @@ export const useExpansionsStore = defineStore("expansions", {
 
             const chosenExpansion = this.getObjectById(expansionId);
             const chosenTier = chosenExpansion.tier;
-            this.built[chosenTier] = chosenExpansion.id;
+            this.built[chosenTier].push(chosenExpansion.id);
 
             const costs = chosenExpansion.costs;
 
@@ -138,8 +139,8 @@ export const useExpansionsStore = defineStore("expansions", {
         },
         expansionTicks() {
             for (var i in this.getBuilt) {
-                if (this.getBuilt[i]) {
-                    const pinia = this.getObjectById(this.getBuilt[i]).piniaObject();
+                for (var j in this.getBuilt[i]) {
+                    const pinia = this.getObjectById(this.getBuilt[i][j]).piniaObject();
                     pinia.tick();
                 }
             }
