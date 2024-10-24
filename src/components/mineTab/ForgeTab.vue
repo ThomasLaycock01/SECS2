@@ -97,7 +97,7 @@ function craftItem() {
                                     <li v-for="value, key in smithingTab.selectedItem.craftCosts">{{ resources.getName(key) }}: {{ value }}</li>
                                 </ul>
                             </div>
-                            <button class="button is-dark mb-1 mr-2" :disabled="!forge.checkIfCanAffordItem(smithingTab.selectedItem) || forge.getQueue('smith').length >= 10" @click="craftItem()">Craft!</button>
+                            <button class="button is-dark mb-1 mr-2" :disabled="!forge.checkIfCanAffordItem(smithingTab.selectedItem) || forge.getQueue.length >= 10" @click="craftItem()">Craft!</button>
                         </div>
                         <div v-else>
                             Select an Item!
