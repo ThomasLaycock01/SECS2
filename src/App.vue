@@ -2,10 +2,9 @@
 import Tables from "./components/tables/Tables.vue";
 import LairTab from "./components/lairTab/LairTab.vue";
 import HRTab from "./components/HRTab/HRTab.vue";
-import MineTab from "./components/mineTab/MineTab.vue";
-import ForgeTab from "./components/forgeTab/ForgeTab.vue";
-import MetalmancerTab from "./components/metalmancerTab/MetalmancerTab.vue";
 import InventoryTab from "./components/inventory/InventoryTab.vue";
+
+import MainMinesTab from "./components/mineTab/MainMinesTab.vue";
 
 import { useExpansionsStore } from "./stores/expansions";
 
@@ -28,13 +27,7 @@ const expansions = useExpansionsStore();
         <InventoryTab/>
       </b-tab-item>
       <b-tab-item label="Mines" v-if="expansions.hasExpansion('mines')">
-        <MineTab/>
-      </b-tab-item>
-      <b-tab-item label="Forge" v-if="expansions.hasExpansion('forge')">
-        <ForgeTab/>
-      </b-tab-item>
-      <b-tab-item label="Metalmancer" v-if="expansions.hasExpansion('metalmancer')">
-        <MetalmancerTab/>
+        <MainMinesTab/>
       </b-tab-item>
     </b-tabs>
   </section>
