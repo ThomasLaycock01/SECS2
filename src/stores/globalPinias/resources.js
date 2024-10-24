@@ -15,8 +15,7 @@ export const useResourcesStore = defineStore("resources", {
             childPinias: [
                 {id:"mines", resources: [], piniaObject() {const mines = useMinesStore(); return mines}},
                 {id:"forge", resources: [], piniaObject() {const forge = useForgeStore(); return forge}}
-            ],
-            lockedResources: []
+            ]
         }
     },
     getters: {
@@ -127,12 +126,14 @@ export const useResourcesStore = defineStore("resources", {
             }
         },
         //locked/unlocked
-        getLocked(state) {
-            return state.lockedResources;
-        },
         checkIfLocked(state) {
             return (resourceId) => {
-                return state.lockedResources.includes(resourceId);
+                for (var i in state.childPinias) {
+                    if (state.childPinias[i].resources.includes(resourceId)) {
+                        const piniaObj = state.childPinias[i].piniaObject();
+                        return piniaObj.checkIfLocked(resourceId);
+                    }
+                }
             }
         },
         //properties
@@ -149,7 +150,6 @@ export const useResourcesStore = defineStore("resources", {
     actions: {
         modifyResource(type, amount) {
             this.resources[type].total += amount;
-            this.updatedLocked();
         },
         setResourcePerSec(type, value) {
             this.resources[type].perSec = value;
@@ -186,13 +186,6 @@ export const useResourcesStore = defineStore("resources", {
             return canAfford;
         },
         //locked/unlocked
-        updatedLocked() {
-            for (var i in this.getLocked) {
-                if (this.getResourceTotal(this.getLocked[i]) != 0) {
-                    this.lockedResources.splice(i, 1);
-                }
-            }
-        },
         unlockResource(resourceId) {
             for (var i in this.childPinias) {
                 if (this.childPinias[i].resources.includes(resourceId)) {
@@ -205,10 +198,6 @@ export const useResourcesStore = defineStore("resources", {
         instantiateResources() {
             for (var i in resources) {
                 for (var j in resources[i]) {
-                    if (!this.lockedResources.includes(resources[i][j].id)) {
-                        this.lockedResources.push(resources[i][j].id);
-                    }
-
                     if (i == "global") {
                         this.resources[j] = instantiateResource(resources[i][j]);
                     }

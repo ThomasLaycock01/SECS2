@@ -165,6 +165,9 @@ export const useMetalmancerStore = defineStore("metalmancer", {
                 }
             }
         },
+        onBuild() {
+
+        },
         //jobs
         addToJob(jobId, cultistId = null, obj = null) {
             const job = this.getJobObject(jobId);

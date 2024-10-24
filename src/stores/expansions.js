@@ -132,6 +132,9 @@ export const useExpansionsStore = defineStore("expansions", {
 
             resources.removeResources(costs);
 
+            const pinia = chosenExpansion.piniaObject();
+            pinia.onBuild();
+
         },
         expansionTicks() {
             for (var i in this.getBuilt) {

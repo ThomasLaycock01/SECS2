@@ -249,12 +249,14 @@ export const useForgeStore = defineStore("forge", {
                 }
             }
         },
+        onBuild() {
+            
+        },
         //resources
         instantiateResource(resourceObj) {
             this.resources.resources[resourceObj.id] = resourceObj;
-            if (resourceObj.id != "stoneBlocks") {
-                this.resources.locked.push(resourceObj.id);
-            }
+            this.resources.locked.push(resourceObj.id);
+            
         },
         modifyResource(resource, amount) {
             const resources = useResourcesStore();

@@ -255,17 +255,19 @@ export const useMinesStore = defineStore("mines", {
             }
 
         },
+        //onBuilt
+        onBuild() {
+            this.unlockResource("stone");
+        },
         //resources
         instantiateResource(resourceObj) {
             this.resources.resources[resourceObj.id] = resourceObj;
-            if (resourceObj.id != "stone" && resourceObj.id != "goldProd") {
+            if (resourceObj.id != "goldProd") {
                 this.resources.locked.push(resourceObj.id);
             }
         },
         modifyResource(resource, amount) {
-            const resources = useResourcesStore();
             this.resources.resources[resource].total += amount;
-            resources.updatedLocked();
         },
         setResourcePerSec(resource, amount) {
             this.resources.resources[resource].perSec = amount;

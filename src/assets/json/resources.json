@@ -4,7 +4,7 @@
         "gold": {"id": "gold", "name": "Gold", "store": "global", "properties": {"isGolem": true}}
     },
     "mines": {
-        "goldProd": {"id": "goldProd", "name": "Gold", "store": "mines", "properties": {}},
+        "goldProd": {"id": "goldProd", "name": "Gold", "store": "mines", "properties": {"alwaysLocked": true}},
         "stone": {"id": "stone", "name": "Stone", "store": "mines", "properties": {"isGolem": true}},
         "copper": {"id": "copper", "name": "Copper", "store": "mines", "properties": {"isGolem": true}},
         "iron": {"id": "iron", "name": "Iron", "store": "mines", "properties": {"isGolem": true}},
