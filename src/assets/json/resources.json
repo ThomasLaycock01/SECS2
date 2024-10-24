@@ -1,18 +1,18 @@
 {
     "global": {
         "evilness": {"id": "evilness", "name": "Evilness", "store": "global", "properties": {}},
-        "gold": {"id": "gold", "name": "Gold", "store": "global", "properties": {"isGolem": true}}
+        "gold": {"id": "gold", "name": "Gold", "store": "global", "properties": {"canSmith": true}}
     },
     "mines": {
         "goldProd": {"id": "goldProd", "name": "Gold", "store": "mines", "properties": {"alwaysLocked": true}},
-        "stone": {"id": "stone", "name": "Stone", "store": "mines", "properties": {"isGolem": true}},
-        "copper": {"id": "copper", "name": "Copper", "store": "mines", "properties": {"isGolem": true}},
-        "iron": {"id": "iron", "name": "Iron", "store": "mines", "properties": {"isGolem": true}},
+        "stone": {"id": "stone", "name": "Stone", "store": "mines", "properties": {}},
+        "copper": {"id": "copper", "name": "Copper", "store": "mines", "properties": {"canSmith": true}},
+        "iron": {"id": "iron", "name": "Iron", "store": "mines", "properties": {"canSmith": true}},
         "scavenge": {"id": "scavenge", "name": "Scavenge", "store": "mines", "properties": {"alwaysLocked": true}}
     },
     "forge": {
         "stoneBlocks": {"id": "stoneBlocks", "name": "Stone Blocks", "store": "forge", "properties": {"costs": {"stone": 10}, "smeltingCost": 900, "noPerSec": true}},
-        "copperBars": {"id": "copperBars", "name": "Copper Bars", "store": "forge", "properties": {"costs": {"copper": 15}, "smeltingCost": 1000, "noPerSec": true, "canSmith": true}},
-        "ironBars": {"id": "ironBars", "name": "Iron Bars", "store": "forge", "properties": {"costs": {"iron": 25}, "smeltingCost": 1500, "noPerSec": true, "canSmith": true}}
+        "copperBars": {"id": "copperBars", "name": "Copper Bars", "store": "forge", "properties": {"costs": {"copper": 15}, "smeltingCost": 1000, "noPerSec": true}},
+        "ironBars": {"id": "ironBars", "name": "Iron Bars", "store": "forge", "properties": {"costs": {"iron": 25}, "smeltingCost": 1500, "noPerSec": true}}
     }
 }

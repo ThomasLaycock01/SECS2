@@ -376,6 +376,7 @@ export const useForgeStore = defineStore("forge", {
         getItemsByMetal(metalType) {
             const returnArray = [];
             for (var i in this.items) {
+                console.log(this.items[i])
                 if (this.items[i].craftCosts[metalType]) {
                     returnArray.push(this.items[i]);
                 }
