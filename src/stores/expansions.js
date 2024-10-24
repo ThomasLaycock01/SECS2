@@ -7,59 +7,59 @@ import { useMetalmancerStore } from "./metalmancer";
 
 export const useExpansionsStore = defineStore("expansions", {
     state: () => {
-        return {built: {
-            1: [],
-            2: [],
-            3: []
-        },
-        all: {
-            //mines
-            mines: {
-                id: "mines", 
-                name: "Mines", 
-                tier: 1, 
-                piniaObject() {
-                    const mines = useMinesStore();
-                    return mines;
+        return {
+            built: {
+                1: [],
+                2: [],
+                3: []
+            },
+            all: {
+                //mines
+                mines: {
+                    id: "mines", 
+                    name: "Mines", 
+                    tier: 1, 
+                    piniaObject() {
+                        const mines = useMinesStore();
+                        return mines;
+                    },
+                    costs: {
+                        gold: 30
+                    }
                 },
-                costs: {
-                    gold: 30
+                metalmancer: {
+                    id: "metalmancer",
+                    name: "Metalmancer",
+                    tier: 2,
+                    piniaObject() {
+                        const metalmancer = useMetalmancerStore();
+                        return metalmancer;
+                    },
+                    costs: {
+                        stone: 500,
+                        gold: 2000
+                    },
+                    hasSummon: true
+                },
+                forge: {
+                    id: "forge",
+                    name: "Forge",
+                    tier: 2,
+                    piniaObject() {
+                        const forge = useForgeStore();
+                        return forge;
+                    },
+                    costs: {
+                        stone: 500,
+                        gold: 2000
+                    }
                 }
             },
-            metalmancer: {
-                id: "metalmancer",
-                name: "Metalmancer",
-                tier: 2,
-                piniaObject() {
-                    const metalmancer = useMetalmancerStore();
-                    return metalmancer;
-                },
-                costs: {
-                    stone: 500,
-                    gold: 2000
-                },
-                hasSummon: true
-            },
-            forge: {
-                id: "forge",
-                name: "Forge",
-                tier: 2,
-                piniaObject() {
-                    const forge = useForgeStore();
-                    return forge;
-                },
-                costs: {
-                    stone: 500,
-                    gold: 2000
-                }
+            slots: {
+                1: 1,
+                2: 1,
+                3: 1
             }
-            /*
-            {id: "laboratory", name: "Laboratory", tier: "tier1"},
-            {id: "barracks", name: "Barracks", tier: "tier2"},
-            {id: "tower", name: "Tower", tier: "tier2"},
-            {id: "academy", name: "Academy", tier: "tier3"},
-            {id: "dungeons", name: "Dungeons", tier: "tier3"}*/
-        }
         }
     },
     getters: {
@@ -90,16 +90,6 @@ export const useExpansionsStore = defineStore("expansions", {
                 return state.built[tier].length > 0 ? true : false;
             }
         },
-        /*
-        checkIfBuilt(state) {
-            return (expansionId) => {
-                const expansionObject = this.getObjectById(expansionId);
-                if (state.built[expansionObject.tier] == expansionId) {
-                    return true;
-                }
-                return false;
-            };
-        },*/
         getObjectById(state) {
             return (expansionId) =>  {
                 return state.all[expansionId];
@@ -119,6 +109,17 @@ export const useExpansionsStore = defineStore("expansions", {
                 }
             }
             return false;
+        },
+        //slots
+        getNumOfSlots(state) {
+            return (tier) => {
+                return state.slots[tier];
+            }
+        },
+        hasExpansionSpace(state) {
+            return (tier) => {
+                return state.built[tier].length < state.slots[tier];
+            }
         }
     },
     actions: {
