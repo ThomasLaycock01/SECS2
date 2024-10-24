@@ -4,6 +4,7 @@ import { useResourcesStore } from "./globalPinias/resources";
 import { useMinesStore } from "./mines"; 
 import { useForgeStore } from "./forge";
 import { useMetalmancerStore } from "./metalmancer";
+import { useSmelterStore } from "./smelter";
 
 export const useExpansionsStore = defineStore("expansions", {
     state: () => {
@@ -48,6 +49,19 @@ export const useExpansionsStore = defineStore("expansions", {
                     piniaObject() {
                         const forge = useForgeStore();
                         return forge;
+                    },
+                    costs: {
+                        stone: 500,
+                        gold: 2000
+                    }
+                },
+                smelter: {
+                    id: "smelter",
+                    name: "Smelter",
+                    tier: 3,
+                    piniaObject() {
+                        const smelter = useSmelterStore();
+                        return smelter;
                     },
                     costs: {
                         stone: 500,

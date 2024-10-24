@@ -13,28 +13,10 @@ const forge = useForgeStore();
 const cultists = useCultistsStore();
 const resources = useResourcesStore();
 
-
-var smeltingTab = reactive({smelterToAssign: null, bar: null, amount: null});
 var smithingTab = reactive({smithToAssign: null, metal: null, selecteditem: null});
 
 
 
-function addToSmeltingQueue() {
-    forge.addToSmeltingQueue(smeltingTab.bar, smeltingTab.amount);
-
-    smeltingTab.bar = null;
-    smeltingTab.amount = null;
-}
-
-function assignSmelter() {
-    addCultistToJob(forge, "smelter", smeltingTab.smelterToAssign);
-
-    smeltingTab.smelterToAssign = null;
-}
-
-function removeSmelter(e) {
-    removeCultistFromJob(forge, "smelter", e.target.value);
-}
 
 function assignSmith() {
     addCultistToJob(forge, "smith", smithingTab.smithToAssign);
@@ -81,11 +63,11 @@ function craftItem() {
                     </b-field>
                     <button v-if="smithingTab.smithToAssign != null" class="button is-dark" @click="assignSmith">Assign</button>
                 </div>
-                <div v-if="forge.getQueue('smith').length > 0">
+                <div v-if="forge.getQueue.length > 0">
                     <div>Currently Smithing: {{ forge.getCurrentSmithingItem.name }}</div>
                     <div>Current Progress: {{forge.getCurrentSmithingPercentage}}%</div>
                     <div>Queue:</div>
-                    <div v-for="i in forge.getQueue('smith')">{{ i.name }}</div>
+                    <div v-for="i in forge.getQueue">{{ i.name }}</div>
                 </div>
                 <div class="title is-5 mb-1 segment-title">Crafting</div>
                 <b-field label="Select Metal">
@@ -123,63 +105,5 @@ function craftItem() {
                     </div>
                 </div>
             </div>
-        <!--
-        <b-tab-item label="Smelting">
-            <!--Smelting
-            <div>
-                <div class="title is-5 mb-1 segment-title">Smelting - {{ forge.getSmelterArray.length }} / {{ forge.getJobLimit("smelter") }}</div>
-                <div v-if="forge.getSmelterArray">
-                    <div v-for="i in forge.getSmelterArray">
-                        <div class="inline-blockContainer">
-                            <div>{{ cultists.getCultistById(i).getName() }}</div>
-                            <button class="button is-small is-danger" :value="i" @click="removeSmelter">Remove</button>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    You need a cultist assigned to smelting to refine metal into bars!
-                    <b-field label="Assign Smelter">
-                        <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed() || !forge.checkIfJobHasSpace('smelter')" v-model="smeltingTab.smelterToAssign">
-                            <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
-                        </b-select>
-                    </b-field>
-                    <button v-if="smeltingTab.smelterToAssign != null" class="button is-dark" @click="assignSmelter">Assign</button>
-                </div>
-                <!--The display for adding a to smelting queue
-                <div class="inline-blockContainer">
-                    <div>
-                        <b-field label="Add To Queue">
-                            <b-select placeholder="Metal" v-model="smeltingTab.bar">
-                                <option v-for="i in forge.getUnlockedResources" :value="i.id">{{ i.name }}</option>
-                            </b-select>
-                        </b-field>
-                    </div>
-                    <div v-if="smeltingTab.bar != null">
-                        <b-field>
-                            <b-input placeholder="Amount" type="number" min="0" v-model="smeltingTab.amount"/>
-                        </b-field>
-                    </div>
-                </div>
-                <div v-if="smeltingTab.amount != 0 && smeltingTab.amount">
-                    Ordering {{ smeltingTab.Amount }} {{ forge.getResourceName(smeltingTab.bar) }}(s) would cost:
-                    <div v-for="value, key in forge.getResourceCosts(smeltingTab.bar)">
-                        {{ value * smeltingTab.amount }} {{ key }}
-                    </div>
-                    <br>
-                    <div>
-                        <button class="button is-dark mb-1 mr-2" @click="addToSmeltingQueue" :disabled="!forge.CheckIfCanAffordOrder(smeltingTab.bar, smeltingTab.amount)">Assign!</button>
-                    </div>
-                </div>
-                <div v-if="forge.getQueue('smelter').length > 0">
-                    <div>Currently Smelting: {{ forge.getNameOfCurrentBar }}</div>
-                    <div>Current Progress: {{ forge.getCurrentSmeltingPercentage }}%</div>
-                    Queue:
-                    <div v-for="i in forge.getQueue('smelter')">
-                        {{ forge.getResourceName(i.barType) }}: {{ i.amount }}
-                    </div>
-                </div>
-            </div>
-        </b-tab-item>
-    -->
 
 </template>

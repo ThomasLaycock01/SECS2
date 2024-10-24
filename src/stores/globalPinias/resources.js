@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 
 import { useMinesStore } from "../mines";
-import { useForgeStore } from "../forge";
+import { useSmelterStore } from "../smelter";
 
 import { instantiateResource, posToNeg } from "@/functions";
 
@@ -14,7 +14,7 @@ export const useResourcesStore = defineStore("resources", {
             },
             childPinias: [
                 {id:"mines", resources: [], piniaObject() {const mines = useMinesStore(); return mines}},
-                {id:"forge", resources: [], piniaObject() {const forge = useForgeStore(); return forge}}
+                {id:"smelter", resources: [], piniaObject() {const smelter = useSmelterStore(); return smelter}}
             ]
         }
     },

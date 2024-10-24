@@ -1,15 +1,9 @@
 import { defineStore } from "pinia";
 
-import { useResourcesStore } from "./globalPinias/resources";
 import { useCultistsStore } from "./globalPinias/cultists";
-import { useInventoryStore } from "./globalPinias/inventory";
-import { useExpansionsStore } from "./expansions";
-import { useBuildingsStore } from "./globalPinias/buildings";
+import { useResourcesStore } from "./globalPinias/resources";
 
-import items from "../assets/json/items.json";
-import buildings from "../assets/json/buildings.json";
-
-export const useForgeStore = defineStore("forge", {
+export const useSmelterStore = defineStore("smelter", {
     state: () => {
         return {
             actions: {
@@ -18,6 +12,21 @@ export const useForgeStore = defineStore("forge", {
                     name: "Actions",
                     tooltipType: "action",
                     buttons : {
+                        debugCopperBars: {
+                            id: "debugCopperBars",
+                            name: "debug copper bars",
+                            desc: "Be Evil - and Gain 1 Evilness",
+                            condition() {
+                                return true;
+                            },
+                            showCondition() {
+                                return true;
+                            },
+                            effect() {
+                                const smelter = useForgeStore();
+                                smelter.modifyResource("copperBars", 1000000)
+                            }
+                        }
                     }
                 },
                 buildings: {
@@ -27,56 +36,28 @@ export const useForgeStore = defineStore("forge", {
                     buttons: {
 
                     }
-                },
-                expansions: {
-                    id: "expansions",
-                    name: "Expansions",
-                    tooltipType: "expansion",
-                    buttons: {
-                        expansionSmelter: {
-                            id: "expansionSmelter",
-                            name: "T3 Expansion: Smelter",
-                            desc: "Build a smelter for refining metal.",
-                            costs() {
-                                const expansions = useExpansionsStore();
-                                return expansions.getCostObject("smelter");
-                            },
-                            condition() {
-                                const expansions = useExpansionsStore();
-                                const resources = useResourcesStore();
-                                return resources.checkIfCanAfford(expansions.getCostObject("forge"));
-                            },
-                            showCondition() {
-                                const expansions = useExpansionsStore();
-                                return !expansions.hasTier(3) && expansions.hasExpansion("forge");
-                            },
-                            effect() {
-                                const expansions = useExpansionsStore();
-                                expansions.buildExpansion("smelter");
-                            }
-                        }
-                    }
                 }
             },
             jobs: {
-                smith: {
-                    id: "smith",
+                smelter: {
+                    id: "smelter",
                     cultistArray: [],
-                    name: "Blacksmith",
-                    xpOutput: 3,
-                    limit: 1
+                    name: "Smelter",
+                    xpOutput: 2,
+                    limit: 2
                 }
             },
-            queues: {
-                smithingQueue: []
+            resources: {
+                resources: {},
+                locked: []
             },
-            items: {
-
+            queues: {
+                smeltingQueue: []
             },
             buildings: {
             },
             misc: {
-                currentSmithingProgress: 0
+                currentSmeltingProgress: 0
             }
         }
     },
@@ -84,6 +65,51 @@ export const useForgeStore = defineStore("forge", {
         //actions
         getActions(state) {
             return state.actions;
+        },
+        //resources
+        getAll(state) {
+            return state.resources.resources;
+        },
+        getResourceTotal(state) {
+            return (id) => state.resources.resources[id].total;
+        },
+        getResourcePerSec(state) {
+            return (id) => state.resources.resources[id].perSec;
+        },
+        checkIfLocked(state) {
+            return (id) => state.resources.locked.includes(id);
+        },
+        getUnlockedResources(state) {
+            const returnArray = [];
+            for (var i in state.resources.resources) {
+                const id = state.resources.resources[i].id;
+                if (!state.checkIfLocked(id)) {
+                    returnArray.push(state.resources.resources[i]);
+                }
+            }
+
+            return returnArray;
+        },
+        getResourceName(state) {
+            return (id) => state.resources.resources[id].name;
+        },
+        getResourceProperties(state) {
+            return (id) => state.resources.resources[id].properties;
+        },
+        getResourceCosts(state) {
+            return (id) => state.resources.resources[id].properties.costs;
+        },
+        getResourceCostsByAmount(state) {
+            return (id, amount) => {
+                const costsObj = {};
+                for (var i in state.resources.resources[id].properties.costs) {
+                    costsObj[i] = state.resources.resources[id].properties.costs[i] * amount;
+                }
+                return costsObj;
+            } 
+        },
+        getResourceSmeltingCost(state) {
+            return (id) => state.resources.resources[id].properties.smeltingCost;
         },
         //workers
         getJobObject(state) {
@@ -96,8 +122,8 @@ export const useForgeStore = defineStore("forge", {
                 return state.jobs[jobId].name;
             }
         },
-        getSmithArray(state) {
-            return state.jobs.smith.cultistArray;
+        getSmelterArray(state) {
+            return state.jobs.smelter.cultistArray;
         },
         getXpAmount(state) {
             return (jobId) => {
@@ -116,49 +142,71 @@ export const useForgeStore = defineStore("forge", {
         },
         //queues
         getQueue(state) {
-            return state.queues.smithingQueue;
+            return state.queues.smeltingQueue;
         },
-        getCurrentSmithingItem(state) {
-            return state.queues.smithingQueue[0];
+        getCurrentSmeltingItem(state) {
+            return state.queues.smeltingQueue[0];
         },
-        getCurrentSmithingPercentage() {
-            return Math.round(this.getCurrentSmithingProgress / this.getCurrentSmithingItem.smithCost * 100);
+        getNameOfCurrentBar(state) {
+            return this.getResourceName(state.queues.smeltingQueue[0].barType);
+        },
+        getSmeltingCostOfCurrentBar(state) {
+            return this.getResourceSmeltingCost(state.queues.smeltingQueue[0].barType);
+        },
+        getCurrentSmeltingPercentage() {
+            return Math.round(this.getCurrentSmeltingProgress / this.getSmeltingCostOfCurrentBar * 100);
         },
         //buildings
         getNumOfBuilding(state) {
             return (buildingId) => state.buildings[buildingId].owned;
         },
         //misc
-        getCurrentSmithingProgress(state) {
-            return state.misc.currentSmithingProgress;
+        getCurrentSmeltingProgress(state) {
+            return state.misc.currentSmeltingProgress;
         }
     },
     actions: {
         tick() {
             const cultists = useCultistsStore();
-            const inventory = useInventoryStore();
-            
-            //smithing
-            if (this.getCurrentSmithingItem) {
-                
-                this.misc.currentSmithingProgress += 100 * this.getSmithModifier();
 
-                const itemToSmith = this.getCurrentSmithingItem;
+            //smelting
+            if (this.getCurrentSmeltingItem) {
+                this.misc.currentSmeltingProgress += 100 * this.getSmelterModifier();
 
-                if (this.misc.currentSmithingProgress >= itemToSmith.smithCost) {
-                    inventory.addItem(itemToSmith);
-                    this.misc.currentSmithingProgress = 0;
-                    this.removeFirstQueueEntry("smith");
+                if (this.misc.currentSmeltingProgress >= this.getSmeltingCostOfCurrentBar) {
+                    this.misc.currentSmeltingProgress = 0;
+                    this.getCurrentSmeltingItem.amount--;
+
+                    this.modifyResource(this.getCurrentSmeltingItem.barType, 1);
+
+                    if (this.getCurrentSmeltingItem.amount == 0) {
+                        this.removeFirstQueueEntry("smelter");
+                    }
                 }
 
-                for (var i in this.getSmithArray) {
-                    const cultist = cultists.getCultistById(this.getSmithArray[i]);
-                    cultist.addXp(this.getXpAmount("smith"));
+                for (var i in this.getSmelterArray) {
+                    const cultist = cultists.getCultistById(this.getSmelterArray[i]);
+                    cultist.addXp(this.getXpAmount("smelter"));
                 }
             }
         },
         onBuild() {
-            
+            this.unlockResource("copperBars");
+        },
+        //resources
+        instantiateResource(resourceObj) {
+            this.resources.resources[resourceObj.id] = resourceObj;
+            this.resources.locked.push(resourceObj.id);
+        },
+        modifyResource(resource, amount) {
+            const resources = useResourcesStore();
+            this.resources.resources[resource].total += amount;
+        },
+        setResourcePerSec(resource, amount) {
+            this.resources.resources[resource].perSec = amount;
+        },
+        unlockResource(resourceId) {
+            this.resources.locked = this.resources.locked.filter(val => val != resourceId);
         },
         //workers
         addToJob(jobId, cultistId = null, obj = null) {
@@ -185,19 +233,19 @@ export const useForgeStore = defineStore("forge", {
                 this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(val => val != cultistId);
             }
         },
-        getSmithModifier() {
+        getSmelterModifier() {
             const cultists = useCultistsStore();
 
-            const smithArray = this.getSmithArray;
-            if (smithArray.length < 1) {
+            const smelterArray = this.getSmelterArray;
+            if (smelterArray.length < 1) {
                 return 0;
             }
 
             var totalMod = 0;
 
-            for (var i in smithArray) {
-                const smith = cultists.getCultistById(smithArray[i]);
-                totalMod += smith.getModifiers("smith", null, 0.01);
+            for (var i in smelterArray) {
+                const smelter = cultists.getCultistById(smelterArray[i]);
+                totalMod += smelter.getModifiers("smelter", null, 0.01);
             }
 
             return totalMod + 1;
@@ -210,12 +258,17 @@ export const useForgeStore = defineStore("forge", {
 
             return resources.checkIfCanAfford(costs);
         },
-        addToSmithingQueue(itemToAdd) {
+        addToSmeltingQueue(barToAdd, amountToAdd) {
             const resources = useResourcesStore();
 
-            this.queues.smithingQueue.push(itemToAdd);
+            const queueObj = {
+                barType: barToAdd,
+                amount: amountToAdd
+            }
 
-            resources.removeResources(itemToAdd.craftCosts);
+            this.queues.smeltingQueue.push(queueObj);
+
+            resources.removeResources(this.getResourceCostsByAmount(barToAdd, amountToAdd));
 
         },
         removeFirstQueueEntry(type) {
@@ -229,27 +282,6 @@ export const useForgeStore = defineStore("forge", {
                 default:
                     console.log("error in forge.removeFirstQueueEntry");
             }
-        },
-        //items
-        instantiateItems() {
-            this.items = items.forge;
-        },
-        getItemsByMetal(metalType) {
-            const returnArray = [];
-            for (var i in this.items) {
-                console.log(this.items[i])
-                if (this.items[i].craftCosts[metalType]) {
-                    returnArray.push(this.items[i]);
-                }
-            }
-            return returnArray;
-        },
-        checkIfCanAffordItem(item) {
-            const resources = useResourcesStore();
-
-            const costs = item.craftCosts;
-
-            return resources.checkIfCanAfford(costs);
         },
         //buildings
         buildBuilding(buildingId) {
@@ -267,7 +299,7 @@ export const useForgeStore = defineStore("forge", {
         instantiateBuildings() {
             const id = this.$id;
 
-            this.buildings = buildings["forge"];
+            this.buildings = buildings["smelter"];
             for (var i in this.buildings) {
                 this.buildings[i]["owned"] = 0;
             }
