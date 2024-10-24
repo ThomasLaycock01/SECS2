@@ -63,10 +63,7 @@ function craftItem() {
     <div>
         <ActionList :piniaObject="forge"/>
     </div>
-    <b-tabs v-model="activeForgeTab">
-        <b-tab-item label="Smithing">
-            <!--Smithing-->
-            <div>
+    <div>
                 <div class="title is-5 mb-1 segment-title">Smithing - {{ forge.getSmithArray.length }} / {{ forge.getJobLimit("smith") }}</div>
                 <div v-if="forge.getSmithArray">
                     <div v-for="i in forge.getSmithArray">
@@ -126,9 +123,9 @@ function craftItem() {
                     </div>
                 </div>
             </div>
-        </b-tab-item>
+        <!--
         <b-tab-item label="Smelting">
-            <!--Smelting-->
+            <!--Smelting
             <div>
                 <div class="title is-5 mb-1 segment-title">Smelting - {{ forge.getSmelterArray.length }} / {{ forge.getJobLimit("smelter") }}</div>
                 <div v-if="forge.getSmelterArray">
@@ -148,7 +145,7 @@ function craftItem() {
                     </b-field>
                     <button v-if="smeltingTab.smelterToAssign != null" class="button is-dark" @click="assignSmelter">Assign</button>
                 </div>
-                <!--The display for adding a to smelting queue-->
+                <!--The display for adding a to smelting queue
                 <div class="inline-blockContainer">
                     <div>
                         <b-field label="Add To Queue">
@@ -183,16 +180,6 @@ function craftItem() {
                 </div>
             </div>
         </b-tab-item>
-    </b-tabs>
+    -->
 
 </template>
-
-<script>
-
-export default {
-    data() {
-        return {activeForgeTab: 0}
-    }
-}
-
-</script>
