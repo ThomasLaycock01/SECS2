@@ -87,11 +87,22 @@ export const useResourcesStore = defineStore("resources", {
                 }
             }
         },
-        getResourcesByProperty(state) {
+        getResourcesByProperty() {
             return (property) => {
                 const returnArray = [];
                 for (var i in this.getAll) {
                     if (this.getAll[i].properties[property]) {
+                        returnArray.push(this.getAll[i]);
+                    }
+                }
+                return returnArray;
+            }
+        },
+        getUnlockedResourcesByProeprty(state) {
+            return (property) => {
+                const returnArray = [];
+                for (var i in this.getAll) {
+                    if (this.getAll[i].properties[property] && !this.checkIfLocked(this.getAll[i].id)) {
                         returnArray.push(this.getAll[i]);
                     }
                 }

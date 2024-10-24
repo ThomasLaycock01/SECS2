@@ -261,7 +261,6 @@ export const useForgeStore = defineStore("forge", {
         modifyResource(resource, amount) {
             const resources = useResourcesStore();
             this.resources.resources[resource].total += amount;
-            resources.updatedLocked();
         },
         setResourcePerSec(resource, amount) {
             this.resources.resources[resource].perSec = amount;

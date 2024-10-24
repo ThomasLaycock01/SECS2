@@ -93,7 +93,7 @@ function craftItem() {
                 <div class="title is-5 mb-1 segment-title">Crafting</div>
                 <b-field label="Select Metal">
                     <b-select placeholder="Metal" value=""  v-model="smithingTab.metal">
-                        <option v-for="i in resources.getResourcesByProperty('canSmith')" :value="i.id">{{ i.name }}</option>
+                        <option v-for="i in resources.getUnlockedResourcesByProeprty('canSmith')" :value="i.id">{{ i.name }}</option>
                     </b-select>
                 </b-field>
                 <div class="columns">
