@@ -159,6 +159,20 @@ export function deserializeItem(object) {
 
 
 
+//checking buttons for rendering
+export function buttonCheck(actionObject) {
+    for (var i in actionObject.buttons) {
+        if (actionObject.buttons[i].showCondition()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+
+
 //instantiat files
 export function instantiateItems() {
     const mines = useMinesStore();
