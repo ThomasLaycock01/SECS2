@@ -21,6 +21,9 @@ export const useInventoryStore = defineStore("inventory", {
         getInventory(state) {
             return state.inventory;
         },
+        getnumOfitems(state) {
+            return state.inventory.length;
+        },
         getItemById(state) {
             return (id) => state.inventory.find((obj) => obj.id == id)
         },

@@ -8,12 +8,14 @@ import { addCultistToJob, removeCultistFromJob } from '@/functions';
 import { useWarformerStore } from '@/stores/warformer';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
 import { useResourcesStore } from '@/stores/globalPinias/resources';
+import { useInventoryStore } from '@/stores/globalPinias/inventory';
 
 const warformer = useWarformerStore();
 const cultists = useCultistsStore();
 const resources = useResourcesStore();
+const inventory = useInventoryStore();
 
-var warformerTab = reactive({warformerToAssign: null, warformToSummon: null});
+var warformerTab = reactive({warformerToAssign: null, warformToSummon: null, items: []});
 
 
 
@@ -26,6 +28,15 @@ function assignWarformer() {
 
 function removeWarformer(e) {
     removeCultistFromJob(warformer, "warformer", e.target.value);
+}
+
+function itemButtonClick(e) {
+    if (warformerTab.items.includes(e.target.value)) {
+        warformerTab.items = warformerTab.items.filter(val => val != e.target.value);
+    }
+    else {
+        warformerTab.items.push(e.target.value);
+    }
 }
 
 function createWarformClick() {
@@ -68,11 +79,21 @@ function createWarformClick() {
         </b-field>
         <div v-if="warformerTab.warformToSummon">
             <div>Creating that type of Warform will cost:</div>
-            <!--
             <ul>
-                <li v-for="value, key in cultists.getRaceCosts(metalmancerTab.golemType)">{{ key }} : {{ value }}</li>
+                <li v-for="value, key in cultists.getRaceCosts(warformerTab.warformToSummon)">{{ key }} : {{ value }}</li>
             </ul>
-            -->
+            <br>
+            <!--Inventory interface for selecting items-->
+            <div>Select items:</div>
+            <div class="container" v-if="inventory.getnumOfitems != 0">
+                <span v-for="i in inventory.getInventory">
+                <div>
+                    <button :class="warformerTab.items.includes(i.getId().toString()) ? 'button is-info' : 'button is-dark'" @click="itemButtonClick" :value="i.getId()">{{ i.getShortName() ? i.getShortName() : i.getName() }}</button>
+                </div>
+                </span>
+            </div>
+            <div v-else>Inventory is empty!</div>
+            <br>
             <button class="button is-dark" @click="createWarformClick" :disabled="!resources.checkIfCanAfford(cultists.getRaceCosts(warformerTab.warformToSummon))">Create!</button>
         </div>
         <div v-if="warformer.getQueue.length">
