@@ -5,6 +5,7 @@ import { useMinesStore } from "./mines";
 import { useForgeStore } from "./forge";
 import { useMetalmancerStore } from "./metalmancer";
 import { useSmelterStore } from "./smelter";
+import { useWarformerStore } from "./warformer";
 
 export const useExpansionsStore = defineStore("expansions", {
     state: () => {
@@ -67,6 +68,20 @@ export const useExpansionsStore = defineStore("expansions", {
                         stone: 500,
                         gold: 2000
                     }
+                },
+                warformer: {
+                    id: "warformer",
+                    name: "Warformer",
+                    tier: 3,
+                    piniaObject() {
+                        const warformer = useWarformerStore();
+                        return warformer;
+                    },
+                    costs: {
+                        stone: 500,
+                        gold: 2000
+                    },
+                    hasSummon: true
                 }
             },
             slots: {

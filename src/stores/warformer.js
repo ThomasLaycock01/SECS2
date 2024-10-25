@@ -1,18 +1,20 @@
 import { defineStore } from "pinia";
 
-import { useResourcesStore } from "./globalPinias/resources";
 import { useCultistsStore } from "./globalPinias/cultists";
-import { useInventoryStore } from "./globalPinias/inventory";
 import { useExpansionsStore } from "./expansions";
-import { useBuildingsStore } from "./globalPinias/buildings";
+import { useResourcesStore } from "./globalPinias/resources";
 
-import items from "../assets/json/items.json";
-import buildings from "../assets/json/buildings.json";
-
-export const useForgeStore = defineStore("forge", {
+export const useWarformerStore = defineStore("warformer", {
     state: () => {
-        return {
+        return{
             actions: {
+                actions: {
+                    id: "actions",
+                    name: "Actions",
+                    tooltipType: "action",
+                    buttons : {
+                    }
+                },
                 buildings: {
                     id: "buildings",
                     name: "Buildings",
@@ -47,58 +49,33 @@ export const useForgeStore = defineStore("forge", {
                                 const expansions = useExpansionsStore();
                                 expansions.buildExpansion("smelter");
                             }
-                        },
-                        expansionWarformer: {
-                            id: "expansionWarformer",
-                            name: "T3 Expansion: Warformer",
-                            desc: "Build a space for creating Warforms out of weapons and armour.",
-                            costs() {
-                                const expansions = useExpansionsStore();
-                                return expansions.getCostObject("warformer");
-                            },
-                            condition() {
-                                const expansions = useExpansionsStore();
-                                const resources = useResourcesStore();
-                                return resources.checkIfCanAfford(expansions.getCostObject("warformer"));
-                            },
-                            showCondition() {
-                                const expansions = useExpansionsStore();
-                                return !expansions.hasTier(3) && expansions.hasExpansion("forge");
-                            },
-                            effect() {
-                                const expansions = useExpansionsStore();
-                                expansions.buildExpansion("warformer");
-                            }
                         }
                     }
                 }
             },
             jobs: {
-                smith: {
-                    id: "smith",
+                warformer: {
+                    id: "warformer",
                     cultistArray: [],
-                    name: "Blacksmith",
+                    name: "Warformer",
                     xpOutput: 3,
                     limit: 1
                 }
             },
             queues: {
-                smithingQueue: []
-            },
-            items: {
-
+                warformingQueue: []
             },
             buildings: {
             },
             misc: {
-                currentSmithingProgress: 0
+                currentWarformingProgress: 0
             }
         }
     },
     getters: {
         //actions
         getActions(state) {
-            return state.actions;
+        return state.actions;
         },
         //workers
         getJobObject(state) {
@@ -129,48 +106,27 @@ export const useForgeStore = defineStore("forge", {
                 return state.jobs[jobId].cultistArray.length < state.jobs[jobId].limit;
             }
         },
+        getWarformerArray(state) {
+            return state.jobs.warformer.cultistArray;
+        },
         //queues
         getQueue(state) {
-            return state.queues.smithingQueue;
+            return state.queues.warformingQueue;
         },
-        getCurrentSmithingItem(state) {
-            return state.queues.smithingQueue[0];
+        getCurrentSummoning(state) {
+            return state.queues.warformingQueue[0];
         },
-        getCurrentSmithingPercentage() {
-            return Math.round(this.getCurrentSmithingProgress / this.getCurrentSmithingItem.smithCost * 100);
-        },
-        //buildings
-        getNumOfBuilding(state) {
-            return (buildingId) => state.buildings[buildingId].owned;
+        getCurrentSummoningPercentage() {
+            return Math.round(this.getCurrentWarformingProgress / this.getCurrentSummoning * 100);
         },
         //misc
-        getCurrentSmithingProgress(state) {
-            return state.misc.currentSmithingProgress;
+        getCurrentWarformingProgress(state) {
+            return state.misc.currentWarformingProgress;
         }
     },
     actions: {
         tick() {
-            const cultists = useCultistsStore();
-            const inventory = useInventoryStore();
-            
-            //smithing
-            if (this.getCurrentSmithingItem) {
-                
-                this.misc.currentSmithingProgress += 100 * this.getSmithModifier();
-
-                const itemToSmith = this.getCurrentSmithingItem;
-
-                if (this.misc.currentSmithingProgress >= itemToSmith.smithCost) {
-                    inventory.addItem(itemToSmith);
-                    this.misc.currentSmithingProgress = 0;
-                    this.removeFirstQueueEntry("smith");
-                }
-
-                for (var i in this.getSmithArray) {
-                    const cultist = cultists.getCultistById(this.getSmithArray[i]);
-                    cultist.addXp(this.getXpAmount("smith"));
-                }
-            }
+ 
         },
         onBuild() {
             
@@ -200,19 +156,19 @@ export const useForgeStore = defineStore("forge", {
                 this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(val => val != cultistId);
             }
         },
-        getSmithModifier() {
+        getWarformerModifier() {
             const cultists = useCultistsStore();
 
-            const smithArray = this.getSmithArray;
+            const warformerArray = this.getWarformerArray;
             if (smithArray.length < 1) {
                 return 0;
             }
 
             var totalMod = 0;
 
-            for (var i in smithArray) {
-                const smith = cultists.getCultistById(smithArray[i]);
-                totalMod += smith.getModifiers("smith", null, 1);
+            for (var i in warformerArray) {
+                const warformer = cultists.getCultistById(warformerArray[i]);
+                totalMod += warformer.getModifiers("warformer", null, 1);
             }
 
             return totalMod + 1;
@@ -225,7 +181,7 @@ export const useForgeStore = defineStore("forge", {
 
             return resources.checkIfCanAfford(costs);
         },
-        addToSmithingQueue(itemToAdd) {
+        addToWarformingQueue(itemToAdd) {
             const resources = useResourcesStore();
 
             this.queues.smithingQueue.push(itemToAdd);
@@ -244,27 +200,6 @@ export const useForgeStore = defineStore("forge", {
                 default:
                     console.log("error in forge.removeFirstQueueEntry");
             }
-        },
-        //items
-        instantiateItems() {
-            this.items = items.forge;
-        },
-        getItemsByMetal(metalType) {
-            const returnArray = [];
-            for (var i in this.items) {
-                console.log(this.items[i])
-                if (this.items[i].craftCosts[metalType]) {
-                    returnArray.push(this.items[i]);
-                }
-            }
-            return returnArray;
-        },
-        checkIfCanAffordItem(item) {
-            const resources = useResourcesStore();
-
-            const costs = item.craftCosts;
-
-            return resources.checkIfCanAfford(costs);
         },
         //buildings
         buildBuilding(buildingId) {
