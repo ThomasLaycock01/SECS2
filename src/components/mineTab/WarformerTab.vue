@@ -39,6 +39,21 @@ function itemButtonClick(e) {
     }
 }
 
+function warformCostCheck() {
+    const costs = cultists.getRaceCosts(warformerTab.warformToSummon);
+    var totalTiers = 0;
+
+    for (var i in warformerTab.items) {
+        const item = inventory.getItemById(warformerTab.items[i]);
+        totalTiers += item.getTier();
+    }
+
+    if (totalTiers >= costs.itemTiers) {
+        return true;
+    }
+    return false;
+}
+
 function createWarformClick() {
     console.log("createWarformClick");
 }
@@ -94,7 +109,7 @@ function createWarformClick() {
             </div>
             <div v-else>Inventory is empty!</div>
             <br>
-            <button class="button is-dark" @click="createWarformClick" :disabled="!resources.checkIfCanAfford(cultists.getRaceCosts(warformerTab.warformToSummon))">Create!</button>
+            <button class="button is-dark" @click="createWarformClick" :disabled="!warformCostCheck()">Create!</button>
         </div>
         <div v-if="warformer.getQueue.length">
             <div>Currently Summoning: {{ warformer.getCurrentSummoning }}</div>

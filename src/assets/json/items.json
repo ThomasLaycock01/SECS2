@@ -1,6 +1,6 @@
 {
     "mines": {
-        "1000": {"itemId": "1000", "type": "tool", "name": "Rusty Shovel", "shortName": "R. Shov", "modifiers": [{"type": "mineWorker", "modifier": 0.05}], "sellPrice": 10, "tier": 0, "effectDesc": "+5% output on Mine Workers"},
+        "1000": {"itemId": "1000", "type": "tool", "name": "Rusty Shovel", "shortName": "R. Shov", "modifiers": [{"type": "mineWorker", "modifier": 0.05}], "sellPrice": 10, "tier": 3, "effectDesc": "+5% output on Mine Workers"},
         "1001": {"itemId": "1001", "type": "body", "name": "Rusty Cuirass", "shortName": "R. Cuir", "modifiers": [{"type": "mineWorker", "modifier": 0.05}], "sellPrice": 10, "tier": 0, "effectDesc": "+5% output on Mine Workers"},
         "1002": {"itemId": "1002", "type": "accessory", "name": "Rusty Ring", "shortName": "R. Ring", "modifiers": [{"type": "mineWorker","modifier": 0.05}], "sellPrice": 10, "tier": 0, "effectDesc": "+5% output on Mine Workers"},
         "1101": {"itemId": "1101", "type": "tool", "name": "Ancient Pickaxe", "shortName": "A. Pick", "modifiers": [{"type": "mineWorker", "modifier": 0.15}], "sellPrice": 25, "tier": 1, "effectDesc": "+15% output on Mine Workers"},
