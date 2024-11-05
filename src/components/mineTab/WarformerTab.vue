@@ -55,7 +55,13 @@ function warformCostCheck() {
 }
 
 function createWarformClick() {
-    console.log("createWarformClick");
+    for (var i in warformerTab.items) {
+        inventory.removeItem(warformerTab.items[i]);
+    }
+
+    warformer.summonWarform(warformerTab.warformToSummon);
+    warformerTab.warformToSummon = null;
+    warformerTab.items = [];
 }
 </script>
 

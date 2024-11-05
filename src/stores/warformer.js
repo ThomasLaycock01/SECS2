@@ -4,6 +4,8 @@ import { useCultistsStore } from "./globalPinias/cultists";
 import { useExpansionsStore } from "./expansions";
 import { useResourcesStore } from "./globalPinias/resources";
 
+import { beginSummoning, endSummoning } from "@/functions";
+
 export const useWarformerStore = defineStore("warformer", {
     state: () => {
         return{
@@ -63,12 +65,12 @@ export const useWarformerStore = defineStore("warformer", {
                 }
             },
             queues: {
-                warformingQueue: []
+                summoning: []
             },
             buildings: {
             },
             misc: {
-                currentWarformingProgress: 0
+                currentSummoningProgress: 0
             }
         }
     },
@@ -111,22 +113,45 @@ export const useWarformerStore = defineStore("warformer", {
         },
         //queues
         getQueue(state) {
-            return state.queues.warformingQueue;
+            return state.queues.summoning;
         },
         getCurrentSummoning(state) {
-            return state.queues.warformingQueue[0];
+            return state.queues.summoning[0];
         },
         getCurrentSummoningPercentage() {
-            return Math.round(this.getCurrentWarformingProgress / this.getCurrentSummoning * 100);
+            return Math.round(this.getCurrentSummoningProgress / this.getCurrentSummoning.summonCost * 100);
         },
         //misc
-        getCurrentWarformingProgress(state) {
-            return state.misc.currentWarformingProgress;
+        getCurrentSummoningProgress(state) {
+            return state.misc.currentSummoningProgress;
         }
     },
     actions: {
         tick() {
- 
+            const cultists = useCultistsStore();
+
+            if (this.getCurrentSummoning) {
+                this.misc.currentSummoningProgress += 100 * this.getWarformerModifier();
+
+                if (this.getCurrentSummoningProgress >= this.getCurrentSummoning.summonCost) {
+                    this.misc.currentSummoningProgress -= this.getCurrentSummoning.summonCost;
+
+                    this.endSummonWarform();
+                }
+
+                for (var i in this.getWarformerArray) {
+                    const cultist = cultists.getCultistById(this.getWarformerArray[i]);
+                    cultist.addXp(this.getXpAmount("warformer"));
+                }
+            }
+
+            
+            if (cultists.checkIfHasRacialGroup("warform")) {
+                for (var i in this.getWarformerArray) {
+                    const cultist = cultists.getCultistById(this.getWarformerArray[i]);
+                    cultist.addXp(this.getXpAmount("metalmancer") / 2);
+                }
+            }
         },
         onBuild() {
             
@@ -160,7 +185,7 @@ export const useWarformerStore = defineStore("warformer", {
             const cultists = useCultistsStore();
 
             const warformerArray = this.getWarformerArray;
-            if (smithArray.length < 1) {
+            if (warformerArray.length < 1) {
                 return 0;
             }
 
@@ -174,32 +199,32 @@ export const useWarformerStore = defineStore("warformer", {
             return totalMod + 1;
         },
         //queues
-        CheckIfCanAffordOrder(resourceToAdd, amount) {
+        summonWarform(type) {
+            const cultists = useCultistsStore();
             const resources = useResourcesStore();
 
-            const costs = this.getResourceCostsByAmount(resourceToAdd, amount);
+            beginSummoning();
 
-            return resources.checkIfCanAfford(costs);
+            console.log(type);
+
+            const summonCosts = cultists.getRaceSummonCost(type);
+
+            const queueObj = {
+                warformType: type,
+                summonCost: summonCosts
+            };
+
+            this.queues.summoning.push(queueObj);
+
+            const costs = cultists.getRaceCosts(type);
+
+            resources.removeResources(costs);
+
         },
-        addToWarformingQueue(itemToAdd) {
-            const resources = useResourcesStore();
+        endSummonWarform() {
+            endSummoning(this.getCurrentSummoning.warformType);
 
-            this.queues.smithingQueue.push(itemToAdd);
-
-            resources.removeResources(itemToAdd.craftCosts);
-
-        },
-        removeFirstQueueEntry(type) {
-            switch (type) {
-                case "smelter":
-                    this.queues.smeltingQueue.shift();
-                    break;
-                case "smith":
-                    this.queues.smithingQueue.shift();
-                    break;
-                default:
-                    console.log("error in forge.removeFirstQueueEntry");
-            }
+            this.queues.summoning.shift();
         },
         //buildings
         buildBuilding(buildingId) {
