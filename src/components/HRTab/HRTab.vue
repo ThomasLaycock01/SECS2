@@ -113,69 +113,73 @@ function assignPerk(e) {
             </div>
         </div>
         <div class="column is-half">
-            <!--Inventory screen - appears when selecting new item for cultist to equip-->
-            <div v-if="activeCultist.cultist && equipmentScreen.check">
-                <div>Equipment: {{ equipmentScreen.type }}</div>
-                <div>Click to select.</div>
-                <div class="container">
-                    <span v-for="i in inventory.getUnequippedItemByType(equipmentScreen.type)">
-                        <div>
-                            <button :class="i.getId() == equipmentScreen.selectedItem ? 'button is-info' : 'button is-dark'" @click="equipmentScreenButtonClick(i.getId())">{{ i.shortName ? i.shortName : i.name }}</button>
-                        </div>
-                    </span>
-                </div>
-                <br/>
-                <div>
-                    <button class="button is-outlined" @click="closeButtonClick">Close</button>
-                    <button class="button is-dark" @click="confirmButtonClick">Confirm</button>
-                    <span v-if="activeCultist.cultist.checkIfEquipped(equipmentScreen.type)">
-                        <button class="button is-outlined is-danger" @click="unequipButtonClick">Unequip Item</button>
-                    </span>
-                </div>
-            </div>
-            <!--Cultist screen - appears when a cultist is selected-->
-            <div v-else-if="activeCultist.cultist">
+            <div v-if="activeCultist.cultist">
                 <div class="title is-5 mb-1 segment-title">{{ activeCultist.cultist.getName() }}</div>
-                <div>{{ activeCultist.cultist.getRaceName() }}</div>
-                <div>{{activeCultist.cultist.getJob() ? activeCultist.cultist.getJob() : "Unemployed"}}</div>
-                <div>Level {{ activeCultist.cultist.getLevel() }} / {{ activeCultist.cultist.getLevelLimit() }}</div>
-                <div>{{ activeCultist.cultist.getXp() }} / {{ activeCultist.cultist.getXpNeeded() }}</div>
-                <br>
-                <div class="title is-6">Equipment</div>
-                <div>
-                    <div v-for="value, key in activeCultist.cultist.getEquipment()">
-                        {{key}}:
-                        <button v-if="value" class="button is-info" @click="equipButtonClick" :value="key">{{ value.name }}</button>
-                        <button v-else class="button is-outlined" @click="equipButtonClick" :value="key">Empty</button>
-                    </div>
-                </div>
-                <!--New Perks only appear when a cultist has available perk points-->
-                <br>
-                <div class="title is-6">Perks</div>
-                <div v-if="activeCultist.cultist.getPerkPoints()">
-                    <div>Perk points available: {{ activeCultist.cultist.getPerkPoints() }}</div>
-                    <div class="container">
-                        <div v-for="i in perks.default">
-                            <span v-if="activeCultist.cultist.getLevel() >= i.level && !activeCultist.cultist.checkIfHasPerk(i.perkId)">
-                                <button class="button is-info" @click="assignPerk" @mouseenter="mouseEnterPerk" @mouseleave="mouseLeavePerk" :value="i.perkId">{{ i.name }}</button>
+                <b-tabs v-model="activeTab">
+                    <b-tab-item label="Stats">
+                        <div>{{ activeCultist.cultist.getRaceName() }}</div>
+                        <div>{{activeCultist.cultist.getJob() ? activeCultist.cultist.getJob() : "Unemployed"}}</div>
+                        <div>Level {{ activeCultist.cultist.getLevel() }} / {{ activeCultist.cultist.getLevelLimit() }}</div>
+                        <div>{{ activeCultist.cultist.getXp() }} / {{ activeCultist.cultist.getXpNeeded() }}</div>
+                        <!--New Perks only appear when a cultist has available perk points-->
+                        <br>
+                        <div class="title is-6">Perks</div>
+                        <div v-if="activeCultist.cultist.getPerkPoints()">
+                            <div>Perk points available: {{ activeCultist.cultist.getPerkPoints() }}</div>
+                            <div class="container">
+                                <div v-for="i in perks.default">
+                                    <span v-if="activeCultist.cultist.getLevel() >= i.level && !activeCultist.cultist.checkIfHasPerk(i.perkId)">
+                                        <button class="button is-info" @click="assignPerk" @mouseenter="mouseEnterPerk" @mouseleave="mouseLeavePerk" :value="i.perkId">{{ i.name }}</button>
+                                        <div v-if="i.perkId == selectedPerk.perk">
+                                            <PerkTooltip class="perkTooltip" :perk="i"/>
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                        <!--Display of unlocked perks-->
+                        <div>Unlocked</div>
+                        <div class="container">
+                            <span v-for="i in activeCultist.cultist.getPerks()">
+                                <button  class="button is-outlined" @mouseenter="mouseEnterPerk" @mouseleave="mouseLeavePerk" :value="i.perkId">{{i.name}}</button>
                                 <div v-if="i.perkId == selectedPerk.perk">
-                                    <PerkTooltip class="perkTooltip" :perk="i"/>
+                                    <PerkTooltip class="perkTooltip" :perk="i" :unlocked="true"/>
                                 </div>
                             </span>
                         </div>
-                    </div>
-                    <br>
-                </div>
-                <!--Display of unlocked perks-->
-                <div>Unlocked</div>
-                <div class="container">
-                    <span v-for="i in activeCultist.cultist.getPerks()">
-                        <button  class="button is-outlined" @mouseenter="mouseEnterPerk" @mouseleave="mouseLeavePerk" :value="i.perkId">{{i.name}}</button>
-                        <div v-if="i.perkId == selectedPerk.perk">
-                            <PerkTooltip class="perkTooltip" :perk="i" :unlocked="true"/>
+                    </b-tab-item>
+                    <b-tab-item label="Equipment" >
+                        <div class="title is-6">Equipment</div>
+                        <div>
+                            <div v-for="value, key in activeCultist.cultist.getEquipment()">
+                                {{key}}:
+                                <button v-if="value" class="button is-info" @click="equipButtonClick" :value="key">{{ value.name }}</button>
+                                <button v-else class="button is-outlined" @click="equipButtonClick" :value="key">Empty</button>
+                            </div>
                         </div>
-                    </span>
-                </div>
+                        <!--Inventory screen - appears when selecting new item for cultist to equip-->
+                        <div v-if="activeCultist.cultist && equipmentScreen.check">
+                            <div>Equipment: {{ equipmentScreen.type }}</div>
+                            <div>Click to select.</div>
+                            <div class="container">
+                                <span v-for="i in inventory.getUnequippedItemByType(equipmentScreen.type)">
+                                    <div>
+                                        <button :class="i.getId() == equipmentScreen.selectedItem ? 'button is-info' : 'button is-dark'" @click="equipmentScreenButtonClick(i.getId())">{{ i.shortName ? i.shortName : i.name }}</button>
+                                    </div>
+                                </span>
+                            </div>
+                            <br/>
+                            <div>
+                                <button class="button is-outlined" @click="closeButtonClick">Close</button>
+                                <button class="button is-dark" @click="confirmButtonClick">Confirm</button>
+                                <span v-if="activeCultist.cultist.checkIfEquipped(equipmentScreen.type)">
+                                    <button class="button is-outlined is-danger" @click="unequipButtonClick">Unequip Item</button>
+                                </span>
+                            </div>
+                        </div>
+                    </b-tab-item>
+                </b-tabs>
             </div>
             <!--default screen - appears if nothing else-->
             <div v-else>Select a cultist!</div>
@@ -183,3 +187,13 @@ function assignPerk(e) {
     </div>
 
 </template>
+
+<script>
+
+export default {
+    data() {
+        return {activeTab: 0}
+    }
+}
+
+</script>
