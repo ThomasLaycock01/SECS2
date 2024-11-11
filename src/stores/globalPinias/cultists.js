@@ -40,10 +40,17 @@ export const useCultistsStore = defineStore("cultists", {
             return state.summoned;
         },
         getCultistById: (state) => {
-            return (cultistId) => state.regular.find((cultist) => cultist.getId() == cultistId);
+            return (cultistId) => {
+                if (state.regular.find((cultist) => cultist.getId() == cultistId)) {
+                    return state.regular.find((cultist) => cultist.getId() == cultistId);
+                }
+                else {
+                    return state.summoned.find((cultist) => cultist.getId() == cultistId);
+                }
+            }
         },
         getUnemployed(state) {
-            return state.regular.filter((cultist) => cultist.getJob() == null);
+            return state.regular.filter((cultist) => cultist.getJob() == null).concat(state.summoned.filter((cultist) => cultist.getJob() == null));
         },
         getEmployed(state) {
             return state.getAllNonSpecial.filter((cultist) => cultist.getJob() != null);
@@ -114,8 +121,7 @@ export const useCultistsStore = defineStore("cultists", {
             this.regular = this.regular.filter((cultist) => cultist.getId() != cultistId)
         },
         checkUnemployed() {
-            const array = this.regular;
-            const unEmployedArray = array.filter((obj) => obj.getJob() == null);
+            const unEmployedArray = this.regular.filter((obj) => obj.getJob() == null).concat(this.summoned.filter((obj) => obj.getJob() == null));
             if (unEmployedArray.length == 0) {
                 return false;
             }

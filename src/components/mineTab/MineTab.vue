@@ -19,7 +19,7 @@ function assignWorker() {
         cultistId: workerAssigning.worker,
         resource: workerAssigning.resource
     }
-    
+    console.log(obj);
     addCultistToJob(mines, "mineWorker", null, obj);
 
     workerAssigning.worker = null;
