@@ -109,12 +109,19 @@ export class Cultist {
         this.job = null;
     }
 
-    addXp(amount) {
+    addXp(amount, bypassNoXp = false) {
         const modifier = 1 + this.getModifiers("xpGain");
         if (this.level == this.levelLimit) {
             this.currentXp = 0;
         }
         else {
+            for (var i in this.getRacialModifiers()) {
+                if (this.getRacialModifiers()[i].type == "noXp" && bypassNoXp == false) {
+                    console.log(this.getRacialModifiers()[i]);
+                    console.log("firing");
+                    return;
+                }
+            }
             this.currentXp += amount * modifier;
             this.checkLevelUp();
         }
