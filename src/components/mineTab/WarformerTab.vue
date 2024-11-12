@@ -131,13 +131,13 @@ function createWarformClick() {
             <button class="button is-dark" @click="createWarformClick" :disabled="!warformCostCheck()">Create!</button>
         </div>
         <div v-if="warformer.getQueue.length">
-            <div>Currently Summoning: {{ warformer.getCurrentSummoning }}</div>
+            <div>Currently Summoning: {{ warformer.getCurrentSummoning.warformType }}</div>
             <div>Current Progress: {{ warformer.getCurrentSummoningPercentage }}%</div>
             <div>
                 Queue:
             </div>
             <div v-for="i in warformer.getQueue">
-                {{i}}
+                {{i.warformType}}
             </div>
         </div>
     </div>
