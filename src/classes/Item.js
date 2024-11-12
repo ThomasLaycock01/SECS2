@@ -12,6 +12,8 @@ export class Item {
         this.effectDesc = data.effectDesc;
 
         this.equippedCultistId = null;
+
+        this.sellAvailable = true;
     }
 
     //getters
@@ -74,13 +76,28 @@ export class Item {
         return this.equippedCultistId;
     }
 
+    getSellAvailable() {
+        return this.sellAvailable;
+    }
+
     //actions
     equipItem(cultistId) {
         this.equippedCultistId = cultistId;
+        this.toggleSellAvailable();
     }
 
     unequipItem() {
         this.equippedCultistId = null;
+        this.toggleSellAvailable();
+    }
+
+    toggleSellAvailable() {
+        if (this.sellAvailable) {
+            this.sellAvailable = false;
+        }
+        else {
+            this.sellAvailable = true;
+        }
     }
 
     //gonna finish serializing later - work on mines first

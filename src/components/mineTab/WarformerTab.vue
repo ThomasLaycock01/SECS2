@@ -37,6 +37,7 @@ function itemButtonClick(e) {
     else {
         warformerTab.items.push(e.target.value);
     }
+    inventory.getItemById(e.target.value).toggleSellAvailable();
 }
 
 function getItemTierValue() {

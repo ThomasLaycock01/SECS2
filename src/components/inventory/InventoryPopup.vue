@@ -38,7 +38,7 @@ function closeButtonClick() {
             <p>Not Equipped</p>
         </span>
 
-        <button class="button is-danger" @click="sellButtonClick">Sell</button>
+        <button class="button is-danger" @click="sellButtonClick" :disabled="!props.object.getSellAvailable()">Sell</button>
         <br>
         <br>
         
