@@ -146,7 +146,7 @@ export function sellItem(id) {
     const resources = useResourcesStore();
 
     const item = inventory.getItemById(id);
-    resources.modifyResource("gold", item.getSellPrice());
+    resources.modifyResource("gold", item.getSellValue());
     inventory.removeItem(item.id);
 }
 
