@@ -80,7 +80,12 @@ function assignPerk(e) {
 
 //for warform feeding
 function warformItemClick(id) {
-    warformFeeding.item = id;
+    if (warformFeeding.item == id) {
+        warformFeeding.item = null;
+    }
+    else {
+        warformFeeding.item = id;
+    }
 }
 
 function feedWarformClick() {
