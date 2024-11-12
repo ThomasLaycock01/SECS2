@@ -39,8 +39,7 @@ function itemButtonClick(e) {
     }
 }
 
-function warformCostCheck() {
-    const costs = cultists.getRaceCosts(warformerTab.warformToSummon);
+function getItemTierValue() {
     var totalTiers = 0;
 
     for (var i in warformerTab.items) {
@@ -48,7 +47,13 @@ function warformCostCheck() {
         totalTiers += item.getTier();
     }
 
-    if (totalTiers >= costs.itemTiers) {
+    return totalTiers;
+}
+
+function warformCostCheck() {
+    const costs = cultists.getRaceCosts(warformerTab.warformToSummon);
+
+    if (getItemTierValue() >= costs.itemTiers) {
         return true;
     }
     return false;
@@ -99,10 +104,12 @@ function createWarformClick() {
             </b-select>
         </b-field>
         <div v-if="warformerTab.warformToSummon">
-            <div>Creating that type of Warform will cost:</div>
+            <div>Creating that type of Warform will cost {{ cultists.getRaceCosts(warformerTab.warformToSummon).itemTiers }} item tiers</div>
+            <!--
             <ul>
                 <li v-for="value, key in cultists.getRaceCosts(warformerTab.warformToSummon)">{{ key }} : {{ value }}</li>
-            </ul>
+            </ul>-->
+
             <br>
             <!--Inventory interface for selecting items-->
             <div>Select items:</div>
@@ -115,6 +122,12 @@ function createWarformClick() {
             </div>
             <div v-else>Inventory is empty!</div>
             <br>
+            <div v-if="getItemTierValue() > cultists.getRaceCosts(warformerTab.warformToSummon).itemTiers" class="has-text-danger">
+                <div>
+                    You are spending more tiers than necessary!
+                </div>
+                <br>
+            </div>
             <button class="button is-dark" @click="createWarformClick" :disabled="!warformCostCheck()">Create!</button>
         </div>
         <div v-if="warformer.getQueue.length">
