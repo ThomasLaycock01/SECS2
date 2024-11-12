@@ -114,14 +114,14 @@ function createWarformClick() {
             <br>
             <!--Inventory interface for selecting items-->
             <div>Select items:</div>
-            <div class="container" v-if="inventory.getnumOfitems != 0">
-                <span v-for="i in inventory.getInventory">
+            <div class="container" v-if="inventory.getUnequippedItems.length > 0">
+                <span v-for="i in inventory.getUnequippedItems">
                 <div>
                     <button :class="warformerTab.items.includes(i.getId().toString()) ? 'button is-info' : 'button is-dark'" @click="itemButtonClick" :value="i.getId()">{{ i.getShortName() ? i.getShortName() : i.getName() }}</button>
                 </div>
                 </span>
             </div>
-            <div v-else>Inventory is empty!</div>
+            <div v-else>No available items - create more or unequip existing ones!</div>
             <br>
             <div v-if="getItemTierValue() > cultists.getRaceCosts(warformerTab.warformToSummon).itemTiers" class="has-text-danger">
                 <div>

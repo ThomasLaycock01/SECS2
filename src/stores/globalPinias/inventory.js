@@ -32,6 +32,9 @@ export const useInventoryStore = defineStore("inventory", {
                 return state.inventory.filter(obj => obj.getType() == type);
             }
         },
+        getUnequippedItems(state) {
+            return state.inventory.filter(obj => obj.getEquippedCultistId() == null)
+        },
         getUnequippedItemByType(state) {
             return (type) => {
                 return state.inventory.filter(obj => obj.getType() == type && obj.getEquippedCultistId() == null);
