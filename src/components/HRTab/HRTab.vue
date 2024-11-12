@@ -80,11 +80,16 @@ function assignPerk(e) {
 
 //for warform feeding
 function warformItemClick(id) {
+    if (warformFeeding.item) {
+        inventory.getItemById(warformFeeding.item).toggleSellAvailable();
+    }
+
     if (warformFeeding.item == id) {
         warformFeeding.item = null;
     }
     else {
         warformFeeding.item = id;
+        inventory.getItemById(warformFeeding.item).toggleSellAvailable();
     }
 }
 
