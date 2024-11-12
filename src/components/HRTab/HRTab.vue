@@ -19,6 +19,7 @@ const expansions = useExpansionsStore();
 var activeCultist = reactive({cultist: null});
 var equipmentScreen = reactive({check: false, type: null, selectedItem: null});
 var selectedPerk = reactive({perk: null});
+var warformFeeding = reactive({item: null})
 
 //for the cultist half of the screen
 function setNewActiveCultist(cultist) {
@@ -75,6 +76,27 @@ function assignPerk(e) {
     activeCultist.cultist.addPerk(perks.default[e.target.value]);
     selectedPerk.perk = null;
 }
+
+
+//for warform feeding
+function warformItemClick(id) {
+    warformFeeding.item = id;
+}
+
+function feedWarformClick() {
+    if (activeCultist.cultist.getRacialGroup() != "warform") {
+        console.log("error - somehow fed non-warform");
+        return;
+    }
+
+    const item = inventory.getItemById(warformFeeding.item);
+
+    activeCultist.cultist.feedItem(item);
+
+    inventory.removeItem(warformFeeding.item);
+
+    warformFeeding.item = null;
+}
 </script>
 
 
@@ -116,6 +138,7 @@ function assignPerk(e) {
             <div v-if="activeCultist.cultist">
                 <div class="title is-5 mb-1 segment-title">{{ activeCultist.cultist.getName() }}</div>
                 <b-tabs v-model="activeTab">
+                    <!--Stats tab-->
                     <b-tab-item label="Stats">
                         <div>{{ activeCultist.cultist.getRaceName() }}</div>
                         <div>{{activeCultist.cultist.getJob() ? activeCultist.cultist.getJob() : "Unemployed"}}</div>
@@ -149,6 +172,7 @@ function assignPerk(e) {
                             </span>
                         </div>
                     </b-tab-item>
+                    <!--Equipment tab-->
                     <b-tab-item label="Equipment" >
                         <div class="title is-6">Equipment</div>
                         <div>
@@ -177,6 +201,26 @@ function assignPerk(e) {
                                     <button class="button is-outlined is-danger" @click="unequipButtonClick">Unequip Item</button>
                                 </span>
                             </div>
+                        </div>
+                    </b-tab-item>
+                    <b-tab-item label="Consumables">
+                        <div v-if="activeCultist.cultist.getRacialGroup() == 'warform'" >
+                            <div class="title is-6 mb-1 segment-title">Warform feeding</div>
+                            <div>Click to select.</div>
+                            <div class="container" v-if="inventory.getnumOfitems != 0">
+                                <span v-for="i in inventory.getInventory">
+                                    <div>
+                                        <button :class="i.getId() == warformFeeding.item ? 'button is-info' : 'button is-dark'" @click="warformItemClick(i.getId())">{{ i.shortName ? i.shortName : i.name }}</button>
+                                    </div>
+                                </span>
+                            </div>
+                            <div v-else>
+                                Inventory is empty!
+                            </div>
+                            <br>
+                            <div v-if="warformFeeding.item != null">Feeding this item will add {{ inventory.getItemById(warformFeeding.item).getSellValue() / 10 }} XP</div>
+                            <br>
+                            <button class="button is-dark" @click="feedWarformClick" :disabled="warformFeeding.item == null">Feed!</button>
                         </div>
                     </b-tab-item>
                 </b-tabs>

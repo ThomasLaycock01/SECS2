@@ -239,4 +239,8 @@ export class Cultist {
 
         return modVal;
     }
+
+    feedItem(item) {
+        this.addXp(item.getSellValue() / 10, true);
+    }
 }

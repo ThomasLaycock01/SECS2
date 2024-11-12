@@ -7,7 +7,7 @@ export class Item {
         this.shortName = data.shortName;
         this.type = data.type;
         this.modifiers = data.modifiers;
-        this.sellPrice = data.sellPrice;
+        this.sellValue = data.sellValue;
         this.tier = data.tier;
         this.effectDesc = data.effectDesc;
 
@@ -62,8 +62,8 @@ export class Item {
         return returnArray;
     }
 
-    getSellPrice() {
-        return this.sellPrice;
+    getSellValue() {
+        return this.sellValue;
     }
 
     getTier() {
@@ -92,7 +92,7 @@ export class Item {
             shortName: this.shortName,
             type: this.type,
             modifiers: this.modifiers,
-            sellPrice: this.sellPrice
+            sellValue: this.sellValue
         }
 
         return serializedItem;

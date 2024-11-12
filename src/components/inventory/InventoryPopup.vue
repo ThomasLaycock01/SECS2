@@ -27,7 +27,7 @@ function closeButtonClick() {
     <div>
         <h6>{{props.object.getName()}}</h6>
         <p>Tier {{ props.object.getTier() }}</p>
-        <p>Sell value: {{ props.object.getSellPrice() }} Gold</p>
+        <p>Sell value: {{ props.object.getSellValue() }} Gold</p>
         <br>
         <p>{{ props.object.getEffectDesc() }}</p>
         <br>

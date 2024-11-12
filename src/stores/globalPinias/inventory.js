@@ -79,7 +79,7 @@ export const useInventoryStore = defineStore("inventory", {
 
             const item = this.inventory.find((obj) => obj.getId() == id);
 
-            resources.modifyResource("gold", item.getSellPrice());
+            resources.modifyResource("gold", item.getSellValue());
 
             if (item.getEquippedCultistId() != null) {
                 cultists.getCultistById(item.getEquippedCultistId()).unequipItem(item.getType());
