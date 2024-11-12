@@ -117,7 +117,6 @@ export class Cultist {
         else {
             for (var i in this.getRacialModifiers()) {
                 if (this.getRacialModifiers()[i].type == "noXp" && bypassNoXp == false) {
-                    console.log(this.getRacialModifiers()[i]);
                     return;
                 }
             }

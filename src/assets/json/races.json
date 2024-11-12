@@ -4,5 +4,5 @@
     "copperGolem": {"id": "copperGolem", "name": "Copper Golem", "racialGroup": "golem", "racialModifiers": [{"type": "mineWorker", "altType": "copper", "modifier": 0.3}, {"type": "grabProd", "altType": "metalmancer", "modifier": 0.2}], "type": "summon", "summonCost": 2000, "costs": {"copper": 500}},
     "ironGolem": {"id": "ironGolem", "name": "Iron Golem", "racialGroup": "golem", "racialModifiers": [{"type": "mineWorker", "altType": "iron", "modifier": 0.3}, {"type": "grabProd", "altType": "metalmancer", "modifier": 0.2}], "type": "summon", "summonCost": 2000, "costs": {"iron": 500}},
     "goldGolem": {"id": "goldGolem", "name": "Gold Golem", "racialGroup": "golem", "racialModifiers": [{"type": "mineWorker", "altType": "gold", "modifier": 0.3}, {"type": "grabProd", "altType": "metalmancer", "modifier": 0.2}], "type": "summon", "summonCost": 2000, "costs": {"gold": 500}},
-    "minorWarform": {"id": "minorWarform", "name": "Minor Warform", "racialGroup": "warform", "racialModifiers": [{"type": "noXp"}], "type": "summon", "summonCost": 1000, "costs": {"itemTiers": 3}}
+    "minorWarform": {"id": "minorWarform", "name": "Minor Warform", "racialGroup": "warform", "racialModifiers": [{"type": "noXp"}, {"type": "global", "modifier": -0.5}], "type": "summon", "summonCost": 1000, "costs": {"itemTiers": 3}}
 }
