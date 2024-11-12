@@ -102,12 +102,12 @@ export const useCultistsStore = defineStore("cultists", {
             const buildings = useBuildingsStore();
             //calculating evilness
             var evilnessOutput = 0;
-            for (var i in this.regularCultists) {
-                evilnessOutput += 1 * (1 + this.regularCultists[i].getModifiers("evilness", null, 0.1) + buildings.getBuildingModifier("evilness"));
+            for (var i in this.getRegularCultists) {
+                evilnessOutput += 1 * (1 + this.getRegularCultists[i].getModifiers("evilness", null, 0.1) + buildings.getBuildingModifier("evilness"));
             }
 
             resources.setResourcePerSec("evilness", evilnessOutput);
-            resources.updateResources();
+            //no need to call updateResources - its called elsewhere
         },
         addCultist(cultist) {
             if (cultist.getType() == "summon") {
