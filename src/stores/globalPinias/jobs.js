@@ -3,6 +3,7 @@ import {defineStore} from "pinia";
 import { useMinesStore } from "../mines";
 import { useForgeStore } from "../forge";
 import { useMetalmancerStore } from "../metalmancer";
+import { useWarformerStore } from "../warformer";
 
 export const useJobsStore = defineStore("jobs", {
     state: () => {
@@ -10,7 +11,8 @@ export const useJobsStore = defineStore("jobs", {
             childPinias: {
                 mines: {id: "mines", jobs: ["mineWorker", "mineOverseer"], piniaObject() {const mines = useMinesStore(); return mines;}},
                 forge: {id: "forge", jobs: ["smelter", "smith"], piniaObject() {const forge = useForgeStore(); return forge;}},
-                metalmancer: {id: "metalmancer", jobs: ["metalmancer"], piniaObject() {const metalmancer = useMetalmancerStore(); return metalmancer;}}
+                metalmancer: {id: "metalmancer", jobs: ["metalmancer"], piniaObject() {const metalmancer = useMetalmancerStore(); return metalmancer;}},
+                warformer: {id: "warformer", jobs: ["warformer"], piniaObject() {const warformer = useWarformerStore(); return warformer;}}
             }
         }
     },
