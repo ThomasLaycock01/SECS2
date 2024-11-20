@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 
 import { useCultistsStore } from "./globalPinias/cultists";
 import { useResourcesStore } from "./globalPinias/resources";
+import { useExpansionsStore } from "./expansions";
 
 import { beginSummoning, endSummoning } from "@/functions";
 
@@ -9,23 +10,53 @@ export const useMetalmancerStore = defineStore("metalmancer", {
     state: () => {
         return {
             actions: {
-                actions: {
-                    id: "actions",
-                    name: "Actions",
-                    tooltipType: "action",
-                    buttons : {
-                        placeholder: {
-                            id: "placeholder",
-                            name: "placeholder",
-                            desc: "Be Evil - and Gain 1 Evilness",
+                expansions: {
+                    id: "expansions",
+                    name: "Expansions",
+                    tooltipType: "expansion",
+                    buttons: {
+                        expansionGolemDissassembler: {
+                            id: "expansionGolemDissassembler",
+                            name: "T3 Expansion: Golem Dissassembler",
+                            desc: "Begin dissassembling golems - their old body parts will retain a degree of sentience.",
+                            costs() {
+                                const expansions = useExpansionsStore();
+                                return expansions.getCostObject("golemDissassembler");
+                            },
                             condition() {
-                                return true;
+                                const expansions = useExpansionsStore();
+                                const resources = useResourcesStore();
+                                return resources.checkIfCanAfford(expansions.getCostObject("golemDissassembler"));
                             },
                             showCondition() {
-                                return true;
+                                const expansions = useExpansionsStore();
+                                return !expansions.hasTier(3) && expansions.hasExpansion("metalmancer");
                             },
                             effect() {
-                               return true;
+                                const expansions = useExpansionsStore();
+                                expansions.buildExpansion("golemDissassembler");
+                            }
+                        },
+                        expansionWarformer: {
+                            id: "expansionWarformer",
+                            name: "T3 Expansion: Warformer",
+                            desc: "Build a space for creating Warforms out of weapons and armour.",
+                            costs() {
+                                const expansions = useExpansionsStore();
+                                return expansions.getCostObject("warformer");
+                            },
+                            condition() {
+                                const expansions = useExpansionsStore();
+                                const resources = useResourcesStore();
+                                return resources.checkIfCanAfford(expansions.getCostObject("warformer"));
+                            },
+                            showCondition() {
+                                const expansions = useExpansionsStore();
+                                return !expansions.hasTier(3) && expansions.hasExpansion("forge");
+                            },
+                            effect() {
+                                const expansions = useExpansionsStore();
+                                expansions.buildExpansion("warformer");
                             }
                         }
                     }
