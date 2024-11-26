@@ -20,6 +20,7 @@ export class Cultist {
         this.perks = perks;
         this.perkPoints = perkPoints;
         this.equipment = equipment;
+        this.misc = {}
     }
 
     //getters
@@ -98,6 +99,18 @@ export class Cultist {
             return true;
         }
         return false;
+    }
+
+    getMisc(miscType = null) {
+        if (miscType) {
+            if (this.misc[miscType]) {
+                return this.misc[miscType];
+            }
+            return false;
+        }
+        else {
+            return this.misc;
+        }
     }
 
     //setters
@@ -241,5 +254,9 @@ export class Cultist {
 
     feedItem(item) {
         this.addXp(item.getSellValue() / 10, true);
+    }
+
+    setMisc(key, value) {
+        this.misc[key] = value;
     }
 }

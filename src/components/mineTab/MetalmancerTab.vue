@@ -23,7 +23,7 @@ function assignMetalmancer() {
 }
 
 function removeMetalmancer(e) {
-    removeCultistFromJob(metalmancer, "metalmancer", e.target.value)
+    removeCultistFromJob(metalmancer, "metalmancer", e.target.value);
 }
 
 function createGolemClick() {

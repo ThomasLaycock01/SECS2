@@ -49,8 +49,19 @@ export const useCultistsStore = defineStore("cultists", {
                 }
             }
         },
+        getCultistsByRacialGroup(state) {
+            return (racialGroup) => {
+                var returnArray = [];
+                for (var i in state.getAllNonSpecial) {
+                    if (state.getAllNonSpecial[i].getRacialGroup() == racialGroup) {
+                        returnArray.push(state.getAllNonSpecial[i]);
+                    }
+                }
+                return returnArray;
+            }
+        },
         getUnemployed(state) {
-            return state.regular.filter((cultist) => cultist.getJob() == null).concat(state.summoned.filter((cultist) => cultist.getJob() == null));
+            return state.regular.filter((cultist) => cultist.getJob() == null).concat(state.summoned.filter((cultist) => cultist.getJob() == null && cultist.getMisc("toDissassemble") == false));
         },
         getEmployed(state) {
             return state.getAllNonSpecial.filter((cultist) => cultist.getJob() != null);
@@ -117,17 +128,18 @@ export const useCultistsStore = defineStore("cultists", {
                 this.regular.push(cultist);
             }
         },
-        removeCultist(cultistId) {
+        removeRegularCultist(cultistId) {
             this.regular = this.regular.filter((cultist) => cultist.getId() != cultistId)
         },
+        removeSummonedCultist(cultistId) {
+            console.log(cultistId)
+            this.summoned = this.summoned.filter((cultist) => cultist.getId() != cultistId);
+        },
         checkUnemployed() {
-            const unEmployedArray = this.regular.filter((obj) => obj.getJob() == null).concat(this.summoned.filter((obj) => obj.getJob() == null));
-            if (unEmployedArray.length == 0) {
-                return false;
-            }
-            else {
+            if (this.getUnemployed.length > 0) {
                 return true;
             }
+            return false;
         },
         checkIfIdUsed(id) {
             for (var i in this.regular) {
