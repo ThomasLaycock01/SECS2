@@ -37,26 +37,26 @@ export const useMetalmancerStore = defineStore("metalmancer", {
                                 expansions.buildExpansion("golemDissassembler");
                             }
                         },
-                        expansionWarformer: {
-                            id: "expansionWarformer",
-                            name: "T3 Expansion: Warformer",
-                            desc: "Build a space for creating Warforms out of weapons and armour.",
+                        expansionTotems: {
+                            id: "expansionTotems",
+                            name: "T3 Expansion: Totems",
+                            desc: "Build totems for global production bonuses",
                             costs() {
                                 const expansions = useExpansionsStore();
-                                return expansions.getCostObject("warformer");
+                                return expansions.getCostObject("totems");
                             },
                             condition() {
                                 const expansions = useExpansionsStore();
                                 const resources = useResourcesStore();
-                                return resources.checkIfCanAfford(expansions.getCostObject("warformer"));
+                                return resources.checkIfCanAfford(expansions.getCostObject("totems"));
                             },
                             showCondition() {
                                 const expansions = useExpansionsStore();
-                                return !expansions.hasTier(3) && expansions.hasExpansion("forge");
+                                return !expansions.hasTier(3) && expansions.hasExpansion("metalmancer");
                             },
                             effect() {
                                 const expansions = useExpansionsStore();
-                                expansions.buildExpansion("warformer");
+                                expansions.buildExpansion("totems");
                             }
                         }
                     }

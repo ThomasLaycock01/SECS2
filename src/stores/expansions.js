@@ -4,6 +4,7 @@ import { useResourcesStore } from "./globalPinias/resources";
 import { useMinesStore } from "./mines";
 import { useMetalmancerStore } from "./metalmancer";
 import { useGolemDissassemblerStore } from "./golemDissassembler"; 
+import { useTotemsStore } from "./totems";
 import { useForgeStore } from "./forge";
 import { useSmelterStore } from "./smelter";
 import { useWarformerStore } from "./warformer";
@@ -51,6 +52,19 @@ export const useExpansionsStore = defineStore("expansions", {
                     piniaObject() {
                         const golemDissassembler = useGolemDissassemblerStore();
                         return golemDissassembler;
+                    },
+                    costs: {
+                        stone: 500,
+                        gold: 2000
+                    }
+                },
+                totems: {
+                    id: "totems",
+                    name: "Totems",
+                    tier: 3,
+                    piniaObject() {
+                        const totems = useTotemsStore();
+                        return totems;
                     },
                     costs: {
                         stone: 500,

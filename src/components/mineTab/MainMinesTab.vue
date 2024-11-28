@@ -5,6 +5,7 @@ import SmelterTab from './SmelterTab.vue';
 import WarformerTab from './WarformerTab.vue';
 import MetalmancerTab from './MetalmancerTab.vue';
 import GolemDissassemblerTab from './GolemDissassemblerTab.vue';
+import TotemsTab from './TotemsTab.vue';
 
 import { useExpansionsStore } from '@/stores/expansions';
 const expansions = useExpansionsStore();
@@ -30,6 +31,9 @@ const expansions = useExpansionsStore();
         </b-tab-item>
         <b-tab-item label="Golem Dissassembler" v-if="expansions.hasExpansion('golemDissassembler')">
             <GolemDissassemblerTab/>
+        </b-tab-item>
+        <b-tab-item label="Totems" v-if="expansions.hasExpansion('totems')">
+            <TotemsTab/>
         </b-tab-item>
     </b-tabs>
 </template>
