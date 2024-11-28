@@ -38,6 +38,14 @@ function closeButtonClick() {
             <p>Not Equipped</p>
         </span>
 
+        <div v-if="props.object.getIsLiving()">
+            <br>
+            <p>This object is alive!</p>
+            <p>Level: {{ props.object.getLevel() }}</p>
+            <p>{{ props.object.getCurrentXp() }} / {{ props.object.getXpNeeded() }} XP</p>
+            <br>
+        </div>
+
         <button class="button is-danger" @click="sellButtonClick" :disabled="!props.object.getSellAvailable()">Sell</button>
         <br>
         <br>

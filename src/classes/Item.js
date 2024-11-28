@@ -61,6 +61,9 @@ export class Item {
 
         if (this.getIsLiving()) {
             levelMod += (0.1 * this.getLevel());
+            //IMPORTANT
+            //adding XP to living object here for now - may change later on
+            this.addXp(1);
         }
 
         for (var i in this.getModifiers()) {
@@ -79,8 +82,6 @@ export class Item {
                 }
             }
         }
-
-        console.log(returnArray);
 
         return returnArray;
     }
@@ -163,6 +164,11 @@ export class Item {
 
     //isLiving actions
     addXp(amount) {
+        if (!this.getIsLiving()) {
+            console.log("error - called addXP on non-living object");
+            return;
+        }
+
         if (this.level == this.levelLimit) {
             this.currentXp = 0;
         }
