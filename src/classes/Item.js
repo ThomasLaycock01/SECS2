@@ -22,6 +22,7 @@ export class Item {
             this.xpNeeded = data.isLiving.xpNeeded;
             this.xpIncrement = data.isLiving.xpIncrement;
             this.levelLimit = data.isLiving.levelLimit;
+            this.livingDesc = data.isLiving.livingDesc;
         }
     }
 
@@ -61,9 +62,6 @@ export class Item {
 
         if (this.getIsLiving()) {
             levelMod += (0.1 * this.getLevel());
-            //IMPORTANT
-            //adding XP to living object here for now - may change later on
-            this.addXp(1);
         }
 
         for (var i in this.getModifiers()) {
@@ -138,6 +136,13 @@ export class Item {
     getLevelLimit() {
         if (this.isLiving) {
             return this.levelLimit;
+        }
+        console.log("isLiving function called on non living item");
+    }
+
+    getLivingDesc() {
+        if (this.isLiving) {
+            return this.livingDesc;
         }
         console.log("isLiving function called on non living item");
     }

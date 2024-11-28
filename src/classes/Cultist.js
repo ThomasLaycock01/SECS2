@@ -249,11 +249,22 @@ export class Cultist {
             modVal += this.getLevelModifier(levelMod);
         }
 
+        this.giveXpToLivingItems();
+
         return modVal;
     }
 
     feedItem(item) {
         this.addXp(item.getSellValue() / 10, true);
+    }
+
+    giveXpToLivingItems() {
+        for (var i in this.getEquipment()) {
+            const item = this.getEquipment()[i];
+            if (item) {
+                item.addXp(1);
+            }
+        }
     }
 
     setMisc(key, value) {

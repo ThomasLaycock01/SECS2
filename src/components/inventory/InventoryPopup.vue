@@ -43,6 +43,7 @@ function closeButtonClick() {
             <p>This object is alive!</p>
             <p>Level: {{ props.object.getLevel() }}</p>
             <p>{{ props.object.getCurrentXp() }} / {{ props.object.getXpNeeded() }} XP</p>
+            <p>{{props.object.getLivingDesc()}}</p>
             <br>
         </div>
 
