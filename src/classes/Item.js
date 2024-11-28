@@ -14,6 +14,15 @@ export class Item {
         this.equippedCultistId = null;
 
         this.sellAvailable = true;
+
+        if (data.isLiving) {
+            this.isLiving = true;
+            this.currentXp = 0;
+            this.level = 1;
+            this.xpNeeded = data.isLiving.xpNeeded;
+            this.xpIncrement = data.isLiving.xpIncrement;
+            this.levelLimit = data.isLiving.levelLimit;
+        }
     }
 
     //getters
@@ -47,20 +56,32 @@ export class Item {
 
     getModifiersByType(type, altType = null) {
         const returnArray = [];
+
+        var levelMod = 1;
+
+        if (this.getIsLiving()) {
+            levelMod += (0.1 * this.getLevel());
+        }
+
         for (var i in this.getModifiers()) {
             if (this.getModifiers()[i].type == type || this.getModifiers()[i].type == "global") {
                 if (altType) {
                     if (this.getModifiers()[i].altType == altType || !this.getModifiers()[i].altType) {
-                        returnArray.push(this.getModifiers()[i]);
+                        const modifier = Math.floor(this.getModifiers()[i].modifier * levelMod * 100) / 100;
+                        returnArray.push({type: type, modifier: modifier});
                     }
                 }
                 else {
                     if (!this.getModifiers()[i].altType) {
-                        returnArray.push(this.getModifiers()[i]);
+                        const modifier = Math.floor(this.getModifiers()[i].modifier * levelMod * 100) / 100;
+                        returnArray.push({type: type, modifier: modifier});
                     }
                 }
             }
         }
+
+        console.log(returnArray);
+
         return returnArray;
     }
 
@@ -78,6 +99,46 @@ export class Item {
 
     getSellAvailable() {
         return this.sellAvailable;
+    }
+
+    //isLiving getters
+    getIsLiving() {
+        return this.isLiving;
+    }
+
+    getCurrentXp() {
+        if (this.isLiving) {
+            return this.currentXp;
+        }
+        console.log("isLiving function called on non living item");
+    }
+
+    getXpNeeded() {
+        if (this.isLiving) {
+            return this.xpNeeded;
+        }
+        console.log("isLiving function called on non living item");
+    }
+
+    getXpIncrement() {
+        if (this.isLiving) {
+            return this.xpIncrement;
+        }
+        console.log("isLiving function called on non living item");
+    }
+
+    getLevel() {
+        if (this.isLiving) {
+            return this.level;
+        }
+        console.log("isLiving function called on non living item");
+    }
+
+    getLevelLimit() {
+        if (this.isLiving) {
+            return this.levelLimit;
+        }
+        console.log("isLiving function called on non living item");
     }
 
     //actions
@@ -98,6 +159,30 @@ export class Item {
         else {
             this.sellAvailable = true;
         }
+    }
+
+    //isLiving actions
+    addXp(amount) {
+        if (this.level == this.levelLimit) {
+            this.currentXp = 0;
+        }
+        else {
+            this.currentXp += amount;
+            this.checkLevelUp();
+        }
+    }
+
+    checkLevelUp() {
+        if (this.currentXp >= this.xpNeeded && !(this.level + 1 > this.levelLimit)) {
+            this.levelUp();
+        }
+    }
+
+    levelUp() {
+        this.currentXp = this.currentXp - this.xpNeeded;
+        this.xpNeeded = Math.floor(this.xpNeeded * this.xpIncrement);
+
+        this.level += 1;
     }
 
     //gonna finish serializing later - work on mines first

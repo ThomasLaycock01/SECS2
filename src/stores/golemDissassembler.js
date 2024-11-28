@@ -9,7 +9,29 @@ export const useGolemDissassemblerStore = defineStore("golemDissassembler", {
     state: () => {
         return {
             actions: {
+                actions: {
+                    id: "actions",
+                    name: "Actions",
+                    tooltipType: "action",
+                    buttons : {
+                        testButton: {
+                            id: "testButton",
+                            name: "Test button",
+                            desc: "Hire a Human Cultist",
+                            condition() {
+                                return true;
+                            },
+                            showCondition() {
+                                return true;
+                            },
+                            effect() {
+                                const golemDissassembler = useGolemDissassemblerStore();
+                                golemDissassembler.createItem(3000)
+                            }
+                        },
 
+                    }
+                }
             },
             jobs: {
                 dissassembler: {
@@ -191,19 +213,18 @@ export const useGolemDissassemblerStore = defineStore("golemDissassembler", {
         },
         endDissassembly() {
             const cultists = useCultistsStore();
-            const inventory = useInventoryStore();
 
             cultists.removeSummonedCultist(this.queues.dissassembly[0].golem);
 
             switch (this.queues.dissassembly[0].part) {
                 case "arm":
-                    inventory.addItem(this.getItemById(3000));
+                    this.createItem(3000);
                     break;
                 case "chassis":
-                    inventory.addItem(this.getItemById(3001));
+                    this.createItem(3001);
                     break;
                 case "heart":
-                    inventory.addItem(this.getItemById(3002));
+                    this.createItem(3002);
                     break;
                 default:
                     console.log("Error - no part specified in golem dissassembly");
@@ -214,6 +235,11 @@ export const useGolemDissassemblerStore = defineStore("golemDissassembler", {
         //items
         instantiateItems() {
             this.items = items.golemDissassembler;
+        },
+        createItem(itemId) {
+            const inventory = useInventoryStore();
+            const object = this.items[itemId];
+            inventory.addItem(object);
         }
     }
 })
