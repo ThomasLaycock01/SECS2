@@ -2,6 +2,7 @@ import {defineStore} from "pinia";
 
 import { useResourcesStore } from "./resources";
 import { useCultistsStore } from "./cultists";
+import { useExpansionsStore } from "../expansions";
 
 import { useLairStore } from "../lair";
 import { useMinesStore } from "../mines";
@@ -44,30 +45,46 @@ export const useBuildingsStore = defineStore("buildings", {
         },
         getBuildingModifier(state) {
             return (type, altType = null) => {
-                var totalMod = 0;
+                const returnArray = [];
+                //iterate over every built childPinia
+                const expansions = useExpansionsStore();
+
                 for (var i in state.childPinias) {
-                    for (var j in state.childPinias[i].buildings) {
-                        const buildingId = state.childPinias[i].buildings[j];
-                        for (var k in state.buildings[i][buildingId].modifiers) {
-                            if (state.buildings[i][buildingId].modifiers[k].type == type || state.buildings[i][buildingId].modifiers[k].type == "global") {
-                                if (altType) {
-                                    if (state.buildings[i][buildingId].modifiers[k].altType == altType || !state.buildings[i][buildingId].modifiers[k].altType) {
-                                        const modifierObj = state.buildings[i][buildingId].modifiers[k];
-                                        totalMod += modifierObj.modifier * state.getNumOfBuildings(buildingId);
-                                    }
+                    //lair expansion is checked always
+                    if (expansions.hasExpansion(state.childPinias[i].id) || state.childPinias[i].id == "lair") {
+                        //iterate over buildings in said expansion
+                        for (var j in state.childPinias[i].buildings) {
+                            //iterating over buildings in store (they get instnatiate on load)
+                            const buildingId = state.childPinias[i].buildings[j];
+                            const pinia = state.childPinias[i].piniaObject();
+                            for (var k in state.buildings[i][buildingId].modifiers) {
+                                //if there are no owned of that building, skip it
+                                if (pinia.getNumOfBuilding(buildingId) < 1) {
+                                    break;
                                 }
                                 else {
-                                    if (!state.buildings[i][buildingId].modifiers[k].altType) {
-                                        const modifierObj = state.buildings[i][buildingId].modifiers[k];
-                                        totalMod += modifierObj.modifier * state.getNumOfBuildings(buildingId);
+                                    //otherwise, continue to check type and altType
+                                    if (state.buildings[i][buildingId].modifiers[k].type == type || state.buildings[i][buildingId].modifiers[k].type == "global") {
+                                        if (altType) {
+                                            if (state.buildings[i][buildingId].modifiers[k].altType == altType || !state.buildings[i][buildingId].modifiers[k].altType) {
+                                                const modifierObj = state.buildings[i][buildingId].modifiers[k];
+                                                returnArray.push(modifierObj);
+                                            }
+                                        }
+                                        else {
+                                            if (!state.buildings[i][buildingId].modifiers[k].altType) {
+                                                const modifierObj = state.buildings[i][buildingId].modifiers[k];
+                                                returnArray.push(modifierObj);
+                                            }
+                                        }
+                                        
                                     }
                                 }
-                                
                             }
                         }
                     }
                 }
-                return totalMod;
+                return returnArray;
             }
         },
         getOnBuildEffects(state) {

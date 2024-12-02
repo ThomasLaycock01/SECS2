@@ -167,7 +167,18 @@ export function buttonCheck(actionObject) {
 }
 
 
+//fetching modifiers that affect all cultists
+export function getAllCultistModifiers(type, altType) {
+    var returnArray = [];
 
+    const buildings = useBuildingsStore();
+
+    const buildingArray = buildings.getBuildingModifier(type, altType);
+
+    returnArray = returnArray.concat(buildingArray);
+
+    return returnArray;
+}
 
 
 //instantiat files

@@ -114,7 +114,7 @@ export const useCultistsStore = defineStore("cultists", {
             //calculating evilness
             var evilnessOutput = 0;
             for (var i in this.getRegularCultists) {
-                evilnessOutput += 1 * (1 + this.getRegularCultists[i].getModifiers("evilness", null, 0.1) + buildings.getBuildingModifier("evilness"));
+                evilnessOutput += 1 * (1 + this.getRegularCultists[i].getModifiers("evilness", null, 0.1)); //+ buildings.getBuildingModifier("evilness"));
             }
 
             resources.setResourcePerSec("evilness", evilnessOutput);
@@ -155,9 +155,9 @@ export const useCultistsStore = defineStore("cultists", {
         calculateRegularLimit() {
             const buildings = useBuildingsStore();
 
-            const buildingLimit = buildings.getBuildingModifier("regularLimit");
+            //const buildingLimit = buildings.getBuildingModifier("regularLimit");
 
-            this.misc.regularLimit = 2 + buildingLimit;
+            this.misc.regularLimit = 2;
         },
         checkCultistSpace() {
             return !(this.numOfCultists == this.getRegularLimit);

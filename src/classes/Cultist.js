@@ -1,5 +1,7 @@
 import { useJobsStore } from "@/stores/globalPinias/jobs";
 
+import { getAllCultistModifiers } from "@/functions";
+
 export class Cultist {
     constructor(id, name, raceTemplate, job, level, currentXp, xpNeeded, xpIncrement, levelLimit, perks, perkPoints, equipment) {
         this.id = id;
@@ -244,6 +246,13 @@ export class Cultist {
             } 
         }
         
+        const allCultistModifiers = getAllCultistModifiers(type, altType);
+
+        for (var i in allCultistModifiers) {
+            console.log(allCultistModifiers[i]);
+            modVal += allCultistModifiers[i].modifier;
+        }
+
         //adding the levelMod
         if (levelMod) {
             modVal += this.getLevelModifier(levelMod);
