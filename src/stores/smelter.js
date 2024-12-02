@@ -205,6 +205,11 @@ export const useSmelterStore = defineStore("smelter", {
         setResourcePerSec(resource, amount) {
             this.resources.resources[resource].perSec = amount;
         },
+        updateResources() {
+            for (var i in this.resources.resources) {
+                this.modifyResource(i, this.resources.resources[i].perSec);
+            }
+        },
         unlockResource(resourceId) {
             this.resources.locked = this.resources.locked.filter(val => val != resourceId);
         },

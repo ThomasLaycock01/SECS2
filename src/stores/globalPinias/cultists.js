@@ -119,6 +119,8 @@ export const useCultistsStore = defineStore("cultists", {
 
             resources.setResourcePerSec("evilness", evilnessOutput);
             //no need to call updateResources - its called elsewhere
+            //WRONG BITCH!!!!
+            resources.updateResources();
         },
         addCultist(cultist) {
             if (cultist.getType() == "summon") {

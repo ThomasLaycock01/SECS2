@@ -285,8 +285,6 @@ export const useMinesStore = defineStore("mines", {
                     this.setResourcePerSec(i, Math.round(resourceOutput * overseerMod * 100) / 100);
                 }
             }
-            resources.updateResources();
-            this.updateResources();
 
             //scavenge stuff
             if (this.getResourceTotal("scavenge") >= 100) {

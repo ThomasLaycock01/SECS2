@@ -169,6 +169,10 @@ export const useResourcesStore = defineStore("resources", {
             for (var i in this.resources) {
                 this.modifyResource(i, this.resources[i].perSec)
             }
+            for (var i in this.childPinias) {
+                const pinia = this.childPinias[i].piniaObject();
+                pinia.updateResources();
+            }
         },
         removeResources(obj) {
             for (var i in obj) {

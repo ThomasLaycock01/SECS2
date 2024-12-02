@@ -18,11 +18,8 @@ export function tick() {
     const expansions = useExpansionsStore();
     const cultists = useCultistsStore();
 
+    expansions.expansionTicks();
     cultists.tick();
-    expansions.expansionTicks();/*
-
-    //checking what convos need playing
-    checkConvos();*/
 }
 
 //checking and playing convos
