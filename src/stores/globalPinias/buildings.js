@@ -58,8 +58,9 @@ export const useBuildingsStore = defineStore("buildings", {
                             const buildingId = state.childPinias[i].buildings[j];
                             const pinia = state.childPinias[i].piniaObject();
                             for (var k in state.buildings[i][buildingId].modifiers) {
+                                const buildingNumber = pinia.getNumOfBuilding(buildingId);
                                 //if there are no owned of that building, skip it
-                                if (pinia.getNumOfBuilding(buildingId) < 1) {
+                                if (buildingNumber < 1) {
                                     break;
                                 }
                                 else {
@@ -67,13 +68,13 @@ export const useBuildingsStore = defineStore("buildings", {
                                     if (state.buildings[i][buildingId].modifiers[k].type == type || state.buildings[i][buildingId].modifiers[k].type == "global") {
                                         if (altType) {
                                             if (state.buildings[i][buildingId].modifiers[k].altType == altType || !state.buildings[i][buildingId].modifiers[k].altType) {
-                                                const modifierObj = state.buildings[i][buildingId].modifiers[k];
+                                                const modifierObj = {modifier: state.buildings[i][buildingId].modifiers[k].modifier * buildingNumber};
                                                 returnArray.push(modifierObj);
                                             }
                                         }
                                         else {
                                             if (!state.buildings[i][buildingId].modifiers[k].altType) {
-                                                const modifierObj = state.buildings[i][buildingId].modifiers[k];
+                                                const modifierObj = {modifier: state.buildings[i][buildingId].modifiers[k].modifier * buildingNumber};
                                                 returnArray.push(modifierObj);
                                             }
                                         }

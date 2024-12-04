@@ -153,11 +153,17 @@ export const useCultistsStore = defineStore("cultists", {
             return false;
         },
         calculateRegularLimit() {
+            var totalLimit = 2;
+
             const buildings = useBuildingsStore();
 
-            //const buildingLimit = buildings.getBuildingModifier("regularLimit");
+            const buildingModifiers = buildings.getBuildingModifier("regularLimit");
 
-            this.misc.regularLimit = 2;
+            for (var i in buildingModifiers) {
+                totalLimit += buildingModifiers[i].modifier;
+            }
+
+            this.misc.regularLimit = totalLimit;
         },
         checkCultistSpace() {
             return !(this.numOfCultists == this.getRegularLimit);
