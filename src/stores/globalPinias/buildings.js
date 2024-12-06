@@ -46,40 +46,44 @@ export const useBuildingsStore = defineStore("buildings", {
         getBuildingModifier(state) {
             return (type, altType = null) => {
                 const returnArray = [];
+                
                 //iterate over every built childPinia
                 const expansions = useExpansionsStore();
-
                 for (var i in state.childPinias) {
+
                     //lair expansion is checked always
                     if (expansions.hasExpansion(state.childPinias[i].id) || state.childPinias[i].id == "lair") {
+
                         //iterate over buildings in said expansion
                         for (var j in state.childPinias[i].buildings) {
+
                             //iterating over buildings in store (they get instnatiate on load)
                             const buildingId = state.childPinias[i].buildings[j];
                             const pinia = state.childPinias[i].piniaObject();
+
                             for (var k in state.buildings[i][buildingId].modifiers) {
+
                                 const buildingNumber = pinia.getNumOfBuilding(buildingId);
                                 //if there are no owned of that building, skip it
                                 if (buildingNumber < 1) {
                                     break;
                                 }
-                                else {
-                                    //otherwise, continue to check type and altType
-                                    if (state.buildings[i][buildingId].modifiers[k].type == type || state.buildings[i][buildingId].modifiers[k].type == "global") {
-                                        if (altType) {
-                                            if (state.buildings[i][buildingId].modifiers[k].altType == altType || !state.buildings[i][buildingId].modifiers[k].altType) {
-                                                const modifierObj = {modifier: state.buildings[i][buildingId].modifiers[k].modifier * buildingNumber};
-                                                returnArray.push(modifierObj);
-                                            }
+
+                                //otherwise, continue to check type and altType
+                                if (state.buildings[i][buildingId].modifiers[k].type == type || state.buildings[i][buildingId].modifiers[k].type == "global") {
+                                    if (altType) {
+                                        if (state.buildings[i][buildingId].modifiers[k].altType == altType || !state.buildings[i][buildingId].modifiers[k].altType) {
+                                            const modifierObj = {modifier: state.buildings[i][buildingId].modifiers[k].modifier * buildingNumber};
+                                            returnArray.push(modifierObj);
                                         }
-                                        else {
-                                            if (!state.buildings[i][buildingId].modifiers[k].altType) {
-                                                const modifierObj = {modifier: state.buildings[i][buildingId].modifiers[k].modifier * buildingNumber};
-                                                returnArray.push(modifierObj);
-                                            }
-                                        }
-                                        
                                     }
+                                    else {
+                                        if (!state.buildings[i][buildingId].modifiers[k].altType) {
+                                            const modifierObj = {modifier: state.buildings[i][buildingId].modifiers[k].modifier * buildingNumber};
+                                            returnArray.push(modifierObj);
+                                        }
+                                    }
+                                    
                                 }
                             }
                         }
