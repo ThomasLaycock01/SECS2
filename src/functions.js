@@ -171,6 +171,7 @@ export function buttonCheck(actionObject) {
 export function getAllCultistModifiers(type, altType) {
     var returnArray = [];
 
+    //buildings
     const buildings = useBuildingsStore();
 
     const buildingArray = buildings.getBuildingModifier(type, altType);

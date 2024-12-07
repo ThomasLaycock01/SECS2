@@ -1,6 +1,7 @@
 import { defineStore } from "pinia"
 
 import { useCultistsStore } from "./globalPinias/cultists";
+import { useResourcesStore } from "./globalPinias/resources";
 
 export const useTotemsStore = defineStore("totems", {
     state: () => {
@@ -23,8 +24,19 @@ export const useTotemsStore = defineStore("totems", {
             items: {
 
             },
+            totems: {
+                stone: {
+                    id: "stone",
+                    name: "Monolith",
+                    modifiers: {type: "mineWorker", altType: "stone", modifier: 0.2},
+                    effectDesc: "+5% stone output per level",
+                    costs: {stone: 50000},
+                    increment: 2,
+                    level: 0,
+                    maxLevel: 3
+                }
+            },
             misc: {
-
             }
         }
     },
@@ -98,6 +110,35 @@ export const useTotemsStore = defineStore("totems", {
                 return state.items[itemId];
             }
         },
+        //totems
+        getTotems(state) {
+            return state.totems;
+        },
+        getTotemCost(state) {
+            return (totemId) => {
+                const returnObj = {};
+
+                for (var i in state.totems[totemId].costs) {
+                    returnObj[i] = state.totems[totemId].costs[i] * Math.pow(state.totems[totemId].increment, state.totems[totemId].level);
+                }
+
+                return returnObj;
+            }
+        },
+        checkIfCanAffordTotem(state) {
+            return (totemId) => {
+                const resources = useResourcesStore();
+
+                const costObj = state.getTotemCost(totemId);
+    
+                return resources.checkIfCanAfford(costObj);
+            }
+        },
+        checkIfTotemUpgradeAvailable(state) {
+            return (totemId) => {
+                return state.checkIfCanAffordTotem(totemId) && state.totems[totemId].level + 1 <= state.totems[totemId].maxLevel;
+            }
+        },
         //misc
         getCurrentDissassemblyProgress(state) {
             return state.misc.currentDissassemblyProgress;
@@ -125,8 +166,6 @@ export const useTotemsStore = defineStore("totems", {
             }
         },
         removeFromJob(jobId, cultistId = null) {
-            console.log(jobId);
-            console.log(cultistId);
             if (cultistId === null) {
                 const cultists = useCultistsStore();
                 const cultist = cultists.getCultistById(this.jobs[jobId].cultistId);
@@ -137,5 +176,15 @@ export const useTotemsStore = defineStore("totems", {
                 this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(val => val != cultistId);
             }
         },
+        //totems
+        upgradeTotem(totemId) {
+            const resources = useResourcesStore();
+
+            const costs = this.getTotemCost(totemId);
+
+            resources.removeResources(costs);
+
+            this.totems[totemId].level++;
+        }
     }
 })

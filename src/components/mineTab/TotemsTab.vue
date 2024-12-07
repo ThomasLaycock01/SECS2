@@ -23,6 +23,10 @@ function assignCaretaker() {
 function removeCaretaker(e) {
     removeCultistFromJob(totems, "caretaker", e.target.value);
 }
+
+function upgradeTotem(totemId) {
+    totems.upgradeTotem(totemId);
+}
 </script>
 
 <template>
@@ -31,7 +35,7 @@ function removeCaretaker(e) {
     </div>
 
     <!--Caretaker-->
-    <div class="title is-5 mb-1 segment-title">Metalmancers - {{ totems.getJobArray("caretaker").length }} / {{ totems.getJobLimit("caretaker") }}</div>
+    <div class="title is-5 mb-1 segment-title">Caretakers - {{ totems.getJobArray("caretaker").length }} / {{ totems.getJobLimit("caretaker") }}</div>
     <b-field label="Assign Caretaker">
         <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed() || !totems.checkIfJobHasSpace('caretaker')" v-model="totemsTab.caretakerToAssign">
             <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
@@ -51,4 +55,20 @@ function removeCaretaker(e) {
             </div>
         </div>
     </div>
+    <br>
+    <!--Totems-->
+    <div class="title is-5 mb-1 segment-title">Totems</div>
+    <div>
+        <div v-for="i in totems.getTotems">
+            <div class="title is-6">{{ i.name }}</div>
+            <div>Level {{ i.level }}/{{ i.maxLevel }}</div>
+            <div>{{ i.effectDesc }}</div>
+            <div>Upgrade costs:</div>
+            <ul>
+                <li v-for="value, key in totems.getTotemCost(i.id)">{{ value }} {{ key }}</li>
+            </ul>
+            <button class="button is-small is-dark" :disabled="!totems.checkIfTotemUpgradeAvailable(i.id)" @click="upgradeTotem(i.id)">Upgrade</button>
+        </div>
+    </div>
+
 </template>
