@@ -28,7 +28,7 @@ export const useTotemsStore = defineStore("totems", {
                 stone: {
                     id: "stone",
                     name: "Monolith",
-                    modifiers: {type: "mineWorker", altType: "stone", modifier: 0.2},
+                    modifiers: [{type: "mineWorker", altType: "stone", modifier: 0.2}],
                     effectDesc: "+5% stone output per level",
                     costs: {stone: 50000},
                     increment: 2,
@@ -137,6 +137,29 @@ export const useTotemsStore = defineStore("totems", {
         checkIfTotemUpgradeAvailable(state) {
             return (totemId) => {
                 return state.checkIfCanAffordTotem(totemId) && state.totems[totemId].level + 1 <= state.totems[totemId].maxLevel;
+            }
+        },
+        getTotemModifiers(state) {
+            return (type, altType) => {
+                const returnArray = [];
+                
+                //iterate over every totem
+                for (var i in state.totems) {
+                    //iterate over every modifier
+                    for (var j in state.totems[i].modifiers) {
+                        const modifierObj = state.totems[i].modifiers[j];
+
+                        console.log(modifierObj)
+
+                        //THIS IS A HACK - it only works cause totems rn only affect mine output - will probably need changing later
+                        if (modifierObj.type == type && (modifierObj.altType == altType || altType == null)) {
+                            const objToAdd = {modifier: modifierObj.modifier * state.totems[i].level};
+
+                            returnArray.push(objToAdd)
+                        }
+                    }
+                }
+                return returnArray;
             }
         },
         //misc

@@ -197,6 +197,10 @@ export class Cultist {
     }
 
     getModifiers(type, altType = null, levelMod = 0) {
+
+        console.log(type);
+        console.log(altType);
+
         var modVal = 0;
 
         for (var i in this.getEquipment()) {

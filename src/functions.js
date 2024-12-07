@@ -6,6 +6,7 @@ import { useBuildingsStore } from "./stores/globalPinias/buildings";
 
 import { useLairStore } from "./stores/lair";
 import { useExpansionsStore } from "./stores/expansions";
+import { useTotemsStore } from "./stores/totems";
 //expansions
 import { useMinesStore } from "./stores/mines";
 import { useForgeStore } from "./stores/forge";
@@ -177,6 +178,15 @@ export function getAllCultistModifiers(type, altType) {
     const buildingArray = buildings.getBuildingModifier(type, altType);
 
     returnArray = returnArray.concat(buildingArray);
+
+    //totems
+    const totems = useTotemsStore();
+
+    const totemsArray = totems.getTotemModifiers(type, altType);
+
+    returnArray = returnArray.concat(totemsArray);
+
+    console.log(returnArray);
 
     return returnArray;
 }
