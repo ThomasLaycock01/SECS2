@@ -186,8 +186,6 @@ export function getAllCultistModifiers(type, altType) {
 
     returnArray = returnArray.concat(totemsArray);
 
-    console.log(returnArray);
-
     return returnArray;
 }
 

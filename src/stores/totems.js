@@ -149,7 +149,6 @@ export const useTotemsStore = defineStore("totems", {
                     for (var j in state.totems[i].modifiers) {
                         const modifierObj = state.totems[i].modifiers[j];
 
-                        console.log(modifierObj)
 
                         //THIS IS A HACK - it only works cause totems rn only affect mine output - will probably need changing later
                         if (modifierObj.type == type && (modifierObj.altType == altType || altType == null)) {
