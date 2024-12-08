@@ -144,10 +144,10 @@ export const useMinesStore = defineStore("mines", {
             jobs: {
                 mineOverseer: {
                     id: "mineOverseer",
-                    cultistId: null,
+                    cultistArray: [],
+                    limit: 1,
                     name: "Mine Overseer",
                     xpOutput: 2,
-                    isUnique: true
                 },
                 mineWorker: {
                     id: "mineWorker",
@@ -205,7 +205,7 @@ export const useMinesStore = defineStore("mines", {
         getResourceProperties(state) {
             return (id) => state.resources.resources[id].properties;
         },
-        //workers
+        //jobs
         getJobObject(state) {
             return (jobId) => {
                 return state.jobs[jobId];
@@ -216,18 +216,10 @@ export const useMinesStore = defineStore("mines", {
                 return state.jobs[jobId].name;
             }
         },
-        getOverseer(state) {
-            if (state.jobs.mineOverseer.cultistId == null) {
-                return null;
+        getJobArray(state) {
+            return (jobId) => {
+                return state.jobs[jobId].cultistArray;
             }
-            const cultists = useCultistsStore();
-            return cultists.getCultistById(state.jobs.mineOverseer.cultistId);
-        },
-        getWorkerArray(state) {
-            return state.jobs.mineWorker.cultistArray;
-        },
-        getNumOfWorkers(state) {
-            return state.jobs.mineWorker.cultistArray.length;
         },
         getXpAmount(state) {
             return (jobId) => {
@@ -242,6 +234,24 @@ export const useMinesStore = defineStore("mines", {
         checkIfJobHasSpace(state) {
             return (jobId) => {
                 return state.jobs[jobId].cultistArray.length < state.jobs[jobId].limit;
+            }
+        },
+        getJobModifier(state) {
+            return (jobId) => {
+                if (state.jobs[jobId].cultistArray.length == 0) {
+                    return 0;
+                }
+
+                const cultists = useCultistsStore();
+
+                var totalMod = 0;
+
+                for (var i in state.jobs[jobId].cultistArray) {
+                    const cultist = cultists.getCultistById(state.jobs[jobId].cultistArray[i]);
+                    totalMod += cultist.getModifiers(jobId, null, 0.1)
+                }
+
+                return totalMod;
             }
         },
         //items
@@ -365,6 +375,8 @@ export const useMinesStore = defineStore("mines", {
             }
         },
         removeFromJob(jobId, cultistId = null) {
+            console.log(jobId);
+            console.log(cultistId);
             if (cultistId === null) {
                 const cultists = useCultistsStore();
                 const cultist = cultists.getCultistById(this.jobs[jobId].cultistId);
@@ -372,7 +384,7 @@ export const useMinesStore = defineStore("mines", {
                 this.jobs[jobId].cultistId = null;
             }
             else {
-                this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(obj => obj.cultistId != cultistId);
+                this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(val => val != cultistId);
             }
         },
         switchResource(cultistId, newResourceId) {

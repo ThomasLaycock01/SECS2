@@ -11,7 +11,7 @@ import { useCultistsStore } from '@/stores/globalPinias/cultists';
 const mines = useMinesStore();
 const cultists = useCultistsStore();
 
-var workerAssigning = reactive({worker: null, resource: null});
+var workerAssigning = reactive({worker: null, resource: null, overseer: null});
 var switchingResource = reactive({worker: null, resource: null});
 
 function assignWorker() {
@@ -19,19 +19,19 @@ function assignWorker() {
         cultistId: workerAssigning.worker,
         resource: workerAssigning.resource
     }
-    console.log(obj);
     addCultistToJob(mines, "mineWorker", null, obj);
 
     workerAssigning.worker = null;
     workerAssigning.resource = null;
 }
 
-function setOverseer(e) {
-    addCultistToJob(mines, "mineOverseer", e.target.value);
+function assignOverseer() {
+    addCultistToJob(mines, "mineOverseer", workerAssigning.overseer);
+    workerAssigning.overseer = null;
 }
 
-function removeOverseerClick() {
-    removeCultistFromJob(mines, "mineOverseer");
+function removeOverseer(e) {
+    removeCultistFromJob(mines, "mineOverseer", e.target.value);
 }
 
 function removeWorkerClick(e) {
@@ -63,18 +63,25 @@ function switchResourceConfirm() {
     </div>
     <!--Overseer-->
     <div>
-        <div class="title is-5 mb-1 segment-title">Overseer</div>
-        <div v-if="mines.getOverseer">
-            <div>{{ mines.getOverseer.getName() }} - Currently boosting production by {{ Math.floor((mines.getOverseerModifier() - 1) * 100) }}%!</div>
-            <button type="button" class="button is-danger" @click="removeOverseerClick">Remove Overseer</button>
-        </div>
-        <div v-else>
+        <div class="title is-5 mb-1 segment-title">Overseers - {{ mines.getJobArray("mineOverseer").length }} / {{ mines.getJobLimit("mineOverseer") }}</div>
+        <b-field label="Assign Overseer">
+            <b-select placeholder="Assign Overseer" v-model="workerAssigning.overseer" :disabled="!cultists.checkUnemployed">
+                <option v-for="j in cultists.getUnemployed" :value="j.getId()">{{ j.getName() }}</option>
+            </b-select>
+        </b-field>
+        <button v-if="workerAssigning.overseer != null" class="button is-dark" @click="assignOverseer">Assign</button>
+        <div v-if="mines.getJobArray('mineOverseer').length < 1">
             Without an Overseer, production is only 50%!
-            <b-field label="Assign Overseer">
-                <b-select placeholder="Assign Overseer" value="" @input="setOverseer" :disabled="!cultists.checkUnemployed">
-                    <option v-for="j in cultists.getUnemployed" :value="j.getId()">{{ j.getName() }}</option>
-                </b-select>
-            </b-field>
+        </div>
+        <div>
+            <div v-for="i in mines.getJobArray('mineOverseer')">
+                <div class="inline-blockContainer">
+                    <div>
+                        {{ cultists.getCultistById(i).getName() }} - Lvl {{ cultists.getCultistById(i).getLevel() }}
+                    </div>
+                    <button class="button is-small is-danger" :value="cultists.getCultistById(i).getId()" @click="removeOverseer">Remove</button>
+                </div>
+            </div>
         </div>
     </div>
     <!--Workers-->
