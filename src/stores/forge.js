@@ -162,7 +162,7 @@ export const useForgeStore = defineStore("forge", {
             
         },
         //workers
-        addToJob(jobId, cultistId = null, obj = null) {
+        addToJob(jobId, cultistId, obj) {
              if (cultistId != null) {
                 this.jobs[jobId].cultistArray.push(cultistId);
             }

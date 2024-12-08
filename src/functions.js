@@ -106,12 +106,11 @@ export function addCultistToJob(piniaObject, jobId, cultistId = null, cultistObj
 }
 
 //removing cultists from a job
-export function removeCultistFromJob(piniaObject, jobId, cultistId = null) {    
-    if (cultistId != null) {
-        const cultists = useCultistsStore();
-        const cultist = cultists.getCultistById(cultistId);
-        cultist.removeJob();
-    }
+export function removeCultistFromJob(piniaObject, jobId, cultistId) {   
+     
+    const cultists = useCultistsStore();
+    const cultist = cultists.getCultistById(cultistId);
+    cultist.removeJob();
 
     piniaObject.removeFromJob(jobId, cultistId);
 }

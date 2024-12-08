@@ -362,7 +362,7 @@ export const useMinesStore = defineStore("mines", {
             this.createItem(tierArray[index].itemId);
         },
         //jobs
-        addToJob(jobId, cultistId = null, obj = null) {
+        addToJob(jobId, cultistId, obj) {
             if (cultistId != null) {
                 this.jobs[jobId].cultistArray.push(cultistId);
             }

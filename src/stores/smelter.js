@@ -214,7 +214,7 @@ export const useSmelterStore = defineStore("smelter", {
             this.resources.locked = this.resources.locked.filter(val => val != resourceId);
         },
         //workers
-        addToJob(jobId, cultistId = null, obj = null) {
+        addToJob(jobId, cultistId, obj) {
             if (cultistId != null) {
                 this.jobs[jobId].cultistArray.push(cultistId);
             }

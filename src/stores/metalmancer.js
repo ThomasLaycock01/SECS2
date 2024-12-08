@@ -200,7 +200,7 @@ export const useMetalmancerStore = defineStore("metalmancer", {
 
         },
         //jobs
-        addToJob(jobId, cultistId = null, obj = null) {
+        addToJob(jobId, cultistId, obj) {
             if (cultistId != null) {
                 this.jobs[jobId].cultistArray.push(cultistId);
             }
