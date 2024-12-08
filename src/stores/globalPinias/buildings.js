@@ -6,7 +6,6 @@ import { useExpansionsStore } from "../expansions";
 
 import { useLairStore } from "../lair";
 import { useMinesStore } from "../mines";
-import { useForgeStore } from "../forge";
 
 import buildings from "../../assets/json/buildings.json";
 
@@ -18,8 +17,7 @@ export const useBuildingsStore = defineStore("buildings", {
             },
             childPinias: {
                 lair: {id:"lair", buildings: ["chambers", "evilShrine"], piniaObject() {const lair = useLairStore(); return lair}},
-                mines: {id:"mines", buildings: ["tunnel", "prospector1", "prospector2"], piniaObject() {const mines = useMinesStore(); return mines}},
-                forge: {id:"forge", buildings: ["furnace"], piniaObject() {const forge = useForgeStore(); return forge}}
+                mines: {id:"mines", buildings: ["tunnel", "prospector1", "prospector2"], piniaObject() {const mines = useMinesStore(); return mines}}
             }
         }
     },

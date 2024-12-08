@@ -203,12 +203,10 @@ export function instantiateBuildings() {
     const buildings = useBuildingsStore();
     const lair = useLairStore();
     const mines = useMinesStore();
-    const forge = useForgeStore();
 
     buildings.instantiateBuildings();
     lair.instantiateBuildings();
     mines.instantiateBuildings();
-    forge.instantiateBuildings();
 }
 
 //function for creating a resource object on page load
