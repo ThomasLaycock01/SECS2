@@ -45,7 +45,7 @@ function removeSmelter(e) {
         <div>
             You need a cultist assigned to smelting to refine metal into bars!
             <b-field label="Assign Smelter">
-                <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed() || !smelter.checkIfJobHasSpace('smelter')" v-model="smeltingTab.smelterToAssign">
+                <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed || !smelter.checkIfJobHasSpace('smelter')" v-model="smeltingTab.smelterToAssign">
                     <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
                 </b-select>
             </b-field>

@@ -51,7 +51,7 @@ function dissassembleGolem() {
     <!--Dissassemblers-->
     <div class="title is-5 mb-1 segment-title">Dissassemblers - {{ golemDissassembler.getJobArray("dissassembler").length }} / {{ golemDissassembler.getJobLimit("dissassembler") }}</div>
     <b-field label="Assign Dissassembler">
-        <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed() || !golemDissassembler.checkIfJobHasSpace('dissassembler')" v-model="golemDissassemblerTab.dissassemblerToAdd">
+        <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed || !golemDissassembler.checkIfJobHasSpace('dissassembler')" v-model="golemDissassemblerTab.dissassemblerToAdd">
             <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
         </b-select>
     </b-field>

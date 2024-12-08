@@ -91,7 +91,7 @@ function createWarformClick() {
         </div>
         <div>
             <b-field label="Assign Warformer">
-                <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed() || !warformer.checkIfJobHasSpace('warformer')" v-model="warformerTab.warformerToAssign">
+                <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed || !warformer.checkIfJobHasSpace('warformer')" v-model="warformerTab.warformerToAssign">
                     <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
                 </b-select>
             </b-field>

@@ -71,7 +71,7 @@ function switchResourceConfirm() {
         <div v-else>
             Without an Overseer, production is only 50%!
             <b-field label="Assign Overseer">
-                <b-select placeholder="Assign Overseer" value="" @input="setOverseer" :disabled="!cultists.checkUnemployed()">
+                <b-select placeholder="Assign Overseer" value="" @input="setOverseer" :disabled="!cultists.checkUnemployed">
                     <option v-for="j in cultists.getUnemployed" :value="j.getId()">{{ j.getName() }}</option>
                 </b-select>
             </b-field>
@@ -84,7 +84,7 @@ function switchResourceConfirm() {
         <div class="inline-blockContainer">
             <div>
                 <b-field label="Worker">
-                    <b-select placeholder="Worker" v-model="workerAssigning.worker" :disabled="!cultists.checkUnemployed() || !mines.checkIfJobHasSpace('mineWorker')">
+                    <b-select placeholder="Worker" v-model="workerAssigning.worker" :disabled="!cultists.checkUnemployed || !mines.checkIfJobHasSpace('mineWorker')">
                         <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
                     </b-select>
                 </b-field>

@@ -57,7 +57,7 @@ function craftItem() {
         </div>
         <div>
             <b-field label="Assign Smith">
-                <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed() || !forge.checkIfJobHasSpace('smith')" v-model="smithingTab.smithToAssign">
+                <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed || !forge.checkIfJobHasSpace('smith')" v-model="smithingTab.smithToAssign">
                     <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
                 </b-select>
             </b-field>

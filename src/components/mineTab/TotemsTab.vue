@@ -37,7 +37,7 @@ function upgradeTotem(totemId) {
     <!--Caretaker-->
     <div class="title is-5 mb-1 segment-title">Caretakers - {{ totems.getJobArray("caretaker").length }} / {{ totems.getJobLimit("caretaker") }}</div>
     <b-field label="Assign Caretaker">
-        <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed() || !totems.checkIfJobHasSpace('caretaker')" v-model="totemsTab.caretakerToAssign">
+        <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed || !totems.checkIfJobHasSpace('caretaker')" v-model="totemsTab.caretakerToAssign">
             <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
         </b-select>
     </b-field>

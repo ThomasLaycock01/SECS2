@@ -63,6 +63,9 @@ export const useCultistsStore = defineStore("cultists", {
         getUnemployed(state) {
             return state.regular.filter((cultist) => cultist.getJob() == null).concat(state.summoned.filter((cultist) => cultist.getJob() == null && cultist.getMisc("toDissassemble") == false));
         },
+        checkUnemployed(state) {
+            return state.getUnemployed.length > 0;
+        },
         getEmployed(state) {
             return state.getAllNonSpecial.filter((cultist) => cultist.getJob() != null);
         },
@@ -136,12 +139,6 @@ export const useCultistsStore = defineStore("cultists", {
         removeSummonedCultist(cultistId) {
             console.log(cultistId)
             this.summoned = this.summoned.filter((cultist) => cultist.getId() != cultistId);
-        },
-        checkUnemployed() {
-            if (this.getUnemployed.length > 0) {
-                return true;
-            }
-            return false;
         },
         checkIfIdUsed(id) {
             for (var i in this.regular) {

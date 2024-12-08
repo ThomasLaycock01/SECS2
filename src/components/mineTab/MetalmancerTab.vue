@@ -42,7 +42,7 @@ function createGolemClick() {
     <!--Metalmancers-->
     <div class="title is-5 mb-1 segment-title">Metalmancers - {{ metalmancer.getMetalmancerArray.length }} / {{ metalmancer.getJobLimit("metalmancer") }}</div>
     <b-field label="Assign Metalmancer">
-        <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed() || !metalmancer.checkIfJobHasSpace('metalmancer')" v-model="metalmancerTab.metalmancerToAdd">
+        <b-select placeholder="Cultist" :disabled="!cultists.checkUnemployed || !metalmancer.checkIfJobHasSpace('metalmancer')" v-model="metalmancerTab.metalmancerToAdd">
             <option v-for="i in cultists.getUnemployed" :value="i.getId()">{{ i.getName() }}</option>
         </b-select>
     </b-field>
