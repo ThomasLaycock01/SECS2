@@ -110,7 +110,7 @@ function switchResourceConfirm() {
         <br>
         <!--Displaying workers already working-->
         <div>
-            <div v-for="i in mines.getWorkerArray">
+            <div v-for="i in mines.getJobArray('mineWorker')">
                 <div>{{ cultists.getCultistById(i.cultistId).getName() }} - Lvl {{ cultists.getCultistById(i.cultistId).getLevel() }} - {{ i.resource == "scavenge" ? "Scavenging" : `Mining ${mines.getResourceName(i.resource)}` }}</div>
                 <div v-if="switchingResource.worker == i.cultistId">
                     <div class=inline-blockContainer>

@@ -147,11 +147,12 @@ export const useMinesStore = defineStore("mines", {
                     cultistArray: [],
                     limit: 1,
                     name: "Mine Overseer",
-                    xpOutput: 2,
+                    xpOutput: 2
                 },
                 mineWorker: {
                     id: "mineWorker",
                     cultistArray: [],
+                    objArray: true,
                     limit: 5,
                     name: "Miner",
                     xpOutput: 1
@@ -370,7 +371,13 @@ export const useMinesStore = defineStore("mines", {
             }
         },
         removeFromJob(jobId, cultistId) {
-            this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(val => val != cultistId);
+
+            if (this.jobs[jobId].objArray) {
+                this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(val => val.cultistId != cultistId);
+            }
+            else {
+                this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(val => val != cultistId);
+            }
         },
         switchResource(cultistId, newResourceId) {
             for (var i in this.jobs.mineWorker.cultistArray) {
