@@ -215,8 +215,6 @@ export const useSmelterStore = defineStore("smelter", {
         },
         //workers
         addToJob(jobId, cultistId = null, obj = null) {
-            const job = this.getJobObject(jobId);
-
             if (cultistId != null) {
                 this.jobs[jobId].cultistArray.push(cultistId);
             }

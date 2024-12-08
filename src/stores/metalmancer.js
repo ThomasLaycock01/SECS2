@@ -201,8 +201,6 @@ export const useMetalmancerStore = defineStore("metalmancer", {
         },
         //jobs
         addToJob(jobId, cultistId = null, obj = null) {
-            const job = this.getJobObject(jobId);
-
             if (cultistId != null) {
                 this.jobs[jobId].cultistArray.push(cultistId);
             }
@@ -210,7 +208,7 @@ export const useMetalmancerStore = defineStore("metalmancer", {
                 this.jobs[jobId].cultistArray.push(obj);
             }
         },
-        removeFromJob(jobId, cultistId = null) {
+        removeFromJob(jobId, cultistId) {
             this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(val => val != cultistId);
         },
         getMetalmancerModifier() {
