@@ -360,32 +360,21 @@ export const useMinesStore = defineStore("mines", {
 
             this.createItem(tierArray[index].itemId);
         },
-        //workers
+        //jobs
         addToJob(jobId, cultistId = null, obj = null) {
             const job = this.getJobObject(jobId);
 
-            if (job.isUnique) {
-                this.jobs[jobId].cultistId = cultistId;
-            }
-            else if (cultistId != null) {
+            console.log(obj);
+  
+            if (cultistId != null) {
                 this.jobs[jobId].cultistArray.push(cultistId);
             }
             else {
                 this.jobs[jobId].cultistArray.push(obj);
             }
         },
-        removeFromJob(jobId, cultistId = null) {
-            console.log(jobId);
-            console.log(cultistId);
-            if (cultistId === null) {
-                const cultists = useCultistsStore();
-                const cultist = cultists.getCultistById(this.jobs[jobId].cultistId);
-                cultist.removeJob();
-                this.jobs[jobId].cultistId = null;
-            }
-            else {
-                this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(val => val != cultistId);
-            }
+        removeFromJob(jobId, cultistId) {
+            this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(val => val != cultistId);
         },
         switchResource(cultistId, newResourceId) {
             for (var i in this.jobs.mineWorker.cultistArray) {
