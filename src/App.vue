@@ -5,6 +5,7 @@ import HRTab from "./components/HRTab/HRTab.vue";
 import InventoryTab from "./components/inventory/InventoryTab.vue";
 
 import MainMinesTab from "./components/mineTab/MainMinesTab.vue";
+import MainBarracksTab from "./components/barracksTab/MainBarracksTab.vue";
 
 import { useExpansionsStore } from "./stores/globalPinias/expansions";
 
@@ -28,6 +29,9 @@ const expansions = useExpansionsStore();
       </b-tab-item>
       <b-tab-item label="Mines" v-if="expansions.hasExpansion('mines')">
         <MainMinesTab/>
+      </b-tab-item>
+      <b-tab-item label="Barracks" v-if="expansions.hasExpansion('barracks')">
+        <MainBarracksTab/>
       </b-tab-item>
     </b-tabs>
   </section>

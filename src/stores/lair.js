@@ -111,6 +111,30 @@ export const useLairStore = defineStore("lair", {
                                 const expansions = useExpansionsStore();
                                 expansions.buildExpansion("mines");
                             }
+                        },
+                        expansionBarracks: {
+                            id: "expansionBarracks",
+                            name: "T1 Expansion: Barracks",
+                            desc: "Start sending your cultists on expeditions to find loot and be evil!!",
+                            costs() {
+                                const expansions = useExpansionsStore();
+                                return expansions.getCostObject("barracks");
+                            },
+                            condition() {
+                                const expansions = useExpansionsStore();
+                                const resources = useResourcesStore();
+                                return resources.checkIfCanAfford(expansions.getCostObject("barracks"));
+                            },
+                            showCondition() {
+                                //COME BACK AND CHANGE THIS WHEN MORE EXPANSION SLOTS ADDED
+                                const expansions = useExpansionsStore();
+                                //return expansions.hasExpansionSpace(1);
+                                return !expansions.hasExpansion("barracks");
+                            },
+                            effect() {
+                                const expansions = useExpansionsStore();
+                                expansions.buildExpansion("barracks");
+                            }
                         }
                     }
                 }

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-
+//mines stores
 import { useResourcesStore } from "./resources";
 import { useMinesStore } from "../mines/mines";
 import { useMetalmancerStore } from "../mines/metalmancer";
@@ -8,6 +8,8 @@ import { useTotemsStore } from "../mines/totems";
 import { useForgeStore } from "../mines/forge";
 import { useSmelterStore } from "../mines/smelter";
 import { useWarformerStore } from "../mines/warformer";
+//barracks store
+import { useBarracksStore } from "../barracks/barracks";
 
 export const useExpansionsStore = defineStore("expansions", {
     state: () => {
@@ -110,6 +112,20 @@ export const useExpansionsStore = defineStore("expansions", {
                         gold: 2000
                     },
                     hasSummon: true
+                },
+                //barracks
+                barracks: {
+                    id: "barracks",
+                    name: "Barracks",
+                    tier: 1,
+                    piniaObject() {
+                        const barracks = useBarracksStore();
+                        return barracks;
+                    },
+                    costs: {
+                        stone: 500,
+                        gold: 2000
+                    }
                 }
             },
             slots: {
