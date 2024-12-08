@@ -6,7 +6,7 @@ import InventoryTab from "./components/inventory/InventoryTab.vue";
 
 import MainMinesTab from "./components/mineTab/MainMinesTab.vue";
 
-import { useExpansionsStore } from "./stores/expansions";
+import { useExpansionsStore } from "./stores/globalPinias/expansions";
 
 const expansions = useExpansionsStore();
 </script>
