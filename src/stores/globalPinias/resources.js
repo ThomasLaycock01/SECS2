@@ -127,7 +127,6 @@ export const useResourcesStore = defineStore("resources", {
         },
         getChildPiniaById(state) {
             return (piniaId) => {
-                console.log(piniaId);
                 for (var i in state.childPinias) {
                     if (state.childPinias[i].id == piniaId) {
                         return state.childPinias[i].piniaObject(); 
