@@ -7,7 +7,7 @@ import { reactive } from 'vue';
 import { useHRStore } from '@/stores/HR';
 import { useCultistsStore } from "@/stores/globalPinias/cultists";
 import { useInventoryStore } from '@/stores/globalPinias/inventory';
-import { useExpansionsStore } from '@/stores/expansions';
+import { useExpansionsStore } from '@/stores/globalPinias/expansions';
 
 import perks from "@/assets/json/perks.json";
 

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 
 import { useCultistsStore } from "./globalPinias/cultists";
-import { useExpansionsStore } from "./expansions";
+import { useExpansionsStore } from "./globalPinias/expansions";
 import { useResourcesStore } from "./globalPinias/resources";
 
 import { beginSummoning, endSummoning } from "@/functions";

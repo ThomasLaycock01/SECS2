@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import { useExpansionsStore } from "./expansions";
+import { useExpansionsStore } from "./globalPinias/expansions";
 import { useResourcesStore } from "./globalPinias/resources";
 import { useBuildingsStore } from "./globalPinias/buildings";
 

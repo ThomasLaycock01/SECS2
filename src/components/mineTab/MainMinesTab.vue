@@ -7,7 +7,7 @@ import MetalmancerTab from './MetalmancerTab.vue';
 import GolemDissassemblerTab from './GolemDissassemblerTab.vue';
 import TotemsTab from './TotemsTab.vue';
 
-import { useExpansionsStore } from '@/stores/expansions';
+import { useExpansionsStore } from '@/stores/globalPinias/expansions';
 const expansions = useExpansionsStore();
 </script>
 

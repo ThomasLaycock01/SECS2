@@ -3,7 +3,7 @@ import Resource from "./Resource.vue";
 
 import {useResourcesStore} from "@/stores/globalPinias/resources.js";
 import { useCultistsStore } from "@/stores/globalPinias/cultists";
-import { useExpansionsStore } from "@/stores/expansions";
+import { useExpansionsStore } from "@/stores/globalPinias/expansions";
 
 const resources = useResourcesStore();
 const cultists = useCultistsStore();

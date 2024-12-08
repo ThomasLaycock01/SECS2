@@ -5,7 +5,7 @@ import { useInventoryStore } from "./stores/globalPinias/inventory";
 import { useBuildingsStore } from "./stores/globalPinias/buildings";
 
 import { useLairStore } from "./stores/lair";
-import { useExpansionsStore } from "./stores/expansions";
+import { useExpansionsStore } from "./stores/globalPinias/expansions";
 import { useTotemsStore } from "./stores/totems";
 //expansions
 import { useMinesStore } from "./stores/mines";

@@ -2,7 +2,7 @@ import {defineStore} from "pinia";
 
 import { useResourcesStore } from "./resources";
 import { useCultistsStore } from "./cultists";
-import { useExpansionsStore } from "../expansions";
+import { useExpansionsStore } from "../globalPinias/expansions";
 
 import { useLairStore } from "../lair";
 import { useMinesStore } from "../mines";
