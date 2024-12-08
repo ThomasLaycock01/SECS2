@@ -1,13 +1,13 @@
 import { defineStore } from "pinia";
 
-import { useResourcesStore } from "./globalPinias/resources";
-import { useMinesStore } from "./mines";
-import { useMetalmancerStore } from "./metalmancer";
-import { useGolemDissassemblerStore } from "./golemDissassembler"; 
-import { useTotemsStore } from "./totems";
-import { useForgeStore } from "./forge";
-import { useSmelterStore } from "./smelter";
-import { useWarformerStore } from "./warformer";
+import { useResourcesStore } from "./resources";
+import { useMinesStore } from "../mines/mines";
+import { useMetalmancerStore } from "../mines/metalmancer";
+import { useGolemDissassemblerStore } from "../mines/golemDissassembler"; 
+import { useTotemsStore } from "../mines/totems";
+import { useForgeStore } from "../mines/forge";
+import { useSmelterStore } from "../mines/smelter";
+import { useWarformerStore } from "../mines/warformer";
 
 export const useExpansionsStore = defineStore("expansions", {
     state: () => {

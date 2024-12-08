@@ -3,7 +3,7 @@ import { reactive } from 'vue';
 
 import ActionList from '../ActionList.vue';
 
-import { useGolemDissassemblerStore } from '@/stores/golemDissassembler';
+import { useGolemDissassemblerStore } from '@/stores/mines/golemDissassembler';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
 
 import { addCultistToJob, removeCultistFromJob } from '@/functions';

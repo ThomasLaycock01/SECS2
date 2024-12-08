@@ -3,7 +3,7 @@ import { reactive } from 'vue';
 
 import ActionList from '../ActionList.vue';
 
-import { useMetalmancerStore } from '@/stores/metalmancer';
+import { useMetalmancerStore } from '@/stores/mines/metalmancer';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
 import { useResourcesStore } from '@/stores/globalPinias/resources';
 

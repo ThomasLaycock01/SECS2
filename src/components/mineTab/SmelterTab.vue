@@ -1,7 +1,7 @@
 <script setup>
 import { reactive } from 'vue';
 
-import { useSmelterStore } from '@/stores/smelter';
+import { useSmelterStore } from '@/stores/mines/smelter';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
 import { useResourcesStore } from '@/stores/globalPinias/resources';
 

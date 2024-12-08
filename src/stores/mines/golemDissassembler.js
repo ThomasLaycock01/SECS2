@@ -1,9 +1,9 @@
 import { defineStore } from "pinia"
 
-import { useCultistsStore } from "./globalPinias/cultists";
-import { useInventoryStore } from "./globalPinias/inventory";
+import { useCultistsStore } from "../globalPinias/cultists";
+import { useInventoryStore } from "../globalPinias/inventory";
 
-import items from "../assets/json/items.json";
+import items from "../../assets/json/items.json";
 
 export const useGolemDissassemblerStore = defineStore("golemDissassembler", {
     state: () => {

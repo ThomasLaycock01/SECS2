@@ -3,7 +3,7 @@ import { reactive } from 'vue';
 
 import ActionList from '../ActionList.vue';
 
-import { useTotemsStore } from '@/stores/totems';
+import { useTotemsStore } from '@/stores/mines/totems';
 
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
 

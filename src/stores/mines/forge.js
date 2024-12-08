@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
 
-import { useResourcesStore } from "./globalPinias/resources";
-import { useCultistsStore } from "./globalPinias/cultists";
-import { useInventoryStore } from "./globalPinias/inventory";
-import { useExpansionsStore } from "./globalPinias/expansions";
+import { useResourcesStore } from "../globalPinias/resources";
+import { useCultistsStore } from "../globalPinias/cultists";
+import { useInventoryStore } from "../globalPinias/inventory";
+import { useExpansionsStore } from "../globalPinias/expansions";
 
-import items from "../assets/json/items.json";
+import items from "../../assets/json/items.json";
 
 export const useForgeStore = defineStore("forge", {
     state: () => {

@@ -5,7 +5,7 @@ import ActionList from '../ActionList.vue';
 
 import { addCultistToJob, removeCultistFromJob } from '@/functions';
 
-import { useMinesStore } from '@/stores/mines';
+import { useMinesStore } from '@/stores/mines/mines';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
 
 const mines = useMinesStore();

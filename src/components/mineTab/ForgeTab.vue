@@ -5,7 +5,7 @@ import ActionList from '../ActionList.vue';
 
 import { addCultistToJob, removeCultistFromJob } from '@/functions';
 
-import { useForgeStore } from '@/stores/forge';
+import { useForgeStore } from '@/stores/mines/forge';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
 import { useResourcesStore } from '@/stores/globalPinias/resources';
 

@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
 
-import { useCultistsStore } from "./globalPinias/cultists";
-import { useResourcesStore } from "./globalPinias/resources";
-import { useExpansionsStore } from "./globalPinias/expansions";
+import { useCultistsStore } from "../globalPinias/cultists";
+import { useResourcesStore } from "../globalPinias/resources";
+import { useExpansionsStore } from "../globalPinias/expansions";
 
 export const useSmelterStore = defineStore("smelter", {
     state: () => {

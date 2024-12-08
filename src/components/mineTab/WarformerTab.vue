@@ -5,7 +5,7 @@ import ActionList from '../ActionList.vue';
 
 import { addCultistToJob, removeCultistFromJob } from '@/functions';
 
-import { useWarformerStore } from '@/stores/warformer';
+import { useWarformerStore } from '@/stores/mines/warformer';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
 import { useResourcesStore } from '@/stores/globalPinias/resources';
 import { useInventoryStore } from '@/stores/globalPinias/inventory';

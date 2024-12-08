@@ -1,14 +1,14 @@
 import { defineStore } from "pinia";
 
-import { useResourcesStore } from "./globalPinias/resources";
-import { useCultistsStore } from "./globalPinias/cultists";
-import { useInventoryStore } from "./globalPinias/inventory";
-import { useBuildingsStore } from "./globalPinias/buildings";
+import { useResourcesStore } from "../globalPinias/resources";
+import { useCultistsStore } from "../globalPinias/cultists";
+import { useInventoryStore } from "../globalPinias/inventory";
+import { useBuildingsStore } from "../globalPinias/buildings";
 
-import { useExpansionsStore } from "./globalPinias/expansions";
+import { useExpansionsStore } from "../globalPinias/expansions";
 
-import items from "../assets/json/items.json";
-import buildings from "../assets/json/buildings.json";
+import items from "../../assets/json/items.json";
+import buildings from "../../assets/json/buildings.json";
 
 export const useMinesStore = defineStore("mines", {
     state: () => {

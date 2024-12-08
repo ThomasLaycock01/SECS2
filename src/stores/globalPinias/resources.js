@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 
-import { useMinesStore } from "../mines";
-import { useSmelterStore } from "../smelter";
+import { useMinesStore } from "../mines/mines";
+import { useSmelterStore } from "../mines/smelter";
 
 import { instantiateResource, posToNeg } from "@/functions";
 

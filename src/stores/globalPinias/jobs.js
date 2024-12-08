@@ -1,9 +1,9 @@
 import {defineStore} from "pinia";
 
-import { useMinesStore } from "../mines";
-import { useForgeStore } from "../forge";
-import { useMetalmancerStore } from "../metalmancer";
-import { useWarformerStore } from "../warformer";
+import { useMinesStore } from "../mines/mines";
+import { useForgeStore } from "../mines/forge";
+import { useMetalmancerStore } from "../mines/metalmancer";
+import { useWarformerStore } from "../mines/warformer";
 
 export const useJobsStore = defineStore("jobs", {
     state: () => {

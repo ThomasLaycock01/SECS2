@@ -5,7 +5,7 @@ import { useCultistsStore } from "./cultists";
 import { useExpansionsStore } from "../globalPinias/expansions";
 
 import { useLairStore } from "../lair";
-import { useMinesStore } from "../mines";
+import { useMinesStore } from "../mines/mines";
 
 import buildings from "../../assets/json/buildings.json";
 

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia"
 
-import { useCultistsStore } from "./globalPinias/cultists";
-import { useResourcesStore } from "./globalPinias/resources";
+import { useCultistsStore } from "../globalPinias/cultists";
+import { useResourcesStore } from "../globalPinias/resources";
 
 export const useTotemsStore = defineStore("totems", {
     state: () => {

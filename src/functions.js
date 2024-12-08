@@ -6,10 +6,10 @@ import { useBuildingsStore } from "./stores/globalPinias/buildings";
 
 import { useLairStore } from "./stores/lair";
 import { useExpansionsStore } from "./stores/globalPinias/expansions";
-import { useTotemsStore } from "./stores/totems";
+import { useTotemsStore } from "./stores/mines/totems";
 //expansions
-import { useMinesStore } from "./stores/mines";
-import { useForgeStore } from "./stores/forge";
+import { useMinesStore } from "./stores/mines/mines";
+import { useForgeStore } from "./stores/mines/forge";
 //classes
 import { Cultist } from "./classes/Cultist";
 
