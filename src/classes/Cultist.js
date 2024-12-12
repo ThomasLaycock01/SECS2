@@ -1,6 +1,6 @@
 import { useJobsStore } from "@/stores/globalPinias/jobs";
 
-import { getAllCultistModifiers } from "@/functions";
+import { getAllCultistModifiers, createStatsObj } from "@/functions";
 
 export class Cultist {
     constructor(id, name, raceTemplate, job, level, currentXp, xpNeeded, xpIncrement, levelLimit, perks, perkPoints, equipment) {
@@ -18,6 +18,8 @@ export class Cultist {
         this.racialGroup = raceTemplate.racialGroup;
         this.racialModifiers = raceTemplate.racialModifiers;
         this.type = raceTemplate.type;
+
+        this.stats = createStatsObj(raceTemplate.stats);
 
         this.perks = perks;
         this.perkPoints = perkPoints;
@@ -113,6 +115,13 @@ export class Cultist {
         else {
             return this.misc;
         }
+    }
+
+    getStat(stat = null) {
+        if (stat) {
+            return this.stats[stat];
+        }
+        return this.stats;
     }
 
     //setters

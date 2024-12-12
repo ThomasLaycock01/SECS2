@@ -31,18 +31,30 @@ export function tick() {
 }*/
 
 
+
+//creating the stats object needed to create a cultist
+export function createStatsObj(statTemplate) {
+    const returnObj = {};
+
+    for (var i in statTemplate) {
+        returnObj[i] = Math.floor(Math.random() * (statTemplate[i].max - statTemplate[i].min) + statTemplate[i].min);
+    }
+
+    return returnObj;
+}
+
 //creating a cultist
 function createCultist(id, name, species, job = null, level = 1, currentXp = 0, xpNeeded = 20, xpIncrement = 1.5, levelLimit = 10, perks = [], perkPoints = 0, equipment = {tool: null, body: null, accessory: null}) {
     return new Cultist(id, name, species, job, level, currentXp, xpNeeded, xpIncrement, levelLimit, perks, perkPoints, equipment);
 }
 
-export function deserializeCultist(obj) {
+/*export function deserializeCultist(obj) {
     const cultists = useCultistsStore();
 
     const cultist = createCultist(obj.id, obj.name, obj.species, obj.job, obj.level, obj.currentXp, obj.xpNeeded, obj.xpIcrement, obj.levelLimit);
 
     cultists.addCultist(cultist);
-}
+}*/
 
 //creating new cultists
 export function addCultist(race) {
