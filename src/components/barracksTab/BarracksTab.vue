@@ -2,11 +2,28 @@
 import { useBarracksStore } from '@/stores/barracks/barracks';
 
 const barracks = useBarracksStore();
+
+function addRole(role) {
+    barracks.addRole(role)
+
+}
 </script>
 
 
 <template>
 
-    Barracks Tab
+    <div>
+        <!--Party-->
+        <div class="title is-5 mb-1 segment-title">Party - {{ barracks.getPartySize }} / {{ barracks.getPartyLimit }}</div>
+        <div>
+            <div v-if="barracks.checkIfPartySpace">
+                <b-field label="Add Role">
+                    <button class="button is-dark" @click="addRole('tank')">Tank</button>
+                    <button class="button is-dark" @click="addRole('DPS')">DPS</button>
+                    <button class="button is-dark" @click="addRole('healer')">Healer</button>
+                </b-field>
+            </div>
+        </div>
+    </div>
 
 </template>
