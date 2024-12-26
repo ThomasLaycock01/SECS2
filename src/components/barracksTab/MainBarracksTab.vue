@@ -8,7 +8,7 @@ const expansions = useExpansionsStore();
 
 <template>
     <b-tabs v-model=activeBarracksTab>
-        <b-tab-item label="Barracks">
+        <b-tab-item label="Party">
             <BarracksTab/>
         </b-tab-item>
     </b-tabs>

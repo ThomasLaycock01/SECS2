@@ -13,7 +13,7 @@ function addRole(role) {
 <template>
 
     <div>
-        <!--Party-->
+        <!--Roles-->
         <div class="title is-5 mb-1 segment-title">Party - {{ barracks.getPartySize }} / {{ barracks.getPartyLimit }}</div>
         <div>
             <div v-if="barracks.checkIfPartySpace">
@@ -23,6 +23,18 @@ function addRole(role) {
                     <button class="button is-dark" @click="addRole('healer')">Healer</button>
                 </b-field>
             </div>
+        </div>
+        <!--Cultists-->
+        <br/>
+        <div>
+            <div v-for="i in barracks.getParty">
+                <div>{{ i.role }}: 
+                    <span v-if="i.cultist">{{ i.cultist }}</span>
+                    <span v-else>Empty</span>
+                </div>
+                <button class="button is-dark">Assign</button>
+            </div>
+            <br>
         </div>
     </div>
 
