@@ -72,55 +72,6 @@ html {
     color: firebrick;
 }
 
-
-/*HR tab modal*/
-.modal-backdrop {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.cultistModal {
-    background: #FFFFFF;
-    box-shadow: 2px 2px 20px 1px;
-    overflow-x: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 40vh;
-    height: 60vh;
-}
-
-.cultistModalHeader,
-.cultistModalFooter {
-  padding: 15px;
-  display: flex;
-}
-
-.cultistModalHeader {
-  position: relative;
-  border-bottom: 1px solid #eeeeee;
-  color: #4AAE9B;
-  justify-content: space-between;
-}
-
-.cultistModalFooter {
-  border-top: 1px solid #eeeeee;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-.cultistModalBody {
-  position: relative;
-  padding: 20px 10px;
-}
-
 /*rename this*/
 /*inventory popup*/
 .inventoryPopup {
@@ -164,23 +115,47 @@ html {
     opacity: 0.1;
 }
 
-.cssModal {
+.assignmentModal {
     z-index: 1000;
     position: absolute;
 
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
-    width: 50vh;
-    height: 50vh;
+    width: 100vh;
+    height: 80vh;
 
     opacity: 1 !important;
 
     background: #FFFFFF;
     box-shadow: 2px 2px 20px 1px;
     overflow-x: auto;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-  
+
+.assignmentModalHeader,
+.assignmentModalFooter {
+  padding: 15px;
+  display: flex;
+}
+
+.assignmentModalHeader {
+  position: relative;
+  border-bottom: 1px solid #eeeeee;
+  justify-content: space-between;
+}
+
+.assignmentModalFooter {
+  border-top: 1px solid #eeeeee;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.assignmentModalBody {
+  position: relative;
+  padding: 20px 10px;
+  height: 100%;
+}

@@ -66,8 +66,7 @@ function switchResourceConfirm() {
     <!--Overseer-->
     <div>
         <div class="title is-5 mb-1 segment-title">Overseers - {{ mines.getJobArray("mineOverseer").length }} / {{ mines.getJobLimit("mineOverseer") }}</div>
-        <button @click="modals.toggleModal('assignment')">Assign Cultists</button>
-        <!--
+        <button class="button is-dark" @click="modals.openAssignment(mines, 'mineOverseer')">Assign Cultists</button>
         <b-field label="Assign Overseer">
             <b-select placeholder="Assign Overseer" v-model="workerAssigning.overseer" :disabled="!cultists.checkUnemployed">
                 <option v-for="j in cultists.getUnemployed" :value="j.getId()">{{ j.getName() }}</option>
@@ -87,7 +86,6 @@ function switchResourceConfirm() {
                 </div>
             </div>
         </div>
-        -->
     </div>
     <!--Workers-->
     <div>
