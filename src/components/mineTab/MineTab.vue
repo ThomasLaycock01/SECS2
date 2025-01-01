@@ -7,9 +7,11 @@ import { addCultistToJob, removeCultistFromJob } from '@/functions';
 
 import { useMinesStore } from '@/stores/mines/mines';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
+import { useModalsStore } from '@/stores/misc/modal';
 
 const mines = useMinesStore();
 const cultists = useCultistsStore();
+const modals = useModalsStore();
 
 var workerAssigning = reactive({worker: null, resource: null, overseer: null});
 var switchingResource = reactive({worker: null, resource: null});
@@ -64,6 +66,8 @@ function switchResourceConfirm() {
     <!--Overseer-->
     <div>
         <div class="title is-5 mb-1 segment-title">Overseers - {{ mines.getJobArray("mineOverseer").length }} / {{ mines.getJobLimit("mineOverseer") }}</div>
+        <button @click="modals.toggleModal('assignment')">Assign Cultists</button>
+        <!--
         <b-field label="Assign Overseer">
             <b-select placeholder="Assign Overseer" v-model="workerAssigning.overseer" :disabled="!cultists.checkUnemployed">
                 <option v-for="j in cultists.getUnemployed" :value="j.getId()">{{ j.getName() }}</option>
@@ -83,6 +87,7 @@ function switchResourceConfirm() {
                 </div>
             </div>
         </div>
+        -->
     </div>
     <!--Workers-->
     <div>

@@ -2,6 +2,10 @@ html {
     scrollbar-width: none;
 }
 
+#app {
+    height: 100vh;
+}
+
 .segment-title {
     border-bottom: 2px black solid;
 }
@@ -143,3 +147,40 @@ html {
     padding: 5px;
     border-radius: 6px;
 }
+
+
+
+/*assignment modal*/
+.modalBackdrop {
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.1;
+}
+
+.cssModal {
+    z-index: 1000;
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 50vh;
+    height: 50vh;
+
+    opacity: 1 !important;
+
+    background: #FFFFFF;
+    box-shadow: 2px 2px 20px 1px;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+  
