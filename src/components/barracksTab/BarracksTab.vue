@@ -10,6 +10,14 @@ const modals = useModalsStore();
 function addRole(role) {
     barracks.addRole(role)
 }
+
+function removeRole(role) {
+    barracks.removeRole(role);
+}
+
+function removeAllRole(role) {
+    barracks.removeAllRole(role);
+}
 </script>
 
 
@@ -42,6 +50,8 @@ function addRole(role) {
                         <div v-else>Empty</div>
                     </div>
                     <button class="button is-dark" @click="modals.openAssignment(barracks, i.id)">Assign</button>
+                    <button class="button is-danger" :disabled="!(barracks.getJobArray(i.id).length < barracks.getJobLimit(i.id))" @click="removeRole(i.id)">-1</button>
+                    <button class="button is-danger" :disabled="!barracks.getJobArray(i.id).length == 0" @click="removeAllRole(i.id)">-All</button>
                 </div>
             </div>
             <br>

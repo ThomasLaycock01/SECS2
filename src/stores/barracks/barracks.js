@@ -88,6 +88,12 @@ export const useBarracksStore = defineStore("barracks", {
         addRole(role) {
             this.jobs[role].limit += 1;
         },
+        removeRole(role) {
+            this.jobs[role].limit -= 1;
+        },
+        removeAllRole(role) {
+            this.jobs[role].limit = 0;
+        },
         //jobs
         addToJob(jobId, cultistId, obj) {
             if (cultistId != null) {
