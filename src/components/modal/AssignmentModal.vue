@@ -24,7 +24,9 @@ function cultistButtonClick(cultist) {
             removeCultistFromJob(pinia, job, cultistId)
         }
         else {
-            addCultistToJob(pinia, job, cultistId);
+            if (!cultist.getJob()) {
+                addCultistToJob(pinia, job, cultistId);
+            }
         }
     }
 

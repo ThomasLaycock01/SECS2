@@ -98,13 +98,7 @@ export const useBarracksStore = defineStore("barracks", {
             }
         },
         removeFromJob(jobId, cultistId) {
-
-            if (this.jobs[jobId].objArray) {
-                this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(val => val.cultistId != cultistId);
-            }
-            else {
-                this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(val => val != cultistId);
-            }
+            this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(val => val != cultistId);
         }
     }
 })
