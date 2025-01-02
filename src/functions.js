@@ -98,6 +98,13 @@ export function endSummoning(species) {
 
 //adding cultists to a job
 export function addCultistToJob(piniaObject, jobId, cultistId = null, cultistObj = null) {
+    
+    //check if job is full, and return if it is
+    if (piniaObject.getJobArray(jobId).length == piniaObject.getJobLimit(jobId)) {
+        return;
+    }
+
+
     const cultists = useCultistsStore();
 
     if (cultistId != null) {
