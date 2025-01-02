@@ -54,6 +54,9 @@ function cultistButtonClick(cultist) {
                             <span v-if="pinia.getJobArray(job).includes(i.getId())">
                                 <button  class="button is-info cultistGridItem" @click="cultistButtonClick(i)">{{i.getName()}}</button>
                             </span>
+                            <span v-else-if="i.getJob()">
+                                <button  class="button is-light cultistGridItem" @click="cultistButtonClick(i)">{{i.getName()}}</button>
+                            </span>
                             <span v-else>
                                 <button  class="button is-dark cultistGridItem" @click="cultistButtonClick(i)">{{i.getName()}}</button>
                             </span>
@@ -64,6 +67,9 @@ function cultistButtonClick(cultist) {
                         <div class="cultistContainer">
                             <span v-if="pinia.getJobArray(job).includes(i.getId())">
                                 <button  class="button is-info cultistGridItem" @click="cultistButtonClick(i)">{{i.getName()}}</button>
+                            </span>
+                            <span v-else-if="i.getJob()">
+                                <button  class="button is-light cultistGridItem" @click="cultistButtonClick(i)">{{i.getName()}}</button>
                             </span>
                             <span v-else>
                                 <button  class="button is-dark cultistGridItem" @click="cultistButtonClick(i)">{{i.getName()}}</button>
