@@ -4,8 +4,26 @@ import { defineStore } from "pinia";
 export const useBarracksStore = defineStore("barracks", {
     state: () => {
         return {
-            party: {
-
+            jobs: {
+                knight: {
+                    id: "knight",
+                    cultistArray: [],
+                    limit: 0,
+                    name: "Knight"
+                },
+                mage: {
+                    id: "mage",
+                    cultistArray: [],
+                    limit: 0,
+                    name: "Mage"
+                },
+                healer: {
+                    id: "healer",
+                    cultistArray: [],
+                    limit: 0,
+                    name: "Healer"
+                }
+                
             },
             misc: {
                 partyLimit: 3
@@ -13,13 +31,45 @@ export const useBarracksStore = defineStore("barracks", {
         }
     },
     getters: {
-        getParty(state) {
-            return state.party;
+        //jobs
+        getJobs(state) {
+            return state.jobs;
         },
-        getPartySize(state) {
-            return Object.keys(state.party).length;
+        getJobObject(state) {
+            return (jobId) => {
+                return state.jobs[jobId];
+            }
+        },
+        getJobName(state) {
+            return (jobId) => {
+                return state.jobs[jobId].name;
+            }
+        },
+        getJobArray(state) {
+            return (jobId) => {
+                return state.jobs[jobId].cultistArray;
+            }
+        },
+        getJobLimit(state) {
+            return (jobId) => {
+                return state.jobs[jobId].limit;
+            }
+        },
+        checkIfJobHasSpace(state) {
+            return (jobId) => {
+                return state.jobs[jobId].cultistArray.length < state.jobs[jobId].limit;
+            }
         },
         //misc
+        getPartySize(state) {
+            var totalRoles = 0;
+
+            for (var i in state.jobs) {
+                totalRoles += state.jobs[i].limit;
+            }
+
+            return totalRoles;
+        },
         getPartyLimit(state) {
             return state.misc.partyLimit;
         },
@@ -36,29 +86,25 @@ export const useBarracksStore = defineStore("barracks", {
         },
         //party
         addRole(role) {
-            const index = this.getPartyIndex();
-
-            const obj = {
-                index: index,
-                role: role,
-                cultist: null
-            };
-
-            this.party[index] = obj;
+            this.jobs[role].limit += 1;
         },
-        getPartyIndex() {
-            var index = 0;
-            const indexArray = [];
-
-            for (var i in this.getParty) {
-                indexArray.push(this.getParty[i].index);
+        //jobs
+        addToJob(jobId, cultistId, obj) {
+            if (cultistId != null) {
+                this.jobs[jobId].cultistArray.push(cultistId);
             }
-
-            while (indexArray.includes(index)) {
-                index++;
+            else {
+                this.jobs[jobId].cultistArray.push(obj);
             }
+        },
+        removeFromJob(jobId, cultistId) {
 
-            return index;
+            if (this.jobs[jobId].objArray) {
+                this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(val => val.cultistId != cultistId);
+            }
+            else {
+                this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(val => val != cultistId);
+            }
         }
     }
 })
