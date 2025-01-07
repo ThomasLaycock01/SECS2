@@ -49,6 +49,7 @@ const modals = useModalsStore();
 import { tick, instantiateResources, instantiateItems, instantiateBuildings } from "./functions";
 
 import { useCultistsStore } from "./stores/globalPinias/cultists";
+import { useExpeditionsStore } from "./stores/barracks/expeditions";
 
 export default {
   data() {
@@ -56,10 +57,14 @@ export default {
   },
   beforeCreate() {
     const cultists = useCultistsStore();
+    const expeditions = useExpeditionsStore();
+
+
     instantiateResources();
     cultists.instantiateRaces();
     instantiateItems();
     instantiateBuildings();
+    expeditions.instantiateExpeditions();
   },
   mounted() {
     setInterval(tick, 1000);

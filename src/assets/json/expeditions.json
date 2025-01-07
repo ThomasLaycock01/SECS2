@@ -1,0 +1,18 @@
+{
+    "testExpedition": {
+        "id": "testExpedition", 
+        "name": "Test Expedition",
+        "desc": "A test expedition", 
+        "encounters": {
+            "0": [1000]
+        }
+    },
+    "testExpedition2": {
+        "id": "testExpedition2", 
+        "name": "Test Expedition 2",
+        "desc": "Another test expedition", 
+        "encounters": {
+            "0": [1000]
+        }
+    }
+}

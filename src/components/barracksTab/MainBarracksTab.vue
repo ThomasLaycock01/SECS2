@@ -1,5 +1,6 @@
 <script setup>
 import BarracksTab from './BarracksTab.vue';
+import ExpeditionsTab from './ExpeditionsTab.vue';
 
 import { useExpansionsStore } from '@/stores/globalPinias/expansions';
 const expansions = useExpansionsStore();
@@ -10,6 +11,9 @@ const expansions = useExpansionsStore();
     <b-tabs v-model=activeBarracksTab>
         <b-tab-item label="Party">
             <BarracksTab/>
+        </b-tab-item>
+        <b-tab-item label="Expeditions">
+            <ExpeditionsTab/>
         </b-tab-item>
     </b-tabs>
 </template>
