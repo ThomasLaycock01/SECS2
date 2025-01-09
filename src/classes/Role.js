@@ -2,9 +2,12 @@ export class Role {
     constructor(obj) {
         this.id = obj.id;
         this.name = obj.name;
+        this.desc = obj.desc;
+
         this.dmgGiven = obj.dmgGiven;
         this.dmgTaken = obj.dmgTaken;
         this.mod = obj.mod;
+        this.modDesc = obj.modDesc;
     }
 
     //getters
@@ -14,6 +17,10 @@ export class Role {
 
     getName() {
         return this.name;
+    }
+
+    getDesc() {
+        return this.desc;
     }
 
     getDmgGiven(type) {
@@ -26,5 +33,9 @@ export class Role {
 
     getMod() {
         return this.mod;
+    }
+
+    getModDesc() {
+        return this.modDesc;
     }
 }

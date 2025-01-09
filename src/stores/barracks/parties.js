@@ -15,6 +15,9 @@ export const usePartiesStore = defineStore("parties", {
     getters: {
         getParties(state) {
             return state.parties;
+        },
+        getRoles(state) {
+            return state.roles;
         }
     },
     actions: {
