@@ -1,0 +1,3 @@
+{
+    "explorer": {"id": "explorer", "name": "Explorer", "dmgGiven": {"phys": 1, "mag": 0}, "dmgTaken": {"phys": 1, "mag": 1}, "mod": {"type": "carryCap", "modifier": 0.5}}
+}

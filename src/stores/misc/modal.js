@@ -1,5 +1,7 @@
 import { defineStore } from "pinia";
 
+import { usePartiesStore } from "../barracks/parties";
+
 export const useModalsStore = defineStore("modals", {
     state: () => {
         return {
@@ -10,7 +12,8 @@ export const useModalsStore = defineStore("modals", {
                     activeJob: null
                 },
                 party: {
-                    isActive: false
+                    isActive: false,
+                    partyObj: null
                 }
             }
         }
@@ -24,6 +27,9 @@ export const useModalsStore = defineStore("modals", {
         },
         getAssignmentJob(state) {
             return state.modals.assignment.activeJob;
+        },
+        getPartyObj(state) {
+            return state.modals.party.partyObj;
         }
     },
     actions: {
@@ -45,7 +51,15 @@ export const useModalsStore = defineStore("modals", {
             this.modals.assignment.activeJob = null;
             this.toggleModal('assignment');
         },
-        openParty() {
+        openParty(partyObj = null) {
+            const parties = usePartiesStore();
+
+            if (partyObj) {
+                this.modals.party.partyObj = partyObj;
+            }
+            else {
+                this.modals.party.partyObj = parties.createNewParty();
+            }
             this.toggleModal("party");
         },
         closeParty() {

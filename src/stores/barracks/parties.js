@@ -1,9 +1,15 @@
 import { defineStore } from "pinia";
 
+import { Party } from "@/classes/Party";
+import { Role } from "@/classes/Role";
+
+import roles from "@/assets/json/roles.json";
+
 export const usePartiesStore = defineStore("parties", {
     state: () => {
         return {
-            parties: []
+            parties: {},
+            roles: {}
         }
     },
     getters: {
@@ -12,13 +18,14 @@ export const usePartiesStore = defineStore("parties", {
         }
     },
     actions: {
+        //parties
         generatePartyId() {
             var id = 0;
 
             const idArray = [];
 
-            for (var i in parties) {
-                idArray.push(parties[i].getId());
+            for (var i in this.parties) {
+                idArray.push(this.parties[i].getId());
             }
 
             while (idArray.includes(id)) {
@@ -26,6 +33,19 @@ export const usePartiesStore = defineStore("parties", {
             }
 
             return id;
+        },
+        createNewParty() {
+            const party = new Party(this.generatePartyId());
+
+            return party;
+        },
+        //roles
+        instantiateRoles() {
+            for (var i in roles) {
+                const role = new Role(roles[i]);
+
+                this.roles[role.getId()] = role;
+            }
         }
     }
 })

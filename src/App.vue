@@ -53,6 +53,7 @@ import { tick, instantiateResources, instantiateItems, instantiateBuildings } fr
 import { useCultistsStore } from "./stores/globalPinias/cultists";
 import { useExpeditionsStore } from "./stores/barracks/expeditions";
 import { useExploreStore } from "./stores/barracks/explore";
+import { usePartiesStore } from "./stores/barracks/parties";
 
 export default {
   data() {
@@ -62,12 +63,14 @@ export default {
     const cultists = useCultistsStore();
     const expeditions = useExpeditionsStore();
     const explore = useExploreStore();
+    const parties = usePartiesStore();
 
 
     instantiateResources();
     cultists.instantiateRaces();
     instantiateItems();
     instantiateBuildings();
+    parties.instantiateRoles();
     explore.instantiateAreas();
     expeditions.instantiateExpeditions();
   },
