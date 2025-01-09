@@ -8,6 +8,9 @@ export const useModalsStore = defineStore("modals", {
                     isActive: false,
                     activePinia: null,
                     activeJob: null
+                },
+                party: {
+                    isActive: false
                 }
             }
         }
@@ -41,6 +44,12 @@ export const useModalsStore = defineStore("modals", {
             this.modals.assignment.activePinia = null;
             this.modals.assignment.activeJob = null;
             this.toggleModal('assignment');
+        },
+        openParty() {
+            this.toggleModal("party");
+        },
+        closeParty() {
+            this.toggleModal("party");
         }
     }
 })

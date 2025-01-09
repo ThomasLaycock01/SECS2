@@ -2,6 +2,7 @@
 import Tables from "./components/tables/Tables.vue";
 
 import AssignmentModal from "./components/modal/AssignmentModal.vue";
+import PartyModal from "./components/modal/PartyModal.vue";
 
 import LairTab from "./components/lairTab/LairTab.vue";
 import HRTab from "./components/HRTab/HRTab.vue";
@@ -43,6 +44,7 @@ const modals = useModalsStore();
   </div>
 
   <AssignmentModal v-if="modals.checkModal('assignment')"/>
+  <PartyModal v-if="modals.checkModal('party')"/>
 </template>
 
 <script>

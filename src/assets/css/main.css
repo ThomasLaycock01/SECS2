@@ -115,7 +115,7 @@ html {
     opacity: 0.1;
 }
 
-.assignmentModal {
+.generalModal {
     z-index: 1000;
     position: absolute;
 
@@ -136,25 +136,25 @@ html {
     justify-content: space-between;
 }
 
-.assignmentModalHeader,
-.assignmentModalFooter {
+.modalHeader,
+.modalFooter {
   padding: 15px;
   display: flex;
 }
 
-.assignmentModalHeader {
+.modalHeader {
   position: relative;
   border-bottom: 1px solid #eeeeee;
   justify-content: space-between;
 }
 
-.assignmentModalFooter {
+.modalFooter {
   border-top: 1px solid #eeeeee;
   flex-direction: column;
   justify-content: flex-end;
 }
 
-.assignmentModalBody {
+.modalBody {
   position: relative;
   padding: 20px 10px;
   height: 100%;

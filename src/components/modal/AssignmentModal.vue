@@ -39,12 +39,12 @@ function cultistButtonClick(cultist) {
 
     <div class="modalBackdrop" @click="modals.closeAssignment()"></div>
 
-    <div class="assignmentModal">
-        <div class="assignmentModalHeader">
+    <div class="generalModal">
+        <div class="modalHeader">
             <p>Assign Workers - {{ pinia.getJobName(job) }} - {{ pinia.getJobArray(job).length }}/{{ pinia.getJobLimit(job) }}</p>
         </div>
 
-        <div class="assignmentModalBody">
+        <div class="modalBody">
             <div class="columns">
                 <div class="column is-half">
                     <!--Copied from the HR tab-->
@@ -121,7 +121,7 @@ function cultistButtonClick(cultist) {
             </div>
         </div>
 
-        <div class="assignmentModalFooter">
+        <div class="modalFooter">
             <button class="button is-dark" v-if="assignmentModal.activeCultist" @click="cultistButtonClick(assignmentModal.activeCultist)">{{pinia.getJobArray(job).includes(assignmentModal.activeCultist.getId()) ? "Unassign" : "Assign"}}</button>
             <button class="button is-danger" @click="modals.closeAssignment()">Close</button>
         </div>

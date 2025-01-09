@@ -1,14 +1,8 @@
 <script setup>
 import { usePartiesStore } from '@/stores/barracks/parties';
-
-import { useBarracksStore } from '@/stores/barracks/barracks';
-import { useCultistsStore } from '@/stores/globalPinias/cultists';
 import { useModalsStore } from '@/stores/misc/modal';
 
 const parties = usePartiesStore();
-
-const barracks = useBarracksStore();
-const cultists = useCultistsStore();
 const modals = useModalsStore();
 </script>
 
@@ -17,7 +11,7 @@ const modals = useModalsStore();
 
     <div>
         <div class="title is-5 mb-1 segment-title">Parties</div>
-        <button class="button is-dark">Create Party</button>
+        <button class="button is-dark" @click="modals.openParty()">Create Party</button>
         <br>
         <br>
         <div v-if="parties.getParties.length > 0">
