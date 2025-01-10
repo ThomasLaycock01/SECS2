@@ -54,6 +54,8 @@ export const useModalsStore = defineStore("modals", {
         openParty(partyObj = null) {
             const parties = usePartiesStore();
 
+            console.log(partyObj);
+
             if (partyObj) {
                 this.modals.party.partyObj = partyObj;
             }
