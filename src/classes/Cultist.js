@@ -6,7 +6,11 @@ export class Cultist {
     constructor(id, name, raceTemplate, job, level, currentXp, xpNeeded, xpIncrement, levelLimit, perks, perkPoints, equipment) {
         this.id = id;
         this.name = name;
+
         this.job = job;
+        this.party = null;
+
+
         this.level = level;
         this.currentXp = currentXp;
         this.xpNeeded = xpNeeded;
@@ -33,7 +37,19 @@ export class Cultist {
     }
 
     getJob() {
+        if (this.party) {
+            return this.party.getName();
+        }
+
         return this.job;
+    }
+
+    getParty() {
+        return this.party;
+    }
+
+    getPartyId() {
+        return this.party.getId();
     }
 
     getId() {
@@ -135,6 +151,10 @@ export class Cultist {
 
     removeJob() {
         this.job = null;
+    }
+
+    setParty(party) {
+        this.party = party;
     }
 
     addXp(amount, bypassNoXp = false) {
