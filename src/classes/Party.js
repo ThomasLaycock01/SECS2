@@ -55,6 +55,15 @@ export class Party {
         return null;
     }
 
+    getSlotByCultist(cultistId) {
+        for (var i in this.slots) {
+            if (this.slots[i].cultist && this.slots[i].cultist.getId() == cultistId) {
+                return i;
+            }
+        }
+        console.log("error in getSlotsByCultist method")
+    }
+
 
     getCurrentActivity() {
         return this.currentActivity;

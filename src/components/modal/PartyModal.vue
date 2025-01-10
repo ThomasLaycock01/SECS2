@@ -106,7 +106,7 @@ function setCultist(cultist) {
                                         <div class="title is-5 mb-1 segment-title">Cultists</div>
                                         <div class="cultistContainer">
                                             <span v-for="i in cultists.getRegularCultists">
-                                                <button  class="button is-dark cultistGridItem" :class="party.checkIfContainsCultist(i.getId()) ? 'is-info' : ''" :disabled="i.getParty() && (i.getPartyId() != party.getId())" @click="setCultist(i)">{{i.getName()}}</button>
+                                                <button  class="button is-dark cultistGridItem" :class="party.checkIfContainsCultist(i.getId()) ? 'is-info' : ''" :disabled="i.getParty() && (party.getSlotByCultist(i.getId()) != partyModal.selectedSlot)" @click="setCultist(i)">{{i.getName()}}</button>
                                             </span>
                                         </div>
                                     </div>
