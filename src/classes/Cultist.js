@@ -117,6 +117,10 @@ export class Cultist {
         }
     }
 
+    getStatObj() {
+        return this.stats;
+    }
+
     getStat(stat = null) {
         if (stat) {
             return this.stats[stat];

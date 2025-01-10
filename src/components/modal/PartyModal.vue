@@ -3,16 +3,30 @@ import { reactive } from 'vue';
 
 import { useModalsStore } from '@/stores/misc/modal';
 import { usePartiesStore } from '@/stores/barracks/parties';
+import { useCultistsStore } from '@/stores/globalPinias/cultists';
 
 const modals = useModalsStore();
 const parties = usePartiesStore();
+const cultists = useCultistsStore();
 
 const party = modals.getPartyObj;
 
-const partyModal = reactive({selectedRole: null});
+const partyModal = reactive({selectedSlot: null, selectedRole: null, selectedCultist: null});
 
-function setSelectedRole(roleObj) {
-    partyModal.selectedRole = roleObj;
+function setSelectedSlot(id) {
+    partyModal.selectedSlot = id;
+}
+
+function setRole(role) {
+    partyModal.selectedRole = role;
+
+    party.setRole(partyModal.selectedSlot, role);
+}
+
+function setCultist(cultist) {
+    partyModal.selectedCultist = cultist;
+
+    party.setCultist(partyModal.selectedSlot, cultist);
 }
 </script>
 
@@ -27,54 +41,89 @@ function setSelectedRole(roleObj) {
         </div>
 
         <div class="modalBody">
-            
-            <b-tabs v-model="activeTab">
-                <!--Tab for assigning Roles-->
-                <b-tab-item label="Roles">
-                    <div class="columns">
-                        <div class="column is-half">
-                            <div class="title is-5 mb-1 segment-title">Roles</div>
-                            <div class="cultistContainer">
-                                <span v-for="i in parties.getRoles">
-                                    <button  class="button is-dark is-info cultistGridItem" @click="setSelectedRole(i)">{{i.getName()}}</button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="column is-half">
-                            <div v-if="partyModal.selectedRole">
-                                <div class="title is-5 mb-1 segment-title">{{ partyModal.selectedRole.getName() }}</div>
-                                <div>{{ partyModal.selectedRole.getDesc() }}</div>
-                                <br>
-                                <div>
-                                    Damange output:
-                                    <ul>
-                                        <li>{{ partyModal.selectedRole.getDmgGiven("phys") * 100 }}% Physical</li>
-                                        <li>{{ partyModal.selectedRole.getDmgGiven("mag") * 100 }}% Magic</li>
-                                    </ul>
-                                </div>
-                                <br>
-                                <div>
-                                    Damange taken:
-                                    <ul>
-                                        <li>{{ partyModal.selectedRole.getDmgTaken("phys") * 100 }}% Physical</li>
-                                        <li>{{ partyModal.selectedRole.getDmgTaken("mag") * 100 }}% Magic</li>
-                                    </ul>
-                                </div>
-                                <br>
-                                <div>{{ partyModal.selectedRole.getModDesc() }}</div>
-                            </div>
-                            <div v-else>
-                                No role selected
-                            </div>
-                        </div>
+            <div class="columns partyColumns">
+                <div class="column is-half">
+                    <div v-for="i in party.getSlots()" :class="partyModal.selectedSlot == i.id ? 'selectedPartySlot mb-2' : 'partySlot mb-2'" @click="setSelectedSlot(i.id)">
+                        <div>Slot {{ i.id + 1 }}</div>
+                        <div>Cultist: {{ i.cultist ? i.cultist.getName() : "None" }}</div>
+                        <div>Role: {{ i.role ? i.role.getName() : "None" }}</div>
                     </div>
-                </b-tab-item>
+                </div>
+                <div class="column is-half">
+                    <div v-if="partyModal.selectedSlot != null">
+                            <b-tabs v-model="activeTab">
+                                <b-tab-item label="Roles">
+                                    <div class="partySelectorTop">
+                                        <!--If a slot is selected, show roles-->
+                                        <div class="title is-5 mb-1 segment-title">Roles</div>
+                                        <div class="cultistContainer">
+                                            <span v-for="i in parties.getRoles">
+                                                <button  class="button is-dark cultistGridItem" :class="party.getRoleBySlot(partyModal.selectedSlot) == i.getId() ? 'is-info' : ''" @click="setRole(i)">{{i.getName()}}</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="partySelectorBottom">
+                                        <div v-if="partyModal.selectedRole">
+                                            <div class="title is-5 mb-1 segment-title">{{partyModal.selectedRole.getName()}}</div>
+                                            <div>{{ partyModal.selectedRole.getDesc() }}</div>
+                                            <br>
+                                            <div class="partySelectorTableLine">
+                                                <div>
+                                                    <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>DMG</th>
+                                                            <th>Physical</th>
+                                                            <th>Magical</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Dealt</td>
+                                                            <td>{{ partyModal.selectedRole.getDmgGiven("phys") * 100 }}%</td>
+                                                            <td>{{ partyModal.selectedRole.getDmgGiven("mag") * 100 }}%</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Taken</td>
+                                                            <td>{{ partyModal.selectedRole.getDmgTaken("phys") * 100 }}%</td>
+                                                            <td>{{ partyModal.selectedRole.getDmgTaken("mag") * 100 }}%</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                </div>
+                                                <div>
+                                                    <div>Special</div>
+                                                    <div>{{ partyModal.selectedRole.getModDesc() }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </b-tab-item>
+                                <b-tab-item label="Cultists">
+                                    <div class="partySelectorTop">
+                                        <div class="title is-5 mb-1 segment-title">Cultists</div>
+                                        <div class="cultistContainer">
+                                            <span v-for="i in cultists.getRegularCultists">
+                                                <button  class="button is-dark cultistGridItem" @click="setCultist(i)">{{i.getName()}}</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="partySelectorBottom">
+                                        <div v-if="partyModal.selectedCultist">
+                                            <div class="title is-5 mb-1 segment-title">{{partyModal.selectedCultist.getName()}}</div>
+                                            <div>Stats:</div>
+                                            <ul>
+                                                <li v-for="key, value in partyModal.selectedCultist.getStatObj()">{{ key }} {{ value }}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </b-tab-item>
+                            </b-tabs>
+                        </div>
 
-                <!--Tab for assigning cultists-->
-                <b-tab-item label="Cultists">
+                </div>
+            </div>
 
-                </b-tab-item>
-            </b-tabs>
         </div>
 
         <div class="modalFooter">

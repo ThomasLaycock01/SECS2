@@ -2,7 +2,7 @@ export class Party {
     constructor(id) {
         this.id = id;
         this.name = "Party " + id;
-        this.roles = [];
+        this.slots = {};
         this.limit = 3;
     }
 
@@ -19,11 +19,49 @@ export class Party {
         return this.limit;
     }
 
-    getRoles() {
-        return this.roles;
+    getSlots() {
+        return this.slots;
     }
 
     getPartySize() {
-        return this.roles.length;
+        var count = 0;
+
+        for (var i in this.slots) {
+            if (this.slots[i].role) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    getRoleBySlot(slotId) {
+        if (this.slots[slotId].role) {
+            return this.slots[slotId].role.getId();
+        }
+        return null;
+    }
+
+    //actions
+    initSlots() {
+        var count = 0;
+
+        while (count < this.limit) {
+            this.slots[count] = {
+                id: count,
+                role: null,
+                cultist: null
+            }
+            count++;
+        }
+        console.log(this.slots);
+    }
+
+    setRole(slotId, roleObj) {
+        this.slots[slotId].role = roleObj;
+    }
+
+    setCultist(slotId, cultistObj) {
+        this.slots[slotId].cultist = cultistObj;
     }
 }

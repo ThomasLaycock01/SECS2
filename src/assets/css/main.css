@@ -21,6 +21,8 @@ html {
 
 
 
+
+
 .tab-content {
     padding-left: 0 !important;
     padding-right: 0 !important;
@@ -158,4 +160,32 @@ html {
   position: relative;
   padding: 20px 10px;
   height: 100%;
+}
+
+/*Party modal*/
+
+.partyColumns {
+    min-height: 100%
+}
+
+.partySlot {
+    border: 1px solid black;
+}
+
+.selectedPartySlot {
+    border: 1px solid black;
+    background-color: aqua;
+}
+
+.partySelectorTop {
+    min-height: 60%;
+}
+
+.partySelectorBottom {
+    min-height: 40%;
+}
+
+.partySelectorTableLine {
+    display: flex;
+    justify-content: space-around;
 }

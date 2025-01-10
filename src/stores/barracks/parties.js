@@ -39,6 +39,7 @@ export const usePartiesStore = defineStore("parties", {
         },
         createNewParty() {
             const party = new Party(this.generatePartyId());
+            party.initSlots();
 
             return party;
         },
