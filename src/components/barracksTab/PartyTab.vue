@@ -14,9 +14,9 @@ const modals = useModalsStore();
         <button class="button is-dark" @click="modals.openParty()">Create Party</button>
         <br>
         <br>
-        <div v-if="parties.getParties.length > 0">
+        <div v-if="Object.keys(parties.getParties).length > 0">
             <div v-for="i in parties.getParties">
-                {{ i }}
+                {{ i.getName() }} - {{ i.getPartySize() }}/{{ i.getLimit() }} - Currently {{ i.getCurrentActivity() ? i.getCurrentActivity() : "doing nothing" }}
             </div>
         </div>
         <div v-else>

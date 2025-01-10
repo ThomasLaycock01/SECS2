@@ -4,6 +4,8 @@ export class Party {
         this.name = "Party " + id;
         this.slots = {};
         this.limit = 3;
+
+        this.currentActivity = null;
     }
 
     //getters
@@ -51,6 +53,11 @@ export class Party {
             return this.slots[slotId].role.getId();
         }
         return null;
+    }
+
+
+    getCurrentActivity() {
+        return this.currentActivity;
     }
 
     //actions
