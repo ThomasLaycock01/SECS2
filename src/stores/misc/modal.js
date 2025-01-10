@@ -62,7 +62,13 @@ export const useModalsStore = defineStore("modals", {
             }
             this.toggleModal("party");
         },
-        closeParty() {
+        closeParty(partyObj, save = true) {
+            const parties = usePartiesStore();
+
+            if (save) {
+                parties.saveParty(partyObj);
+            }
+
             this.toggleModal("party");
         }
     }

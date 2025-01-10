@@ -43,6 +43,14 @@ export const usePartiesStore = defineStore("parties", {
 
             return party;
         },
+        saveParty(party) {
+            console.log(party);
+            //only parties with at least 1 cultist are saved
+            if (party.getPartyCultistCount() > 0) {
+                const id = party.getId();
+                this.parties[id] = party;
+            }
+        },
         //roles
         instantiateRoles() {
             for (var i in roles) {

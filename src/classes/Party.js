@@ -35,6 +35,17 @@ export class Party {
         return count;
     }
 
+    getPartyCultistCount() {
+        var count = 0;
+        for (var i in this.slots) {
+            if (this.slots[i].cultist) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
     getRoleBySlot(slotId) {
         if (this.slots[slotId].role) {
             return this.slots[slotId].role.getId();

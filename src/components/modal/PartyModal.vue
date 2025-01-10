@@ -33,7 +33,7 @@ function setCultist(cultist) {
 
 <template>
 
-    <div class="modalBackdrop" @click="modals.closeParty()"></div>
+    <div class="modalBackdrop" @click="modals.closeParty(party)"></div>
 
     <div class="generalModal">
         <div class="modalHeader">
@@ -127,8 +127,8 @@ function setCultist(cultist) {
         </div>
 
         <div class="modalFooter">
-            <button class="button is-dark">Confirm</button>
-            <button class="button is-danger" @click="modals.closeParty()">Cancel</button>
+            <button class="button is-dark" @click="modals.closeParty(party)">Confirm</button>
+            <button class="button is-danger" @click="modals.closeParty(party, false)">Cancel</button>
         </div>
 
     </div>
