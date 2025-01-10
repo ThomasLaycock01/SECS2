@@ -60,6 +60,15 @@ export class Party {
         return this.currentActivity;
     }
 
+    checkIfContainsCultist(cultistId) {
+        for (var i in this.slots) {
+            if (this.slots[i].cultist && this.slots[i].cultist.getId() == cultistId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     //actions
     initSlots() {
         var count = 0;
