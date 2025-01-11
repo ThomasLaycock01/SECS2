@@ -33,6 +33,6 @@ export class Area {
 
     //actions
     setActiveParty(partyObj) {
-        this.activeparty = partyObj;
+        this.activeParty = partyObj;
     }
 }
