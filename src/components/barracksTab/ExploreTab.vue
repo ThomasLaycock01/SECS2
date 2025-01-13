@@ -60,6 +60,7 @@ function toggleActive() {
             <button class="button is-dark"  @click="startSettingParty()">Set Party</button>
             <br>
             <br>
+            <!--Displaying party-->
             <div v-if="exploreTab.selectedArea.getActiveParty()">
                 Party:
                 <br>
@@ -67,6 +68,15 @@ function toggleActive() {
                     <div v-if="i.cultist">
                         {{ i.cultist.getName() }} - {{ i.role.getName() }}
                     </div>
+                </span>
+            </div>
+            <br>
+            <!--Displaying enemies-->
+            <div v-if="exploreTab.selectedArea.getCurrentEncounter().length > 0">
+                Enemies:
+                <br>
+                <span v-for="i in exploreTab.selectedArea.getCurrentEncounter()">
+                    {{ i.getName() }} - {{ i.getCurrentHP() }}/{{ i.getStat("HP") }}
                 </span>
             </div>
             <br>

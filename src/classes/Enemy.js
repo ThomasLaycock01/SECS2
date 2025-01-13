@@ -4,7 +4,7 @@ export class Enemy {
         this.id = obj.id;
         this.name = obj.name;
         this.stats = obj.stats;
-        this.currentHealth = obj.stats.HP;
+        this.currentHP = obj.stats.HP;
     }
 
     getId()  {
@@ -15,11 +15,11 @@ export class Enemy {
         return this.name;
     }
 
-    getStats() {
-        return this.stats;
+    getStat(stat) {
+        return this.stats[stat];
     }
 
-    getCurrentHealth() {
-        return this.currentHealth;
+    getCurrentHP() {
+        return this.currentHP;
     }
 }
