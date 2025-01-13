@@ -1,16 +1,11 @@
 import { defineStore } from "pinia";
 
 import expeditions from "@/assets/json/expeditions.json";
-import enemies from "@/assets/json/enemies.json";
-
 
 export const useExpeditionsStore = defineStore("expeditions", {
     state: () => {
         return {
             expeditions: {
-
-            },
-            enemies: {
 
             },
             activeExpedition: {
@@ -30,7 +25,6 @@ export const useExpeditionsStore = defineStore("expeditions", {
     actions: {
         instantiateExpeditions() {
             this.expeditions = expeditions;
-            this.enemies = enemies;
         }
     }
 })

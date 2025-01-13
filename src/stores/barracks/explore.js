@@ -17,6 +17,18 @@ export const useExploreStore = defineStore("explore", {
         }
     },
     actions: {
+        tick() {
+          for (var i in this.areas) {
+            const area = this.areas[i];
+
+            if (area.getActive()) {
+                //generate a new encounter if there isnt one
+                if (area.getCurrentEncounter().length < 1) {
+                    area.generateEncounter();
+                }
+            }
+          }  
+        },
         instantiateAreas() {
             for(var i in areas) {
                 const area = new Area(areas[i]);

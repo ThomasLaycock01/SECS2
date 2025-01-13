@@ -7,6 +7,8 @@ import { useBuildingsStore } from "./stores/globalPinias/buildings";
 import { useLairStore } from "./stores/lair";
 import { useExpansionsStore } from "./stores/globalPinias/expansions";
 import { useTotemsStore } from "./stores/mines/totems";
+
+import { useExploreStore } from "./stores/barracks/explore";
 //expansions
 import { useMinesStore } from "./stores/mines/mines";
 import { useForgeStore } from "./stores/mines/forge";
@@ -18,9 +20,11 @@ import { Cultist } from "./classes/Cultist";
 export function tick() {
     const expansions = useExpansionsStore();
     const cultists = useCultistsStore();
+    const explore = useExploreStore();
 
     expansions.expansionTicks();
     cultists.tick();
+    explore.tick();
 }
 
 //checking and playing convos

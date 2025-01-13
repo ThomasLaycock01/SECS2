@@ -28,6 +28,10 @@ function stopSettingParty() {
 function setSelectedParty(party) {
     exploreTab.selectedArea.setActiveParty(party);
 }
+
+function toggleActive() {
+    exploreTab.selectedArea.toggleActive();
+}
 </script>
 
 
@@ -55,6 +59,18 @@ function setSelectedParty(party) {
             <div>{{ exploreTab.selectedArea.getActiveParty() ? exploreTab.selectedArea.getActiveParty().getName() : "No party assigned!" }}</div>
             <button class="button is-dark"  @click="startSettingParty()">Set Party</button>
             <br>
+            <br>
+            <div v-if="exploreTab.selectedArea.getActiveParty()">
+                Party:
+                <br>
+                <span v-for="i in exploreTab.selectedArea.getActiveParty().getSlots()">
+                    <div v-if="i.cultist">
+                        {{ i.cultist.getName() }} - {{ i.role.getName() }}
+                    </div>
+                </span>
+            </div>
+            <br>
+            <button class="button" :class="exploreTab.selectedArea.getActive() ? 'is-info' : 'is-danger'" @click="toggleActive()">Toggle Active</button>
             <br>
             <button class="button is-dark" @click="deselectArea()">Back</button>
         </div>

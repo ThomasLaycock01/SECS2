@@ -54,6 +54,7 @@ import { useCultistsStore } from "./stores/globalPinias/cultists";
 import { useExpeditionsStore } from "./stores/barracks/expeditions";
 import { useExploreStore } from "./stores/barracks/explore";
 import { usePartiesStore } from "./stores/barracks/parties";
+import { useEnemiesStore } from "./stores/barracks/enemies";
 
 export default {
   data() {
@@ -64,6 +65,7 @@ export default {
     const expeditions = useExpeditionsStore();
     const explore = useExploreStore();
     const parties = usePartiesStore();
+    const enemies = useEnemiesStore();
 
 
     instantiateResources();
@@ -73,6 +75,7 @@ export default {
     parties.instantiateRoles();
     explore.instantiateAreas();
     expeditions.instantiateExpeditions();
+    enemies.instantiateEnemies();
   },
   mounted() {
     setInterval(tick, 1000);

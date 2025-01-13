@@ -1,3 +1,12 @@
 {
-    "level1": {"id": "level1", "name": "Open Plains", "desc": "A series of open, green plains surrounding your lair."}
+    "level1": {
+        "id": "level1",
+        "name": "Open Plains", 
+        "desc": "A series of open, green plains surrounding your lair.",
+        "encounters": [
+            [
+                1000
+            ]
+        ]
+    }
 }
