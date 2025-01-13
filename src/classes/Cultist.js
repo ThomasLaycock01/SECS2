@@ -157,6 +157,10 @@ export class Cultist {
         this.party = party;
     }
 
+    removeParty() {
+        this.party = null;
+    }
+
     addXp(amount, bypassNoXp = false) {
         const modifier = 1 + this.getModifiers("xpGain");
         if (this.level == this.levelLimit) {

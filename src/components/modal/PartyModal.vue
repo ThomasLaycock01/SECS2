@@ -24,6 +24,11 @@ function setRole(role) {
 }
 
 function setCultist(cultist) {
+    if (partyModal.selectedCultist) {
+        //if theres already a cultist assigned, remove them
+        partyModal.selectedCultist.removeParty();
+    }
+
     partyModal.selectedCultist = cultist;
 
     cultist.setParty(party);
