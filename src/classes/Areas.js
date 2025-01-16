@@ -8,6 +8,7 @@ export class Area {
 
         this.encounters = obj.encounters;
         this.currentEncounter = [];
+        this.currentSpeedValue = 0;
 
         this.activeParty = null;
         this.active = false;
@@ -45,6 +46,10 @@ export class Area {
 
     getCurrentEncounter() {
         return this.currentEncounter;
+    }
+
+    getCurrentSpeedValue() {
+        return this.currentSpeedValue;
     }
 
     //actions

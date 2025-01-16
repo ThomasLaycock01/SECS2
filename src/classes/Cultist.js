@@ -24,6 +24,7 @@ export class Cultist {
         this.type = raceTemplate.type;
 
         this.stats = createStatsObj(raceTemplate.stats);
+        this.currentHP = this.stats.HP;
 
         this.perks = perks;
         this.perkPoints = perkPoints;
@@ -142,6 +143,10 @@ export class Cultist {
             return this.stats[stat];
         }
         return this.stats;
+    }
+
+    getCurrentHP() {
+        return this.currentHP;
     }
 
     //setters

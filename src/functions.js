@@ -212,6 +212,49 @@ export function getAllCultistModifiers(type, altType) {
 }
 
 
+
+//function executing a round of combat
+export function combatRound(area) {
+    const party = area.getActiveParty().getSlots();
+    const enemies = area.getCurrentEncounter();
+
+    //party
+    for (var i in party) {
+        if (!party[i].cultist) {
+            continue;
+        }
+
+        const cultist = party[i].cultist;
+        const role = party[i].role;
+
+        const physDmg = cultist.getStat("atk") * role.getDmgGiven("phys");
+        const magDmg = cultist.getStat("atk") * role.getDmgGiven("mag");
+
+        var speedCount = 0;
+        while (speedCount < cultist.getStat("spd")) {
+            console.log(`${cultist.getName()} Attacks for ${physDmg} physical and ${magDmg} magical damage!`);
+            enemies[0].takeDamage(physDmg, magDmg)
+            speedCount++;
+        }
+    }
+
+    //enemies
+    for (var i in enemies) {
+        const enemy = enemies[i];
+
+        const physDmg = enemy.getStat("atk") * enemy.getDmgGiven("phys");
+        const magDmg = enemy.getStat("atk") * enemy.getDmgGiven("mag");
+
+        var speedCount = 0;
+        while (speedCount < enemy.getStat("spd")) {
+            console.log(`${enemies[i].getName()} Attacks for ${physDmg} physical and ${magDmg} magical damage!`);
+            speedCount++;
+        }
+    }
+}
+
+
+
 //instantiat files
 export function instantiateItems() {
     const mines = useMinesStore();
