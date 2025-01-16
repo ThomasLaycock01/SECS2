@@ -36,7 +36,7 @@ const modals = useModalsStore();
         <b-tab-item label="Mines" v-if="expansions.hasExpansion('mines')">
           <MainMinesTab/>
         </b-tab-item>
-        <b-tab-item label="Barracks" v-if="expansions.hasExpansion('barracks')">
+        <b-tab-item label="Barracks">
           <MainBarracksTab/>
         </b-tab-item>
       </b-tabs>
