@@ -260,7 +260,6 @@ export function combatRound(area) {
             }
 
             target.takeDamage(physDmg, magDmg, role);
-            console.log(`${enemies[i].getName()} Attacks for ${physDmg} physical and ${magDmg} magical damage!`);
             speedCount++;
         }
     }

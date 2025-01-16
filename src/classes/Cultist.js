@@ -325,8 +325,16 @@ export class Cultist {
 
     //combat
     takeDamage(physDmg, magDmg, role) {
-        const physTotal = physDmg * role.getDmgTaken("phys");
-        const magTotal = magDmg * role.getDmgTaken("mag");
+        var physTotal = (physDmg - this.getStat("def")) * role.getDmgTaken("phys");
+        var magTotal = (magDmg - this.getStat("def")) * role.getDmgTaken("mag");
+
+        if (physTotal < 0) {
+            physTotal = 0;
+        }
+
+        if (magTotal < 0) {
+            magTotal = 0;
+        }
 
         this.modifyHP(posToNeg(physTotal + magTotal));
     }

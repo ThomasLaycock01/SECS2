@@ -40,8 +40,16 @@ export class Enemy {
     }
 
     takeDamage(physDmg, magDmg) {
-        const physTotal = physDmg * this.getDmgTaken("phys");
-        const magTotal = magDmg * this.getDmgTaken("mag");
+        var physTotal = (physDmg - this.getStat("def")) * this.getDmgTaken("phys");
+        var magTotal = (magDmg - this.getStat("def")) * this.getDmgTaken("mag");
+
+        if (physTotal < 0) {
+            physTotal = 0;
+        }
+
+        if (magTotal < 0) {
+            magTotal = 0;
+        }
 
         this.modifyHP(posToNeg(physTotal + magTotal));
     }
