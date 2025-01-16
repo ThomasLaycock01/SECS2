@@ -1,13 +1,16 @@
 import { posToNeg } from "@/functions";
 
 export class Enemy {
-    constructor(obj) {
+    constructor(obj, area) {
         this.id = obj.id;
         this.name = obj.name;
         this.stats = obj.stats;
         this.currentHP = obj.stats.HP;
         this.dmgGiven = obj.dmgGiven;
         this.dmgTaken = obj.dmgTaken;
+
+        this.area = area;
+
     }
 
     getId()  {
@@ -37,6 +40,8 @@ export class Enemy {
     //actions
     modifyHP(amount) {
         this.currentHP += amount;
+
+        this.checkIfDead();
     }
 
     takeDamage(physDmg, magDmg) {
@@ -52,5 +57,11 @@ export class Enemy {
         }
 
         this.modifyHP(posToNeg(physTotal + magTotal));
+    }
+
+    checkIfDead() {
+        if (this.currentHP <= 0) {
+            this.area.removeEnemy(this.id);
+        }
     }
 }

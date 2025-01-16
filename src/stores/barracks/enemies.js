@@ -19,10 +19,10 @@ export const useEnemiesStore = defineStore("enemies", {
         instantiateEnemies() {
             this.enemies = enemies;
         },
-        generateNewEnemy(id) {
+        generateNewEnemy(id, area) {
             const template = this.enemies[id];
 
-            return new Enemy(template);
+            return new Enemy(template, area);
         }
     }
 })

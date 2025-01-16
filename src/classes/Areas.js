@@ -8,7 +8,6 @@ export class Area {
 
         this.encounters = obj.encounters;
         this.currentEncounter = [];
-        this.currentSpeedValue = 0;
 
         this.activeParty = null;
         this.active = false;
@@ -48,10 +47,6 @@ export class Area {
         return this.currentEncounter;
     }
 
-    getCurrentSpeedValue() {
-        return this.currentSpeedValue;
-    }
-
     //actions
     setActiveParty(partyObj) {
         this.activeParty = partyObj;
@@ -66,17 +61,17 @@ export class Area {
         }
     }
 
-    generateEncounter() {
+    generateEncounter() {       
         const enemies = useEnemiesStore();
 
         const encounter = this.getRandomEncounter();
 
         for (var i in encounter) {
-            console.log(i);
-            console.log(encounter[i]);
-
-
-            this.currentEncounter.push(enemies.generateNewEnemy(encounter[i]));
+            this.currentEncounter.push(enemies.generateNewEnemy(encounter[i], this));
         }
+    }
+
+    removeEnemy(enemyId) {
+        this.currentEncounter = this.currentEncounter.filter((enemy) => enemy.getId() != enemyId);
     }
 }
