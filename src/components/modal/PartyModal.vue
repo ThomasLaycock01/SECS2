@@ -15,6 +15,8 @@ const partyModal = reactive({selectedSlot: null, selectedRole: null, selectedCul
 
 function setSelectedSlot(id) {
     partyModal.selectedSlot = id;
+    partyModal.selectedRole = null;
+    partyModal.selectedCultist = null;
 }
 
 function setRole(role) {
