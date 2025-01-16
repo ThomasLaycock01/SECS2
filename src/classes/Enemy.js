@@ -9,6 +9,8 @@ export class Enemy {
         this.dmgGiven = obj.dmgGiven;
         this.dmgTaken = obj.dmgTaken;
 
+        this.xpDrop = obj.xpDrop;
+
         this.area = area;
 
     }
@@ -37,6 +39,10 @@ export class Enemy {
         return this.dmgTaken[type];
     }
 
+    getXpDrop() {
+        return this.xpDrop;
+    }
+
     //actions
     modifyHP(amount) {
         this.currentHP += amount;
@@ -62,6 +68,7 @@ export class Enemy {
     checkIfDead() {
         if (this.currentHP <= 0) {
             this.area.removeEnemy(this.id);
+            this.area.addXp(this.xpDrop);
         }
     }
 }

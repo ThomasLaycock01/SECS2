@@ -71,6 +71,10 @@ export class Area {
         }
     }
 
+    addXp(amount) {
+        this.activeParty.addXp(amount);
+    }
+
     removeEnemy(enemyId) {
         this.currentEncounter = this.currentEncounter.filter((enemy) => enemy.getId() != enemyId);
     }

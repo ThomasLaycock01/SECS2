@@ -243,6 +243,11 @@ export function combatRound(area) {
         speedCount++;
         //party
         for (var i in party) {
+            //skip if all the enemies have died
+            if (area.getCurrentEncounter().length < 1) {
+                break;
+            }
+
             if (!party[i].cultist) {
                 continue;
             }
@@ -252,8 +257,13 @@ export function combatRound(area) {
 
             const physDmg = cultist.getStat("atk") * role.getDmgGiven("phys");
             const magDmg = cultist.getStat("atk") * role.getDmgGiven("mag");
-
+            
             enemies[0].takeDamage(physDmg, magDmg);
+        }
+
+        //same as above, but skips enemy calculations if theyre all dead
+        if (area.getCurrentEncounter().length < 1) {
+            break;
         }
 
         //enemies

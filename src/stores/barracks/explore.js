@@ -34,8 +34,9 @@ export const useExploreStore = defineStore("explore", {
                 if (area.getCurrentEncounter().length < 1) {
                     area.generateEncounter();
                 }
-
-                combatRound(area);
+                else {
+                    combatRound(area);
+                }
             }
           }  
         },

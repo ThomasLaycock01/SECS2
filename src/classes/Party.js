@@ -100,4 +100,24 @@ export class Party {
     setCultist(slotId, cultistObj) {
         this.slots[slotId].cultist = cultistObj;
     }
+
+    addXp(amount) {
+        
+        var numOfCultists  = 0;
+
+        for (var i in this.slots) {
+            if (this.slots[i].cultist) {
+                numOfCultists++;
+            }
+        }
+
+        const xpShare = Math.floor(amount / numOfCultists);
+
+
+        for (var i in this.slots) {
+            if (this.slots[i].cultist) {
+                this.slots[i].cultist.addXp(xpShare)
+            }
+        }
+    }
 }
