@@ -217,50 +217,68 @@ export function getAllCultistModifiers(type, altType) {
 export function combatRound(area) {
     const party = area.getActiveParty().getSlots();
     const enemies = area.getCurrentEncounter();
+    var speedCount = 0;
 
-    //party
+    //first - find highest speed
+    var highestSpeed = 0;
+
     for (var i in party) {
         if (!party[i].cultist) {
             continue;
         }
 
-        const cultist = party[i].cultist;
-        const role = party[i].role;
-
-        const physDmg = cultist.getStat("atk") * role.getDmgGiven("phys");
-        const magDmg = cultist.getStat("atk") * role.getDmgGiven("mag");
-
-        var speedCount = 0;
-        while (speedCount < cultist.getStat("spd")) {
-            enemies[0].takeDamage(physDmg, magDmg);
-            speedCount++;
+        if (party[i].cultist.getStat("spd") > highestSpeed) {
+            highestSpeed = party[i].cultist.getStat("spd");
         }
     }
 
-    //enemies
     for (var i in enemies) {
-        const enemy = enemies[i];
+        if (enemies[i].getStat("spd") > highestSpeed) {
+            highestSpeed = enemies[i].getStat("spd");
+        }
+    }
 
-        const physDmg = enemy.getStat("atk") * enemy.getDmgGiven("phys");
-        const magDmg = enemy.getStat("atk") * enemy.getDmgGiven("mag");
-
-        var speedCount = 0;
-        while (speedCount < enemy.getStat("spd")) {
-            var target;
-            var role;
-            for (var j in party) {
-                if (!party[j].cultist || target) {
-                    continue;
-                }
-                else {
-                    target = party[j].cultist;
-                    role = party[j].role;
-                }
-
+    //actual combat
+    while (speedCount < highestSpeed) {
+        speedCount++;
+        //party
+        for (var i in party) {
+            if (!party[i].cultist) {
+                continue;
             }
 
-            target.takeDamage(physDmg, magDmg, role);
-            speedCount++;
+            const cultist = party[i].cultist;
+            const role = party[i].role;
+
+            const physDmg = cultist.getStat("atk") * role.getDmgGiven("phys");
+            const magDmg = cultist.getStat("atk") * role.getDmgGiven("mag");
+
+            enemies[0].takeDamage(physDmg, magDmg);
+        }
+
+        //enemies
+        for (var i in enemies) {
+            const enemy = enemies[i];
+
+            const physDmg = enemy.getStat("atk") * enemy.getDmgGiven("phys");
+            const magDmg = enemy.getStat("atk") * enemy.getDmgGiven("mag");
+
+            while (speedCount < enemy.getStat("spd")) {
+                var target;
+                var role;
+                for (var j in party) {
+                    if (!party[j].cultist || target) {
+                        continue;
+                    }
+                    else {
+                        target = party[j].cultist;
+                        role = party[j].role;
+                    }
+
+                }
+
+                target.takeDamage(physDmg, magDmg, role);
+            }
         }
     }
 }
