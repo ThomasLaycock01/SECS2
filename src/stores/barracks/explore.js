@@ -24,6 +24,12 @@ export const useExploreStore = defineStore("explore", {
             const area = this.areas[i];
 
             if (area.getActive()) {
+                //set the area to be not active if there is no party
+                if (!area.getActiveParty()) {
+                    area.toggleActive();
+                    continue;
+                }
+
                 //generate a new encounter if there isnt one
                 if (area.getCurrentEncounter().length < 1) {
                     area.generateEncounter();
