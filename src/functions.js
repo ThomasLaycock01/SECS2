@@ -232,8 +232,7 @@ export function combatRound(area) {
 
         var speedCount = 0;
         while (speedCount < cultist.getStat("spd")) {
-            console.log(`${cultist.getName()} Attacks for ${physDmg} physical and ${magDmg} magical damage!`);
-            enemies[0].takeDamage(physDmg, magDmg)
+            enemies[0].takeDamage(physDmg, magDmg);
             speedCount++;
         }
     }
@@ -247,6 +246,20 @@ export function combatRound(area) {
 
         var speedCount = 0;
         while (speedCount < enemy.getStat("spd")) {
+            var target;
+            var role;
+            for (var j in party) {
+                if (!party[j].cultist || target) {
+                    continue;
+                }
+                else {
+                    target = party[j].cultist;
+                    role = party[j].role;
+                }
+
+            }
+
+            target.takeDamage(physDmg, magDmg, role);
             console.log(`${enemies[i].getName()} Attacks for ${physDmg} physical and ${magDmg} magical damage!`);
             speedCount++;
         }

@@ -1,6 +1,6 @@
 import { useJobsStore } from "@/stores/globalPinias/jobs";
 
-import { getAllCultistModifiers, createStatsObj } from "@/functions";
+import { getAllCultistModifiers, createStatsObj, posToNeg } from "@/functions";
 
 export class Cultist {
     constructor(id, name, raceTemplate, job, level, currentXp, xpNeeded, xpIncrement, levelLimit, perks, perkPoints, equipment) {
@@ -320,5 +320,18 @@ export class Cultist {
 
     setMisc(key, value) {
         this.misc[key] = value;
+    }
+
+
+    //combat
+    takeDamage(physDmg, magDmg, role) {
+        const physTotal = physDmg * role.getDmgTaken("phys");
+        const magTotal = magDmg * role.getDmgTaken("mag");
+
+        this.modifyHP(posToNeg(physTotal + magTotal));
+    }
+
+    modifyHP(amount) {
+        this.currentHP += amount;
     }
 }
