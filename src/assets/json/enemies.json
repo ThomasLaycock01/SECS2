@@ -1,3 +1,3 @@
 {
-    "1000": {"id": 1000, "name": "Evil Cultist", "stats": {"atk": 1, "spd": 1, "def": 0, "HP": 10}, "dmgGiven": {"phys": 1, "mag": 0}, "dmgTaken": {"phys": 1, "mag": 1}, "xpDrop": 10}
+    "1000": {"id": 1000, "name": "Evil Cultist", "stats": {"atk": 1, "spd": 1, "def": 0, "HP": 10}, "dmgGiven": {"phys": 1, "mag": 0}, "dmgTaken": {"phys": 1, "mag": 1}, "xpDrop": 10, "loot": {"table": 0, "modifier": 1}}
 }

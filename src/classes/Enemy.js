@@ -1,3 +1,5 @@
+import { useEnemiesStore } from "@/stores/barracks/enemies";
+
 import { posToNeg } from "@/functions";
 
 export class Enemy {
@@ -10,6 +12,7 @@ export class Enemy {
         this.dmgTaken = obj.dmgTaken;
 
         this.xpDrop = obj.xpDrop;
+        this.loot = obj.loot;
 
         this.area = area;
 
@@ -66,9 +69,13 @@ export class Enemy {
     }
 
     checkIfDead() {
+        const enemies = useEnemiesStore();
+
         if (this.currentHP <= 0) {
             this.area.removeEnemy(this.id);
+            //adding XP and giving loot
             this.area.addXp(this.xpDrop);
+            enemies.giveLoot(this.loot);
         }
     }
 }
