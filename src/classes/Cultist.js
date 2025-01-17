@@ -359,6 +359,10 @@ export class Cultist {
 
     knockOut() {
         this.knockedOut = true;
-        this.knockOutTime = this.stats.HP * 100;
+        this.knockOutTime = this.stats.HP * 10;
+    }
+
+    decrementKnockOutTime() {
+        this.knockOutTime--;
     }
 }
