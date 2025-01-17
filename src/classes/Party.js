@@ -78,6 +78,15 @@ export class Party {
         return false;
     }
 
+    checkFullKnockOut() {
+        for (var i in this.slots) {
+            if (this.slots[i].cultist && this.slots[i].cultist.getKnockedOut() == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     //actions
     initSlots() {
         var count = 0;

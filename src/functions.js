@@ -240,15 +240,15 @@ export function combatRound(area) {
 
     //actual combat
     while (speedCount < highestSpeed) {
-        speedCount++;
         //party
         for (var i in party) {
-            //skip if all the enemies have died
-            if (area.getCurrentEncounter().length < 1) {
+            //skip if no enemies OR all party members are knocked out
+            if (area.getCurrentEncounter().length < 1 || area.getActiveParty().checkFullKnockOut()) {
                 break;
             }
 
-            if (!party[i].cultist) {
+            //skip this slot if theres no cultist, they're knocked out, or the current speed count is higher than their speed
+            if (!party[i].cultist || party[i].cultist.getKnockedOut() || party[i].cultist.getStat("spd") < speedCount) {
                 continue;
             }
 
@@ -262,7 +262,7 @@ export function combatRound(area) {
         }
 
         //same as above, but skips enemy calculations if theyre all dead
-        if (area.getCurrentEncounter().length < 1) {
+        if (area.getCurrentEncounter().length < 1 || area.getActiveParty().checkFullKnockOut()) {
             break;
         }
 
@@ -270,10 +270,12 @@ export function combatRound(area) {
         for (var i in enemies) {
             const enemy = enemies[i];
 
+            console.log(speedCount);
+
             const physDmg = enemy.getStat("atk") * enemy.getDmgGiven("phys");
             const magDmg = enemy.getStat("atk") * enemy.getDmgGiven("mag");
 
-            while (speedCount < enemy.getStat("spd")) {
+            if (speedCount <= enemy.getStat("spd")) {
                 var target;
                 var role;
                 for (var j in party) {
@@ -286,10 +288,10 @@ export function combatRound(area) {
                     }
 
                 }
-
                 target.takeDamage(physDmg, magDmg, role);
             }
         }
+        speedCount++;
     }
 }
 

@@ -25,6 +25,8 @@ export class Cultist {
 
         this.stats = createStatsObj(raceTemplate.stats);
         this.currentHP = this.stats.HP;
+        this.knockedOut = false;
+        this.knockOutTime = 0;
 
         this.perks = perks;
         this.perkPoints = perkPoints;
@@ -147,6 +149,14 @@ export class Cultist {
 
     getCurrentHP() {
         return this.currentHP;
+    }
+
+    getKnockedOut() {
+        return this.knockedOut;
+    }
+
+    getKnockOutTime() {
+        return this.knockOutTime;
     }
 
     //setters
@@ -341,5 +351,14 @@ export class Cultist {
 
     modifyHP(amount) {
         this.currentHP += amount;
+
+        if (this.currentHP <= 0) {
+            this.knockOut();
+        }
+    }
+
+    knockOut() {
+        this.knockedOut = true;
+        this.knockOutTime = this.stats.HP * 100;
     }
 }

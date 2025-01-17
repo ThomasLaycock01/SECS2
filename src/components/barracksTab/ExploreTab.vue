@@ -66,7 +66,7 @@ function toggleActive() {
                 <br>
                 <span v-for="i in exploreTab.selectedArea.getActiveParty().getSlots()">
                     <div v-if="i.cultist">
-                        {{ i.cultist.getName() }} - {{ i.role.getName() }} - {{ i.cultist.getCurrentHP() }}/{{ i.cultist.getStat("HP") }}
+                        {{ i.cultist.getName() }} - {{ i.role.getName() }} - <span v-if="!i.cultist.getKnockedOut()">{{ i.cultist.getCurrentHP() }}/{{ i.cultist.getStat("HP") }}</span><span v-else>Knocked Out!</span>
                     </div>
                 </span>
             </div>

@@ -25,7 +25,7 @@ export const useExploreStore = defineStore("explore", {
 
             if (area.getActive()) {
                 //set the area to be not active if there is no party
-                if (!area.getActiveParty()) {
+                if (!area.getActiveParty() || area.getActiveParty().checkFullKnockOut()) {
                     area.toggleActive();
                     continue;
                 }
