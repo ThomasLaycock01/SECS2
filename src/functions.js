@@ -274,10 +274,10 @@ export function combatRound(area) {
             const magDmg = enemy.getStat("atk") * enemy.getDmgGiven("mag");
 
             if (speedCount <= enemy.getStat("spd")) {
-                var target;
-                var role;
+                var target = null;
+                var role = null;
                 for (var j in party) {
-                    if (!party[j].cultist || target) {
+                    if (!party[j].cultist || target || party[j].cultist.getKnockedOut()) {
                         continue;
                     }
                     else {
