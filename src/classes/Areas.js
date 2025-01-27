@@ -11,6 +11,10 @@ export class Area {
 
         this.activeParty = null;
         this.active = false;
+
+        this.maxLevel = 1;
+        this.currentLevel = 1;
+        this.levelProgress = 0;
     }
 
     //getters
@@ -47,6 +51,22 @@ export class Area {
         return this.currentEncounter;
     }
 
+    getMaxLevel() {
+        return this.maxLevel;
+    }
+
+    getCurrentLevel() {
+        return this.currentLevel;
+    }
+
+    getLevelProgress() {
+        return this.levelProgress
+    }
+
+    checkAtMaxLevel() {
+        return this.currentLevel == this.maxLevel;
+    }
+
     //actions
     setActiveParty(partyObj) {
         this.activeParty = partyObj;
@@ -61,7 +81,9 @@ export class Area {
         }
     }
 
-    generateEncounter() {       
+    generateEncounter() {   
+        this.currentEncounter = [];
+        
         const enemies = useEnemiesStore();
 
         const encounter = this.getRandomEncounter();
@@ -71,11 +93,42 @@ export class Area {
         }
     }
 
+    clearEncounter() {
+        this.currentEncounter = [];
+    }
+
     addXp(amount) {
         this.activeParty.addXp(amount);
     }
 
     removeEnemy(enemyId) {
         this.currentEncounter = this.currentEncounter.filter((enemy) => enemy.getId() != enemyId);
+    }
+
+    addLevelProgress() {
+        this.levelProgress++;
+        this.checkLevelUp();
+    }
+
+    checkLevelUp() {
+        if (this.levelProgress >= 10) {
+            this.levelProgress = 0;
+            this.maxLevel++;
+            //if currentLevel was at max, keep it at max
+            if (this.currentLevel == this.maxLevel - 1) {
+                this.currentLevel++;
+                this.clearEncounter();
+            }
+        }
+    }
+
+    increaseCurrentLevel() {
+        this.currentLevel++;
+        this.clearEncounter();
+    }
+
+    decreaseCurrentLevel() {
+        this.currentLevel--;
+        this.clearEncounter();
     }
 }

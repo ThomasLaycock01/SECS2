@@ -270,8 +270,6 @@ export function combatRound(area) {
         for (var i in enemies) {
             const enemy = enemies[i];
 
-            console.log(speedCount);
-
             const physDmg = enemy.getStat("atk") * enemy.getDmgGiven("phys");
             const magDmg = enemy.getStat("atk") * enemy.getDmgGiven("mag");
 

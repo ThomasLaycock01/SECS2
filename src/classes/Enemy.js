@@ -73,6 +73,12 @@ export class Enemy {
 
         if (this.currentHP <= 0) {
             this.area.removeEnemy(this.id);
+
+            //add progress if area at max level
+            if (this.area.checkAtMaxLevel()) {
+                this.area.addLevelProgress();
+            }
+
             //adding XP and giving loot
             this.area.addXp(this.xpDrop);
             enemies.giveLoot(this.loot);

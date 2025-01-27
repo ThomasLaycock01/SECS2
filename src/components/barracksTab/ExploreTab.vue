@@ -42,6 +42,10 @@ function toggleActive() {
     <div v-if="exploreTab.selectedArea">
         <p>{{ exploreTab.selectedArea.getName() }}</p>
         <p>{{ exploreTab.selectedArea.getDesc() }}</p>
+        <p>Level {{ exploreTab.selectedArea.getCurrentLevel() }}/{{ exploreTab.selectedArea.getMaxLevel() }}</p>
+        <button class="button is-dark is-small" @click="exploreTab.selectedArea.decreaseCurrentLevel()" :disabled="exploreTab.selectedArea.getCurrentLevel() - 1 < 1">-</button>
+        <button class="button is-dark is-small" @click="exploreTab.selectedArea.increaseCurrentLevel()" :disabled="exploreTab.selectedArea.getCurrentLevel() + 1 > exploreTab.selectedArea.getMaxLevel()">+</button>
+        <p v-if="exploreTab.selectedArea.checkAtMaxLevel()">{{ 10 - exploreTab.selectedArea.getLevelProgress() }} enemies until next level!</p>
         <br>
         <div>Party: </div>
         <div v-if="exploreTab.settingParty">
