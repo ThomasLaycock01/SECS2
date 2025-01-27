@@ -155,7 +155,7 @@ function feedWarformClick() {
                         <div>Level {{ activeCultist.cultist.getLevel() }} / {{ activeCultist.cultist.getLevelLimit() }}</div>
                         <div>{{ activeCultist.cultist.getXp() }} / {{ activeCultist.cultist.getXpNeeded() }}</div>
                         <br>
-                        <div v-if="expansions.hasExpansion('barracks')">
+                        <div>
                             <ul>
                                 <li v-for="key, value in activeCultist.cultist.getStat()">{{ key }} {{ value }}</li>
                             </ul>
