@@ -25,10 +25,10 @@ export const useEnemiesStore = defineStore("enemies", {
         instantiateEnemies() {
             this.enemies = enemies;
         },
-        generateNewEnemy(id, area) {
-            const template = this.enemies[id];
+        generateNewEnemy(templateId, area, id) {
+            const template = this.enemies[templateId];
 
-            return new Enemy(template, area);
+            return new Enemy(template, area, id);
         },
         giveLoot(lootObj) {
             const resources = useResourcesStore();

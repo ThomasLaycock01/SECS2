@@ -45,7 +45,7 @@ function toggleActive() {
         <p>Level {{ exploreTab.selectedArea.getCurrentLevel() }}/{{ exploreTab.selectedArea.getMaxLevel() }}</p>
         <button class="button is-dark is-small" @click="exploreTab.selectedArea.decreaseCurrentLevel()" :disabled="exploreTab.selectedArea.getCurrentLevel() - 1 < 1">-</button>
         <button class="button is-dark is-small" @click="exploreTab.selectedArea.increaseCurrentLevel()" :disabled="exploreTab.selectedArea.getCurrentLevel() + 1 > exploreTab.selectedArea.getMaxLevel()">+</button>
-        <p v-if="exploreTab.selectedArea.checkAtMaxLevel()">{{ 10 - exploreTab.selectedArea.getLevelProgress() }} enemies until next level!</p>
+        <p v-if="exploreTab.selectedArea.checkAtMaxLevel()">{{ 10 - exploreTab.selectedArea.getLevelProgress() }} encounters until next level!</p>
         <br>
         <div>Party: </div>
         <div v-if="exploreTab.settingParty">
@@ -79,9 +79,9 @@ function toggleActive() {
             <div v-if="exploreTab.selectedArea.getCurrentEncounter().length > 0">
                 Enemies:
                 <br>
-                <span v-for="i in exploreTab.selectedArea.getCurrentEncounter()">
+                <div v-for="i in exploreTab.selectedArea.getCurrentEncounter()">
                     {{ i.getName() }} - {{ i.getCurrentHP() }}/{{ i.getStat("HP") }}
-                </span>
+                </div>
             </div>
             <br>
             <button class="button" :class="exploreTab.selectedArea.getActive() ? 'is-info' : 'is-danger'" @click="toggleActive()">Toggle Active</button>

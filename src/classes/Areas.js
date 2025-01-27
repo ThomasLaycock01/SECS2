@@ -89,7 +89,7 @@ export class Area {
         const encounter = this.getRandomEncounter();
 
         for (var i in encounter) {
-            this.currentEncounter.push(enemies.generateNewEnemy(encounter[i], this));
+            this.currentEncounter.push(enemies.generateNewEnemy(encounter[i], this, i));
         }
     }
 
@@ -103,6 +103,10 @@ export class Area {
 
     removeEnemy(enemyId) {
         this.currentEncounter = this.currentEncounter.filter((enemy) => enemy.getId() != enemyId);
+
+        if (this.currentEncounter.length == 0) {
+            this.addLevelProgress();
+        }
     }
 
     addLevelProgress() {
@@ -116,8 +120,7 @@ export class Area {
             this.maxLevel++;
             //if currentLevel was at max, keep it at max
             if (this.currentLevel == this.maxLevel - 1) {
-                this.currentLevel++;
-                this.clearEncounter();
+                this.increaseCurrentLevel();
             }
         }
     }

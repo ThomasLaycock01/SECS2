@@ -3,8 +3,8 @@ import { useEnemiesStore } from "@/stores/barracks/enemies";
 import { posToNeg } from "@/functions";
 
 export class Enemy {
-    constructor(obj, area) {
-        this.id = obj.id;
+    constructor(obj, area, id) {
+        this.id = id;
         this.name = obj.name;
         this.stats = obj.stats;
         this.currentHP = obj.stats.HP;
@@ -73,11 +73,6 @@ export class Enemy {
 
         if (this.currentHP <= 0) {
             this.area.removeEnemy(this.id);
-
-            //add progress if area at max level
-            if (this.area.checkAtMaxLevel()) {
-                this.area.addLevelProgress();
-            }
 
             //adding XP and giving loot
             this.area.addXp(this.xpDrop);
