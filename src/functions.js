@@ -246,9 +246,8 @@ export function combatRound(area) {
             if (area.getCurrentEncounter().length < 1 || area.getActiveParty().checkFullKnockOut()) {
                 break;
             }
-
             //skip this slot if theres no cultist, they're knocked out, or the current speed count is higher than their speed
-            if (!party[i].cultist || party[i].cultist.getKnockedOut() || party[i].cultist.getStat("spd") < speedCount) {
+            if (!party[i].cultist || party[i].cultist.getKnockedOut() || party[i].cultist.getStat("spd") - 1 < speedCount) {
                 continue;
             }
 
@@ -257,6 +256,7 @@ export function combatRound(area) {
 
             const physDmg = cultist.getStat("atk") * role.getDmgGiven("phys");
             const magDmg = cultist.getStat("atk") * role.getDmgGiven("mag");
+            
             
             enemies[0].takeDamage(physDmg, magDmg);
         }
@@ -270,24 +270,28 @@ export function combatRound(area) {
         for (var i in enemies) {
             const enemy = enemies[i];
 
+            //skip this enemy if their speed count is too low
+            if (enemy.getStat("spd") - 1 < speedCount) {
+                continue;
+            }
+
             const physDmg = enemy.getStat("atk") * enemy.getDmgGiven("phys");
             const magDmg = enemy.getStat("atk") * enemy.getDmgGiven("mag");
 
-            if (speedCount <= enemy.getStat("spd")) {
-                var target = null;
-                var role = null;
-                for (var j in party) {
-                    if (!party[j].cultist || target || party[j].cultist.getKnockedOut()) {
-                        continue;
-                    }
-                    else {
-                        target = party[j].cultist;
-                        role = party[j].role;
-                    }
-
+            //finding a target
+            var target = null;
+            var role = null;
+            for (var j in party) {
+                if (!party[j].cultist || target || party[j].cultist.getKnockedOut()) {
+                    continue;
                 }
-                target.takeDamage(physDmg, magDmg, role);
+                else {
+                    target = party[j].cultist;
+                    role = party[j].role;
+                }
+
             }
+            target.takeDamage(physDmg, magDmg, role);
         }
         speedCount++;
     }
