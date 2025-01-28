@@ -11,6 +11,13 @@
                 1000,
                 1000
             ]
+        ],
+        "expeditions": [
+            {
+                "id": "testExpedition",
+                "unlockLevel": 1,
+                "baseChance": 1
+            }
         ]
     }
 }

@@ -1,4 +1,5 @@
 import { useEnemiesStore } from "@/stores/barracks/enemies";
+import { useExpeditionsStore } from "@/stores/barracks/expeditions";
 
 export class Area {
     constructor(obj) {
@@ -8,6 +9,8 @@ export class Area {
 
         this.encounters = obj.encounters;
         this.currentEncounter = [];
+
+        this.expeditions = obj.expeditions;
 
         this.activeParty = null;
         this.active = false;
@@ -67,6 +70,10 @@ export class Area {
         return this.currentLevel == this.maxLevel;
     }
 
+    getExpeditions() {
+        return this.expeditions;
+    }
+
     //actions
     setActiveParty(partyObj) {
         this.activeParty = partyObj;
@@ -97,6 +104,23 @@ export class Area {
         this.currentEncounter = [];
     }
 
+    completeEncounter() {
+        this.expeditionCheck();
+        this.addLevelProgress();
+    }
+
+    expeditionCheck() {
+        const expeditions = useExpeditionsStore();
+
+        for (var i in this.expeditions) {
+            const expedition = this.expeditions[i];
+
+            if (this.currentLevel >= expedition.unlockLevel) {
+                expeditions.unlockExpedition(expedition.id);
+            }
+        }
+    }
+
     addXp(amount) {
         this.activeParty.addXp(amount);
     }
@@ -105,7 +129,7 @@ export class Area {
         this.currentEncounter = this.currentEncounter.filter((enemy) => enemy.getId() != enemyId);
 
         if (this.currentEncounter.length == 0) {
-            this.addLevelProgress();
+            this.completeEncounter();
         }
     }
 

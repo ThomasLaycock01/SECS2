@@ -32,9 +32,11 @@ function deselectExpedition() {
     <!--If nothing else, a list of all expeditions-->
     <div v-else>
         <div v-for="i in expeditions.getAvailableExpeditions">
-            <p>{{ i.name }}</p>
-            <p>Length {{ expeditions.getExpeditionLength(i.id) }}</p>
-            <button class="button is-dark" @click="selectExpedition(i)">Embark</button>
+            <div v-if="i.getUnlocked()">
+                <p>{{ i.getName() }}</p>
+                <p>Length {{ i.getLength() }}</p>
+                <button class="button is-dark" @click="selectExpedition(i)">Embark</button>
+            </div>
         </div>
     </div>
 
