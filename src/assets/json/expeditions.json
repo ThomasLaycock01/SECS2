@@ -12,7 +12,8 @@
         "name": "Test Expedition 2",
         "desc": "Another test expedition", 
         "encounters": [
-            [1000]
+            [1000],
+            [1000, 1000]
         ]
     }
 }

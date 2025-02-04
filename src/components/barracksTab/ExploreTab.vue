@@ -7,7 +7,7 @@ import { usePartiesStore } from '@/stores/barracks/parties';
 const explore = useExploreStore();
 const parties = usePartiesStore();
 
-var exploreTab = reactive({selectedArea: null, settingParty: false, selectedParty: null});
+var exploreTab = reactive({selectedArea: null, settingParty: false});
 
 function setSelectedArea(obj) {
     exploreTab.selectedArea = obj;
