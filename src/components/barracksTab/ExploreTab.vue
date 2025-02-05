@@ -26,7 +26,13 @@ function stopSettingParty() {
 }
 
 function setSelectedParty(party) {
-    exploreTab.selectedArea.setActiveParty(party);
+    //if the party is already assigned, remove it
+    if (exploreTab.selectedArea.getActiveParty() && exploreTab.selectedArea.getActiveParty().getId() == party.getId()) {
+        exploreTab.selectedArea.removeActiveParty();
+    }
+    else {
+        exploreTab.selectedArea.setActiveParty(party);
+    }
 }
 
 function toggleActive() {

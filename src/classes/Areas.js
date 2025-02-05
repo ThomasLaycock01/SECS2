@@ -79,6 +79,10 @@ export class Area {
         this.activeParty = partyObj;
     }
 
+    removeActiveParty() {
+        this.activeParty = null;
+    }
+
     toggleActive() {
         if (this.active) {
             this.active = false;
