@@ -9,7 +9,7 @@ import HRTab from "./components/HRTab/HRTab.vue";
 import InventoryTab from "./components/inventory/InventoryTab.vue";
 
 import MainMinesTab from "./components/mineTab/MainMinesTab.vue";
-import MainBarracksTab from "./components/barracksTab/MainBarracksTab.vue";
+import MainExploreTab from "./components/exploreTab/MainExploreTab.vue";
 
 import { useExpansionsStore } from "./stores/globalPinias/expansions";
 import { useModalsStore } from "./stores/misc/modal";
@@ -30,14 +30,14 @@ const modals = useModalsStore();
         <b-tab-item label="HR" >
             <HRTab/>
         </b-tab-item>
+        <b-tab-item label="Explore">
+          <MainExploreTab/>
+        </b-tab-item>
         <b-tab-item label="Inventory">
           <InventoryTab/>
         </b-tab-item>
         <b-tab-item label="Mines" v-if="expansions.hasExpansion('mines')">
           <MainMinesTab/>
-        </b-tab-item>
-        <b-tab-item label="Barracks">
-          <MainBarracksTab/>
         </b-tab-item>
       </b-tabs>
     </section>

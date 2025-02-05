@@ -6,7 +6,7 @@ import ExploreTab from './ExploreTab.vue';
 
 
 <template>
-    <b-tabs v-model=activeBarracksTab>
+    <b-tabs v-model=activeExploreTab>
         <b-tab-item label="Parties">
             <PartyTab/>
         </b-tab-item>
@@ -22,7 +22,7 @@ import ExploreTab from './ExploreTab.vue';
 <script>
 export default {
     data() {
-        return {activeBarracksTab: 0}
+        return {activeExploreTab: 0}
     }
 }
 </script>
