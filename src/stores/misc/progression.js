@@ -12,9 +12,6 @@ export const useProgressionStore = defineStore("progression", {
                     condition() {
                         const resources = useResourcesStore();
                         return resources.checkIfCanAfford({"evilness": 10})
-                    },
-                    unlock() {
-                        console.log("10Evilness unlocked");
                     }
                 }
             }
@@ -32,7 +29,6 @@ export const useProgressionStore = defineStore("progression", {
                     const conditionObj = this.unlockConditions[unlockArray[i]];
 
                     if (conditionObj.condition()) {
-                        conditionObj.unlock();
                         this.unlocked.push(unlockArray[i]);
                     }
                 }
