@@ -11,6 +11,8 @@ import InventoryTab from "./components/inventory/InventoryTab.vue";
 import MainMinesTab from "./components/mineTab/MainMinesTab.vue";
 import MainExploreTab from "./components/exploreTab/MainExploreTab.vue";
 
+import TextLog from "./components/textLog/TextLog.vue";
+
 import { useExpansionsStore } from "./stores/globalPinias/expansions";
 import { useModalsStore } from "./stores/misc/modal";
 
@@ -22,6 +24,7 @@ const modals = useModalsStore();
   
   <div class="columns mt-1">
     <Tables class="column is-one-quarter"/>
+
     <section class="column is-half" @openModal="openModal()" @closeModal="closeModal()">
       <b-tabs v-model="activeTab">
         <b-tab-item label="Lair">
@@ -41,6 +44,8 @@ const modals = useModalsStore();
         </b-tab-item>
       </b-tabs>
     </section>
+
+    <TextLog class="column is-one-quarter"/>
   </div>
 
   <AssignmentModal v-if="modals.checkModal('assignment')"/>
@@ -55,6 +60,7 @@ import { useExpeditionsStore } from "./stores/barracks/expeditions";
 import { useExploreStore } from "./stores/barracks/explore";
 import { usePartiesStore } from "./stores/barracks/parties";
 import { useEnemiesStore } from "./stores/barracks/enemies";
+import { useTextLogStore } from "./stores/misc/textLog";
 
 export default {
   data() {
@@ -66,6 +72,7 @@ export default {
     const explore = useExploreStore();
     const parties = usePartiesStore();
     const enemies = useEnemiesStore();
+    const textLog = useTextLogStore();
 
 
     instantiateResources();
@@ -76,6 +83,7 @@ export default {
     explore.instantiateAreas();
     expeditions.instantiateExpeditions();
     enemies.instantiateEnemies();
+    textLog.instantiateMessages();
   },
   mounted() {
     setInterval(tick, 1000);
