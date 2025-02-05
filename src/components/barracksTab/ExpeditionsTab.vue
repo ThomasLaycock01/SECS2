@@ -26,8 +26,13 @@ function stopSettingParty() {
     expeditionsTab.settingParty = false;
 }
 
-function setSelectedParty(obj) {
-    expeditionsTab.selectedExpedition.setActiveParty(obj);
+function setSelectedParty(party) {
+    if (expeditionsTab.selectedExpedition.getActiveParty() && expeditionsTab.selectedExpedition.getActiveParty().getId() == party.getId()) {
+        expeditionsTab.selectedExpedition.removeActiveParty();
+    }
+    else {
+        expeditionsTab.selectedExpedition.setActiveParty(party);
+    }
 }
 
 function embarkClick() {

@@ -54,6 +54,10 @@ export class Expedition {
         this.activeParty = partyObj;
     }
 
+    removeActiveParty() {
+        this.activeParty = null;
+    }
+
     generateNextEncounter() {
         const enemies = useEnemiesStore();
 
