@@ -114,6 +114,10 @@ export class Party {
         this.slots[slotId].role = roleObj;
     }
 
+    removeRole(slotId) {
+        this.slots[slotId].role = null;
+    }
+
     setCultist(slotId, cultistObj) {
         this.slots[slotId].cultist = cultistObj;
     }

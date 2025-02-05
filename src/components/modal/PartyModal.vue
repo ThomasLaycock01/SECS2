@@ -20,13 +20,16 @@ function setSelectedSlot(id) {
 }
 
 function setRole(role) {
-    partyModal.selectedRole = role;
-
-    party.setRole(partyModal.selectedSlot, role);
+    if (party.getRoleBySlot(partyModal.selectedSlot) && role.getId() == party.getRoleBySlot(partyModal.selectedSlot).getId()) {
+        party.removeRole(partyModal.selectedSlot);
+    }
+    else {
+        partyModal.selectedRole = role;
+        party.setRole(partyModal.selectedSlot, role);
+    }
 }
 
 function cultistButtonClick(cultist) {
-    console.log(partyModal)
     //if the clicked cultist is already selected, remove them
     if (party.getCultistBySlot(partyModal.selectedSlot) && cultist.getId() == party.getCultistBySlot(partyModal.selectedSlot).getId()) {
         party.removeCultist(partyModal.selectedSlot);
