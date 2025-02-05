@@ -10,6 +10,8 @@ import { useTotemsStore } from "./stores/mines/totems";
 
 import { useExploreStore } from "./stores/barracks/explore";
 import { useExpeditionsStore } from "./stores/barracks/expeditions";
+
+import { useProgressionStore } from "./stores/misc/progression";
 //expansions
 import { useMinesStore } from "./stores/mines/mines";
 import { useForgeStore } from "./stores/mines/forge";
@@ -23,20 +25,14 @@ export function tick() {
     const cultists = useCultistsStore();
     const explore = useExploreStore();
     const expeditions = useExpeditionsStore();
+    const progression = useProgressionStore();
 
     expansions.expansionTicks();
     cultists.tick();
     explore.tick();
     expeditions.tick();
+    progression.updateProgression();
 }
-
-//checking and playing convos
-/*function checkConvos() {
-    const convos = useConvosStore();
-
-    convos.playPerRequirements();
-}*/
-
 
 
 //creating the stats object needed to create a cultist
