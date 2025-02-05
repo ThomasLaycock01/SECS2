@@ -50,12 +50,20 @@ export class Party {
 
     getRoleBySlot(slotId) {
         if (this.slots[slotId].role) {
-            return this.slots[slotId].role.getId();
+            return this.slots[slotId].role;
+        }
+        return null;
+    }
+
+    getCultistBySlot(slotId) {
+        if (this.slots[slotId].cultist) {
+            return this.slots[slotId].cultist;
         }
         return null;
     }
 
     getSlotByCultist(cultistId) {
+        console.log(cultistId)
         for (var i in this.slots) {
             if (this.slots[i].cultist && this.slots[i].cultist.getId() == cultistId) {
                 return i;
@@ -108,6 +116,10 @@ export class Party {
 
     setCultist(slotId, cultistObj) {
         this.slots[slotId].cultist = cultistObj;
+    }
+
+    removeCultist(slotId) {
+        this.slots[slotId].cultist = null;
     }
 
     addXp(amount) {
