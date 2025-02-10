@@ -15,9 +15,11 @@ import TextLog from "./components/textLog/TextLog.vue";
 
 import { useExpansionsStore } from "./stores/globalPinias/expansions";
 import { useModalsStore } from "./stores/misc/modal";
+import { useProgressionStore } from "./stores/misc/progression";
 
 const expansions = useExpansionsStore();
 const modals = useModalsStore();
+const progression = useProgressionStore();
 </script>
 
 <template>
@@ -30,15 +32,15 @@ const modals = useModalsStore();
         <b-tab-item label="Lair">
           <LairTab/>
         </b-tab-item>
-        <b-tab-item label="HR" >
+        <b-tab-item label="HR" v-if="progression.checkUnlocked('10Evilness')">
             <HRTab/>
         </b-tab-item>
-        <b-tab-item label="Explore">
+        <b-tab-item label="Explore" v-if="progression.checkUnlocked('firstCultist')">
           <MainExploreTab/>
         </b-tab-item>
-        <b-tab-item label="Inventory">
+        <!--<b-tab-item label="Inventory">
           <InventoryTab/>
-        </b-tab-item>
+        </b-tab-item>-->
         <b-tab-item label="Mines" v-if="expansions.hasExpansion('mines')">
           <MainMinesTab/>
         </b-tab-item>
