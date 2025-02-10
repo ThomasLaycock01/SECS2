@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import { useExpansionsStore } from "./globalPinias/expansions";
 import { useResourcesStore } from "./globalPinias/resources";
 import { useBuildingsStore } from "./globalPinias/buildings";
+import { useProgressionStore } from "./misc/progression";
 
 import buildings from "../assets/json/buildings.json";
 
@@ -90,50 +91,27 @@ export const useLairStore = defineStore("lair", {
                     name: "Expansions",
                     tooltipType: "expansion",
                     buttons: {
-                        expansionMines: {
-                            id: "expansionMines",
-                            name: "T1 Expansion: Mines",
-                            desc: "Start digging a mineshaft underneath your evil lair!",
+                        expansionFarm: {
+                            id: "expansionFarm",
+                            name: "Expansion: Farm",
+                            desc: "Repurpose this old farm and start growing food - no-one can become Super Evil on an empty stomach!",
                             costs() {
                                 const expansions = useExpansionsStore();
-                                return expansions.getCostObject("mines");
+                                return expansions.getCosts("farm");
                             },
                             condition() {
                                 const expansions = useExpansionsStore();
                                 const resources = useResourcesStore();
-                                return resources.checkIfCanAfford(expansions.getCostObject("mines"));
+                                return resources.checkIfCanAfford(expansions.getCosts("farm"));
                             },
                             showCondition() {
+                                const progression = useProgressionStore();
                                 const expansions = useExpansionsStore();
-                                return expansions.hasExpansionSpace(1);
+                                return progression.checkUnlocked("completedExpedition") && !expansions.checkIfBuilt("farm");
                             },
                             effect() {
                                 const expansions = useExpansionsStore();
-                                expansions.buildExpansion("mines");
-                            }
-                        },
-                        expansionBarracks: {
-                            id: "expansionBarracks",
-                            name: "T1 Expansion: Barracks",
-                            desc: "Start sending your cultists on expeditions to find loot and be evil!!",
-                            costs() {
-                                const expansions = useExpansionsStore();
-                                return expansions.getCostObject("barracks");
-                            },
-                            condition() {
-                                const expansions = useExpansionsStore();
-                                const resources = useResourcesStore();
-                                return resources.checkIfCanAfford(expansions.getCostObject("barracks"));
-                            },
-                            showCondition() {
-                                //COME BACK AND CHANGE THIS WHEN MORE EXPANSION SLOTS ADDED
-                                const expansions = useExpansionsStore();
-                                //return expansions.hasExpansionSpace(1);
-                                return !expansions.hasExpansion("barracks");
-                            },
-                            effect() {
-                                const expansions = useExpansionsStore();
-                                expansions.buildExpansion("barracks");
+                                expansions.buildExpansion("farm");
                             }
                         }
                     }
@@ -199,7 +177,7 @@ export const useLairStore = defineStore("lair", {
                         const resources = useResourcesStore();
                         const expansions = useExpansionsStore();
                         const buildings = useBuildingsStore();
-                        return resources.getEvilness >= buildingObj.reqs.evilness && expansions.hasTier(buildingObj.reqs.expansionTier) && (buildings.checkBuildingReqs(buildingObj.reqs.buildings) || !buildingObj.reqs.buildings);
+                        return resources.getEvilness >= buildingObj.reqs.evilness && (buildings.checkBuildingReqs(buildingObj.reqs.buildings) || !buildingObj.reqs.buildings);
                     },
                     effect() {
                         const buildings = useBuildingsStore();

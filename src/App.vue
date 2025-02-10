@@ -8,7 +8,6 @@ import LairTab from "./components/lairTab/LairTab.vue";
 import HRTab from "./components/HRTab/HRTab.vue";
 import InventoryTab from "./components/inventory/InventoryTab.vue";
 
-import MainMinesTab from "./components/mineTab/MainMinesTab.vue";
 import MainExploreTab from "./components/exploreTab/MainExploreTab.vue";
 
 import TextLog from "./components/textLog/TextLog.vue";
@@ -41,9 +40,6 @@ const progression = useProgressionStore();
         <!--<b-tab-item label="Inventory">
           <InventoryTab/>
         </b-tab-item>-->
-        <b-tab-item label="Mines" v-if="expansions.hasExpansion('mines')">
-          <MainMinesTab/>
-        </b-tab-item>
       </b-tabs>
     </section>
 

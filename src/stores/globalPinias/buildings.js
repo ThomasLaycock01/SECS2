@@ -16,8 +16,7 @@ export const useBuildingsStore = defineStore("buildings", {
 
             },
             childPinias: {
-                lair: {id:"lair", buildings: ["chambers", "evilShrine"], piniaObject() {const lair = useLairStore(); return lair}},
-                mines: {id:"mines", buildings: ["tunnel", "prospector1", "prospector2"], piniaObject() {const mines = useMinesStore(); return mines}}
+                lair: {id:"lair", buildings: ["chambers", "evilShrine"], piniaObject() {const lair = useLairStore(); return lair}}
             }
         }
     },
@@ -50,7 +49,7 @@ export const useBuildingsStore = defineStore("buildings", {
                 for (var i in state.childPinias) {
 
                     //lair expansion is checked always
-                    if (expansions.hasExpansion(state.childPinias[i].id) || state.childPinias[i].id == "lair") {
+                    if (state.childPinias[i].id == "lair") {
 
                         //iterate over buildings in said expansion
                         for (var j in state.childPinias[i].buildings) {

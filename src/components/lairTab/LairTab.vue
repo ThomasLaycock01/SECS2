@@ -3,9 +3,10 @@ import ActionList from '../ActionList.vue';
 
 import { useLairStore } from '@/stores/lair';
 import { useProgressionStore } from '@/stores/misc/progression';
+import { useExpansionsStore } from '@/stores/globalPinias/expansions';
 
 const lair = useLairStore();
-const progression = useProgressionStore();
+const expansions = useExpansionsStore();
 </script>
 
 <template>
@@ -16,7 +17,7 @@ const progression = useProgressionStore();
                 <ActionList :piniaObject="lair"/>
             </div> 
         </b-tab-item>
-        <b-tab-item label="Farm" v-if="progression.checkUnlocked('completedExpedition')">
+        <b-tab-item label="Farm" v-if="expansions.checkIfBuilt('farm')">
             Farm
         </b-tab-item>
     </b-tabs>

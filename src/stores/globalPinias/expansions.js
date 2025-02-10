@@ -1,221 +1,58 @@
 import { defineStore } from "pinia";
-//mines stores
+
 import { useResourcesStore } from "./resources";
-import { useMinesStore } from "../mines/mines";
-import { useMetalmancerStore } from "../mines/metalmancer";
-import { useGolemDissassemblerStore } from "../mines/golemDissassembler"; 
-import { useTotemsStore } from "../mines/totems";
-import { useForgeStore } from "../mines/forge";
-import { useSmelterStore } from "../mines/smelter";
-import { useWarformerStore } from "../mines/warformer";
-//barracks store
-import { useBarracksStore } from "../barracks/barracks";
+
+import { useFarmStore } from "../expansions/farm";
 
 export const useExpansionsStore = defineStore("expansions", {
     state: () => {
         return {
-            built: {
-                1: [],
-                2: [],
-                3: []
-            },
-            all: {
-                //mines
-                mines: {
-                    id: "mines", 
-                    name: "Mines", 
-                    tier: 1, 
+            expansions: {
+                farm: {
+                    id: "farm",
+                    name: "Farm",
                     piniaObject() {
-                        const mines = useMinesStore();
-                        return mines;
+                        const farm = useFarmStore();
+                        return farm;
                     },
                     costs: {
-                        gold: 30
-                    }
-                },
-                metalmancer: {
-                    id: "metalmancer",
-                    name: "Metalmancer",
-                    tier: 2,
-                    piniaObject() {
-                        const metalmancer = useMetalmancerStore();
-                        return metalmancer;
+                        gold: 500
                     },
-                    costs: {
-                        stone: 500,
-                        gold: 2000
-                    },
-                    hasSummon: true
-                },
-                golemDissassembler: {
-                    id: "golemDissassembler",
-                    name: "Golem Dissassembler",
-                    tier: 3,
-                    piniaObject() {
-                        const golemDissassembler = useGolemDissassemblerStore();
-                        return golemDissassembler;
-                    },
-                    costs: {
-                        stone: 500,
-                        gold: 2000
-                    }
-                },
-                totems: {
-                    id: "totems",
-                    name: "Totems",
-                    tier: 3,
-                    piniaObject() {
-                        const totems = useTotemsStore();
-                        return totems;
-                    },
-                    costs: {
-                        stone: 500,
-                        gold: 2000
-                    }
-                },
-                forge: {
-                    id: "forge",
-                    name: "Forge",
-                    tier: 2,
-                    piniaObject() {
-                        const forge = useForgeStore();
-                        return forge;
-                    },
-                    costs: {
-                        stone: 500,
-                        gold: 2000
-                    }
-                },
-                smelter: {
-                    id: "smelter",
-                    name: "Smelter",
-                    tier: 3,
-                    piniaObject() {
-                        const smelter = useSmelterStore();
-                        return smelter;
-                    },
-                    costs: {
-                        stone: 500,
-                        gold: 2000
-                    }
-                },
-                warformer: {
-                    id: "warformer",
-                    name: "Warformer",
-                    tier: 3,
-                    piniaObject() {
-                        const warformer = useWarformerStore();
-                        return warformer;
-                    },
-                    costs: {
-                        stone: 500,
-                        gold: 2000
-                    },
-                    hasSummon: true
-                },
-                //barracks
-                barracks: {
-                    id: "barracks",
-                    name: "Barracks",
-                    tier: 1,
-                    piniaObject() {
-                        const barracks = useBarracksStore();
-                        return barracks;
-                    },
-                    costs: {
-                        stone: 500,
-                        gold: 2000
-                    }
+                    built: false
                 }
-            },
-            slots: {
-                1: 1,
-                2: 1,
-                3: 1
             }
         }
     },
     getters: {
-        getBuilt(state) {
-            return state.built;
-        },
-        getBuiltTier1Id(state) {
-            return state.built.tier1;
-        },
-        getBuiltTier2Id(state) {
-            return state.built.tier2;
-        },
-        getBuiltTier3Id(state) {
-            return state.built.tier3;
-        },
-        hasExpansion(state){
+        checkIfBuilt(state) {
             return (expansionId) => {
-                for (var i in state.built) {
-                    if (state.built[i].includes(expansionId)) {
-                        return true;
-                    }
-                }
-                return false;
+                return state.expansions[expansionId].built;
             }
         },
-        hasTier(state) {
-            return (tier) => {
-                return state.built[tier].length > 0 ? true : false;
-            }
-        },
-        getObjectById(state) {
-            return (expansionId) =>  {
-                return state.all[expansionId];
-            }
-        },
-        getCostObject(state) {
+        getCosts(state) {
             return (expansionId) => {
-                return state.all[expansionId].costs;
-            }
-        },
-        checkIfSummonAvailable(state) {
-            for (var i in state.built) {
-                for (var j in state.built[i]) {
-                    if (state.all[state.built[i][j]].hasSummon) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        },
-        //slots
-        getNumOfSlots(state) {
-            return (tier) => {
-                return state.slots[tier];
-            }
-        },
-        hasExpansionSpace(state) {
-            return (tier) => {
-                return state.built[tier].length < state.slots[tier];
+                return state.expansions[expansionId].costs;
             }
         }
     },
     actions: {
         buildExpansion(expansionId) {
             const resources = useResourcesStore();
+            const chosenExpansion = this.expansions[expansionId];
 
-            const chosenExpansion = this.getObjectById(expansionId);
-            const chosenTier = chosenExpansion.tier;
-            this.built[chosenTier].push(chosenExpansion.id);
 
             const costs = chosenExpansion.costs;
-
             resources.removeResources(costs);
 
             const pinia = chosenExpansion.piniaObject();
             pinia.onBuild();
 
+            this.expansions[expansionId].built = true;
         },
         expansionTicks() {
-            for (var i in this.getBuilt) {
-                for (var j in this.getBuilt[i]) {
-                    const pinia = this.getObjectById(this.getBuilt[i][j]).piniaObject();
-                    pinia.tick();
+            for (var i in this.expansions) {
+                if (this.expansions[i].built) {
+                    this.expansions[i].piniaObject().tick();
                 }
             }
         }
