@@ -25,6 +25,11 @@ export const useExpeditionsStore = defineStore("expeditions", {
                 return null;
             }
             return state.activeExpedition;
+        },
+        checkIfExpeditionCompleted(state) {
+            return (expeditionId) => {
+                return state.expeditions[expeditionId].getCompleted();
+            }
         }
     },
     actions: {

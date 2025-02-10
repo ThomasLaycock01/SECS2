@@ -1,5 +1,6 @@
 import { useEnemiesStore } from "@/stores/barracks/enemies";
 import { useExpeditionsStore } from "@/stores/barracks/expeditions";
+import { useProgressionStore } from "@/stores/misc/progression";
 
 export class Expedition {
     constructor(obj) {
@@ -14,6 +15,8 @@ export class Expedition {
 
         this.currentEncounter = [];
         this.encounterIndex = 0;
+
+        this.completed = false;
     }
 
     //getters
@@ -43,6 +46,10 @@ export class Expedition {
 
     getCurrentEncounter() {
         return this.currentEncounter;
+    }
+
+    getCompleted() {
+        return this.completed;
     }
 
     //actions
@@ -90,13 +97,15 @@ export class Expedition {
 
     endExpedition(completed = false) {
         const expeditions = useExpeditionsStore();
+        const progression = useProgressionStore();
 
         expeditions.unsetActiveExpedition();
 
         this.resetEncounterIndex();
 
         if (completed) {
-            console.log("expedition completed!");
+            this.completed = true;
+            progression.updateProgression();
         }
     }
 

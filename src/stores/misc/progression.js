@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 
 import { useResourcesStore } from "../globalPinias/resources";
 import { useCultistsStore } from "../globalPinias/cultists";
+import { useExpeditionsStore } from "../barracks/expeditions";
 
 import { useTextLogStore } from "./textLog";
 
@@ -24,6 +25,14 @@ export const useProgressionStore = defineStore("progression", {
                     condition() {
                         const cultists = useCultistsStore();
                         return cultists.getNumOfRegular > 0;
+                    }
+                },
+                "completedExpedition": {
+                    id:"completedExpedition",
+                    TLMessage: false,
+                    condition() {
+                        const expeditions = useExpeditionsStore();
+                        return expeditions.checkIfExpeditionCompleted("testExpedition");
                     }
                 }
             }
