@@ -9,7 +9,7 @@ export const useProgressionStore = defineStore("progression", {
     state: () => {
         return {
             unlocked: [],
-            unlockConditions: {
+            checkedProgression: {
                 "10Evilness": {
                     id: "10Evilness",
                     TLMessage: true,
@@ -43,11 +43,11 @@ export const useProgressionStore = defineStore("progression", {
         updateProgression() {
             const textLog = useTextLogStore();
 
-            const unlockArray= Object.keys(this.unlockConditions);
+            const unlockArray= Object.keys(this.checkedProgression);
 
             for (var i in unlockArray) {
                 if (!this.unlocked.includes(unlockArray[i])) {
-                    const conditionObj = this.unlockConditions[unlockArray[i]];
+                    const conditionObj = this.checkedProgression[unlockArray[i]];
 
                     if (conditionObj.condition()) {
                         this.unlocked.push(unlockArray[i]);

@@ -2,6 +2,7 @@ import {defineStore} from "pinia";
 
 import { useResourcesStore } from "./resources";
 import { useBuildingsStore } from "./buildings";
+import { useProgressionStore } from "../misc/progression";
 
 import races from "@/assets/json/races.json";
 
@@ -134,12 +135,16 @@ export const useCultistsStore = defineStore("cultists", {
             }
         },
         addCultist(cultist) {
+            const progression = useProgressionStore();
+
             if (cultist.getType() == "summon") {
                 this.summoned.push(cultist);
             }
             else {
                 this.regular.push(cultist);
             }
+
+            progression.updateProgression();
         },
         removeRegularCultist(cultistId) {
             this.regular = this.regular.filter((cultist) => cultist.getId() != cultistId)

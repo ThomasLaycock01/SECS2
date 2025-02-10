@@ -2,6 +2,7 @@ import {defineStore} from "pinia";
 
 import { useMinesStore } from "../mines/mines";
 import { useSmelterStore } from "../mines/smelter";
+import { useProgressionStore } from "../misc/progression";
 
 import { instantiateResource, posToNeg } from "@/functions";
 
@@ -159,7 +160,11 @@ export const useResourcesStore = defineStore("resources", {
     },
     actions: {
         modifyResource(type, amount) {
+            const progression = useProgressionStore();
+
             this.resources[type].total += amount;
+
+            progression.updateProgression();
         },
         setResourcePerSec(type, value) {
             this.resources[type].perSec = value;
