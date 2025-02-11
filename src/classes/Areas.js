@@ -45,11 +45,6 @@ export class Area {
         return this.encounters;
     }
 
-    getRandomEncounter() {
-        const randIndex = Math.floor(Math.random() * this.getEncounters().length);
-        return this.encounters[randIndex];
-    }
-
     getCurrentEncounter() {
         return this.currentEncounter;
     }
@@ -90,6 +85,26 @@ export class Area {
         else {
             this.active = true;
         }
+    }
+
+    getValidEncounters() {
+        const returnArray = [];
+
+        for (var i in this.encounters) {
+            const encounter = this.encounters[i];
+            if (this.currentLevel >= encounter.minLvl && this.currentLevel <= encounter.maxLvl) {
+                returnArray.push(encounter.array);
+            }
+        }
+
+        return returnArray;
+    }
+
+    getRandomEncounter() {
+        const validEncounters = this.getValidEncounters();
+
+        const randIndex = Math.floor(Math.random() * validEncounters.length);
+        return validEncounters[randIndex];
     }
 
     generateEncounter() {   

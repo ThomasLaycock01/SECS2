@@ -4,13 +4,16 @@
         "name": "Open Plains", 
         "desc": "A series of open, green plains surrounding your lair.",
         "encounters": [
-            [
-                1000
-            ],
-            [
-                1000,
-                1000
-            ]
+            {
+                "array": [1000],
+                "maxLvl": 1,
+                "minLvl": 1
+            },
+            {
+                "array": [1000, 1000],
+                "maxLvl": 2,
+                "minLvl": 1
+            }
         ],
         "expeditions": [
             {
