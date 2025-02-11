@@ -120,7 +120,7 @@ function cultistButtonClick(cultist) {
         </div>
 
         <div class="modalFooter">
-            <button class="button is-dark" v-if="assignmentModal.activeCultist" @click="cultistButtonClick(assignmentModal.activeCultist)">{{pinia.getJobArray(job).includes(assignmentModal.activeCultist.getId()) ? "Unassign" : "Assign"}}</button>
+            <button class="button is-dark" v-if="assignmentModal.activeCultist" @click="cultistButtonClick(assignmentModal.activeCultist)" :disabled="pinia.getJobArray(job).length == pinia.getJobLimit(job) && !pinia.getJobArray(job).includes(assignmentModal.activeCultist.getId())">{{pinia.getJobArray(job).includes(assignmentModal.activeCultist.getId()) ? "Unassign" : "Assign"}}</button>
             <button class="button is-danger" @click="modals.closeAssignment()">Close</button>
         </div>
 
