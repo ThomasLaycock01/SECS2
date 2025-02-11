@@ -89,11 +89,9 @@ function cultistButtonClick(cultist) {
                                 <div>Level {{ assignmentModal.activeCultist.getLevel() }} / {{ assignmentModal.activeCultist.getLevelLimit() }}</div>
                                 <div>{{ assignmentModal.activeCultist.getXp() }} / {{ assignmentModal.activeCultist.getXpNeeded() }}</div>
                                 <br>
-                                <div v-if="expansions.hasExpansion('barracks')">
-                                    <ul>
-                                        <li v-for="key, value in assignmentModal.activeCultist.getStat()">{{ key }} {{ value }}</li>
-                                    </ul>
-                                </div>
+                                <ul>
+                                    <li v-for="key, value in assignmentModal.activeCultist.getStat()">{{ key }} {{ value }}</li>
+                                </ul>
                                 <br>
                                 <div class="title is-6">Perks</div>
                                 <!--Only display unlocked perks on modal-->

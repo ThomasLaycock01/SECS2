@@ -1,8 +1,8 @@
 <script setup>
 import ActionList from '../ActionList.vue';
+import FarmTab from './FarmTab.vue';
 
 import { useLairStore } from '@/stores/lair';
-import { useProgressionStore } from '@/stores/misc/progression';
 import { useExpansionsStore } from '@/stores/globalPinias/expansions';
 
 const lair = useLairStore();
@@ -17,8 +17,8 @@ const expansions = useExpansionsStore();
                 <ActionList :piniaObject="lair"/>
             </div> 
         </b-tab-item>
-        <b-tab-item label="Farm" v-if="expansions.checkIfBuilt('farm')">
-            Farm
+        <b-tab-item label="Farm" >
+            <FarmTab/>
         </b-tab-item>
     </b-tabs>
 
