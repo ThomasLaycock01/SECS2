@@ -33,6 +33,10 @@ export class Building {
         return this.limit;
     }
 
+    limitCheck() {
+        return this.amount == this.limit;
+    }
+
     getModifiers(typeArray) {
         var modVal = 0;
 

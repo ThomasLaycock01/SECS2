@@ -120,7 +120,8 @@ export const useLairStore = defineStore("lair", {
                             },
                             condition() {
                                 const resources = useResourcesStore();
-                                return resources.checkIfCanAfford(this.costs());
+                                const buildings = useBuildingsStore();
+                                return resources.checkIfCanAfford(this.costs()) && !buildings.checkIfAtLimit("chambers");
                             },
                             showCondition() {
                                 return true;
@@ -128,6 +129,36 @@ export const useLairStore = defineStore("lair", {
                             effect() {
                                 const buildings = useBuildingsStore();
                                 buildings.build("chambers");
+                            }
+                        },
+                        evilShrine: {
+                            id: "buildEvilShrine",
+                            name: "Evil Shrine",
+                            desc: "Some chambers for your cultists to sleep in.",
+                            effectDesc: "+1 cultist limit",
+                            owned() {
+                                const buildings = useBuildingsStore();
+                                return buildings.getOwned("evilShrine");
+                            },
+                            limit() {
+                                const buildings = useBuildingsStore();
+                                return buildings.getLimit("evilShrine");
+                            },
+                            costs() {
+                                const buildings = useBuildingsStore();
+                                return buildings.getCosts("evilShrine");
+                            },
+                            condition() {
+                                const resources = useResourcesStore();
+                                const buildings = useBuildingsStore();
+                                return resources.checkIfCanAfford(this.costs()) && !buildings.checkIfAtLimit("evilShrine");
+                            },
+                            showCondition() {
+                                return true;
+                            },
+                            effect() {
+                                const buildings = useBuildingsStore();
+                                buildings.build("evilShrine");
                             }
                         }
                     }

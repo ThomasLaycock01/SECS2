@@ -44,6 +44,11 @@ export const useBuildingsStore = defineStore("buildings", {
             return (buildingId) => {
                 return state.buildings[buildingId].getCosts();
             }
+        },
+        checkIfAtLimit(state) {
+            return (buildingId) => {
+                return state.buildings[buildingId].limitCheck();
+            }
         }
     },
     actions: {
