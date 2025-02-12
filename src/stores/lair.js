@@ -101,7 +101,34 @@ export const useLairStore = defineStore("lair", {
                     name: "Buildings",
                     tooltipType: "building",
                     buttons: {
-
+                        chambers: {
+                            id: "buildChambers",
+                            name: "Chambers",
+                            desc: "Some chambers for your cultists to sleep in.",
+                            effectDesc: "+1 cultist limit",
+                            owned() {
+                                const buildings = useBuildingsStore();
+                                return buildings.getOwned("chambers");
+                            },
+                            limit() {
+                                const buildings = useBuildingsStore();
+                                return buildings.getLimit("chambers");
+                            },
+                            costs() {
+                                const buildings = useBuildingsStore();
+                                return buildings.getCosts("chambers");
+                            },condition() {
+                                const resources = useResourcesStore();
+                                return resources.checkIfCanAfford(this.costs());
+                            },
+                            showCondition() {
+                                return true;
+                            },
+                            effect() {
+                                const buildings = useBuildingsStore();
+                                buildings.build("chambers");
+                            }
+                        }
                     }
                 },
                 expansions: {
@@ -118,9 +145,8 @@ export const useLairStore = defineStore("lair", {
                                 return expansions.getCosts("farm");
                             },
                             condition() {
-                                const expansions = useExpansionsStore();
                                 const resources = useResourcesStore();
-                                return resources.checkIfCanAfford(expansions.getCosts("farm"));
+                                return resources.checkIfCanAfford(this.costs());
                             },
                             showCondition() {
                                 const progression = useProgressionStore();
@@ -134,9 +160,6 @@ export const useLairStore = defineStore("lair", {
                         }
                     }
                 }
-            },
-            buildings: {
-
             }
         }
     },
@@ -144,65 +167,9 @@ export const useLairStore = defineStore("lair", {
         //actions
         getActions(state) {
             return state.actions;
-        },
-        //buildings
-        getNumOfBuilding(state) {
-            return (buildingId) => state.buildings[buildingId].owned;
         }
     },
     actions: {
-        //buildings
-        buildBuilding(buildingId) {
-            this.buildings[buildingId].owned += 1;
 
-            return this.buildings[buildingId].costs;
-        },
-        updateBuildingCost(buildingId) {
-            for (var i in this.buildings[buildingId].costs) {
-                this.buildings[buildingId].costs[i] = Math.round(this.buildings[buildingId].costs[i] * this.buildings[buildingId].exponents[i]);
-            }
-        },
-        instantiateBuildings() {
-            const id = this.$id;
-
-            this.buildings = buildings["lair"];
-            for (var i in this.buildings) {
-                this.buildings[i]["owned"] = 0;
-            }
-
-            for (var i in this.buildings) {
-                const buildingObj = this.buildings[i];
-
-                this.actions.buildings.buttons[i] = {
-                    id: buildingObj["id"],
-                    name: buildingObj["name"],
-                    desc: buildingObj["desc"],
-                    effectDesc: buildingObj["effectDesc"],
-                    limit: buildingObj["limit"],
-                    owned() {
-                        const buildings = useBuildingsStore();
-                        return buildings.getNumOfBuildings(buildingObj.id);
-                    },
-                    costs() {
-                        return buildingObj["costs"];
-                    },
-                    condition() {
-                        const resources = useResourcesStore();
-                        const buildings = useBuildingsStore();
-                        return resources.checkIfCanAfford(buildingObj.costs) && this.owned() < buildingObj.limit;
-                    },
-                    showCondition() {
-                        const resources = useResourcesStore();
-                        const expansions = useExpansionsStore();
-                        const buildings = useBuildingsStore();
-                        return resources.getEvilness >= buildingObj.reqs.evilness && (buildings.checkBuildingReqs(buildingObj.reqs.buildings) || !buildingObj.reqs.buildings);
-                    },
-                    effect() {
-                        const buildings = useBuildingsStore();
-                        buildings.buildBuildings(id, buildingObj.id);
-                    }
-                }
-            }
-        }
     }
 })

@@ -5,7 +5,8 @@ import { useCultistsStore } from "./cultists";
 import { useExpansionsStore } from "../globalPinias/expansions";
 
 import { useLairStore } from "../lair";
-import { useMinesStore } from "../mines/mines";
+
+import { Building } from "@/classes/Building";
 
 import buildings from "../../assets/json/buildings.json";
 
@@ -14,20 +15,18 @@ export const useBuildingsStore = defineStore("buildings", {
         return {
             buildings: {
 
-            },
-            childPinias: {
-                lair: {id:"lair", buildings: ["chambers", "evilShrine"], piniaObject() {const lair = useLairStore(); return lair}}
             }
         }
     },
     getters: {
-        getNumOfBuildings(state) {
+        getOwned(state) {
             return (buildingId) => {
-                for (var i in state.childPinias) {
-                    if (state.childPinias[i].buildings.includes(buildingId)) {
-                        return state.childPinias[i].piniaObject().getNumOfBuilding(buildingId);
-                    }
-                }
+                return state.buildings[buildingId].getAmount();
+            }
+        },
+        getLimit(state) {
+            return (buildingId) => {
+                return state.buildings[buildingId].getLimit();
             }
         },
         checkBuildingReqs(state) {
@@ -93,13 +92,23 @@ export const useBuildingsStore = defineStore("buildings", {
             return (pinia, buildingId) => {
                 return state.buildings[pinia][buildingId].onBuildEffects;
             }
+        },
+        getCosts(state) {
+            return (buildingId) => {
+                return state.buildings[buildingId].getCosts();
+            }
         }
     },
     actions: {
         instantiateBuildings() {
-            this.buildings = buildings;
+            for (var i in buildings) {
+                const building = new Building(buildings[i]);
+
+                this.buildings[building.getId()] = building;
+            }
         },
         buildBuildings(pinia, buildingId) {
+            //refactor to use new system
             const resources = useResourcesStore();
 
             const costs = this.childPinias[pinia].piniaObject().buildBuilding(buildingId);
