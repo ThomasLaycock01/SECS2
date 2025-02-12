@@ -17,20 +17,18 @@ const job = modals.getAssignmentJob;
 var assignmentModal = reactive({activeCultist: null});
 
 function cultistButtonClick(cultist) {
-    const cultistId = cultist.getId();
 
-    if (assignmentModal.activeCultist == cultist) {
-        if (pinia.getJobArray(job).includes(cultistId)) {
-            removeCultistFromJob(pinia, job, cultistId)
+    if (assignmentModal.activeCultist != cultist) {
+        assignmentModal.activeCultist = cultist;
+    }
+    else {
+        if (pinia.getJobArray(job).includes(cultist)) {
+            removeCultistFromJob(pinia, job, cultist);
         }
         else {
-            if (!cultist.getJob()) {
-                addCultistToJob(pinia, job, cultistId);
-            }
+            addCultistToJob(pinia, job, cultist);
         }
     }
-
-    assignmentModal.activeCultist = cultist;
 }
 </script>
 
@@ -51,7 +49,7 @@ function cultistButtonClick(cultist) {
                     <div class="title is-5 mb-1 segment-title">Cultists</div>
                     <div class="cultistContainer">
                         <span v-for="i in cultists.getRegularCultists">
-                            <span v-if="pinia.getJobArray(job).includes(i.getId())">
+                            <span v-if="pinia.getJobArray(job).includes(i)">
                                 <button  class="button is-info cultistGridItem" @click="cultistButtonClick(i)">{{i.getName()}}</button>
                             </span>
                             <span v-else-if="i.getJob()">

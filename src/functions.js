@@ -96,41 +96,23 @@ export function endSummoning(species) {
 }
 
 //adding cultists to a job
-export function addCultistToJob(piniaObject, jobId, cultistId = null, cultistObj = null) {
+export function addCultistToJob(piniaObject, jobId, cultist) {
     
-    //check if job is full, and return if it is
+    //check if job is full, and return if it is - this shouldn't be necessary, but just in case
     if (piniaObject.getJobArray(jobId).length == piniaObject.getJobLimit(jobId)) {
         return;
     }
 
-
-    const cultists = useCultistsStore();
-
-    if (cultistId != null) {
-        const cultist = cultists.getCultistById(cultistId);
-        cultist.setJob(piniaObject.getJobName(jobId));
-    }
-    else if (cultistObj) {
-        const cultist = cultists.getCultistById(cultistObj.cultistId);
-        cultist.setJob(piniaObject.getJobName(jobId));
-    }
-    else {
-        console.log("error in addToJob - needs either obj or cultistId");
-        return;
-    }
-
-    piniaObject.addToJob(jobId, cultistId, cultistObj);
+    piniaObject.addToJob(jobId, cultist);
 
 }
 
 //removing cultists from a job
-export function removeCultistFromJob(piniaObject, jobId, cultistId) {   
-     
-    const cultists = useCultistsStore();
-    const cultist = cultists.getCultistById(cultistId);
+export function removeCultistFromJob(piniaObject, jobId, cultist) {   
+
     cultist.removeJob();
 
-    piniaObject.removeFromJob(jobId, cultistId);
+    piniaObject.removeFromJob(jobId, cultist);
 }
 
 

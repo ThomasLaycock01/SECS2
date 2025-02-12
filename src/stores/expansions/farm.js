@@ -25,7 +25,7 @@ export const useFarmStore = defineStore("farm", {
                 farmer: {
                     id: "farmer",
                     cultistArray: [],
-                    limit: 1,
+                    limit: 4,
                     name: "Farmer",
                     xpOutput: 2
                 }
@@ -67,10 +67,12 @@ export const useFarmStore = defineStore("farm", {
 
         },
         addToJob(jobId, cultist) {
+            cultist.setJob(this.jobs[jobId].name);
+
             this.jobs[jobId].cultistArray.push(cultist);
         },
-        removeFromJob(jobId, cultistId) {
-            this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(id => id != cultistId);
+        removeFromJob(jobId, cultist) {
+            this.jobs[jobId].cultistArray = this.jobs[jobId].cultistArray.filter(obj => obj.getId() != cultist.getId());
         }
     }
 })

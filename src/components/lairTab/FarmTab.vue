@@ -3,11 +3,9 @@ import ActionList from '../ActionList.vue';
 
 import { useFarmStore } from '@/stores/expansions/farm';
 import { useModalsStore } from '@/stores/misc/modal';
-import { useCultistsStore } from '@/stores/globalPinias/cultists';
 
 const farm = useFarmStore();
 const modals = useModalsStore();
-const cultists = useCultistsStore();
 </script>
 
 
@@ -26,7 +24,7 @@ const cultists = useCultistsStore();
         <!--Displaying workers already working-->
         <div>
             <div v-for="i in farm.getJobArray('farmer')">
-                <div>{{ cultists.getCultistById(i).getName() }} - Lvl {{ cultists.getCultistById(i).getLevel() }}</div>
+                <div>{{ i.getName() }} - Lvl {{ i.getLevel() }}</div>
             </div>
         </div>
     </div>
