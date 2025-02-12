@@ -16,7 +16,13 @@ export class Building {
     }
 
     getCosts() {
-        return this.costs;
+        const costsObj = {};
+
+        for (var i in this.costs) {
+            costsObj[i] = this.costs[i] * Math.pow(this.exponents[i], this.amount);
+        }
+
+        return costsObj;
     }
 
     getAmount() {

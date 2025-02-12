@@ -117,7 +117,8 @@ export const useLairStore = defineStore("lair", {
                             costs() {
                                 const buildings = useBuildingsStore();
                                 return buildings.getCosts("chambers");
-                            },condition() {
+                            },
+                            condition() {
                                 const resources = useResourcesStore();
                                 return resources.checkIfCanAfford(this.costs());
                             },
