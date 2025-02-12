@@ -111,10 +111,6 @@ function cultistButtonClick(cultist) {
                                                     </tbody>
                                                 </table>
                                                 </div>
-                                                <div>
-                                                    <div>Special</div>
-                                                    <div>{{ partyModal.selectedRole.getModDesc() }}</div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

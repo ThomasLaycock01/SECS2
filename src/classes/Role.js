@@ -6,8 +6,6 @@ export class Role {
 
         this.dmgGiven = obj.dmgGiven;
         this.dmgTaken = obj.dmgTaken;
-        this.mod = obj.mod;
-        this.modDesc = obj.modDesc;
     }
 
     //getters
@@ -29,13 +27,5 @@ export class Role {
 
     getDmgTaken(type) {
         return this.dmgTaken[type];
-    }
-
-    getMod() {
-        return this.mod;
-    }
-
-    getModDesc() {
-        return this.modDesc;
     }
 }
