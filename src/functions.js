@@ -164,7 +164,7 @@ export function getGlobalModifiers(typeArray) {
     //buildings
     const buildings = useBuildingsStore();
 
-    modVal += buildings.getBuildingsModifier(typeArray);
+    modVal += buildings.getBuildingModifier(typeArray);
 
     return modVal;
 }

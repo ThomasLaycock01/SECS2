@@ -4,9 +4,6 @@ export class Building {
         this.effectDesc = obj.effectDesc;
 
         this.modifiers = obj.modifiers;
-        if (obj.onBuildEffects) {
-            this.onBuildEffects = obj.onBuildEffects;
-        }
         this.costs = obj.costs;
         this.exponents = obj.exponents;
         this.reqs = obj.reqs;
@@ -28,5 +25,23 @@ export class Building {
 
     getLimit() {
         return this.limit;
+    }
+
+    getModifiers(typeArray) {
+        var modVal = 0;
+
+        for (var i in this.modifiers) {
+            const modObj = this.modifiers[i];
+            if (typeArray.includes(modObj.type)) {
+                modVal += modObj.modifier * this.amount;
+            }
+        }
+
+        return modVal;
+    }
+
+    //actions
+    build() {
+        this.amount++;
     }
 }
