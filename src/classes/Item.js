@@ -15,6 +15,7 @@ export class Item {
 
         this.sellAvailable = true;
 
+        //living items may not stick around...
         if (data.isLiving) {
             this.isLiving = true;
             this.currentXp = 0;
@@ -55,33 +56,17 @@ export class Item {
         return this.modifiers;
     }
 
-    getModifiersByType(type, altType = null) {
-        const returnArray = [];
+    getEquipmentModifier(typeArray) {
+        var modVal = 0;
 
-        var levelMod = 1;
-
-        if (this.getIsLiving()) {
-            levelMod += (0.1 * this.getLevel());
-        }
-
-        for (var i in this.getModifiers()) {
-            if (this.getModifiers()[i].type == type || this.getModifiers()[i].type == "global") {
-                if (altType) {
-                    if (this.getModifiers()[i].altType == altType || !this.getModifiers()[i].altType) {
-                        const modifier = Math.floor(this.getModifiers()[i].modifier * levelMod * 100) / 100;
-                        returnArray.push({type: type, modifier: modifier});
-                    }
-                }
-                else {
-                    if (!this.getModifiers()[i].altType) {
-                        const modifier = Math.floor(this.getModifiers()[i].modifier * levelMod * 100) / 100;
-                        returnArray.push({type: type, modifier: modifier});
-                    }
-                }
+        for (var i in this.modifiers) {
+            const modObj = this.modifiers[i];
+            if (typeArray.includes(modObj.type)) {
+                modVal += modObj.modifier;
             }
         }
 
-        return returnArray;
+        return modVal;
     }
 
     getSellValue() {

@@ -127,16 +127,6 @@ export function fireCultist(cultistId) {
 }
 
 
-
-//building expansions
-export function buildExpansion(expansionId) {
-    const expansions = useExpansionsStore();
-
-    expansions.buildExpansion(expansionId);
-    
-}
-
-
 //selling an item
 export function sellItem(id) {
     const inventory = useInventoryStore();
@@ -168,26 +158,16 @@ export function buttonCheck(actionObject) {
 
 
 //fetching modifiers that affect all cultists
-export function getAllCultistModifiers(type, altType) {
-    var returnArray = [];
+export function getGlobalModifiers(typeArray) {
+    var modVal = 0;
 
     //buildings
     const buildings = useBuildingsStore();
 
-    const buildingArray = buildings.getBuildingModifier(type, altType);
+    modVal += buildings.getBuildingsModifier(typeArray);
 
-    returnArray = returnArray.concat(buildingArray);
-
-    //totems
-    const totems = useTotemsStore();
-
-    const totemsArray = totems.getTotemModifiers(type, altType);
-
-    returnArray = returnArray.concat(totemsArray);
-
-    return returnArray;
+    return modVal;
 }
-
 
 
 //function executing a round of combat
