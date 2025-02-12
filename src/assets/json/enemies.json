@@ -1,3 +1,5 @@
 {
-    "1000": {"id": 1000, "name": "Evil Cultist", "stats": {"atk": 1, "spd": 1, "def": 0, "HP": 10}, "dmgGiven": {"phys": 1, "mag": 0}, "dmgTaken": {"phys": 1, "mag": 1}, "xpDrop": 10, "loot": {"table": 0, "modifier": 1}}
+    "1000": {"id": 1000, "name": "Evil Cultist", "stats": {"atk": 1, "spd": 1, "def": 0, "HP": 10}, "dmgGiven": {"phys": 1, "mag": 0}, "dmgTaken": {"phys": 1, "mag": 1}, "xpDrop": 10, "loot": {"table": 0, "modifier": 1}},
+    "1001": {"id": 1001, "name": "Bandit", "stats": {"atk": 2, "spd": 2, "def": 1, "HP": 15}, "dmgGiven": {"phys": 1, "mag": 0}, "dmgTaken": {"phys": 1, "mag": 1}, "xpDrop": 12, "loot": {"table": 0, "modifier": 1.1}},
+    "1002": {"id": 1002, "name": "Scarecrow", "stats": {"atk": 2, "spd": 2, "def": 2, "HP": 20}, "dmgGiven": {"phys": 0.2, "mag": 0.8}, "dmgTaken": {"phys": 1, "mag": 1}, "xpDrop": 14, "loot": {"table": 0, "modifier": 1.1}}
 }
