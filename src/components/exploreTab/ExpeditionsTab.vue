@@ -74,7 +74,6 @@ function retreatClick() {
                     <!--When  active-->
                     <!--Display party-->
                     <p>Party:</p>
-                    <br>
                     <span v-for="i in expeditionsTab.selectedExpedition.getActiveParty().getSlots()">
                         <div v-if="i.cultist">
                             {{ i.cultist.getName() }} - {{ i.role.getName() }} - <span v-if="!i.cultist.getKnockedOut()">{{ i.cultist.getCurrentHP() }}/{{ i.cultist.getStat("HP") }}</span><span v-else>Knocked Out! {{ Math.floor(i.cultist.getKnockOutTime() / 60) }} Mins {{ i.cultist.getKnockOutTime() % 60 }} secs left</span>
