@@ -40,7 +40,7 @@ function embarkClick() {
 }
 
 function retreatClick() {
-    expeditionsTab.selectedArea.endExpedition();
+    expeditionsTab.selectedExpedition.endExpedition();
 }
 </script>
 
