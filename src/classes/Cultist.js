@@ -1,5 +1,3 @@
-import { useJobsStore } from "@/stores/globalPinias/jobs";
-
 import { getGlobalModifiers, createStatsObj, posToNeg } from "@/functions";
 
 export class Cultist {

@@ -4,16 +4,13 @@ import { useCultistsStore } from "./stores/globalPinias/cultists";
 import { useInventoryStore } from "./stores/globalPinias/inventory";
 import { useBuildingsStore } from "./stores/globalPinias/buildings";
 
-import { useLairStore } from "./stores/lair";
 import { useExpansionsStore } from "./stores/globalPinias/expansions";
-import { useTotemsStore } from "./stores/mines/totems";
 
 import { useExploreStore } from "./stores/barracks/explore";
 import { useExpeditionsStore } from "./stores/barracks/expeditions";
 import { usePartiesStore } from "./stores/barracks/parties";
 //expansions
 import { useMinesStore } from "./stores/mines/mines";
-import { useForgeStore } from "./stores/mines/forge";
 //classes
 import { Cultist } from "./classes/Cultist";
 
@@ -76,26 +73,6 @@ export function addCultist(race) {
 
     cultists.addCultist(cultist);
     
-}
-
-
-//for summoned cultists
-export function beginSummoning() {
-    const cultists = useCultistsStore();
-
-
-    cultists.addSummoning();
-
-    //NOTE TO SELF
-    //The cultist being summoned is stored in whichever pinia is summoning it
-}
-
-export function endSummoning(species) {
-    const cultists = useCultistsStore();
-
-    cultists.removeSummoning();
-
-    addCultist(species);
 }
 
 //adding cultists to a job
@@ -262,10 +239,8 @@ export function combatRound(area) {
 //instantiat files
 export function instantiateItems() {
     const mines = useMinesStore();
-    const forge = useForgeStore();
 
     mines.instantiateItems();
-    forge.instantiateItems();
 }
 
 export function instantiateBuildings() {
