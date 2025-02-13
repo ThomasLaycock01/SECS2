@@ -38,6 +38,18 @@ function setSelectedParty(party) {
 function toggleActive() {
     exploreTab.selectedArea.toggleActive();
 }
+
+function toggleActiveCheck() {
+    if (!exploreTab.selectedArea.getActiveParty()) {
+        return false;
+    }
+    else {
+        if (!exploreTab.selectedArea.getActiveParty().getCurrentActivity()|| exploreTab.selectedArea.getActiveParty().getCurrentActivity() == exploreTab.selectedArea.getActivityName()) {
+            return true;
+        }
+    }
+    return false;
+}
 </script>
 
 
@@ -90,7 +102,7 @@ function toggleActive() {
                 </div>
             </div>
             <br>
-            <button class="button" :class="exploreTab.selectedArea.getActive() ? 'is-info' : 'is-danger'" @click="toggleActive()">Toggle Active</button>
+            <button class="button" :class="exploreTab.selectedArea.getActive() ? 'is-info' : 'is-danger'" @click="toggleActive()" :disabled="!toggleActiveCheck()">Toggle Active</button>
             <br>
             <button class="button is-dark" @click="deselectArea()">Back</button>
         </div>

@@ -18,6 +18,7 @@ const modals = useModalsStore();
             <div v-for="i in parties.getParties">
                 {{ i.getName() }} - {{ i.getPartySize() }}/{{ i.getLimit() }} - Currently {{ i.getCurrentActivity() ? i.getCurrentActivity() : "doing nothing" }}
                 <button class="button is-dark" @click="modals.openParty(i)" :disabled="i.getCurrentActivity()">Edit</button>
+                <button class="button" :class="i.getIsHealing() ? 'is-danger' : 'is-info'" :disabled="i.getCurrentActivity() && i.getCurrentActivity() != 'Healing'" @click=i.toggleIsHealing()>{{i.getIsHealing() ? 'Stop' : 'Heal'}}</button>
             </div>
         </div>
         <div v-else>

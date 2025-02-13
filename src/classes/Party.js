@@ -6,6 +6,7 @@ export class Party {
         this.limit = 3;
 
         this.currentActivity = null;
+        this.isHealing = false;
     }
 
     //getters
@@ -75,6 +76,10 @@ export class Party {
 
     getCurrentActivity() {
         return this.currentActivity;
+    }
+
+    getIsHealing() {
+        return this.isHealing;
     }
 
     checkIfContainsCultist(cultistId) {
@@ -148,5 +153,24 @@ export class Party {
 
     setCurrentActivity(activity = null) {
         this.currentActivity = activity;
+    }
+
+    toggleIsHealing() {
+        if (this.isHealing) {
+            this.isHealing = false;
+            this.setCurrentActivity();
+        }
+        else {
+            this.isHealing = true;
+            this.setCurrentActivity("Healing");
+        }
+    }
+
+    healCultists() {
+        for (var i in this.slots) {
+            if (this.slots[i].cultist) {
+                this.slots[i].cultist.heal();
+            }
+        }
     }
 }

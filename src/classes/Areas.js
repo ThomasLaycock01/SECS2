@@ -70,6 +70,10 @@ export class Area {
         return this.expeditions;
     }
 
+    getActivityName() {
+        return this.activityName;
+    }
+
     //actions
     setActiveParty(partyObj) {
         this.activeParty = partyObj;

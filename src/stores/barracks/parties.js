@@ -21,6 +21,15 @@ export const usePartiesStore = defineStore("parties", {
         }
     },
     actions: {
+        tick() {
+            //just used for parties that are healing
+            for (var i in this.parties) {
+                const party = this.parties[i];
+                if (party.getIsHealing()) {
+                    party.healCultists();
+                }
+            }
+        },
         //parties
         generatePartyId() {
             var id = 0;

@@ -293,26 +293,6 @@ export class Cultist {
         return this.racialModifiers;
     }
 
-    /*getModifiers(type, altType = null, levelMod = 0) {
-        var modVal = 0;
-        
-        const allCultistModifiers = getAllCultistModifiers(type, altType);
-
-        for (var i in allCultistModifiers) {
-            console.log(allCultistModifiers[i]);
-            modVal += allCultistModifiers[i].modifier;
-        }
-
-        //adding the levelMod
-        if (levelMod) {
-            modVal += this.getLevelModifier(levelMod);
-        }
-
-        this.giveXpToLivingItems();
-
-        return modVal;
-    }*/
-
     feedItem(item) {
         this.addXp(item.getSellValue() / 10, true);
     }
@@ -350,6 +330,10 @@ export class Cultist {
     modifyHP(amount) {
         this.currentHP += amount;
 
+        if (this.currentHP > this.getStat("HP")) {
+            this.currentHP = this.getStat("HP");
+        }
+
         if (this.currentHP <= 0) {
             this.knockOut();
         }
@@ -362,5 +346,9 @@ export class Cultist {
 
     decrementKnockOutTime() {
         this.knockOutTime--;
+    }
+
+    heal() {
+        this.modifyHP(0.1);
     }
 }

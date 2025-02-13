@@ -10,6 +10,7 @@ import { useTotemsStore } from "./stores/mines/totems";
 
 import { useExploreStore } from "./stores/barracks/explore";
 import { useExpeditionsStore } from "./stores/barracks/expeditions";
+import { usePartiesStore } from "./stores/barracks/parties";
 //expansions
 import { useMinesStore } from "./stores/mines/mines";
 import { useForgeStore } from "./stores/mines/forge";
@@ -23,11 +24,13 @@ export function tick() {
     const cultists = useCultistsStore();
     const explore = useExploreStore();
     const expeditions = useExpeditionsStore();
+    const parties = usePartiesStore();
 
     expansions.expansionTicks();
     cultists.tick();
     explore.tick();
     expeditions.tick();
+    parties.tick();
 }
 
 
