@@ -74,53 +74,6 @@ export class Item {
         return this.sellAvailable;
     }
 
-    //isLiving getters
-    getIsLiving() {
-        return this.isLiving;
-    }
-
-    getCurrentXp() {
-        if (this.isLiving) {
-            return this.currentXp;
-        }
-        console.log("isLiving function called on non living item");
-    }
-
-    getXpNeeded() {
-        if (this.isLiving) {
-            return this.xpNeeded;
-        }
-        console.log("isLiving function called on non living item");
-    }
-
-    getXpIncrement() {
-        if (this.isLiving) {
-            return this.xpIncrement;
-        }
-        console.log("isLiving function called on non living item");
-    }
-
-    getLevel() {
-        if (this.isLiving) {
-            return this.level;
-        }
-        console.log("isLiving function called on non living item");
-    }
-
-    getLevelLimit() {
-        if (this.isLiving) {
-            return this.levelLimit;
-        }
-        console.log("isLiving function called on non living item");
-    }
-
-    getLivingDesc() {
-        if (this.isLiving) {
-            return this.livingDesc;
-        }
-        console.log("isLiving function called on non living item");
-    }
-
     //actions
     equipItem(cultistId) {
         this.equippedCultistId = cultistId;
@@ -139,35 +92,6 @@ export class Item {
         else {
             this.sellAvailable = true;
         }
-    }
-
-    //isLiving actions
-    addXp(amount) {
-        if (!this.getIsLiving()) {
-            console.log("error - called addXP on non-living object");
-            return;
-        }
-
-        if (this.level == this.levelLimit) {
-            this.currentXp = 0;
-        }
-        else {
-            this.currentXp += amount;
-            this.checkLevelUp();
-        }
-    }
-
-    checkLevelUp() {
-        if (this.currentXp >= this.xpNeeded && !(this.level + 1 > this.levelLimit)) {
-            this.levelUp();
-        }
-    }
-
-    levelUp() {
-        this.currentXp = this.currentXp - this.xpNeeded;
-        this.xpNeeded = Math.floor(this.xpNeeded * this.xpIncrement);
-
-        this.level += 1;
     }
 
     //gonna finish serializing later - work on mines first
