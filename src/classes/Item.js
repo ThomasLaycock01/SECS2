@@ -14,17 +14,6 @@ export class Item {
         this.equippedCultistId = null;
 
         this.sellAvailable = true;
-
-        //living items may not stick around...
-        if (data.isLiving) {
-            this.isLiving = true;
-            this.currentXp = 0;
-            this.level = 1;
-            this.xpNeeded = data.isLiving.xpNeeded;
-            this.xpIncrement = data.isLiving.xpIncrement;
-            this.levelLimit = data.isLiving.levelLimit;
-            this.livingDesc = data.isLiving.livingDesc;
-        }
     }
 
     //getters
