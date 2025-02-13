@@ -1,19 +1,14 @@
 {
-    "testExpedition": {
-        "id": "testExpedition", 
-        "name": "Test Expedition",
-        "desc": "A test expedition", 
+    "abandonedFarmhouse": {
+        "id": "abandonedFarmhouse",
+        "name": "Abandonded Farmhouse",
+        "desc": "An old abandonded farmhouse. It would probably be pretty easy to fix up, once you've removed all the enemies in it.",
         "encounters": [
-            [1000]
-        ]
-    },
-    "testExpedition2": {
-        "id": "testExpedition2", 
-        "name": "Test Expedition 2",
-        "desc": "Another test expedition", 
-        "encounters": [
-            [1000],
-            [1000, 1000]
+            [1001, 1001, 1001],
+            [1001, 1003, 1001],
+            [1003, 1006, 1006],
+            [1001, 1001, 1001, 1005],
+            [1005, 1005, 1003]
         ]
     }
 }
