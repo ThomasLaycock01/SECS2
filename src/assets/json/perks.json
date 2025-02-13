@@ -2,6 +2,7 @@
     "default": {
         "1000": {"perkId": "1000", "name": "Agriculturalist", "modifiers": [{"type": "farmer", "modifier": 0.05}], "level": 1, "desc": "This Cultist loves farming.", "effectDesc": "+ 5% output when working on the farm."},
         "1001": {"perkId": "1001", "name": "Strong", "modifiers": [{"type": "atk", "modifier": 0.2}], "level": 1, "desc": "This Cultist is JACKED!", "effectDesc": "+20% attack"},
-        "1002": {"perkId": "1002", "name": "Stone Specialist", "modifiers": [{"type": "mineWorker", "altType": "stone", "modifier": 0.2}], "level": 1, "desc": "This Cultist loves stone, for some inexplicable reason", "effectDesc": "+ 20% output when mining stone."}
+        "1002": {"perkId": "1002", "name": "Tough", "modifiers": [{"type": "HP", "modifier": 0.2}], "level": 1, "desc": "This Cultist is TOUGH!", "effectDesc": "+20% HP"},
+        "1003": {"perkId": "1003", "name": "Fast", "modifiers": [{"type": "spd", "base": 1}], "level": 1, "desc": "This Cultist is FAST!", "effectDesc": "+1 base speed"}
     }
 }
