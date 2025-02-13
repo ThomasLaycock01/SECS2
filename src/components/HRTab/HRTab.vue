@@ -157,6 +157,7 @@ function feedWarformClick() {
                         <br>
                         <div>
                             <ul>
+                                <li>{{ activeCultist.cultist.getCurrentHP() }}/{{ activeCultist.cultist.getStat("HP") }} HP</li>
                                 <li>{{ activeCultist.cultist.getStat("atk") }} Atk</li>
                                 <li>{{ activeCultist.cultist.getStat("def") }} Def</li>
                                 <li>{{ activeCultist.cultist.getStat("spd") }} Spd</li>
