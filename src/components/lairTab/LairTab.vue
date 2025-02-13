@@ -17,7 +17,7 @@ const expansions = useExpansionsStore();
                 <ActionList :piniaObject="lair"/>
             </div> 
         </b-tab-item>
-        <b-tab-item label="Farm" >
+        <b-tab-item label="Farm" v-if="expansions.checkIfBuilt('farm')">
             <FarmTab/>
         </b-tab-item>
     </b-tabs>
