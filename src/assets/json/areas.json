@@ -27,8 +27,8 @@
         ],
         "expeditions": [
             {
-                "id": "testExpedition",
-                "unlockLevel": 1,
+                "id": "abandonedFarmhouse",
+                "unlockLevel": 5,
                 "baseChance": 1
             }
         ]

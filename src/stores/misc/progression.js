@@ -32,7 +32,7 @@ export const useProgressionStore = defineStore("progression", {
                     TLMessage: false,
                     condition() {
                         const expeditions = useExpeditionsStore();
-                        return expeditions.checkIfExpeditionCompleted("testExpedition");
+                        return expeditions.checkIfExpeditionCompleted("abandonedFarmhouse");
                     }
                 }
             }
