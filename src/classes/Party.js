@@ -44,7 +44,7 @@ export class Party {
                 count++;
             }
         }
-
+        console.log(count);
         return count;
     }
 

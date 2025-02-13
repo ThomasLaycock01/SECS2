@@ -50,6 +50,15 @@ export const usePartiesStore = defineStore("parties", {
                 const id = party.getId();
                 this.parties[id] = party;
             }
+
+            //check for parties with no cultists and delete them
+            for (var i in this.parties) {
+                const party = this.parties[i];
+                if (party.getPartyCultistCount() == 0) {
+                    const id = party.getId();
+                    delete this.parties[id];
+                }
+            }
         },
         //roles
         instantiateRoles() {
