@@ -157,7 +157,9 @@ function feedWarformClick() {
                         <br>
                         <div>
                             <ul>
-                                <li v-for="key, value in activeCultist.cultist.getStat()">{{ key }} {{ value }}</li>
+                                <li>{{ activeCultist.cultist.getStat("atk") }} Atk</li>
+                                <li>{{ activeCultist.cultist.getStat("def") }} Def</li>
+                                <li>{{ activeCultist.cultist.getStat("spd") }} Spd</li>
                             </ul>
                         </div>
                         <!--New Perks only appear when a cultist has available perk points-->

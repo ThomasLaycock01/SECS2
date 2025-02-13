@@ -132,11 +132,10 @@ export class Cultist {
         return this.stats;
     }
 
-    getStat(stat = null) {
+    getStat(stat) {
         if (stat) {
-            return this.stats[stat];
+            return this.stats[stat] * this.getModifiers([stat]);
         }
-        return this.stats;
     }
 
     getCurrentHP() {
