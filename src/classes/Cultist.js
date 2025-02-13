@@ -159,12 +159,13 @@ export class Cultist {
     getModifiers(typeArray) {
         var modVal = 1;
 
+
         //perks
         for (var i in this.perks) {
             const perk = this.perks[i];
             for (var j in perk.modifiers) {
                 const modObj = perk.modifiers[j];
-                if (typeArray.includes(modObj.type)) {
+                if (typeArray.includes(modObj.type) && modObj.modifier) {
                     modVal += modObj.modifier;
                 }
             }
@@ -180,7 +181,7 @@ export class Cultist {
         //racial modifiers
         for (var i in this.racialModifiers) {
             const modObj = this.racialModifiers[i];
-            if (typeArray.includes(modObj.type)) {
+            if (typeArray.includes(modObj.type) && modObj.modifier) {
                 modVal += modObj.modifier;
             }
         }
@@ -202,7 +203,7 @@ export class Cultist {
             const perk = this.perks[i];
             for (var j in perk.modifiers) {
                 const modObj = perk.modifiers[j];
-                if (modObj.type == stat) {
+                if (modObj.type == stat  && modObj.base) {
                     baseVal += modObj.base;
                 }
             }

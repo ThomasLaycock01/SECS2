@@ -50,7 +50,7 @@ export class Item {
 
         for (var i in this.modifiers) {
             const modObj = this.modifiers[i];
-            if (typeArray.includes(modObj.type)) {
+            if (typeArray.includes(modObj.type) && modObj.modifier) {
                 modVal += modObj.modifier;
             }
         }
@@ -63,7 +63,7 @@ export class Item {
 
         for (var i in this.modifiers) {
             const modObj = this.modifiers[i];
-            if (modObj.type == stat) {
+            if (modObj.type == stat && modObj.base) {
                 baseVal += modObj.base;
             }
         }
