@@ -1,6 +1,6 @@
 import { useJobsStore } from "@/stores/globalPinias/jobs";
 
-import { getAllCultistModifiers, createStatsObj, posToNeg } from "@/functions";
+import { getGlobalModifiers, createStatsObj, posToNeg } from "@/functions";
 
 export class Cultist {
     constructor(id, name, raceTemplate, job, level, currentXp, xpNeeded, xpIncrement, levelLimit, perks, perkPoints, equipment) {
@@ -95,14 +95,6 @@ export class Cultist {
         return this.type;
     }
 
-    getEquipment() {
-        return this.equipment;
-    }
-
-    getPerks() {
-        return this.perks;
-    }
-
     getPerkPoints() {
         return this.perkPoints;
     }
@@ -158,6 +150,56 @@ export class Cultist {
     getKnockOutTime() {
         return this.knockOutTime;
     }
+
+
+    //getters - modifiers
+    getPerks() {
+        return this.perks;
+    }
+
+    getEquipment() {
+        return this.equipment;
+    }
+
+    getModifiers(typeArray) {
+        var modVal = 1;
+
+        //perks
+        for (var i in this.perks) {
+            const perk = this.perks[i];
+            for (var j in perk.modifiers) {
+                const modObj = perk.modifiers[j];
+                if (typeArray.includes(modObj.type)) {
+                    modVal += modObj.modifier;
+                }
+            }
+        }
+
+        //equipment
+        for (var i in this.equipment) {
+            if (this.equipment[i]) {
+                modVal += this.equipment[i].getEquipmentModifier(typeArray);
+            }
+        }
+
+        //racial modifiers
+        for (var i in this.racialModifiers) {
+            const modObj = this.racialModifiers[i];
+            if (typeArray.includes(modObj.type)) {
+                modVal += modObj.modifier;
+            }
+        }
+
+        //levels
+        modVal += (this.level - 1) * 0.01;
+
+        //global
+        modVal += getGlobalModifiers(typeArray);
+
+        console.log(modVal);
+        return modVal;
+    }
+
 
     //setters
     setJob(job) {
@@ -252,55 +294,8 @@ export class Cultist {
         return this.racialModifiers;
     }
 
-    getModifiers(type, altType = null, levelMod = 0) {
+    /*getModifiers(type, altType = null, levelMod = 0) {
         var modVal = 0;
-
-        for (var i in this.getEquipment()) {
-            if (this.getEquipment()[i]) {
-                for (var j in this.getEquipment()[i].getModifiersByType(type, altType)) {
-                    modVal += this.getEquipment()[i].getModifiersByType(type, altType)[j]["modifier"];
-                }
-            }
-        }
-        
-        for (var i in this.getPerks()) {
-            for (var j in this.getPerks()[i]["modifiers"]) {
-                if (this.getPerks()[i]["modifiers"][j]["type"] == type || this.getPerks()[i]["modifiers"][j]["type"] == "global") {
-                    if (altType) {
-                        if (this.getPerks()[i]["modifiers"][j]["altType"] == altType || !this.getPerks()[i]["modifiers"][j]["altType"]) {
-                            modVal += this.getPerks()[i]["modifiers"][j]["modifier"];
-                        }
-                    }
-                    else {
-                        if (!this.getPerks()[i]["modifiers"][j]["altType"]) {
-                            modVal += this.getPerks()[i]["modifiers"][j]["modifier"];
-                        }
-                    }
-                }
-            }
-        }
-
-        for (var i in this.getRacialModifiers()) {
-            const modObj = this.getRacialModifiers()[i];
-
-            if (modObj.type == "grabProd") {
-                const jobs = useJobsStore();
-                modVal += jobs.getProdModifier(modObj.altType) * modObj.modifier;
-                console.log(jobs.getProdModifier(modObj.altType) * modObj.modifier);
-            }
-            else if (modObj.type == type || modObj.type == "global") {
-                if (altType) {
-                    if (modObj.altType == altType || !modObj.altType) {
-                        modVal += modObj.modifier;
-                    } 
-                }
-                else {
-                    if (!modObj.altType) {
-                        modVal += modObj.modifier;
-                    }
-                }
-            } 
-        }
         
         const allCultistModifiers = getAllCultistModifiers(type, altType);
 
@@ -317,7 +312,7 @@ export class Cultist {
         this.giveXpToLivingItems();
 
         return modVal;
-    }
+    }*/
 
     feedItem(item) {
         this.addXp(item.getSellValue() / 10, true);

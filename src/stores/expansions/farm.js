@@ -27,7 +27,7 @@ export const useFarmStore = defineStore("farm", {
                     cultistArray: [],
                     limit: 4,
                     name: "Farmer",
-                    xpOutput: 2
+                    xpOutput: 20
                 }
             }
         }    
@@ -61,6 +61,21 @@ export const useFarmStore = defineStore("farm", {
     },
     actions: {
         tick() {
+            
+
+            //output
+            var grainOutput = 0;
+            const modifierTypeArray = ["farmer", "farmerGrain"];
+            for (var i in this.jobs.farmer.cultistArray) {
+                const cultist = this.jobs.farmer.cultistArray[i];
+
+                grainOutput += 1 * cultist.getModifiers(modifierTypeArray);
+            }
+
+            //addingXp
+            for (var i in this.jobs.farmer.cultistArray) {
+                this.jobs.farmer.cultistArray[i].addXp(this.jobs.farmer.xpOutput);
+            }
 
         },
         onBuild() {

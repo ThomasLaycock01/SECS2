@@ -11,16 +11,16 @@ const props = defineProps({
         type: String,
         default: null
     },
-    owned: {
-        type: Function,
-        default: null
-    },
     costs: {
         type: Function,
         default: null
     },
+    owned: {
+        type: Function,
+        default: null
+    },
     limit: {
-        type: Number,
+        type: Function,
         default: null
     }
 })
@@ -38,16 +38,16 @@ const props = defineProps({
         </p>
         <!--Buildings-->
         <span v-if="props.tooltipType==`building`">
-            <p class="mb-2" v-if="props.owned() < props.limit">
-            {{ props.effectDesc }}
+            <p class="mb-2">
+             {{props.effectDesc}} 
             </p>
-            <div class="mb-2" v-if="props.owned() < props.limit">
+            <div class="mb-2">
                 <ul v-for="value, key in props.costs()">
                     <li>{{ resources.getName(key) }} : {{ value }}</li>
                 </ul>
             </div>
             <p class="mb-2">
-                Owned - {{ props.owned() }} / {{ props.limit }}
+                Owned -  {{props.owned()}}  /  {{props.limit()}} 
             </p>
         </span>
         <!--Expansions-->
