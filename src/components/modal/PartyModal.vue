@@ -119,7 +119,7 @@ function cultistButtonClick(cultist) {
                                     <div class="partySelectorTop">
                                         <div class="title is-5 mb-1 segment-title">Cultists</div>
                                         <div class="cultistContainer">
-                                            <span v-for="i in cultists.getRegularCultists">
+                                            <span v-for="i in cultists.getCultists">
                                                 <button  class="button is-dark cultistGridItem" :class="party.checkIfContainsCultist(i.getId()) ? 'is-info' : ''" :disabled="i.getParty() && (party.getSlotByCultist(i.getId()) != partyModal.selectedSlot)" @click="cultistButtonClick(i)">{{i.getName()}}</button>
                                             </span>
                                         </div>

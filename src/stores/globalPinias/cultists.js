@@ -4,6 +4,8 @@ import { useResourcesStore } from "./resources";
 import { useBuildingsStore } from "./buildings";
 import { useProgressionStore } from "../misc/progression";
 
+import { getGlobalModifiers } from "@/functions";
+
 import races from "@/assets/json/races.json";
 
 export const useCultistsStore = defineStore("cultists", {
@@ -13,7 +15,7 @@ export const useCultistsStore = defineStore("cultists", {
             special: [],
             races: {},
             misc : {
-                regularLimit: 2,
+                baseCultistLimit: 2,
                 defaultLevelLimit: 10
             }
         }
@@ -55,7 +57,14 @@ export const useCultistsStore = defineStore("cultists", {
         },
         //misc
         getCultistLimit(state) {
-            return state.misc.regularLimit;
+            var limit = state.misc.baseCultistLimit;
+
+            limit += getGlobalModifiers(["cultistLimit"]);
+
+            return limit;
+        },
+        checkCultistSpace(state) {
+            return state.getNumOfCultists < state.getCultistLimit;
         },
         getDefaultLevelLimit(state) {
             return state.misc.defaultLevelLimit;
@@ -141,9 +150,6 @@ export const useCultistsStore = defineStore("cultists", {
             }
 
             this.misc.regularLimit = totalLimit;
-        },
-        checkCultistSpace() {
-            return !(this.getNumOfCultists == this.getCultistLimit);
         },
         //races
         instantiateRaces() {
