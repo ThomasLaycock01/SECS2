@@ -6,6 +6,7 @@ export class Area {
         this.id = obj.id;
         this.name = obj.name;
         this.desc = obj.desc;
+        this.activityName = obj.activityName;
 
         this.encounters = obj.encounters;
         this.currentEncounter = [];
@@ -81,9 +82,11 @@ export class Area {
     toggleActive() {
         if (this.active) {
             this.active = false;
+            this.activeParty.setCurrentActivity();
         }
         else {
             this.active = true;
+            this.activeParty.setCurrentActivity(this.activityName);
         }
     }
 

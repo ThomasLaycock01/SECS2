@@ -145,4 +145,8 @@ export class Party {
             }
         }
     }
+
+    setCurrentActivity(activity = null) {
+        this.currentActivity = activity;
+    }
 }
