@@ -131,9 +131,7 @@ export class Cultist {
     }
 
     getStat(stat) {
-        if (stat) {
-            return this.stats[stat] * this.getModifiers([stat]);
-        }
+        return this.getBaseStat(stat) * this.getModifiers([stat]);
     }
 
     getCurrentHP() {
@@ -193,8 +191,31 @@ export class Cultist {
         //global
         modVal += getGlobalModifiers(typeArray);
 
-        console.log(modVal);
         return modVal;
+    }
+
+    getBaseStat(stat) {
+        var baseVal = this.stats[stat];
+
+        //perks
+        for (var i in this.perks) {
+            const perk = this.perks[i];
+            for (var j in perk.modifiers) {
+                const modObj = perk.modifiers[j];
+                if (modObj.type == stat) {
+                    baseVal += modObj.base;
+                }
+            }
+        }
+
+        //equipment
+        for (var i in this.equipment) {
+            if (this.equipment[i]) {
+                baseVal += this.equipment[i].getEquipmentBase(stat);
+            }
+        }
+
+        return baseVal;
     }
 
 

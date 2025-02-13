@@ -58,6 +58,19 @@ export class Item {
         return modVal;
     }
 
+    getEquipmentBase(stat) {
+        var baseVal = 0;
+
+        for (var i in this.modifiers) {
+            const modObj = this.modifiers[i];
+            if (modObj.type == stat) {
+                baseVal += modObj.base;
+            }
+        }
+
+        return baseVal;
+    }
+
     getSellValue() {
         return this.sellValue;
     }
