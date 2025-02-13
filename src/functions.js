@@ -59,7 +59,7 @@ function createCultist(id, name, species, job = null, level = 1, currentXp = 0, 
 export function addCultist(race) {
     const cultists = useCultistsStore();
 
-    var id = cultists.numOfCultists;
+    var id = cultists.getNumOfCultists;
 
     while (cultists.checkIfIdUsed(id)) {
         id++;

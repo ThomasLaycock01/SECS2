@@ -25,7 +25,7 @@ export const useHRStore = defineStore("HR", {
                             condition() {
                                 const resources = useResourcesStore();
                                 const cultists = useCultistsStore();
-                                return resources.checkIfCanAfford(cultists.getRaceCosts("human")) && cultists.checkRegularCultistSpace();
+                                return resources.checkIfCanAfford(cultists.getRaceCosts("human")) && cultists.checkCultistSpace();
                             },
                             showCondition() {
                                 return true;

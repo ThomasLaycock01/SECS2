@@ -125,10 +125,10 @@ function feedWarformClick() {
         <div class="column is-half">
             <div class="title is-5 mb-1 segment-title">Cultists</div>
             <div class="cultistContainer">
-                <span v-for="i in cultists.getRegularCultists">
+                <span v-for="i in cultists.getCultists">
                     <button  class="button is-dark is-info cultistGridItem" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
                 </span>
-                <span v-for="i in cultists.getRegularLimit - cultists.getNumOfRegular">
+                <span v-for="i in cultists.getCultistLimit - cultists.getNumOfCultists">
                     <div class="button is-outlined cultistGridItem" disabled>Empty</div>
                 </span>
             </div>

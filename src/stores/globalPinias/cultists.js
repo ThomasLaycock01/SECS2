@@ -10,31 +10,19 @@ export const useCultistsStore = defineStore("cultists", {
     state: () => {
         return {
             regular: [],
-            summoned: [], 
             special: [],
             races: {},
             misc : {
                 regularLimit: 2,
-                summonLimit: 1,
-                summoning: 0,
                 defaultLevelLimit: 10
             }
         }
     },
     getters: {
-        numOfCultists(state) {
-            return state.regular.length + + state.summoned.length + state.misc.summoning;
-        },
-        getNumOfRegular(state) {
+        getNumOfCultists(state) {
             return state.regular.length;
         },
-        getNumOfSummoned(state) {
-            return state.summoned.length + state.misc.summoning;
-        },
-        getAllNonSpecial(state) {
-            return state.regular.concat(state.summoned);
-        },
-        getRegularCultists(state) {
+        getCultists(state) {
             return state.regular;
         },
         getSummonedCultists(state) {
@@ -42,43 +30,32 @@ export const useCultistsStore = defineStore("cultists", {
         },
         getCultistById: (state) => {
             return (cultistId) => {
-                if (state.regular.find((cultist) => cultist.getId() == cultistId)) {
-                    return state.regular.find((cultist) => cultist.getId() == cultistId);
-                }
-                else {
-                    return state.summoned.find((cultist) => cultist.getId() == cultistId);
-                }
+                return state.regular.find(cultist => cultist.getId() == cultistId);
             }
         },
         getCultistsByRacialGroup(state) {
             return (racialGroup) => {
                 var returnArray = [];
-                for (var i in state.getAllNonSpecial) {
-                    if (state.getAllNonSpecial[i].getRacialGroup() == racialGroup) {
-                        returnArray.push(state.getAllNonSpecial[i]);
+                for (var i in state.regular) {
+                    if (state.regular[i].getRacialGroup() == racialGroup) {
+                        returnArray.push(state.regular[i]);
                     }
                 }
                 return returnArray;
             }
         },
         getUnemployed(state) {
-            return state.regular.filter((cultist) => cultist.getJob() == null).concat(state.summoned.filter((cultist) => cultist.getJob() == null && cultist.getMisc("toDissassemble") == false));
+            return state.regular.filter((cultist) => cultist.getJob() == null);
         },
         checkUnemployed(state) {
             return state.getUnemployed.length > 0;
         },
         getEmployed(state) {
-            return state.getAllNonSpecial.filter((cultist) => cultist.getJob() != null);
+            return state.getCultists.filter((cultist) => cultist.getJob() != null);
         },
         //misc
-        getRegularLimit(state) {
+        getCultistLimit(state) {
             return state.misc.regularLimit;
-        },
-        getSummonLimit(state) {
-            return state.misc.summonLimit;
-        },
-        getSummoning(state) {
-            return state.misc.summoning;
         },
         getDefaultLevelLimit(state) {
             return state.misc.defaultLevelLimit;
@@ -114,11 +91,10 @@ export const useCultistsStore = defineStore("cultists", {
     actions: {
         tick() {
             const resources = useResourcesStore();
-            const buildings = useBuildingsStore();
             //calculating evilness
             var evilnessOutput = 0;
-            for (var i in this.getRegularCultists) {
-                evilnessOutput += 1 * (1 + this.getRegularCultists[i].getModifiers("evilness", null, 0.1)); //+ buildings.getBuildingModifier("evilness"));
+            for (var i in this.getCultists) {
+                evilnessOutput += 1 * (1 + this.getCultists[i].getModifiers("evilness", null, 0.1));
             }
 
             resources.setResourcePerSec("evilness", evilnessOutput);
@@ -127,8 +103,8 @@ export const useCultistsStore = defineStore("cultists", {
             resources.updateResources();
 
             //ticking down knocked out cultists
-            for (var i in this.getRegularCultists) {
-                const cultist = this.getRegularCultists[i];
+            for (var i in this.getCultists) {
+                const cultist = this.getCultists[i];
                 if (cultist.getKnockedOut()) {
                     cultist.decrementKnockOutTime();
                 }
@@ -137,21 +113,12 @@ export const useCultistsStore = defineStore("cultists", {
         addCultist(cultist) {
             const progression = useProgressionStore();
 
-            if (cultist.getType() == "summon") {
-                this.summoned.push(cultist);
-            }
-            else {
-                this.regular.push(cultist);
-            }
+            this.regular.push(cultist);
 
             progression.updateProgression();
         },
-        removeRegularCultist(cultistId) {
+        removeCultist(cultistId) {
             this.regular = this.regular.filter((cultist) => cultist.getId() != cultistId)
-        },
-        removeSummonedCultist(cultistId) {
-            console.log(cultistId)
-            this.summoned = this.summoned.filter((cultist) => cultist.getId() != cultistId);
         },
         checkIfIdUsed(id) {
             for (var i in this.regular) {
@@ -176,20 +143,7 @@ export const useCultistsStore = defineStore("cultists", {
             this.misc.regularLimit = totalLimit;
         },
         checkCultistSpace() {
-            return !(this.numOfCultists == this.getRegularLimit);
-        },
-        checkRegularCultistSpace() {
-            return !(this.getNumOfRegular == this.getRegularLimit);
-        },
-        checkSummonedCultistSpace() {
-            return !(this.getNumOfSummoned == this.getSummonLimit);
-        },
-        //summoning
-        addSummoning() {
-            this.misc.summoning++;
-        },
-        removeSummoning() {
-            this.misc.summoning--;
+            return !(this.getNumOfCultists == this.getCultistLimit);
         },
         //races
         instantiateRaces() {

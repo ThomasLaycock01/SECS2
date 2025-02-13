@@ -24,7 +24,7 @@ export const useProgressionStore = defineStore("progression", {
                     TLMessage: true,
                     condition() {
                         const cultists = useCultistsStore();
-                        return cultists.getNumOfRegular > 0;
+                        return cultists.getNumOfCultists > 0;
                     }
                 },
                 "completedExpedition": {

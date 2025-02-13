@@ -29,12 +29,7 @@ const expansions = useExpansionsStore();
                 <tr>
                     <th>Cultists</th>
                     <th></th>
-                    <th>{{ cultists.getNumOfRegular }} / {{ cultists.getRegularLimit }}</th>
-                </tr>
-                <tr v-if="expansions.checkIfSummonAvailable">
-                    <th>Summons</th>
-                    <th></th>
-                    <th>{{ cultists.getNumOfSummoned }} / {{ cultists.getSummonLimit }}</th>
+                    <th>{{ cultists.getNumOfCultists }} / {{ cultists.getCultistLimit }}</th>
                 </tr>
             </tbody>
         </table>
