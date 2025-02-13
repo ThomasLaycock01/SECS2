@@ -17,7 +17,7 @@ const modals = useModalsStore();
         <div v-if="Object.keys(parties.getParties).length > 0">
             <div v-for="i in parties.getParties">
                 {{ i.getName() }} - {{ i.getPartySize() }}/{{ i.getLimit() }} - Currently {{ i.getCurrentActivity() ? i.getCurrentActivity() : "doing nothing" }}
-                <button class="button is-dark" @click="modals.openParty(i)">Edit</button>
+                <button class="button is-dark" @click="modals.openParty(i)" :disabled="i.getCurrentActivity()">Edit</button>
             </div>
         </div>
         <div v-else>
