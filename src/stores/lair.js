@@ -134,8 +134,8 @@ export const useLairStore = defineStore("lair", {
                         evilShrine: {
                             id: "buildEvilShrine",
                             name: "Evil Shrine",
-                            desc: "Some chambers for your cultists to sleep in.",
-                            effectDesc: "+1 cultist limit",
+                            desc: "An EVIL shrine",
+                            effectDesc: "+10% evilness output on all cultists",
                             owned() {
                                 const buildings = useBuildingsStore();
                                 return buildings.getOwned("evilShrine");

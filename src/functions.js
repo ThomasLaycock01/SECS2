@@ -219,7 +219,7 @@ export function combatRound(area) {
             var target = null;
             var role = null;
             for (var j in party) {
-                if (!party[j].cultist || target || party[j].cultist.getKnockedOut()) {
+                if (party[j].cultist == null || target || party[j].cultist.getKnockedOut()) {
                     continue;
                 }
                 else {
@@ -228,7 +228,10 @@ export function combatRound(area) {
                 }
 
             }
-            target.takeDamage(physDmg, magDmg, role);
+
+            if (target != null) {
+                target.takeDamage(physDmg, magDmg, role);
+            }
         }
         speedCount++;
     }
