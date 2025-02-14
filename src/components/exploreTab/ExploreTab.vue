@@ -59,30 +59,99 @@ function toggleActiveCheck() {
     <!--Area view-->
     <div v-if="exploreTab.selectedArea">
         <p>{{ exploreTab.selectedArea.getName() }}</p>
-        <p>{{ exploreTab.selectedArea.getDesc() }}</p>
-        <p>Level {{ exploreTab.selectedArea.getCurrentLevel() }}/{{ exploreTab.selectedArea.getMaxLevel() }}</p>
-        <button class="button is-dark is-small" @click="exploreTab.selectedArea.decreaseCurrentLevel()" :disabled="exploreTab.selectedArea.getCurrentLevel() - 1 < 1">-</button>
-        <button class="button is-dark is-small" @click="exploreTab.selectedArea.increaseCurrentLevel()" :disabled="exploreTab.selectedArea.getCurrentLevel() + 1 > exploreTab.selectedArea.getMaxLevel()">+</button>
-        <p v-if="exploreTab.selectedArea.checkAtMaxLevel()">{{ 10 - exploreTab.selectedArea.getLevelProgress() }} encounters until next level!</p>
-        <br>
-        <div>Party: </div>
-        <div v-if="exploreTab.settingParty">
-            <div v-if="Object.keys(parties.getParties).length > 0">
-                <div v-for="i in parties.getParties">
-                    <button class="button is-dark" :class="exploreTab.selectedArea.getActiveParty() && exploreTab.selectedArea.getActiveParty().getId() == i.getId() ? 'is-info' : ''" @click="setSelectedParty(i)">{{ i.getName() }}</button>
+
+        <!--If the area is active-->
+        <div v-if="exploreTab.selectedArea.getActive()">
+            <p>Level {{ exploreTab.selectedArea.getCurrentLevel() }}/{{ exploreTab.selectedArea.getMaxLevel() }}</p>
+            <button class="button is-dark is-small" @click="exploreTab.selectedArea.decreaseCurrentLevel()" :disabled="exploreTab.selectedArea.getCurrentLevel() - 1 < 1">-</button>
+            <button class="button is-dark is-small" @click="exploreTab.selectedArea.increaseCurrentLevel()" :disabled="exploreTab.selectedArea.getCurrentLevel() + 1 > exploreTab.selectedArea.getMaxLevel()">+</button>
+            <p v-if="exploreTab.selectedArea.checkAtMaxLevel()">{{ 10 - exploreTab.selectedArea.getLevelProgress() }} encounters until next level!</p>
+            <br>
+
+            <div class="exploreCombatDisplay">
+
+                <!--Party display-->
+                <div>
+                    Party:
+                    <br>
+                    <span v-for="i in exploreTab.selectedArea.getActiveParty().getSlots()">
+                        <div v-if="i.cultist">
+                            <div>{{ i.cultist.getName() }} - {{ i.role.getName() }} - <span v-if="!i.cultist.getKnockedOut()">{{ i.cultist.getCurrentHP() }}/{{ i.cultist.getStat("HP") }}</span><span v-else>Knocked Out! {{ Math.floor(i.cultist.getKnockOutTime() / 60) }} Mins {{ i.cultist.getKnockOutTime() % 60 }} secs left</span></div>
+                            <div>
+                                <ul>
+                                    <li>{{ i.cultist.getStat("atk") }} Atk</li>
+                                    <li>{{ i.cultist.getStat("def") }} Def</li>
+                                    <li>{{ i.cultist.getStat("spd") }} Spd</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </span>
                 </div>
+
+                <!--Displaying enemies-->
+                <div v-if="exploreTab.selectedArea.getCurrentEncounter().length > 0">
+                    Enemies:
+                    <br>
+                    <div v-for="i in exploreTab.selectedArea.getCurrentEncounter()">
+                        <div>{{ i.getName() }} - {{ i.getCurrentHP() }}/{{ i.getStat("HP") }}</div>
+                        <div>
+                                <ul>
+                                    <li>{{ i.getStat("atk") }} Atk</li>
+                                    <li>{{ i.getStat("def") }} Def</li>
+                                    <li>{{ i.getStat("spd") }} Spd</li>
+                                </ul>
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+
+            
+        </div>
+
+        <!--If it isnt-->
+        <div v-else>
+            <p>{{ exploreTab.selectedArea.getDesc() }}</p>
+            <br>
+            <div>Party: </div>
+            <div v-if="exploreTab.settingParty">
+                <div v-if="Object.keys(parties.getParties).length > 0">
+                    <div v-for="i in parties.getParties">
+                        <button class="button is-dark" :class="exploreTab.selectedArea.getActiveParty() && exploreTab.selectedArea.getActiveParty().getId() == i.getId() ? 'is-info' : ''" @click="setSelectedParty(i)">{{ i.getName() }}</button>
+                    </div>
+                </div>
+                <div v-else>
+                    No parties available!
+                </div>
+                <button class="button is-dark" @click="stopSettingParty()">Back</button>
             </div>
             <div v-else>
-                No parties available!
+                <div>{{ exploreTab.selectedArea.getActiveParty() ? exploreTab.selectedArea.getActiveParty().getName() : "No party assigned!" }}</div>
+                <button class="button is-dark"  @click="startSettingParty()">Set Party</button>
+                <div v-if="exploreTab.selectedArea.getActiveParty()">
+                    Party:
+                    <br>
+                    <span v-for="i in exploreTab.selectedArea.getActiveParty().getSlots()">
+                        <div v-if="i.cultist">
+                            {{ i.cultist.getName() }} - {{ i.role.getName() }} - <span v-if="!i.cultist.getKnockedOut()">{{ i.cultist.getCurrentHP() }}/{{ i.cultist.getStat("HP") }}</span><span v-else>Knocked Out! {{ Math.floor(i.cultist.getKnockOutTime() / 60) }} Mins {{ i.cultist.getKnockOutTime() % 60 }} secs left</span>
+                        </div>
+                    </span>
+                </div>
+                <br>
+                <br>
+                <button class="button is-dark" @click="toggleActive()" :disabled="!exploreTab.selectedArea.getActiveParty()">Embark!</button>
             </div>
-            <button class="button is-dark" @click="stopSettingParty()">Back</button>
         </div>
-        <div v-else>
-            <div>{{ exploreTab.selectedArea.getActiveParty() ? exploreTab.selectedArea.getActiveParty().getName() : "No party assigned!" }}</div>
-            <button class="button is-dark"  @click="startSettingParty()">Set Party</button>
-            <br>
-            <br>
-            <!--Displaying party-->
+        
+        <br>
+
+        <button class="button is-dark" @click="deselectArea()">Back</button>
+
+
+        
+        
+        <!--<div v-else>
+            <!--Displaying party
             <div v-if="exploreTab.selectedArea.getActiveParty()">
                 Party:
                 <br>
@@ -93,7 +162,7 @@ function toggleActiveCheck() {
                 </span>
             </div>
             <br>
-            <!--Displaying enemies-->
+            <!--Displaying enemies
             <div v-if="exploreTab.selectedArea.getCurrentEncounter().length > 0">
                 Enemies:
                 <br>
@@ -105,7 +174,7 @@ function toggleActiveCheck() {
             <button class="button" :class="exploreTab.selectedArea.getActive() ? 'is-info' : 'is-danger'" @click="toggleActive()" :disabled="!toggleActiveCheck()">Toggle Active</button>
             <br>
             <button class="button is-dark" @click="deselectArea()">Back</button>
-        </div>
+        </div>-->
 
     </div>
     <!--List pops up if no area selected-->
