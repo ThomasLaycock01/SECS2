@@ -355,8 +355,16 @@ export class Cultist {
         this.knockOutTime = this.stats.HP * 10;
     }
 
+    revive() {
+        this.knockedOut = false;
+        this.currentHP = this.getStat("HP");
+    }
+
     decrementKnockOutTime() {
         this.knockOutTime--;
+        if (this.knockOutTime <= 0) {
+            this.revive();
+        }
     }
 
     heal() {
