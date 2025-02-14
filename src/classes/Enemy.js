@@ -31,7 +31,7 @@ export class Enemy {
     }
 
     getCurrentHP() {
-        return this.currentHP;
+        return Math.floor(this.currentHP * 100) / 100;
     }
 
     getDmgGiven(type) {

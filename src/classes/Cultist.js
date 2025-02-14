@@ -131,11 +131,11 @@ export class Cultist {
     }
 
     getStat(stat) {
-        return this.getBaseStat(stat) * this.getModifiers([stat]);
+        return Math.floor(this.getBaseStat(stat) * this.getModifiers([stat]) * 100) / 100;
     }
 
     getCurrentHP() {
-        return this.currentHP;
+        return Math.floor(this.currentHP * 100) / 100;
     }
 
     getKnockedOut() {
