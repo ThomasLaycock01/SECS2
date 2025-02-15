@@ -4,6 +4,8 @@ import { reactive } from 'vue';
 import { useExploreStore } from '@/stores/barracks/explore';
 import { usePartiesStore } from '@/stores/barracks/parties';
 
+import CombatScreen from './CombatScreen.vue';
+
 const explore = useExploreStore();
 const parties = usePartiesStore();
 
@@ -62,51 +64,9 @@ function toggleActiveCheck() {
 
         <!--If the area is active-->
         <div v-if="exploreTab.selectedArea.getActive()">
-            <p>Level {{ exploreTab.selectedArea.getCurrentLevel() }}/{{ exploreTab.selectedArea.getMaxLevel() }}</p>
-            <button class="button is-dark is-small" @click="exploreTab.selectedArea.decreaseCurrentLevel()" :disabled="exploreTab.selectedArea.getCurrentLevel() - 1 < 1">-</button>
-            <button class="button is-dark is-small" @click="exploreTab.selectedArea.increaseCurrentLevel()" :disabled="exploreTab.selectedArea.getCurrentLevel() + 1 > exploreTab.selectedArea.getMaxLevel()">+</button>
-            <p v-if="exploreTab.selectedArea.checkAtMaxLevel()">{{ 10 - exploreTab.selectedArea.getLevelProgress() }} encounters until next level!</p>
+            <CombatScreen :areaObject="exploreTab.selectedArea" type="explore"/>
             <br>
-
-            <div class="exploreCombatDisplay">
-
-                <!--Party display-->
-                <div>
-                    Party:
-                    <br>
-                    <span v-for="i in exploreTab.selectedArea.getActiveParty().getSlots()">
-                        <div v-if="i.cultist">
-                            <div>{{ i.cultist.getName() }} - {{ i.role.getName() }} - <span v-if="!i.cultist.getKnockedOut()">{{ i.cultist.getCurrentHP() }}/{{ i.cultist.getStat("HP") }}</span><span v-else>Knocked Out! {{ Math.floor(i.cultist.getKnockOutTime() / 60) }} Mins {{ i.cultist.getKnockOutTime() % 60 }} secs left</span></div>
-                            <div>
-                                <ul>
-                                    <li>{{ i.cultist.getStat("atk") }} Atk</li>
-                                    <li>{{ i.cultist.getStat("def") }} Def</li>
-                                    <li>{{ i.cultist.getStat("spd") }} Spd</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </span>
-                </div>
-
-                <!--Displaying enemies-->
-                <div v-if="exploreTab.selectedArea.getCurrentEncounter().length > 0">
-                    Enemies:
-                    <br>
-                    <div v-for="i in exploreTab.selectedArea.getCurrentEncounter()">
-                        <div>{{ i.getName() }} - {{ i.getCurrentHP() }}/{{ i.getStat("HP") }}</div>
-                        <div>
-                                <ul>
-                                    <li>{{ i.getStat("atk") }} Atk</li>
-                                    <li>{{ i.getStat("def") }} Def</li>
-                                    <li>{{ i.getStat("spd") }} Spd</li>
-                                </ul>
-                            </div>
-                    </div>
-                </div>
-
-            </div>
-
-            
+            <button class="is-dark button" @click="toggleActive()">Retreat!</button>       
         </div>
 
         <!--If it isnt-->
@@ -146,36 +106,6 @@ function toggleActiveCheck() {
         <br>
 
         <button class="button is-dark" @click="deselectArea()">Back</button>
-
-
-        
-        
-        <!--<div v-else>
-            <!--Displaying party
-            <div v-if="exploreTab.selectedArea.getActiveParty()">
-                Party:
-                <br>
-                <span v-for="i in exploreTab.selectedArea.getActiveParty().getSlots()">
-                    <div v-if="i.cultist">
-                        {{ i.cultist.getName() }} - {{ i.role.getName() }} - <span v-if="!i.cultist.getKnockedOut()">{{ i.cultist.getCurrentHP() }}/{{ i.cultist.getStat("HP") }}</span><span v-else>Knocked Out! {{ Math.floor(i.cultist.getKnockOutTime() / 60) }} Mins {{ i.cultist.getKnockOutTime() % 60 }} secs left</span>
-                    </div>
-                </span>
-            </div>
-            <br>
-            <!--Displaying enemies
-            <div v-if="exploreTab.selectedArea.getCurrentEncounter().length > 0">
-                Enemies:
-                <br>
-                <div v-for="i in exploreTab.selectedArea.getCurrentEncounter()">
-                    {{ i.getName() }} - {{ i.getCurrentHP() }}/{{ i.getStat("HP") }}
-                </div>
-            </div>
-            <br>
-            <button class="button" :class="exploreTab.selectedArea.getActive() ? 'is-info' : 'is-danger'" @click="toggleActive()" :disabled="!toggleActiveCheck()">Toggle Active</button>
-            <br>
-            <button class="button is-dark" @click="deselectArea()">Back</button>
-        </div>-->
-
     </div>
     <!--List pops up if no area selected-->
     <div v-else>

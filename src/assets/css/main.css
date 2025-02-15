@@ -21,6 +21,7 @@ html {
 .inline-flexContainer {
     display: inline-flex;
     justify-content: space-evenly;
+    width: 100%;
 }
 
 
@@ -197,9 +198,9 @@ html {
 
 
 
-/*explore*/
+/*combat screen*/
 
-.exploreCombatDisplay {
+.combatDisplay {
     display: flex;
     justify-content: space-between;
     width: 80%;
