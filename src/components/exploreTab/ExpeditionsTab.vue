@@ -37,6 +37,18 @@ function setSelectedParty(party) {
     }
 }
 
+function embarkCheck() {
+    //if theres no party
+    if (!expeditionsTab.selectedExpedition.getActiveParty()) {
+        return false;
+    }
+    //if there is a party, but its busy
+    if (expeditionsTab.selectedExpedition.getActiveParty().getCurrentActivity()) {
+        return false;
+    }
+   return true;
+}
+
 function embarkClick() {
     expeditionsTab.selectedExpedition.beginExpedition();
 }
@@ -83,7 +95,7 @@ function retreatClick() {
                     <div>{{ expeditionsTab.selectedExpedition.getActiveParty() ? expeditionsTab.selectedExpedition.getActiveParty().getName() : "No party assigned!" }}</div>
                     <button class="button is-dark"  @click="startSettingParty()">Set Party</button>
                     <br>
-                    <button class="button is-dark" :disabled="expeditionsTab.selectedExpedition.getActiveParty() == null" @click="embarkClick()">Embark!</button>
+                    <button class="button is-dark" :disabled="!embarkCheck()" @click="embarkClick()">Embark!</button>
                 </div>
             </div>
         </div>
