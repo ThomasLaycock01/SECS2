@@ -126,6 +126,8 @@ export class Expedition {
             this.completed = true;
             progression.updateProgression();
         }
+
+        this.activeParty.setCurrentActivity();
     }
 
     resetEncounterIndex() {
