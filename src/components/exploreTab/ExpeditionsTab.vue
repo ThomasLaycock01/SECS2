@@ -1,6 +1,8 @@
 <script setup>
 import { reactive } from 'vue';
 
+import CombatScreen from './CombatScreen.vue';
+
 import { useExpeditionsStore } from '@/stores/barracks/expeditions';
 import { usePartiesStore } from '@/stores/barracks/parties';
 
@@ -72,22 +74,7 @@ function retreatClick() {
                 <br>
                 <div v-if="expeditions.getActiveExpedition && expeditions.getActiveExpedition.getId() == expeditionsTab.selectedExpedition.getId()">
                     <!--When  active-->
-                    <!--Display party-->
-                    <p>Party:</p>
-                    <span v-for="i in expeditionsTab.selectedExpedition.getActiveParty().getSlots()">
-                        <div v-if="i.cultist">
-                            {{ i.cultist.getName() }} - {{ i.role.getName() }} - <span v-if="!i.cultist.getKnockedOut()">{{ i.cultist.getCurrentHP() }}/{{ i.cultist.getStat("HP") }}</span><span v-else>Knocked Out! {{ Math.floor(i.cultist.getKnockOutTime() / 60) }} Mins {{ i.cultist.getKnockOutTime() % 60 }} secs left</span>
-                        </div>
-                    </span>
-                    <!--Display enemies-->
-                    <div v-if="expeditionsTab.selectedExpedition.getCurrentEncounter().length > 0">
-                        Enemies:
-                        <br>
-                        <div v-for="i in expeditionsTab.selectedExpedition.getCurrentEncounter()">
-                            {{ i.getName() }} - {{ i.getCurrentHP() }}/{{ i.getStat("HP") }}
-                        </div>
-                    </div>
-                    <br>
+                    <CombatScreen :areaObject="expeditions.getActiveExpedition" type="expedition"/>
                     <button class="button is-dark" @click="retreatClick()">Retreat!</button>
                 </div>
                 <!--When inactive-->
