@@ -35,8 +35,12 @@ export const useExpeditionsStore = defineStore("expeditions", {
     actions: {
         tick() {
             if (Object.keys(this.activeExpedition).length) {
+                //auto retreat if everyone is knocked out
+                if (this.activeExpedition.getActiveParty().checkFullKnockOut()) {
+                    this.activeExpedition.endExpedition();
+                }
                 //generate next encounter if there isnt one
-                if (this.activeExpedition.getCurrentEncounter().length < 1) {
+                else if (this.activeExpedition.getCurrentEncounter().length < 1) {
                     this.activeExpedition.generateNextEncounter();
                 }
                 else {
