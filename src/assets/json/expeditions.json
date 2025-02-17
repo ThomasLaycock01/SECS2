@@ -3,6 +3,7 @@
         "id": "abandonedFarmhouse",
         "name": "Abandonded Farmhouse",
         "desc": "An old abandonded farmhouse. It would probably be pretty easy to fix up, once you've removed all the enemies in it.",
+        "activityName": "exploring an old farmhouse",
         "encounters": [
             [1001, 1001, 1001],
             [1001, 1003, 1001],

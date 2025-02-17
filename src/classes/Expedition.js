@@ -8,6 +8,8 @@ export class Expedition {
         this.name = obj.name;
         this.desc = obj.desc;
 
+        this.activityName = obj.activityName;
+
         this.encounters = obj.encounters;
         this.unlocked = true;
 
@@ -56,6 +58,10 @@ export class Expedition {
         return this.completed;
     }
 
+    getActivityName() {
+        return this.activityName;
+    }
+
     //actions
     unlock() {
         this.unlocked = true;
@@ -99,13 +105,22 @@ export class Expedition {
         }
     }
 
+    beginExpedition() {
+        const expeditions = useExpeditionsStore();
+
+
+        this.activeParty.setCurrentActivity(this.activityName);
+
+        this.resetEncounterIndex();
+
+        expeditions.setActiveExpedition(this.getId());
+    }
+
     endExpedition(completed = false) {
         const expeditions = useExpeditionsStore();
         const progression = useProgressionStore();
 
         expeditions.unsetActiveExpedition();
-
-        this.resetEncounterIndex();
 
         if (completed) {
             this.completed = true;

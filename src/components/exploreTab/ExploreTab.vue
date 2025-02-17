@@ -40,18 +40,6 @@ function setSelectedParty(party) {
 function toggleActive() {
     exploreTab.selectedArea.toggleActive();
 }
-
-function toggleActiveCheck() {
-    if (!exploreTab.selectedArea.getActiveParty()) {
-        return false;
-    }
-    else {
-        if (!exploreTab.selectedArea.getActiveParty().getCurrentActivity()|| exploreTab.selectedArea.getActiveParty().getCurrentActivity() == exploreTab.selectedArea.getActivityName()) {
-            return true;
-        }
-    }
-    return false;
-}
 </script>
 
 

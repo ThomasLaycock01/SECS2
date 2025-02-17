@@ -38,7 +38,7 @@ function setSelectedParty(party) {
 }
 
 function embarkClick() {
-    expeditions.setActiveExpedition(expeditionsTab.selectedExpedition.getId())
+    expeditionsTab.selectedExpedition.beginExpedition();
 }
 
 function retreatClick() {
