@@ -40,6 +40,18 @@ function setSelectedParty(party) {
 function toggleActive() {
     exploreTab.selectedArea.toggleActive();
 }
+
+function embarkCheck() {
+    //if theres no party
+    if (!exploreTab.selectedArea.getActiveParty()) {
+        return false;
+    }
+    //if there is a party, but its busy
+    if (exploreTab.selectedArea.getActiveParty().getCurrentActivity()) {
+        return false;
+    }
+   return true;
+}
 </script>
 
 
@@ -87,7 +99,7 @@ function toggleActive() {
                 </div>
                 <br>
                 <br>
-                <button class="button is-dark" @click="toggleActive()" :disabled="!exploreTab.selectedArea.getActiveParty()">Embark!</button>
+                <button class="button is-dark" @click="toggleActive()" :disabled="!embarkCheck()">Embark!</button>
             </div>
         </div>
         
