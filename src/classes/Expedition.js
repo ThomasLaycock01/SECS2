@@ -40,6 +40,10 @@ export class Expedition {
         return this.encounters.length;
     }
 
+    getCurrentEncounterNum() {
+        return this.encounterIndex + 1;
+    }
+
     getActiveParty() {
         return this.activeParty;
     }
