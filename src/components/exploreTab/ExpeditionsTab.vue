@@ -99,8 +99,8 @@ function retreatClick() {
                     <button class="button is-dark"  @click="startSettingParty()">Set Party</button>
                     <br>
                     <button class="button is-dark" :disabled="!embarkCheck()" @click="embarkClick()" @mouseenter="tooltips.setActiveTooltip('embarkWarning')" @mouseleave="tooltips.removeActiveTooltip()">Embark!</button>
-                    <span v-if="tooltips.getActiveTooltip == 'embarkWarning'">
-                        <Tooltip class="tooltip" :tooltipType="'warning'"/>
+                    <span v-if="tooltips.getActiveTooltip == 'embarkWarning' && tooltips.checkEmbarkWarning(expeditionsTab.selectedExpedition)">
+                        <Tooltip class="tooltip" :tooltipType="'warning'" :warningObj="tooltips.checkEmbarkWarning(expeditionsTab.selectedExpedition)"/>
                     </span>
                 </div>
             </div>

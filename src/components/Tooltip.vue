@@ -5,8 +5,8 @@ const resources = useResourcesStore();
 
 const props = defineProps({
     tooltipType: String,
-    name: String,
-    desc: String,
+    tooltipObj: Object,
+    warningObj: Array,
     effectDesc: {
         type: String,
         default: null
@@ -27,15 +27,23 @@ const props = defineProps({
 </script>
 
 <template>
-    <!--templates broken up by type
+
     <div>
-        <!--Name and desc are always shown
-        <b class="mb-2">
-            {{props.name}}
-        </b>
-        <p class="mb-2">
-            {{props.desc}}
-        </p>
+        <!--Non-warning-->
+        <div v-if="props.tooltipType != 'warning'">
+            <b class="mb-2">
+                {{props.tooltipObj.name}}
+            </b>
+            <p class="mb-2">
+                {{props.tooltipObj.desc}}
+            </p>
+        </div>
+        <!--Warning-->
+        <div v-else>
+            <div v-for="i in props.warningObj">
+                {{ i }}
+            </div>
+        </div>
         <!--Buildings
         <span v-if="props.tooltipType==`building`">
             <p class="mb-2">
@@ -62,19 +70,13 @@ const props = defineProps({
                 </ul>
             </div>
         </span>
-        <!--Recruitment-
+        <!--Recruitment
         <span v-if="props.tooltipType=='recruitment'">
             <div class="mb-2">
                 <ul v-for="value, key in props.costs()">
                     <li>{{ resources.getName(key) }} : {{ value }}</li>
                 </ul>
             </div>
-        </span>
-    </div>-->
-
-    <div>
-
-        <p>{{ props.tooltipType }}</p>
-
+        </span>-->
     </div>
 </template>

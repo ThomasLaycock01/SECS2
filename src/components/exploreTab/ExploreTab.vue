@@ -103,8 +103,8 @@ function embarkCheck() {
                 <br>
                 <br>
                 <button class="button is-dark" @click="toggleActive()" :disabled="!embarkCheck()" @mouseenter="tooltips.setActiveTooltip('embarkWarning')" @mouseleave="tooltips.removeActiveTooltip()">Embark!</button>
-                <span v-if="tooltips.getActiveTooltip == 'embarkWarning'">
-                    <Tooltip class="tooltip" :tooltipType="'warning'"/>
+                <span v-if="tooltips.getActiveTooltip == 'embarkWarning' && tooltips.checkEmbarkWarning(exploreTab.selectedArea)">
+                    <Tooltip class="tooltip" :tooltipType="'warning'" :warningObj="tooltips.checkEmbarkWarning(exploreTab.selectedArea)"/>
                 </span>
             </div>
         </div>
