@@ -186,8 +186,10 @@ export class Cultist {
             }
         }
 
-        //levels
-        modVal += (this.level - 1) * 0.01;
+        //levels - not added for XP gain
+        if (!typeArray.includes("xpGain")) {
+            modVal += (this.level - 1) * 0.01;
+        }
 
         //global
         modVal += getGlobalModifiers(typeArray);
@@ -241,18 +243,13 @@ export class Cultist {
         this.party = null;
     }
 
-    addXp(amount, bypassNoXp = false) {
+    addXp(amount) {
         const modifier = 1 + this.getModifiers("xpGain");
         if (this.level == this.levelLimit) {
             this.currentXp = 0;
         }
         else {
-            for (var i in this.getRacialModifiers()) {
-                if (this.getRacialModifiers()[i].type == "noXp" && bypassNoXp == false) {
-                    return;
-                }
-            }
-            this.currentXp += amount * modifier;
+            this.currentXp += Math.floor(amount * modifier);
             this.checkLevelUp();
         }
     }
