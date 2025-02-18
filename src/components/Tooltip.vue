@@ -27,16 +27,16 @@ const props = defineProps({
 </script>
 
 <template>
-    <!--templates broken up by type-->
+    <!--templates broken up by type
     <div>
-        <!--Name and desc are always shown-->
+        <!--Name and desc are always shown
         <b class="mb-2">
             {{props.name}}
         </b>
         <p class="mb-2">
             {{props.desc}}
         </p>
-        <!--Buildings-->
+        <!--Buildings
         <span v-if="props.tooltipType==`building`">
             <p class="mb-2">
              {{props.effectDesc}} 
@@ -50,7 +50,7 @@ const props = defineProps({
                 Owned -  {{props.owned()}}  /  {{props.limit()}} 
             </p>
         </span>
-        <!--Expansions-->
+        <!--Expansions
         <span v-if="props.tooltipType=='expansion'">
             <div class=has-text-warning>
                 This is mutual exclusive with expansions of the same tier!
@@ -62,7 +62,7 @@ const props = defineProps({
                 </ul>
             </div>
         </span>
-        <!--Recruitment-->
+        <!--Recruitment-
         <span v-if="props.tooltipType=='recruitment'">
             <div class="mb-2">
                 <ul v-for="value, key in props.costs()">
@@ -70,5 +70,11 @@ const props = defineProps({
                 </ul>
             </div>
         </span>
+    </div>-->
+
+    <div>
+
+        <p>{{ props.tooltipType }}</p>
+
     </div>
 </template>

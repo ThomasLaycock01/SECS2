@@ -3,11 +3,14 @@ import { reactive } from 'vue';
 
 import { useExploreStore } from '@/stores/barracks/explore';
 import { usePartiesStore } from '@/stores/barracks/parties';
+import { useTooltipsStore } from '@/stores/misc/tooltips';
 
 import CombatScreen from './CombatScreen.vue';
+import Tooltip from '../Tooltip.vue';
 
 const explore = useExploreStore();
 const parties = usePartiesStore();
+const tooltips = useTooltipsStore();
 
 var exploreTab = reactive({selectedArea: null, settingParty: false});
 
@@ -99,7 +102,10 @@ function embarkCheck() {
                 </div>
                 <br>
                 <br>
-                <button class="button is-dark" @click="toggleActive()" :disabled="!embarkCheck()">Embark!</button>
+                <button class="button is-dark" @click="toggleActive()" :disabled="!embarkCheck()" @mouseenter="tooltips.setActiveTooltip('embarkWarning')" @mouseleave="tooltips.removeActiveTooltip()">Embark!</button>
+                <span v-if="tooltips.getActiveTooltip == 'embarkWarning'">
+                    <Tooltip class="tooltip" :tooltipType="'warning'"/>
+                </span>
             </div>
         </div>
         

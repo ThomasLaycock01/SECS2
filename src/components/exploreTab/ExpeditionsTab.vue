@@ -2,12 +2,15 @@
 import { reactive } from 'vue';
 
 import CombatScreen from './CombatScreen.vue';
+import Tooltip from '../Tooltip.vue';
 
 import { useExpeditionsStore } from '@/stores/barracks/expeditions';
 import { usePartiesStore } from '@/stores/barracks/parties';
+import { useTooltipsStore } from '@/stores/misc/tooltips';
 
 const expeditions = useExpeditionsStore();
 const parties = usePartiesStore();
+const tooltips = useTooltipsStore();
 
 var expeditionsTab = reactive({selectedExpedition: null, settingParty: false});
 
@@ -95,7 +98,10 @@ function retreatClick() {
                     <div>{{ expeditionsTab.selectedExpedition.getActiveParty() ? expeditionsTab.selectedExpedition.getActiveParty().getName() : "No party assigned!" }}</div>
                     <button class="button is-dark"  @click="startSettingParty()">Set Party</button>
                     <br>
-                    <button class="button is-dark" :disabled="!embarkCheck()" @click="embarkClick()">Embark!</button>
+                    <button class="button is-dark" :disabled="!embarkCheck()" @click="embarkClick()" @mouseenter="tooltips.setActiveTooltip('embarkWarning')" @mouseleave="tooltips.removeActiveTooltip()">Embark!</button>
+                    <span v-if="tooltips.getActiveTooltip == 'embarkWarning'">
+                        <Tooltip class="tooltip" :tooltipType="'warning'"/>
+                    </span>
                 </div>
             </div>
         </div>
