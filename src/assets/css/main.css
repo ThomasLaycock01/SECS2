@@ -75,6 +75,10 @@ html {
     border-radius: 6px;
 }
 
+.redCost {
+    color: red;
+}
+
 .flavour {
     font-size: x-small;
     color: firebrick;

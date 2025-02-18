@@ -37,6 +37,19 @@ const props = defineProps({
             <p class="mb-2">
                 {{props.tooltipObj.desc}}
             </p>
+            <div v-if="props.tooltipObj.effectDesc" class="mb-2">
+                {{ props.tooltipObj.effectDesc }}
+            </div>
+            <div v-if="props.tooltipObj.costs" class="mb-2">
+                <ul>
+                    <li v-for="value, key in props.tooltipObj.costs()" :class="resources.checkIfCanAfford({[key]: value}) ? '' : 'redCost'">
+                        {{ resources.getName(key) }}: {{ value }}
+                    </li>
+                </ul>
+            </div>
+            <div v-if="props.tooltipObj.owned">
+                Owned -  {{props.owned()}}  /  {{props.limit()}}
+            </div>
         </div>
         <!--Warning-->
         <div v-else>
