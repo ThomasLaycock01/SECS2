@@ -132,5 +132,6 @@ export class Expedition {
 
     resetEncounterIndex() {
         this.encounterIndex = 0;
+        this.currentEncounter = [];
     }
 }
