@@ -1,20 +1,16 @@
 import {defineStore} from "pinia";
 
-import { useMinesStore } from "../mines/mines";
 import { useProgressionStore } from "../misc/progression";
 
-import { instantiateResource, posToNeg } from "@/functions";
-
-import resources from "@/assets/json/resources.json";
+import { posToNeg } from "@/functions";
 
 export const useResourcesStore = defineStore("resources", {
     state: () => {
         return {
             resources: {
-            },
-            childPinias: [
-                {id:"mines", resources: [], piniaObject() {const mines = useMinesStore(); return mines}},
-            ]
+                evilness: {id: "evilness", name: "Evilness", total: 0, perSec: 0},
+                gold: {id: "gold", name: "Gold", total: 0, perSec: 0}
+            }
         }
     },
     getters: {
@@ -28,111 +24,18 @@ export const useResourcesStore = defineStore("resources", {
         //generally, dont use this one for getting evilness
         getResourceTotal(state) {
             return (resource) => {
-                switch (resource) {
-                    case "evilness":
-                    case "gold":
-                        return state.resources[resource].total;
-                    default:
-                        for (var i in state.childPinias) {
-                            if (state.childPinias[i].resources.includes(resource)) {
-                                return state.childPinias[i].piniaObject().getResourceTotal(resource);
-                            }
-                        }
-                }
+                return state.resources[resource].total;
             };
         },
         getResourcePerSec(state) {
             return (resource) => {
-                switch (resource) {
-                    case "evilness":
-                    case "gold":
-                        return state.resources[resource].perSec;
-                    default:
-                        for (var i in state.childPinias) {
-                            if (state.childPinias[i].resources.includes(resource)) {
-                                return state.childPinias[i].piniaObject().getResourcePerSec(resource);
-                            }
-                        }
-                }
+                return state.resources[resource].perSec;
             };
         },
         getName(state) {
             return (resource) => {
-                switch (resource) {
-                    case "evilness":
-                    case "gold":
                         return state.resources[resource].name;
-                    default:
-                        for (var i in state.childPinias) {
-                            if (state.childPinias[i].resources.includes(resource)) {
-                                return state.childPinias[i].piniaObject().getResourceName(resource);
-                            }
-                        }
-                }
-            }
-        },
-        getProperties(state) {
-            return (resource) => {
-                switch (resource) {
-                    case "evilness":
-                    case "gold":
-                        return state.resources[resource].properties;
-                    default:
-                        for (var i in state.childPinias) {
-                            if (state.childPinias[i].resources.includes(resource)) {
-                                return state.childPinias[i].piniaObject().getResourceProperties(resource);
-                            }
-                        }
-                }
-            }
-        },
-        getResourcesByProperty() {
-            return (property) => {
-                const returnArray = [];
-                for (var i in this.getAll) {
-                    if (this.getAll[i].properties[property]) {
-                        returnArray.push(this.getAll[i]);
-                    }
-                }
-                return returnArray;
-            }
-        },
-        getUnlockedResourcesByProeprty(state) {
-            return (property) => {
-                const returnArray = [];
-                for (var i in this.getAll) {
-                    if (this.getAll[i].properties[property] && !this.checkIfLocked(this.getAll[i].id)) {
-                        returnArray.push(this.getAll[i]);
-                    }
-                }
-                return returnArray;
-            }
-        },
-        //pinias
-        getAll(state) {
-            var returnObj = {};
-
-            for (var i in state.resources) {
-                returnObj[i] = state.resources[i];
-            }
-
-            for (var i in state.childPinias) {
-                for (var j in state.childPinias[i].piniaObject().getAll) {
-                    returnObj[j] = state.childPinias[i].piniaObject().getAll[j];
-                }
-            }
-
-            return returnObj;
-        },
-        getChildPiniaById(state) {
-            return (piniaId) => {
-                for (var i in state.childPinias) {
-                    if (state.childPinias[i].id == piniaId) {
-                        return state.childPinias[i].piniaObject(); 
-                    }
-                }
-                
-            }
+            };
         },
         //locked/unlocked
         checkIfLocked(state) {
@@ -143,16 +46,6 @@ export const useResourcesStore = defineStore("resources", {
                         return piniaObj.checkIfLocked(resourceId);
                     }
                 }
-            }
-        },
-        //properties
-        checkIfResourceHasProperty(state) {
-            return (resourceId, propertyId) => {
-                const properties = this.getProperties(resourceId);
-                if (properties[propertyId] == true) {
-                    return true;
-                }
-                return false;
             }
         }
     },
@@ -171,25 +64,10 @@ export const useResourcesStore = defineStore("resources", {
             for (var i in this.resources) {
                 this.modifyResource(i, this.resources[i].perSec)
             }
-            for (var i in this.childPinias) {
-                const pinia = this.childPinias[i].piniaObject();
-                pinia.updateResources();
-            }
         },
         removeResources(obj) {
             for (var i in obj) {
-                switch (i) {
-                    case "evilness":
-                    case "gold":
-                        this.modifyResource(i, posToNeg(obj[i]));
-                        break;
-                    default:
-                        for (var j in this.childPinias) {
-                            if (this.childPinias[j].resources.includes(i)) {
-                                this.childPinias[j].piniaObject().modifyResource(i, posToNeg(obj[i]));
-                            }
-                        }
-                }
+                this.modifyResource(i, posToNeg(obj[i]));
             }
         },
         checkIfCanAfford(costsObj) {
@@ -201,38 +79,6 @@ export const useResourcesStore = defineStore("resources", {
             }
 
             return canAfford;
-        },
-        //locked/unlocked
-        unlockResource(resourceId) {
-            for (var i in this.childPinias) {
-                if (this.childPinias[i].resources.includes(resourceId)) {
-                    const pinia = this.childPinias[i].piniaObject();
-                    pinia.unlockResource(resourceId);
-                }
-            }
-        },
-        //onLoad
-        instantiateResources() {
-            for (var i in resources) {
-                for (var j in resources[i]) {
-                    if (i == "global") {
-                        this.resources[j] = instantiateResource(resources[i][j]);
-                    }
-                    else {
-                        const pinia = this.getChildPiniaById(i);
-                        pinia.instantiateResource(instantiateResource(resources[i][j]));
-                        this.addToChildPiniaArray(i, resources[i][j].id);
-                    }
-                }
-            }
-        },
-        //helper function for adding to childPinia arrays
-        addToChildPiniaArray(piniaId, resourceId) {
-            for (var i in this.childPinias) {
-                if (this.childPinias[i].id == piniaId) {
-                    this.childPinias[i].resources.push(resourceId);
-                }
-            }
         }
     }
 })

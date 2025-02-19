@@ -51,7 +51,7 @@ const progression = useProgressionStore();
 </template>
 
 <script>
-import { tick, instantiateResources, instantiateItems, instantiateBuildings } from "./functions";
+import { tick, instantiateItems, instantiateBuildings } from "./functions";
 
 import { useCultistsStore } from "./stores/globalPinias/cultists";
 import { useExpeditionsStore } from "./stores/barracks/expeditions";
@@ -72,8 +72,6 @@ export default {
     const enemies = useEnemiesStore();
     const textLog = useTextLogStore();
 
-
-    instantiateResources();
     cultists.instantiateRaces();
     instantiateItems();
     instantiateBuildings();

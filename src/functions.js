@@ -254,26 +254,6 @@ export function instantiateBuildings() {
     mines.instantiateBuildings();
 }
 
-//function for creating a resource object on page load
-export function instantiateResource(resourceObj) {
-
-    const returnObj = {
-        id: resourceObj.id,
-        name: resourceObj.name,
-        total: 0,
-        perSec: 0,
-        properties: resourceObj.properties
-    };
-
-    return returnObj;
-}
-
-export function instantiateResources() {
-    const resources = useResourcesStore();
-
-    resources.instantiateResources();
-}
-
 
 
 

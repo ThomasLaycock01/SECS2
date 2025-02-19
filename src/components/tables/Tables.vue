@@ -21,7 +21,7 @@ const expansions = useExpansionsStore();
                 </tr>
             </thead>
             <tbody>
-                <Resource v-for="(object, resource) in resources.getAll" :object="object"/>
+                <Resource v-for="(object, resource) in resources.getGlobal" :object="object"/>
             </tbody>
         </table>
         <table class="table">
