@@ -211,3 +211,7 @@ html {
     height: 40vh;
 }
 
+.unitBox {
+    border: 1px solid black;
+}
+

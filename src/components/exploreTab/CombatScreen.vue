@@ -46,9 +46,10 @@ const props = defineProps({
             <div v-if="areaObject.getCurrentEncounter().length > 0">
                 Enemies:
                 <br>
-                <div v-for="i in areaObject.getCurrentEncounter()" class="unitBox">
+                <span v-for="i in areaObject.getCurrentEncounter()">
                     <br>
-                    <div>{{ i.getName() }} - {{ i.getCurrentHP() }}/{{ i.getStat("HP") }}</div>
+                    <div class="unitBox">
+                        <div>{{ i.getName() }} - {{ i.getCurrentHP() }}/{{ i.getStat("HP") }}</div>
                         <div>
                             <ul class="inline-flexContainer">
                                 <li>{{ i.getStat("atk") }} Atk</li>
@@ -56,7 +57,8 @@ const props = defineProps({
                                 <li>{{ i.getStat("spd") }} Spd</li>
                             </ul>
                         </div>
-                </div>
+                    </div>
+                </span>
             </div>
 
         </div>
