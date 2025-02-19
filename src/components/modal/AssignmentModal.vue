@@ -3,13 +3,11 @@ import { reactive } from 'vue';
 
 import { useModalsStore } from '@/stores/misc/modal';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
-import { useExpansionsStore } from '@/stores/globalPinias/expansions';
 
 import { addCultistToJob, removeCultistFromJob } from '@/functions';
 
 const modals = useModalsStore();
 const cultists = useCultistsStore();
-const expansions = useExpansionsStore();
 
 const pinia = modals.getAssignmentPinia;
 const job = modals.getAssignmentJob;
@@ -60,24 +58,10 @@ function cultistButtonClick(cultist) {
                             </span>
                         </span>
                     </div>
-                    <div v-if="expansions.checkIfSummonAvailable">
-                        <div class="title is-5 mb-1 segment-title">Summons</div>
-                        <div class="cultistContainer">
-                            <span v-if="pinia.getJobArray(job).includes(i.getId())">
-                                <button  class="button is-info cultistGridItem" @click="cultistButtonClick(i)">{{i.getName()}}</button>
-                            </span>
-                            <span v-else-if="i.getJob()">
-                                <button  class="button is-light cultistGridItem" @click="cultistButtonClick(i)">{{i.getName()}}</button>
-                            </span>
-                            <span v-else>
-                                <button  class="button is-dark cultistGridItem" @click="cultistButtonClick(i)">{{i.getName()}}</button>
-                            </span>
-                        </div>
-                    </div>
                     <!--Other half of the HR tab - different to usual-->
                 </div>
                 <div class="column is-half">
-                    <div v-if="assignmentModal.activeCultist">
+                    <div v-if="assignmentModal.activeCultist != null">
                         <div class="title is-5 mb-1 segment-title">{{ assignmentModal.activeCultist.getName() }}</div>
                         <b-tabs v-model="activeTab">
                             <!--Stats tab-->
@@ -88,7 +72,10 @@ function cultistButtonClick(cultist) {
                                 <div>{{ assignmentModal.activeCultist.getXp() }} / {{ assignmentModal.activeCultist.getXpNeeded() }}</div>
                                 <br>
                                 <ul>
-                                    <li v-for="key, value in assignmentModal.activeCultist.getStat()">{{ key }} {{ value }}</li>
+                                    <li>{{ assignmentModal.activeCultist.getCurrentHP() }}/{{ assignmentModal.activeCultist.getStat("HP") }} HP</li>
+                                    <li>{{ assignmentModal.activeCultist.getStat("atk") }} Atk</li>
+                                    <li>{{ assignmentModal.activeCultist.getStat("def") }} Def</li>
+                                    <li>{{ assignmentModal.activeCultist.getStat("spd") }} Spd</li>
                                 </ul>
                                 <br>
                                 <div class="title is-6">Perks</div>
@@ -118,7 +105,7 @@ function cultistButtonClick(cultist) {
         </div>
 
         <div class="modalFooter">
-            <button class="button is-dark" v-if="assignmentModal.activeCultist" @click="cultistButtonClick(assignmentModal.activeCultist)" :disabled="pinia.getJobArray(job).length == pinia.getJobLimit(job) && !pinia.getJobArray(job).includes(assignmentModal.activeCultist.getId())">{{pinia.getJobArray(job).includes(assignmentModal.activeCultist.getId()) ? "Unassign" : "Assign"}}</button>
+            <button class="button is-dark" v-if="assignmentModal.activeCultist" @click="cultistButtonClick(assignmentModal.activeCultist)" :disabled="pinia.getJobArray(job).length == pinia.getJobLimit(job) && !pinia.getJobArray(job).includes(assignmentModal.activeCultist.getId())">{{pinia.getJobArray(job).includes(assignmentModal.activeCultist) ? "Unassign" : "Assign"}}</button>
             <button class="button is-danger" @click="modals.closeAssignment()">Close</button>
         </div>
 
