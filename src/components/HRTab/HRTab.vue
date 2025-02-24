@@ -222,28 +222,6 @@ function feedWarformClick() {
                             </div>
                         </div>
                     </b-tab-item>
-                    <!--Consumables tab-->
-                    <b-tab-item label="Consumables">
-                        <!--Warform feeding screen-->
-                        <div v-if="activeCultist.cultist.getRacialGroup() == 'warform'" >
-                            <div class="title is-6 mb-1 segment-title">Warform feeding</div>
-                            <div>Click to select.</div>
-                            <div class="container" v-if="inventory.getUnequippedItems.length > 0">
-                                <span v-for="i in inventory.getUnequippedItems">
-                                    <div>
-                                        <button :class="i.getId() == warformFeeding.item ? 'button is-info' : 'button is-dark'" @click="warformItemClick(i.getId())">{{ i.shortName ? i.shortName : i.name }}</button>
-                                    </div>
-                                </span>
-                            </div>
-                            <div v-else>
-                                No available items - create more or unequip existing ones!
-                            </div>
-                            <br>
-                            <div v-if="warformFeeding.item != null">Feeding this item will add {{ inventory.getItemById(warformFeeding.item).getSellValue() / 10 }} XP</div>
-                            <br>
-                            <button class="button is-dark" @click="feedWarformClick" :disabled="warformFeeding.item == null">Feed!</button>
-                        </div>
-                    </b-tab-item>
                 </b-tabs>
             </div>
             <!--default screen - appears if nothing else-->
