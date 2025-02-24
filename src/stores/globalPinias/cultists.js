@@ -109,7 +109,8 @@ export const useCultistsStore = defineStore("cultists", {
             resources.setResourcePerSec("evilness", evilnessOutput);
             //no need to call updateResources - its called elsewhere
             //WRONG, BITCH!!!!
-            resources.updateResources();
+            //I was wrong again...
+            //resources.updateResources();
 
             //ticking down knocked out cultists
             for (var i in this.getCultists) {

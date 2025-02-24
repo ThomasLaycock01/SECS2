@@ -18,7 +18,7 @@ export const useExpansionsStore = defineStore("expansions", {
                     costs: {
                         gold: 500
                     },
-                    built: true
+                    built: true //testing only
                 }
             }
         }

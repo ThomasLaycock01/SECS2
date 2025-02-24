@@ -22,12 +22,15 @@ export function tick() {
     const explore = useExploreStore();
     const expeditions = useExpeditionsStore();
     const parties = usePartiesStore();
+    const resources = useResourcesStore();
 
     expansions.expansionTicks();
     cultists.tick();
     explore.tick();
     expeditions.tick();
     parties.tick();
+
+    resources.updateResources();
 }
 
 

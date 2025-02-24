@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { useResourcesStore } from "../globalPinias/resources";
 
 
 export const useFarmStore = defineStore("farm", {
@@ -61,7 +62,7 @@ export const useFarmStore = defineStore("farm", {
     },
     actions: {
         tick() {
-            
+            const resources = useResourcesStore();
 
             //output
             var grainOutput = 0;
@@ -71,6 +72,8 @@ export const useFarmStore = defineStore("farm", {
 
                 grainOutput += 1 * cultist.getModifiers(modifierTypeArray);
             }
+
+            resources.setResourcePerSec("grain", grainOutput);
 
             //addingXp
             for (var i in this.jobs.farmer.cultistArray) {
