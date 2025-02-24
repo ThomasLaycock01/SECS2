@@ -11,7 +11,10 @@ export const useResourcesStore = defineStore("resources", {
                 evilness: {id: "evilness", name: "Evilness", total: 0, perSec: 0},
                 gold: {id: "gold", name: "Gold", total: 0, perSec: 0},
                 grain: {id: "grain", name: "Grain", total: 0, perSec: 0}
-            }
+            },
+            locked: [
+                "grain"
+            ]
         }
     },
     getters: {
@@ -35,18 +38,13 @@ export const useResourcesStore = defineStore("resources", {
         },
         getName(state) {
             return (resource) => {
-                        return state.resources[resource].name;
+                return state.resources[resource].name;
             };
         },
         //locked/unlocked
         checkIfLocked(state) {
             return (resourceId) => {
-                for (var i in state.childPinias) {
-                    if (state.childPinias[i].resources.includes(resourceId)) {
-                        const piniaObj = state.childPinias[i].piniaObject();
-                        return piniaObj.checkIfLocked(resourceId);
-                    }
-                }
+                return state.locked.includes(resourceId);
             }
         }
     },
@@ -80,6 +78,10 @@ export const useResourcesStore = defineStore("resources", {
             }
 
             return canAfford;
+        },
+        //locking
+        unlockResource(resourceId) {
+            this.locked = this.locked.filter(id => id != resourceId);
         }
     }
 })
