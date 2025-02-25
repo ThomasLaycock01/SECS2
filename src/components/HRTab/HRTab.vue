@@ -141,8 +141,8 @@ function assignPerk(e) {
                             <div class="container">
                                 <div v-for="i in perks.default">
                                     <span v-if="perkCheck(i, activeCultist.cultist)">
-                                        <button class="button is-info" @click="assignPerk" @mouseenter="mouseEnterPerk" @mouseleave="mouseLeavePerk" :value="i.perkId">{{ i.name }}</button>
-                                        <div v-if="i.perkId == selectedPerk.perk">
+                                        <button class="button is-info" @click="assignPerk" @mouseenter="mouseEnterPerk" @mouseleave="mouseLeavePerk" :value="i.id">{{ i.name }}</button>
+                                        <div v-if="i.id == selectedPerk.perk">
                                             <PerkTooltip class="perkTooltip" :perk="i"/>
                                         </div>
                                     </span>
@@ -154,8 +154,8 @@ function assignPerk(e) {
                         <div>Unlocked</div>
                         <div class="container">
                             <span v-for="i in activeCultist.cultist.getPerks()">
-                                <button  class="button is-outlined" @mouseenter="mouseEnterPerk" @mouseleave="mouseLeavePerk" :value="i.perkId">{{i.name}}</button>
-                                <div v-if="i.perkId == selectedPerk.perk">
+                                <button  class="button is-outlined" @mouseenter="mouseEnterPerk" @mouseleave="mouseLeavePerk" :value="i.id">{{i.name}}</button>
+                                <div v-if="i.id == selectedPerk.perk">
                                     <PerkTooltip class="perkTooltip" :perk="i" :unlocked="true"/>
                                 </div>
                             </span>

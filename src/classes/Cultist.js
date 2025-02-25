@@ -99,7 +99,7 @@ export class Cultist {
 
     checkIfHasPerk(perkId) {
         for (var i in this.getPerks()) {
-            if (this.getPerks()[i].perkId == perkId) {
+            if (this.getPerks()[i].id == perkId) {
                 return true;
             }
         }

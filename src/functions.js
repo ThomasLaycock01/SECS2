@@ -156,6 +156,12 @@ export function perkCheck(perkObj, cultist) {
         return false;
     }
 
+    for (var i in perkObj.perkReqs) {
+        if (!cultist.checkIfHasPerk(perkObj.perkReqs[i])) {
+            return false;
+        }
+    }
+
     return true;
 }
 
