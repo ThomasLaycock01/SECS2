@@ -140,6 +140,27 @@ export function buttonCheck(actionObject) {
 }
 
 
+//checking if a perk is available
+export function perkCheck(perkObj, cultist) {
+    const expansions = useExpansionsStore();
+
+    if (perkObj.level > cultist.getLevel()) {
+        return false;
+    }
+
+    if (perkObj.expansionReq && !expansions.checkIfBuilt(perkObj.expansionReq)) {
+        return false;
+    }
+
+    if (cultist.checkIfHasPerk(perkObj.id)) {
+        return false;
+    }
+
+    return true;
+}
+
+
+
 //fetching modifiers that affect all cultists
 export function getGlobalModifiers(typeArray) {
     var modVal = 0;

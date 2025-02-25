@@ -9,6 +9,8 @@ import { useCultistsStore } from "@/stores/globalPinias/cultists";
 import { useInventoryStore } from '@/stores/globalPinias/inventory';
 import { useExpansionsStore } from '@/stores/globalPinias/expansions';
 
+import { perkCheck } from '@/functions';
+
 import perks from "@/assets/json/perks.json";
 
 const cultists = useCultistsStore();
@@ -138,7 +140,7 @@ function assignPerk(e) {
                             <div>Perk points available: {{ activeCultist.cultist.getPerkPoints() }}</div>
                             <div class="container">
                                 <div v-for="i in perks.default">
-                                    <span v-if="activeCultist.cultist.getLevel() >= i.level && !activeCultist.cultist.checkIfHasPerk(i.perkId)">
+                                    <span v-if="perkCheck(i, activeCultist.cultist)">
                                         <button class="button is-info" @click="assignPerk" @mouseenter="mouseEnterPerk" @mouseleave="mouseLeavePerk" :value="i.perkId">{{ i.name }}</button>
                                         <div v-if="i.perkId == selectedPerk.perk">
                                             <PerkTooltip class="perkTooltip" :perk="i"/>
