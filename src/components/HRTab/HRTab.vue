@@ -76,37 +76,6 @@ function assignPerk(e) {
     activeCultist.cultist.addPerk(perks.default[e.target.value]);
     selectedPerk.perk = null;
 }
-
-
-//for warform feeding
-function warformItemClick(id) {
-    if (warformFeeding.item) {
-        inventory.getItemById(warformFeeding.item).toggleSellAvailable();
-    }
-
-    if (warformFeeding.item == id) {
-        warformFeeding.item = null;
-    }
-    else {
-        warformFeeding.item = id;
-        inventory.getItemById(warformFeeding.item).toggleSellAvailable();
-    }
-}
-
-function feedWarformClick() {
-    if (activeCultist.cultist.getRacialGroup() != "warform") {
-        console.log("error - somehow fed non-warform");
-        return;
-    }
-
-    const item = inventory.getItemById(warformFeeding.item);
-
-    activeCultist.cultist.feedItem(item);
-
-    inventory.removeItem(warformFeeding.item);
-
-    warformFeeding.item = null;
-}
 </script>
 
 
