@@ -183,8 +183,7 @@ export const useLairStore = defineStore("lair", {
                             showCondition() {
                                 const progression = useProgressionStore();
                                 const expansions = useExpansionsStore();
-                                //return progression.checkUnlocked("completedExpedition") && !expansions.checkIfBuilt("farm");
-                                return true; //only for testing
+                                return progression.checkUnlocked("completedExpedition") && !expansions.checkIfBuilt("farm");
                             },
                             effect() {
                                 const expansions = useExpansionsStore();

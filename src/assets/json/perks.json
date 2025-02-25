@@ -1,7 +1,7 @@
 {
     "default": {
         "1000": {"id": "1000", "name": "Agriculturalist", "modifiers": [{"type": "farmer", "modifier": 0.05}], "level": 1, "expansionReq": "farm", "desc": "This Cultist loves farming.", "effectDesc": "+ 5% output when working on the farm."},
-        "1001": {"id": "1001", "name": "Strong", "modifiers": [{"type": "atk", "modifier": 0.2}], "level": 1, "perkReqs": ["1002"], "desc": "This Cultist is JACKED!", "effectDesc": "+20% Atk"},
+        "1001": {"id": "1001", "name": "Strong", "modifiers": [{"type": "atk", "modifier": 0.2}], "level": 1, "desc": "This Cultist is JACKED!", "effectDesc": "+20% Atk"},
         "1002": {"id": "1002", "name": "Tough", "modifiers": [{"type": "HP", "modifier": 0.2}], "level": 1, "desc": "This Cultist is TOUGH!", "effectDesc": "+20% HP"},
         "1003": {"id": "1003", "name": "Fast", "modifiers": [{"type": "spd", "base": 1}], "level": 1, "desc": "This Cultist is FAST!", "effectDesc": "+1 base Spd"}
     }
