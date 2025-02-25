@@ -19,7 +19,6 @@ const expansions = useExpansionsStore();
 var activeCultist = reactive({cultist: null});
 var equipmentScreen = reactive({check: false, type: null, selectedItem: null});
 var selectedPerk = reactive({perk: null});
-var warformFeeding = reactive({item: null})
 
 //for the cultist half of the screen
 function setNewActiveCultist(cultist) {
