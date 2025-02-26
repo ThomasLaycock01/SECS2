@@ -5,12 +5,17 @@ import { useCultistsStore } from "./cultists";
 
 import { Item } from "@/classes/Item";
 
+import items from "@/assets/json/items.json";
+
 export const useInventoryStore = defineStore("inventory", {
     state: () => {
         return {
             inventory: [
 
             ],
+            items: {
+
+            },
             misc: {
                 inventorySize: 10,
                 selectedItem: null
@@ -65,12 +70,13 @@ export const useInventoryStore = defineStore("inventory", {
 
             return returnId;
         },
-        addItem(itemObj) {
+        addItem(itemId) {
             if (!this.checkFreeSpace) {
                 return;
             }
             const id = this.generateItemId();
-            const newItem = new Item(id, itemObj);
+            const template = this.items[itemId];
+            const newItem = new Item(id, template);
             this.inventory.push(newItem);
         },
         removeItem(id) {
@@ -95,6 +101,9 @@ export const useInventoryStore = defineStore("inventory", {
         },
         removeSelectedItem() {
             this.misc.selectedItem = null;
+        },
+        instantiateItems() {
+            this.items = items;
         }
     }
 })

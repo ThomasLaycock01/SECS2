@@ -13,6 +13,7 @@ export class Enemy {
 
         this.xpDrop = obj.xpDrop;
         this.loot = obj.loot;
+        this.items = obj.items;
 
         this.area = area;
 
@@ -72,11 +73,13 @@ export class Enemy {
         const enemies = useEnemiesStore();
 
         if (this.currentHP <= 0) {
+            console.log("firing multiple?")
             this.area.removeEnemy(this.id);
 
             //adding XP and giving loot
             this.area.addXp(this.xpDrop);
             enemies.giveLoot(this.loot);
+            enemies.procItemDrop(this.items);
         }
     }
 }

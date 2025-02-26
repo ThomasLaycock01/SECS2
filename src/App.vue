@@ -37,9 +37,9 @@ const progression = useProgressionStore();
         <b-tab-item label="Explore" v-if="progression.checkUnlocked('firstCultist')">
           <MainExploreTab/>
         </b-tab-item>
-        <!--<b-tab-item label="Inventory">
+        <b-tab-item label="Inventory">
           <InventoryTab/>
-        </b-tab-item>-->
+        </b-tab-item>
       </b-tabs>
     </section>
 
@@ -59,6 +59,7 @@ import { useExploreStore } from "./stores/barracks/explore";
 import { usePartiesStore } from "./stores/barracks/parties";
 import { useEnemiesStore } from "./stores/barracks/enemies";
 import { useTextLogStore } from "./stores/misc/textLog";
+import { useInventoryStore } from "./stores/globalPinias/inventory";
 
 export default {
   data() {
@@ -71,6 +72,7 @@ export default {
     const parties = usePartiesStore();
     const enemies = useEnemiesStore();
     const textLog = useTextLogStore();
+    const inventory = useInventoryStore();
 
     cultists.instantiateRaces();
     instantiateItems();
@@ -80,6 +82,7 @@ export default {
     expeditions.instantiateExpeditions();
     enemies.instantiateEnemies();
     textLog.instantiateMessages();
+    inventory.instantiateItems();
   },
   mounted() {
     setInterval(tick, 1000);

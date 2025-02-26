@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 
 import { useResourcesStore } from "../globalPinias/resources";
+import { useInventoryStore } from "../globalPinias/inventory";
 
 import { Enemy } from "@/classes/Enemy";
 
@@ -31,6 +32,17 @@ export const useEnemiesStore = defineStore("enemies", {
             for (var i in lootObj) {
                 if (!resources.checkIfLocked(i)) {
                     resources.modifyResource(i, lootObj[i]);
+                }
+            }
+        },
+        procItemDrop(itemsObj) {
+            const inventory = useInventoryStore();
+
+            for (var i in itemsObj) {
+                const randInt = Math.random() * 100;
+
+                if (randInt < itemsObj[i].chance) {
+                    inventory.addItem(itemsObj[i].id);
                 }
             }
         }

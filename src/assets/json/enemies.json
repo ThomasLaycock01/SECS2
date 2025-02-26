@@ -1,5 +1,5 @@
 {
-    "1000": {"id": 1000, "name": "Evil Cultist", "stats": {"atk": 1, "spd": 1, "def": 0, "HP": 10}, "dmgGiven": {"phys": 1, "mag": 0}, "dmgTaken": {"phys": 1, "mag": 1}, "xpDrop": 10, "loot": {"gold": 10}},
+    "1000": {"id": 1000, "name": "Evil Cultist", "stats": {"atk": 1, "spd": 1, "def": 0, "HP": 10}, "dmgGiven": {"phys": 1, "mag": 0}, "dmgTaken": {"phys": 1, "mag": 1}, "xpDrop": 10, "loot": {"gold": 10}, "items": [{"id": 2000, "chance": 100}]},
     "1001": {"id": 1001, "name": "Bandit Grunt", "stats": {"atk": 2, "spd": 2, "def": 1, "HP": 15}, "dmgGiven": {"phys": 1, "mag": 0}, "dmgTaken": {"phys": 1, "mag": 1}, "xpDrop": 12, "loot": {"gold": 15}},
     "1002": {"id": 1002, "name": "Scarecrow", "stats": {"atk": 2, "spd": 2, "def": 2, "HP": 20}, "dmgGiven": {"phys": 0.2, "mag": 0.8}, "dmgTaken": {"phys": 1, "mag": 1}, "xpDrop": 14, "loot": {"gold": 5, "grain": 10}},
     "1003": {"id": 1003, "name": "Bandit Sourcerer", "stats": {"atk": 4, "spd": 1, "def": 1, "HP": 13}, "dmgGiven": {"phys": 0, "mag": 1}, "dmgTaken": {"phys": 1.1, "mag": 0.5}, "xpDrop": 15, "loot": {"gold": 15}},
