@@ -11,11 +11,6 @@ export const useEnemiesStore = defineStore("enemies", {
     state: () => {
         return {
             enemies: {
-            },
-            lootTables: {
-                0: [
-                    {type: "resource", resource: "gold", base: 10}
-                ]
             }
         }
     },
@@ -33,19 +28,10 @@ export const useEnemiesStore = defineStore("enemies", {
         giveLoot(lootObj) {
             const resources = useResourcesStore();
 
-            const table = lootObj.table;
-            const modifier = lootObj.modifier;
-
-            const randIndex = Math.floor(Math.random() * this.lootTables[table].length);
-
-            const chosenLoot = this.lootTables[table][randIndex];
-
-            switch (chosenLoot.type) {
-                case "resource":
-                    resources.modifyResource(chosenLoot.resource, chosenLoot.base * modifier);
-                    break;
-                default:
-                    console.log("error in giveLoot()");
+            for (var i in lootObj) {
+                if (!resources.checkIfLocked(i)) {
+                    resources.modifyResource(i, lootObj[i]);
+                }
             }
         }
     }
