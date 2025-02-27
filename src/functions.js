@@ -9,8 +9,8 @@ import { useExpansionsStore } from "./stores/globalPinias/expansions";
 import { useExploreStore } from "./stores/barracks/explore";
 import { useExpeditionsStore } from "./stores/barracks/expeditions";
 import { usePartiesStore } from "./stores/barracks/parties";
-//expansions
-import { useMinesStore } from "./stores/mines/mines";
+import { useEnemiesStore } from "./stores/barracks/enemies";
+import { useTextLogStore } from "./stores/misc/textLog";
 //classes
 import { Cultist } from "./classes/Cultist";
 
@@ -290,19 +290,26 @@ export function combatRound(area) {
 
 
 
-//instantiat files
-export function instantiateItems() {
-    const mines = useMinesStore();
-
-    mines.instantiateItems();
-}
-
-export function instantiateBuildings() {
+//load function
+export function instantiateGame() {
+    const cultists = useCultistsStore();
+    const expeditions = useExpeditionsStore();
+    const explore = useExploreStore();
+    const parties = usePartiesStore();
+    const enemies = useEnemiesStore();
+    const textLog = useTextLogStore();
+    const inventory = useInventoryStore();
     const buildings = useBuildingsStore();
-    const mines = useMinesStore();
 
+    cultists.instantiateRaces();
     buildings.instantiateBuildings();
-    mines.instantiateBuildings();
+    parties.instantiateRoles();
+    explore.instantiateAreas();
+    expeditions.instantiateExpeditions();
+    enemies.instantiateEnemies();
+    textLog.instantiateMessages();
+    inventory.instantiateItems();
+
 }
 
 

@@ -51,38 +51,14 @@ const progression = useProgressionStore();
 </template>
 
 <script>
-import { tick, instantiateItems, instantiateBuildings } from "./functions";
-
-import { useCultistsStore } from "./stores/globalPinias/cultists";
-import { useExpeditionsStore } from "./stores/barracks/expeditions";
-import { useExploreStore } from "./stores/barracks/explore";
-import { usePartiesStore } from "./stores/barracks/parties";
-import { useEnemiesStore } from "./stores/barracks/enemies";
-import { useTextLogStore } from "./stores/misc/textLog";
-import { useInventoryStore } from "./stores/globalPinias/inventory";
+import { tick, instantiateGame } from "./functions";
 
 export default {
   data() {
     return {activeTab: 0}
   },
   beforeCreate() {
-    const cultists = useCultistsStore();
-    const expeditions = useExpeditionsStore();
-    const explore = useExploreStore();
-    const parties = usePartiesStore();
-    const enemies = useEnemiesStore();
-    const textLog = useTextLogStore();
-    const inventory = useInventoryStore();
-
-    cultists.instantiateRaces();
-    instantiateItems();
-    instantiateBuildings();
-    parties.instantiateRoles();
-    explore.instantiateAreas();
-    expeditions.instantiateExpeditions();
-    enemies.instantiateEnemies();
-    textLog.instantiateMessages();
-    inventory.instantiateItems();
+    instantiateGame();
   },
   mounted() {
     setInterval(tick, 1000);
