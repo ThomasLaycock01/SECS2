@@ -8,28 +8,34 @@ export class Cultist {
         this.job = job;
         this.party = null;
 
-
+        //level
         this.level = level;
         this.currentXp = currentXp;
         this.xpNeeded = xpNeeded;
         this.xpIncrement = xpIncrement;
         this.levelLimit = levelLimit;
         
+        //race
         this.raceId = raceTemplate.id;
         this.raceName = raceTemplate.name;
         this.racialGroup = raceTemplate.racialGroup;
         this.racialModifiers = raceTemplate.racialModifiers;
         this.type = raceTemplate.type;
 
+        //stats
         this.stats = createStatsObj(raceTemplate.stats);
         this.currentHP = this.stats.HP;
         this.knockedOut = false;
         this.knockOutTime = 0;
 
+        //perks/equipment
         this.perks = perks;
         this.perkPoints = perkPoints;
         this.equipment = equipment;
         this.misc = {}
+
+        //role
+        this.role = null;
     }
 
     //getters
@@ -144,6 +150,18 @@ export class Cultist {
 
     getKnockOutTime() {
         return this.knockOutTime;
+    }
+
+    getRole() {
+        return this.role;
+    }
+
+    getAtkValue(type) {
+        return this.getStat("atk") * this.role.getAtkMod(type);
+    }
+
+    getDefValue(type) {
+        return this.getStat("def") * this.role.getDefMod(type);
     }
 
 
@@ -366,5 +384,14 @@ export class Cultist {
 
     heal() {
         this.modifyHP(0.1);
+    }
+
+
+    setRole(role) {
+        this.role = role;
+    }
+
+    removeRole() {
+        this.role = null;
     }
 }

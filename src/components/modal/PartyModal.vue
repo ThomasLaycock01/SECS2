@@ -20,13 +20,20 @@ function setSelectedSlot(id) {
 }
 
 function setRole(role) {
+    if (partyModal.selectedCultist.getRole().getId() == role.getId()) {
+        partyModal.selectedCultist.removeRole();
+    }
+    else {
+        partyModal.selectedCultist.setRole(role);
+    }
+    /*
     if (party.getRoleBySlot(partyModal.selectedSlot) && role.getId() == party.getRoleBySlot(partyModal.selectedSlot).getId()) {
         party.removeRole(partyModal.selectedSlot);
     }
     else {
         partyModal.selectedRole = role;
         party.setRole(partyModal.selectedSlot, role);
-    }
+    }*/
 }
 
 function cultistButtonClick(cultist) {
@@ -72,49 +79,6 @@ function cultistButtonClick(cultist) {
                 <div class="column is-half">
                     <div v-if="partyModal.selectedSlot != null">
                             <b-tabs v-model="activeTab">
-                                <b-tab-item label="Roles">
-                                    <div class="partySelectorTop">
-                                        <!--If a slot is selected, show roles-->
-                                        <div class="title is-5 mb-1 segment-title">Roles</div>
-                                        <div class="cultistContainer">
-                                            <span v-for="i in parties.getRoles">
-                                                <button  class="button is-dark cultistGridItem" :class="party.getRoleBySlot(partyModal.selectedSlot) && party.getRoleBySlot(partyModal.selectedSlot).getId() == i.getId() ? 'is-info' : ''" @click="setRole(i)">{{i.getName()}}</button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="partySelectorBottom">
-                                        <div v-if="partyModal.selectedRole">
-                                            <div class="title is-5 mb-1 segment-title">{{partyModal.selectedRole.getName()}}</div>
-                                            <div>{{ partyModal.selectedRole.getDesc() }}</div>
-                                            <br>
-                                            <div class="partySelectorTableLine">
-                                                <div>
-                                                    <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>DMG</th>
-                                                            <th>Physical</th>
-                                                            <th>Magical</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Dealt</td>
-                                                            <td>{{ partyModal.selectedRole.getDmgGiven("phys") * 100 }}%</td>
-                                                            <td>{{ partyModal.selectedRole.getDmgGiven("mag") * 100 }}%</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Taken</td>
-                                                            <td>{{ partyModal.selectedRole.getDmgTaken("phys") * 100 }}%</td>
-                                                            <td>{{ partyModal.selectedRole.getDmgTaken("mag") * 100 }}%</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </b-tab-item>
                                 <b-tab-item label="Cultists">
                                     <div class="partySelectorTop">
                                         <div class="title is-5 mb-1 segment-title">Cultists</div>
@@ -131,6 +95,49 @@ function cultistButtonClick(cultist) {
                                             <ul>
                                                 <li v-for="key, value in partyModal.selectedCultist.getStatObj()">{{ key }} {{ value }}</li>
                                             </ul>
+                                        </div>
+                                    </div>
+                                </b-tab-item>
+                                <b-tab-item label="Roles">
+                                    <div class="partySelectorTop">
+                                        <!--If a slot is selected, show roles-->
+                                        <div class="title is-5 mb-1 segment-title">Roles</div>
+                                        <div class="cultistContainer">
+                                            <span v-for="i in parties.getRoles">
+                                                <button  class="button cultistGridItem" :class="partyModal.selectedCultist && partyModal.selectedCultist.getRole() && partyModal.selectedCultist.getRole().getId() == i.getId() ? 'is-info' : 'is-dark'" :disabled="!partyModal.selectedCultist" @click="setRole(i)">{{i.getName()}}</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="partySelectorBottom">
+                                        <div v-if="partyModal.selectedRole">
+                                            <div class="title is-5 mb-1 segment-title">{{partyModal.selectedRole.getName()}}</div>
+                                            <div>{{ partyModal.selectedRole.getDesc() }}</div>
+                                            <br>
+                                            <div class="partySelectorTableLine">
+                                                <div>
+                                                    <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>Physical</th>
+                                                            <th>Magical</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Atk split</td>
+                                                            <td>{{ partyModal.selectedRole.getAtkMod("phys") * 100 }}%</td>
+                                                            <td>{{ partyModal.selectedRole.getAtkMod("mag") * 100 }}%</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Def split</td>
+                                                            <td>{{ partyModal.selectedRole.getDefMod("phys") * 100 }}%</td>
+                                                            <td>{{ partyModal.selectedRole.getDefMod("mag") * 100 }}%</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </b-tab-item>

@@ -4,8 +4,8 @@ export class Role {
         this.name = obj.name;
         this.desc = obj.desc;
 
-        this.dmgGiven = obj.dmgGiven;
-        this.dmgTaken = obj.dmgTaken;
+        this.atkMod = obj.atkMod;
+        this.defMod = obj.defMod;
     }
 
     //getters
@@ -21,11 +21,11 @@ export class Role {
         return this.desc;
     }
 
-    getDmgGiven(type) {
-        return this.dmgGiven[type];
+    getAtkMod(type) {
+        return this.atkMod[type];
     }
 
-    getDmgTaken(type) {
-        return this.dmgTaken[type];
+    getDefMod(type) {
+        return this.defMod[type];
     }
 }

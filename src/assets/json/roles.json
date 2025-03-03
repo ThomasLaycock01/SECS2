@@ -1,3 +1,3 @@
 {
-    "explorer": {"id": "explorer", "name": "Explorer", "desc": "A bog-standard explorer. Not particularly good at fighting, but can carry more than usual.", "dmgGiven": {"phys": 1, "mag": 0}, "dmgTaken": {"phys": 1, "mag": 1}}
+    "explorer": {"id": "explorer", "name": "Explorer", "desc": "A bog-standard explorer. Not particularly good at fighting, but can carry more than usual.", "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 0.9, "mag": 0.1}}
 }
