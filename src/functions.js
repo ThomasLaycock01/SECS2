@@ -231,14 +231,13 @@ export function combatRound(area) {
             }
 
             const cultist = party[i].cultist;
-            const role = party[i].role;
 
-            const physDmg = cultist.getStat("atk") * role.getDmgGiven("phys");
-            const magDmg = cultist.getStat("atk") * role.getDmgGiven("mag");
+            const physDmg = cultist.getAtkValue("phys");
+            const magDmg = cultist.getAtkValue("mag");
             
             if (target != null) {
                 target.takeDamage(physDmg, magDmg);
-            } 
+            }
         }
 
         //same as above, but skips enemy calculations if theyre all dead
@@ -255,25 +254,23 @@ export function combatRound(area) {
                 continue;
             }
 
-            const physDmg = enemy.getStat("atk") * enemy.getDmgGiven("phys");
-            const magDmg = enemy.getStat("atk") * enemy.getDmgGiven("mag");
+            const physDmg = enemy.getAtkValue("phys");
+            const magDmg = enemy.getAtkValue("mag");
 
             //finding a target
             var target = null;
-            var role = null;
             for (var j in party) {
                 if (party[j].cultist == null || target || party[j].cultist.getKnockedOut()) {
                     continue;
                 }
                 else {
                     target = party[j].cultist;
-                    role = party[j].role;
                 }
 
             }
 
             if (target != null) {
-                target.takeDamage(physDmg, magDmg, role);
+                target.takeDamage(physDmg, magDmg);
             }
         }
         speedCount--;

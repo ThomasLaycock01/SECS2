@@ -30,7 +30,7 @@ const props = defineProps({
                 <span v-for="i in areaObject.getActiveParty().getSlots()">
                     <br>
                     <div v-if="i.cultist" class="unitBox">
-                        <div>{{ i.cultist.getName() }} - {{ i.role.getName() }} - <span v-if="!i.cultist.getKnockedOut()">{{ i.cultist.getCurrentHP() }}/{{ i.cultist.getStat("HP") }}</span><span v-else>Knocked Out! {{ Math.floor(i.cultist.getKnockOutTime() / 60) }} Mins {{ i.cultist.getKnockOutTime() % 60 }} secs left</span></div>
+                        <div>{{ i.cultist.getName() }} - {{ i.cultist.getRole().getName() }} - <span v-if="!i.cultist.getKnockedOut()">{{ i.cultist.getCurrentHP() }}/{{ i.cultist.getStat("HP") }}</span><span v-else>Knocked Out! {{ Math.floor(i.cultist.getKnockOutTime() / 60) }} Mins {{ i.cultist.getKnockOutTime() % 60 }} secs left</span></div>
                         <div>
                             <ul class="inline-flexContainer">
                                 <li>{{ i.cultist.getStat("atk") }} Atk</li>

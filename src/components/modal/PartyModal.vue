@@ -20,7 +20,7 @@ function setSelectedSlot(id) {
 }
 
 function setRole(role) {
-    if (partyModal.selectedCultist.getRole().getId() == role.getId()) {
+    if (partyModal.selectedCultist.getRole() && partyModal.selectedCultist.getRole().getId() == role.getId()) {
         partyModal.selectedCultist.removeRole();
     }
     else {

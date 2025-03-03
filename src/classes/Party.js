@@ -107,20 +107,10 @@ export class Party {
         while (count < this.limit) {
             this.slots[count] = {
                 id: count,
-                role: null,
                 cultist: null
             }
             count++;
         }
-        console.log(this.slots);
-    }
-
-    setRole(slotId, roleObj) {
-        this.slots[slotId].role = roleObj;
-    }
-
-    removeRole(slotId) {
-        this.slots[slotId].role = null;
     }
 
     setCultist(slotId, cultistObj) {

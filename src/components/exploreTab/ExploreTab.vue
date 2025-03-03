@@ -95,8 +95,8 @@ function embarkCheck() {
                     Party:
                     <br>
                     <span v-for="i in exploreTab.selectedArea.getActiveParty().getSlots()">
-                        <div v-if="i.cultist && i.role">
-                            {{ i.cultist.getName() }} - {{ i.role.getName() }} - <span v-if="!i.cultist.getKnockedOut()">{{ i.cultist.getCurrentHP() }}/{{ i.cultist.getStat("HP") }}</span><span v-else>Knocked Out! {{ Math.floor(i.cultist.getKnockOutTime() / 60) }} Mins {{ i.cultist.getKnockOutTime() % 60 }} secs left</span>
+                        <div v-if="i.cultist">
+                            {{ i.cultist.getName() }} - {{ i.cultist.getRole().getName() }} - <span v-if="!i.cultist.getKnockedOut()">{{ i.cultist.getCurrentHP() }}/{{ i.cultist.getStat("HP") }}</span><span v-else>Knocked Out! {{ Math.floor(i.cultist.getKnockOutTime() / 60) }} Mins {{ i.cultist.getKnockOutTime() % 60 }} secs left</span>
                         </div>
                     </span>
                 </div>

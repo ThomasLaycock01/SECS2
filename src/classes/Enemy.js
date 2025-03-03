@@ -8,8 +8,8 @@ export class Enemy {
         this.name = obj.name;
         this.stats = obj.stats;
         this.currentHP = obj.stats.HP;
-        this.dmgGiven = obj.dmgGiven;
-        this.dmgTaken = obj.dmgTaken;
+        this.atkMod = obj.atkMod;
+        this.defMod = obj.defMod;
 
         this.xpDrop = obj.xpDrop;
         this.loot = obj.loot;
@@ -27,7 +27,7 @@ export class Enemy {
         return this.name;
     }
 
-    getStat(stat = null) {
+    getStat(stat) {
         return this.stats[stat];
     }
 
@@ -35,12 +35,16 @@ export class Enemy {
         return Math.floor(this.currentHP * 100) / 100;
     }
 
-    getDmgGiven(type) {
-        return this.dmgGiven[type];
+    getAtkMod(type) {
+        return this.atkMod[type];
     }
 
-    getDmgTaken(type) {
-        return this.dmgTaken[type];
+    getDefMod(type) {
+        return this.defMod[type];
+    }
+
+    getAtkValue(type) {
+        return this.getStat("atk") * this.getAtkMod(type);
     }
 
     getXpDrop() {
@@ -55,8 +59,8 @@ export class Enemy {
     }
 
     takeDamage(physDmg, magDmg) {
-        var physTotal = (physDmg - this.getStat("def")) * this.getDmgTaken("phys");
-        var magTotal = (magDmg - this.getStat("def")) * this.getDmgTaken("mag");
+        var physTotal = physDmg - (this.getStat("def") * this.getDefMod("phys"));
+        var magTotal = magDmg - (this.getStat("def") * this.getDefMod("mag"));
 
         if (physTotal < 0) {
             physTotal = 0;
