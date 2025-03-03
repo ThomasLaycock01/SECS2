@@ -220,23 +220,15 @@ export function combatRound(area) {
                 continue;
             }
 
-            console.log(speedCount);
-            console.log(party[i].cultist.getStat("spd"));
 
             //find a target
             var target = null;
 
-            for (var i in enemies) {
-                if (target) {
-                    continue;
-                }
-                else {
-                    if (enemies[i].getCurrentHP() > 0) {
-                        target = enemies[i];
-                    }
+            for (var j in enemies) {
+                if (!target && enemies[j].getCurrentHP() > 0) {
+                    target = enemies[j];
                 }
             }
-
 
             const cultist = party[i].cultist;
             const role = party[i].role;

@@ -73,7 +73,6 @@ export class Enemy {
         const enemies = useEnemiesStore();
 
         if (this.currentHP <= 0) {
-            console.log("firing multiple?")
             this.area.removeEnemy(this.id);
 
             //adding XP and giving loot
