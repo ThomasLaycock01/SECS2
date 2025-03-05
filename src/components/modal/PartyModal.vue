@@ -26,14 +26,6 @@ function setRole(role) {
     else {
         partyModal.selectedCultist.setRole(role);
     }
-    /*
-    if (party.getRoleBySlot(partyModal.selectedSlot) && role.getId() == party.getRoleBySlot(partyModal.selectedSlot).getId()) {
-        party.removeRole(partyModal.selectedSlot);
-    }
-    else {
-        partyModal.selectedRole = role;
-        party.setRole(partyModal.selectedSlot, role);
-    }*/
 }
 
 function cultistButtonClick(cultist) {
