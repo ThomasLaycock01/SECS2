@@ -30,7 +30,7 @@ export class Party {
         var count = 0;
 
         for (var i in this.slots) {
-            if (this.slots[i].cultist) {
+            if (this.slots[i].cultist && this.slots[i].cultist.getRole()) {
                 count++;
             }
         }
@@ -119,6 +119,16 @@ export class Party {
 
     removeCultist(slotId) {
         this.slots[slotId].cultist = null;
+    }
+
+    removeNoRoleCultists() {
+        for (var i in this.slots) {
+            if (this.slots[i].cultist && !this.slots[i].cultist.getRole()) {
+                this.slots[i].cultist.removeJob();
+                this.slots[i].cultist.removeParty();
+                this.removeCultist(i);
+            }
+        }
     }
 
     addXp(amount) {

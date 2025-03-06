@@ -54,7 +54,8 @@ export const usePartiesStore = defineStore("parties", {
         },
         saveParty(party) {
             console.log(party);
-            //only parties with at least 1 cultist are saved
+            party.removeNoRoleCultists();
+            //only parties with at least 1 cultist and role are saved
             if (party.getPartyCultistCount() > 0) {
                 const id = party.getId();
                 this.parties[id] = party;
