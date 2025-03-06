@@ -124,7 +124,6 @@ export class Party {
     removeNoRoleCultists() {
         for (var i in this.slots) {
             if (this.slots[i].cultist && !this.slots[i].cultist.getRole()) {
-                this.slots[i].cultist.removeJob();
                 this.slots[i].cultist.removeParty();
                 this.removeCultist(i);
             }
