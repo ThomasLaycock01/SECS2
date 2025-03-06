@@ -157,11 +157,11 @@ export class Cultist {
     }
 
     getAtkValue(type) {
-        return this.getStat("atk") * this.role.getAtkMod(type);
+        return Math.floor((this.getStat("atk") * this.role.getAtkMod(type)) * 100) / 100;
     }
 
     getDefValue(type) {
-        return this.getStat("def") * this.role.getDefMod(type);
+        return Math.floor((this.getStat("def") * this.role.getDefMod(type)) * 100) / 100;
     }
 
 

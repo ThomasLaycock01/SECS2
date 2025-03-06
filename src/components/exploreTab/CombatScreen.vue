@@ -26,17 +26,28 @@ const props = defineProps({
             <!--Party display-->
             <div>
                 Party:
-                <br>
                 <span v-for="i in areaObject.getActiveParty().getSlots()">
                     <br>
                     <div v-if="i.cultist" class="unitBox">
-                        <div>{{ i.cultist.getName() }} - {{ i.cultist.getRole().getName() }} - <span v-if="!i.cultist.getKnockedOut()">{{ i.cultist.getCurrentHP() }}/{{ i.cultist.getStat("HP") }}</span><span v-else>Knocked Out! {{ Math.floor(i.cultist.getKnockOutTime() / 60) }} Mins {{ i.cultist.getKnockOutTime() % 60 }} secs left</span></div>
+                        <div>{{ i.cultist.getName() }} - {{ i.cultist.getRole().getName() }}</div>
                         <div>
-                            <ul class="inline-flexContainer">
-                                <li>{{ i.cultist.getStat("atk") }} Atk</li>
-                                <li>{{ i.cultist.getStat("def") }} Def</li>
-                                <li>{{ i.cultist.getStat("spd") }} Spd</li>
-                            </ul>
+                            <table class="table is-bordered is-narrow" v-if="!i.cultist.getKnockedOut()">
+                                <tbody>
+                                    <tr>
+                                        <th>{{ i.cultist.getCurrentHP() }}/{{ i.cultist.getStat("HP") }} HP</th>
+                                        <th>{{ i.cultist.getStat("spd") }} Spd</th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ i.cultist.getAtkValue("phys") }} P-Atk</td>
+                                        <td>{{ i.cultist.getAtkValue("mag") }} M-Atk</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ i.cultist.getDefValue("phys") }} P-Def</td>
+                                        <td>{{ i.cultist.getDefValue("mag") }} M-Def</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div v-else>Knocked out! {{ Math.floor(i.cultist.getKnockOutTime() / 60) }} Mins {{ i.cultist.getKnockOutTime() % 60 }} secs left</div>
                         </div>
                     </div>
                 </span>
@@ -45,17 +56,27 @@ const props = defineProps({
             <!--Displaying enemies-->
             <div v-if="areaObject.getCurrentEncounter().length > 0">
                 Enemies:
-                <br>
                 <span v-for="i in areaObject.getCurrentEncounter()">
                     <br>
                     <div class="unitBox">
-                        <div>{{ i.getName() }} - {{ i.getCurrentHP() }}/{{ i.getStat("HP") }}</div>
+                        <div>{{ i.getName() }}</div>
                         <div>
-                            <ul class="inline-flexContainer">
-                                <li>{{ i.getStat("atk") }} Atk</li>
-                                <li>{{ i.getStat("def") }} Def</li>
-                                <li>{{ i.getStat("spd") }} Spd</li>
-                            </ul>
+                            <table class="table is-bordered is-narrow">
+                                <tbody>
+                                    <tr>
+                                        <th>{{ i.getCurrentHP() }}/{{ i.getStat("HP") }} HP</th>
+                                        <th>{{ i.getStat("spd") }} Spd</th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ i.getAtkValue("phys") }} P-Atk</td>
+                                        <td>{{ i.getAtkValue("mag") }} M-Atk</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ i.getDefValue("phys") }} P-Def</td>
+                                        <td>{{ i.getDefValue("mag") }} M-Def</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </span>

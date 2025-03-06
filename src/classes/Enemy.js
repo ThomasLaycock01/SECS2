@@ -47,6 +47,10 @@ export class Enemy {
         return this.getStat("atk") * this.getAtkMod(type);
     }
 
+    getDefValue(type) {
+        return this.getStat("def") * this.getDefMod(type);
+    }
+
     getXpDrop() {
         return this.xpDrop;
     }
