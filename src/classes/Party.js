@@ -30,7 +30,7 @@ export class Party {
         var count = 0;
 
         for (var i in this.slots) {
-            if (this.slots[i].role) {
+            if (this.slots[i].cultist) {
                 count++;
             }
         }
