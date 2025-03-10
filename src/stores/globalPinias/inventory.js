@@ -6,6 +6,7 @@ import { useCultistsStore } from "./cultists";
 import { Item } from "@/classes/Item";
 
 import items from "@/assets/json/items.json";
+import { useProgressionStore } from "../misc/progression";
 
 export const useInventoryStore = defineStore("inventory", {
     state: () => {
@@ -71,6 +72,8 @@ export const useInventoryStore = defineStore("inventory", {
             return returnId;
         },
         addItem(itemId) {
+            const progression = useProgressionStore();
+
             if (!this.checkFreeSpace) {
                 return;
             }
@@ -78,6 +81,8 @@ export const useInventoryStore = defineStore("inventory", {
             const template = this.items[itemId];
             const newItem = new Item(id, template);
             this.inventory.push(newItem);
+
+            progression.updateProgression();
         },
         removeItem(id) {
             this.inventory = this.inventory.filter((obj) => obj.getId() != id);

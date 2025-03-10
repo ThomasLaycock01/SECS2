@@ -2,6 +2,10 @@
 import PartyTab from './PartyTab.vue';
 import ExpeditionsTab from './ExpeditionsTab.vue';
 import ExploreTab from './ExploreTab.vue';
+
+import { useProgressionStore } from '@/stores/misc/progression';
+
+const progression = useProgressionStore();
 </script>
 
 
@@ -10,10 +14,10 @@ import ExploreTab from './ExploreTab.vue';
         <b-tab-item label="Parties">
             <PartyTab/>
         </b-tab-item>
-        <b-tab-item label="Explore">
+        <b-tab-item label="Explore" v-if="progression.checkUnlocked('firstParty')">
             <ExploreTab/>
         </b-tab-item>
-        <b-tab-item label="Expeditions">
+        <b-tab-item label="Expeditions" v-if="progression.checkUnlocked('abandondedFarmhouseUnlocked')">
             <ExpeditionsTab/>
         </b-tab-item>
     </b-tabs>

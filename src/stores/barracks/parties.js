@@ -4,6 +4,7 @@ import { Party } from "@/classes/Party";
 import { Role } from "@/classes/Role";
 
 import roles from "@/assets/json/roles.json";
+import { useProgressionStore } from "../misc/progression";
 
 export const usePartiesStore = defineStore("parties", {
     state: () => {
@@ -15,6 +16,9 @@ export const usePartiesStore = defineStore("parties", {
     getters: {
         getParties(state) {
             return state.parties;
+        },
+        getNumOfParties(state) {
+            return Object.keys(state.parties).length;
         },
         getRoles(state) {
             return state.roles;
@@ -53,7 +57,8 @@ export const usePartiesStore = defineStore("parties", {
             return party;
         },
         saveParty(party) {
-            console.log(party);
+            const progression = useProgressionStore();
+
             party.removeNoRoleCultists();
             //only parties with at least 1 cultist and role are saved
             if (party.getPartyCultistCount() > 0) {
@@ -69,6 +74,9 @@ export const usePartiesStore = defineStore("parties", {
                     delete this.parties[id];
                 }
             }
+
+            //update progression for firstParty check
+            progression.updateProgression();
         },
         //roles
         instantiateRoles() {

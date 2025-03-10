@@ -37,7 +37,7 @@ const progression = useProgressionStore();
         <b-tab-item label="Explore" v-if="progression.checkUnlocked('firstCultist')">
           <MainExploreTab/>
         </b-tab-item>
-        <b-tab-item label="Inventory">
+        <b-tab-item label="Inventory" v-if="progression.checkUnlocked('firstItem')">
           <InventoryTab/>
         </b-tab-item>
       </b-tabs>

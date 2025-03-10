@@ -3,8 +3,10 @@ import { defineStore } from "pinia";
 import { useResourcesStore } from "../globalPinias/resources";
 import { useCultistsStore } from "../globalPinias/cultists";
 import { useExpeditionsStore } from "../barracks/expeditions";
+import { usePartiesStore } from "../barracks/parties";
 
 import { useTextLogStore } from "./textLog";
+import { useInventoryStore } from "../globalPinias/inventory";
 
 export const useProgressionStore = defineStore("progression", {
     state: () => {
@@ -25,6 +27,22 @@ export const useProgressionStore = defineStore("progression", {
                     condition() {
                         const cultists = useCultistsStore();
                         return cultists.getNumOfCultists > 0;
+                    }
+                },
+                "firstParty": {
+                    id: "firstParty",
+                    TLMessage: true,
+                    condition() {
+                        const parties = usePartiesStore();
+                        return parties.getNumOfParties > 0;
+                    }
+                },
+                "firstItem": {
+                    id: "firstItem",
+                    TLMessage: false,
+                    condition() {
+                        const inventory = useInventoryStore();
+                        return inventory.getnumOfitems > 0;
                     }
                 },
                 "abandondedFarmhouseUnlocked": {
