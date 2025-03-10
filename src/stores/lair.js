@@ -49,7 +49,7 @@ export const useLairStore = defineStore("lair", {
                                 const resources = useResourcesStore();
                                 resources.modifyResource("gold", 1)
                             }
-                        },
+                        }/*,
                         debugGold: {
                             id: "debugGold",
                             name: "Debug Gold",
@@ -94,7 +94,7 @@ export const useLairStore = defineStore("lair", {
                                 const inventory = useInventoryStore();
                                 inventory.addItem({"itemId": "2000", "type": "tool", "name": "Rusty Hoe", "shortName": "R. Hoe", "modifiers": [{"type": "farmer", "modifier": 0.05}], "sellValue": 10, "tier": 1, "effectDesc": "+5% output on Mine Workers"})
                             }
-                        },
+                        },*/
                     }
                 },
                 buildings: {
@@ -125,7 +125,8 @@ export const useLairStore = defineStore("lair", {
                                 return resources.checkIfCanAfford(this.costs()) && !buildings.checkIfAtLimit("chambers");
                             },
                             showCondition() {
-                                return true;
+                                const progression = useProgressionStore();
+                                return progression.checkUnlocked("firstParty");
                             },
                             effect() {
                                 const buildings = useBuildingsStore();
@@ -155,7 +156,8 @@ export const useLairStore = defineStore("lair", {
                                 return resources.checkIfCanAfford(this.costs()) && !buildings.checkIfAtLimit("evilShrine");
                             },
                             showCondition() {
-                                return true;
+                                const progression = useProgressionStore();
+                                return progression.checkUnlocked("firstParty");
                             },
                             effect() {
                                 const buildings = useBuildingsStore();
