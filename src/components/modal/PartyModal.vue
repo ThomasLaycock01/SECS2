@@ -11,41 +11,37 @@ const cultists = useCultistsStore();
 
 const party = modals.getPartyObj;
 
-const partyModal = reactive({selectedSlot: null, selectedRole: null, selectedCultist: null});
+const partyModal = reactive({selectedSlot: null});
 
-function setSelectedSlot(id) {
-    partyModal.selectedSlot = id;
-    partyModal.selectedRole = party.getRoleBySlot(id);
-    partyModal.selectedCultist = party.getCultistBySlot(id);
+function setSelectedSlot(slot) {
+    partyModal.selectedSlot = slot;
 }
 
-function setRole(role) {
-    if (partyModal.selectedCultist.getRole() && partyModal.selectedCultist.getRole().getId() == role.getId()) {
-        partyModal.selectedCultist.removeRole();
+function roleButtonClick(role) {
+    if (partyModal.selectedSlot.cultist.getRole() && partyModal.selectedSlot.cultist.getRole().getId() == role.getId()) {
+        partyModal.selectedSlot.cultist.removeRole();
     }
     else {
-        partyModal.selectedCultist.setRole(role);
+        partyModal.selectedSlot.cultist.setRole(role);
     }
 }
 
 function cultistButtonClick(cultist) {
-    //if the clicked cultist is already selected, remove them
-    if (party.getCultistBySlot(partyModal.selectedSlot) && cultist.getId() == party.getCultistBySlot(partyModal.selectedSlot).getId()) {
-        party.removeCultist(partyModal.selectedSlot);
-        cultist.removeParty();
-    }
-    else {
-        if (partyModal.selectedCultist) {
-            //if theres already a cultist assigned, remove them
-            partyModal.selectedCultist.removeParty();
-        }
 
-        partyModal.selectedCultist = cultist;
+    if (partyModal.selectedSlot.cultist && cultist.getId() == partyModal.selectedSlot.cultist.getId()) {
+        partyModal.selectedSlot.cultist = null;
+        cultist.removeParty();
+        cultist.removeRole();
+    } 
+    else {
+        if (partyModal.selectedSlot.cultist) {
+            partyModal.selectedSlot.cultist.removeParty();
+        }
+        partyModal.selectedSlot.cultist = cultist;
 
         cultist.setParty(party);
-
-        party.setCultist(partyModal.selectedSlot, cultist);
     }
+
 }
 </script>
 
@@ -62,10 +58,10 @@ function cultistButtonClick(cultist) {
         <div class="modalBody">
             <div class="columns partyColumns">
                 <div class="column is-half">
-                    <div v-for="i in party.getSlots()" :class="partyModal.selectedSlot == i.id ? 'selectedPartySlot mb-2' : 'partySlot mb-2'" @click="setSelectedSlot(i.id)">
+                    <div v-for="i in party.getSlots()" :class="partyModal.selectedSlot && partyModal.selectedSlot.id == i.id ? 'selectedPartySlot mb-2' : 'partySlot mb-2'" @click="setSelectedSlot(i)">
                         <div>Slot {{ i.id + 1 }}</div>
                         <div>Cultist: {{ i.cultist ? i.cultist.getName() : "None" }}</div>
-                        <div>Role: {{ i.role ? i.role.getName() : "None" }}</div>
+                        <div>Role: {{ i.cultist && i.cultist.getRole() ? i.cultist.getRole().getName() : "None" }}</div>
                     </div>
                 </div>
                 <div class="column is-half">
@@ -76,16 +72,16 @@ function cultistButtonClick(cultist) {
                                         <div class="title is-5 mb-1 segment-title">Cultists</div>
                                         <div class="cultistContainer">
                                             <span v-for="i in cultists.getCultists">
-                                                <button  class="button is-dark cultistGridItem" :class="party.checkIfContainsCultist(i.getId()) ? 'is-info' : ''" :disabled="i.getParty() && (party.getSlotByCultist(i.getId()) != partyModal.selectedSlot)" @click="cultistButtonClick(i)">{{i.getName()}}</button>
+                                                <button  class="button is-dark cultistGridItem" :class="party.checkIfContainsCultist(i.getId()) ? 'is-info' : ''" :disabled="i.getParty() && !(partyModal.selectedSlot.cultist && partyModal.selectedSlot.cultist.getId() == i.getId())" @click="cultistButtonClick(i)">{{i.getName()}}</button>
                                             </span>
                                         </div>
                                     </div>
                                     <div class="partySelectorBottom">
-                                        <div v-if="partyModal.selectedCultist">
-                                            <div class="title is-5 mb-1 segment-title">{{partyModal.selectedCultist.getName()}}</div>
+                                        <div v-if="partyModal.selectedSlot.cultist">
+                                            <div class="title is-5 mb-1 segment-title">{{partyModal.selectedSlot.cultist.getName()}}</div>
                                             <div>Stats:</div>
                                             <ul>
-                                                <li v-for="key, value in partyModal.selectedCultist.getStatObj()">{{ key }} {{ value }}</li>
+                                                <li v-for="key, value in partyModal.selectedSlot.cultist.getStatObj()">{{ key }} {{ value }}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -96,14 +92,14 @@ function cultistButtonClick(cultist) {
                                         <div class="title is-5 mb-1 segment-title">Roles</div>
                                         <div class="cultistContainer">
                                             <span v-for="i in parties.getRoles">
-                                                <button  class="button cultistGridItem" :class="partyModal.selectedCultist && partyModal.selectedCultist.getRole() && partyModal.selectedCultist.getRole().getId() == i.getId() ? 'is-info' : 'is-dark'" :disabled="!partyModal.selectedCultist" @click="setRole(i)">{{i.getName()}}</button>
+                                                <button  class="button cultistGridItem" :class="partyModal.selectedSlot.cultist && partyModal.selectedSlot.cultist.getRole() && partyModal.selectedSlot.cultist.getRole().getId() == i.getId() ? 'is-info' : 'is-dark'" :disabled="!partyModal.selectedSlot.cultist" @click="roleButtonClick(i)">{{i.getName()}}</button>
                                             </span>
                                         </div>
                                     </div>
                                     <div class="partySelectorBottom">
-                                        <div v-if="partyModal.selectedRole">
-                                            <div class="title is-5 mb-1 segment-title">{{partyModal.selectedRole.getName()}}</div>
-                                            <div>{{ partyModal.selectedRole.getDesc() }}</div>
+                                        <div v-if="partyModal.selectedSlot.cultist && partyModal.selectedSlot.cultist.getRole()">
+                                            <div class="title is-5 mb-1 segment-title">{{partyModal.selectedSlot.cultist.getRole().getName()}}</div>
+                                            <div>{{ partyModal.selectedSlot.cultist.getRole().getDesc() }}</div>
                                             <br>
                                             <div class="partySelectorTableLine">
                                                 <div>
@@ -118,13 +114,13 @@ function cultistButtonClick(cultist) {
                                                     <tbody>
                                                         <tr>
                                                             <td>Atk split</td>
-                                                            <td>{{ partyModal.selectedRole.getAtkMod("phys") * 100 }}%</td>
-                                                            <td>{{ partyModal.selectedRole.getAtkMod("mag") * 100 }}%</td>
+                                                            <td>{{ partyModal.selectedSlot.cultist.getRole().getAtkMod("phys") * 100 }}%</td>
+                                                            <td>{{ partyModal.selectedSlot.cultist.getRole().getAtkMod("mag") * 100 }}%</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Def split</td>
-                                                            <td>{{ partyModal.selectedRole.getDefMod("phys") * 100 }}%</td>
-                                                            <td>{{ partyModal.selectedRole.getDefMod("mag") * 100 }}%</td>
+                                                            <td>{{ partyModal.selectedSlot.cultist.getRole().getDefMod("phys") * 100 }}%</td>
+                                                            <td>{{ partyModal.selectedSlot.cultist.getRole().getDefMod("mag") * 100 }}%</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
