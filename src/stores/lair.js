@@ -42,7 +42,8 @@ export const useLairStore = defineStore("lair", {
                                 return true;
                             },
                             showCondition() {
-                                return true;
+                                const progression = useProgressionStore();
+                                return progression.checkUnlocked("10Evilness");
                             },
                             effect() {
                                 const resources = useResourcesStore();
