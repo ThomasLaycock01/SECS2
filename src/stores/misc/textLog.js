@@ -23,6 +23,8 @@ export const useTextLogStore = defineStore("textLog", {
         addMessageToLog(id) {
             const messageObj = this.messageIndex[id];
 
+            console.log(messageObj);
+
             this.messagesInLog.unshift(messageObj);
         }
     }

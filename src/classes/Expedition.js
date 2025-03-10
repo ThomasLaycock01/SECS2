@@ -11,7 +11,7 @@ export class Expedition {
         this.activityName = obj.activityName;
 
         this.encounters = obj.encounters;
-        this.unlocked = true;
+        this.unlocked = false;
 
         this.activeParty = null;
 

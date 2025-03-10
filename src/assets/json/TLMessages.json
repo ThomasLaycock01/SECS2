@@ -1,5 +1,6 @@
 {
     "firstLoad": {"text": "You have set out to become the most Evil cult leader in recorded history!!!! No-one can stop your rise to power!!!!! MWUHAHAHAHAHA!!!!"},
     "10Evilness": {"text": "Okay, no-one can stop you, but they won't need to at this rate. A cult with only one member is just an unusual habit, so you'd better hire some help to speed things up a bit."},
-    "firstCultist": {"text": "Congratulations! You have officially started your evil cult. Create a party and send your cultist to explore and get some goodies!"}
+    "firstCultist": {"text": "Congratulations! You have officially started your evil cult. Create a party and send your cultist to explore and get some goodies!"},
+    "abandondedFarmhouseUnlocked": {"text": "You find an abandonded farmhouse in the middle of the plains... if you could clear out the bandits inside, you could use it!"}
 }

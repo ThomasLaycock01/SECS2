@@ -27,6 +27,14 @@ export const useProgressionStore = defineStore("progression", {
                         return cultists.getNumOfCultists > 0;
                     }
                 },
+                "abandondedFarmhouseUnlocked": {
+                    id: "abandondedFarmhouseUnlocked",
+                    TLMessage: true,
+                    condition() {
+                        const expeditions = useExpeditionsStore();
+                        return expeditions.checkIfExpeditionUnlocked("abandonedFarmhouse")
+                    }
+                },
                 "completedExpedition": {
                     id:"completedExpedition",
                     TLMessage: false,

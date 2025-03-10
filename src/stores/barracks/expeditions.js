@@ -5,6 +5,7 @@ import { Expedition } from "@/classes/Expedition";
 import { combatRound } from "@/functions";
 
 import expeditions from "@/assets/json/expeditions.json";
+import { useProgressionStore } from "../misc/progression";
 
 export const useExpeditionsStore = defineStore("expeditions", {
     state: () => {
@@ -25,6 +26,11 @@ export const useExpeditionsStore = defineStore("expeditions", {
                 return null;
             }
             return state.activeExpedition;
+        },
+        checkIfExpeditionUnlocked(state) {
+            return (expeditionId) => {
+                return state.expeditions[expeditionId].getUnlocked();
+            }
         },
         checkIfExpeditionCompleted(state) {
             return (expeditionId) => {
@@ -49,7 +55,11 @@ export const useExpeditionsStore = defineStore("expeditions", {
             }
         },
         unlockExpedition(id) {
+            const progression = useProgressionStore();
+
             this.expeditions[id].unlock();
+
+            progression.updateProgression();
         },
         setActiveExpedition(id) {
             this.activeExpedition = this.expeditions[id];

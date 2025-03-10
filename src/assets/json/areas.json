@@ -30,7 +30,7 @@
             {
                 "id": "abandonedFarmhouse",
                 "unlockLevel": 5,
-                "baseChance": 1
+                "baseChance": 10
             }
         ]
     }
