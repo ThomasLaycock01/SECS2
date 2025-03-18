@@ -49,7 +49,7 @@ export const useLairStore = defineStore("lair", {
                                 const resources = useResourcesStore();
                                 resources.modifyResource("gold", 1)
                             }
-                        }/*,
+                        },
                         debugGold: {
                             id: "debugGold",
                             name: "Debug Gold",
@@ -94,7 +94,7 @@ export const useLairStore = defineStore("lair", {
                                 const inventory = useInventoryStore();
                                 inventory.addItem({"itemId": "2000", "type": "tool", "name": "Rusty Hoe", "shortName": "R. Hoe", "modifiers": [{"type": "farmer", "modifier": 0.05}], "sellValue": 10, "tier": 1, "effectDesc": "+5% output on Mine Workers"})
                             }
-                        },*/
+                        },
                     }
                 },
                 buildings: {
