@@ -79,22 +79,7 @@ export const useLairStore = defineStore("lair", {
                                 const resources = useResourcesStore();
                                 resources.modifyResource("evilness", 1000000)
                             }
-                        },
-                        debugItem: {
-                            id: "debugItem",
-                            name: "Debug Item",
-                            desc: "Add an item",
-                            condition() {
-                                return true;
-                            },
-                            showCondition() {
-                                return true;
-                            },
-                            effect() {
-                                const inventory = useInventoryStore();
-                                inventory.addItem({"itemId": "2000", "type": "tool", "name": "Rusty Hoe", "shortName": "R. Hoe", "modifiers": [{"type": "farmer", "modifier": 0.05}], "sellValue": 10, "tier": 1, "effectDesc": "+5% output on Mine Workers"})
-                            }
-                        },
+                        }
                     }
                 },
                 buildings: {
