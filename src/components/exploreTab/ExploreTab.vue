@@ -63,20 +63,22 @@ function embarkCheck() {
     <div class="title is-5 mb-1 segment-title">Explore</div>
     <!--Area view-->
     <div v-if="exploreTab.selectedArea">
-        <p>{{ exploreTab.selectedArea.getName() }}</p>
+        <div class="inline-flexSpaceBetween">
+            <p class="title is-4 mb-1 segment-title">{{ exploreTab.selectedArea.getName() }}</p>
+            <button class="button is-small is-danger" @click="deselectArea()">X</button>
+        </div>
 
         <!--If the area is active-->
         <div v-if="exploreTab.selectedArea.getActive()">
-            <CombatScreen :areaObject="exploreTab.selectedArea" type="explore"/>
+            <button class="is-dark button" @click="toggleActive()">Retreat!</button>  
             <br>
-            <button class="is-dark button" @click="toggleActive()">Retreat!</button>       
+            <CombatScreen :areaObject="exploreTab.selectedArea" type="explore"/>     
         </div>
 
         <!--If it isnt-->
         <div v-else>
             <p>{{ exploreTab.selectedArea.getDesc() }}</p>
             <br>
-            <div>Party: </div>
             <div v-if="exploreTab.settingParty">
                 <div v-if="Object.keys(parties.getParties).length > 0">
                     <div v-for="i in parties.getParties">
@@ -89,10 +91,9 @@ function embarkCheck() {
                 <button class="button is-dark" @click="stopSettingParty()">Back</button>
             </div>
             <div v-else>
-                <div>{{ exploreTab.selectedArea.getActiveParty() ? exploreTab.selectedArea.getActiveParty().getName() : "No party assigned!" }}</div>
                 <button class="button is-dark"  @click="startSettingParty()">Set Party</button>
+                <div>Party: {{ exploreTab.selectedArea.getActiveParty() ? exploreTab.selectedArea.getActiveParty().getName() : "No party assigned!" }}</div>
                 <div v-if="exploreTab.selectedArea.getActiveParty()">
-                    Party:
                     <br>
                     <span v-for="i in exploreTab.selectedArea.getActiveParty().getSlots()">
                         <div v-if="i.cultist">
@@ -108,10 +109,6 @@ function embarkCheck() {
                 </span>
             </div>
         </div>
-        
-        <br>
-
-        <button class="button is-dark" @click="deselectArea()">Back</button>
     </div>
     <!--List pops up if no area selected-->
     <div v-else>

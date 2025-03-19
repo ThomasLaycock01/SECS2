@@ -24,6 +24,12 @@ html {
     width: 100%;
 }
 
+.inline-flexSpaceBetween {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
 
 
 
