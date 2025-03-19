@@ -1,4 +1,6 @@
 <script setup>
+import UnitBox from '../misc/UnitBox.vue';
+
 const props = defineProps({
     areaObject: Object,
     type: String
@@ -28,27 +30,8 @@ const props = defineProps({
                 Party:
                 <span v-for="i in areaObject.getActiveParty().getSlots()">
                     <br>
-                    <div v-if="i.cultist" class="unitBox">
-                        <div>{{ i.cultist.getName() }} - {{ i.cultist.getRole().getName() }}</div>
-                        <div>
-                            <table class="table is-bordered is-narrow" v-if="!i.cultist.getKnockedOut()">
-                                <tbody>
-                                    <tr>
-                                        <th>{{ i.cultist.getCurrentHP() }}/{{ i.cultist.getStat("HP") }} HP</th>
-                                        <th>{{ i.cultist.getStat("spd") }} Spd</th>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ i.cultist.getAtkValue("phys") }} P-Atk</td>
-                                        <td>{{ i.cultist.getAtkValue("mag") }} M-Atk</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ i.cultist.getDefValue("phys") }} P-Def</td>
-                                        <td>{{ i.cultist.getDefValue("mag") }} M-Def</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div v-else>Knocked out! {{ Math.floor(i.cultist.getKnockOutTime() / 60) }} Mins {{ i.cultist.getKnockOutTime() % 60 }} secs left</div>
-                        </div>
+                    <div v-if="i.cultist">
+                        <UnitBox :unit="i.cultist" type="cultist"/>
                     </div>
                 </span>
             </div>
@@ -58,27 +41,7 @@ const props = defineProps({
                 Enemies:
                 <span v-for="i in areaObject.getCurrentEncounter()">
                     <br>
-                    <div class="unitBox">
-                        <div>{{ i.getName() }}</div>
-                        <div>
-                            <table class="table is-bordered is-narrow">
-                                <tbody>
-                                    <tr>
-                                        <th>{{ i.getCurrentHP() }}/{{ i.getStat("HP") }} HP</th>
-                                        <th>{{ i.getStat("spd") }} Spd</th>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ i.getAtkValue("phys") }} P-Atk</td>
-                                        <td>{{ i.getAtkValue("mag") }} M-Atk</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ i.getDefValue("phys") }} P-Def</td>
-                                        <td>{{ i.getDefValue("mag") }} M-Def</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <UnitBox :unit="i" type="enemy"/>
                 </span>
             </div>
 
