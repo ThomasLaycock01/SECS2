@@ -28,20 +28,22 @@ const props = defineProps({
             <!--Party display-->
             <div>
                 Party:
-                <span v-for="i in areaObject.getActiveParty().getSlots()">
-                    <br>
-                    <div v-if="i.cultist">
-                        <UnitBox :unit="i.cultist" type="cultist"/>
-                    </div>
+                <span v-if="areaObject.getActiveParty()">
+                    <span v-for="i in areaObject.getActiveParty().getSlots()">
+                        <br>
+                        <div v-if="i.cultist">
+                            <UnitBox :unit="i.cultist" type="cultist" :key="i.cultist.getId()"/>
+                        </div>
+                    </span>
                 </span>
             </div>
 
             <!--Displaying enemies-->
             <div v-if="areaObject.getCurrentEncounter().length > 0">
                 Enemies:
-                <span v-for="i in areaObject.getCurrentEncounter()">
+                <span v-for="i, index in areaObject.getCurrentEncounter()">
                     <br>
-                    <UnitBox :unit="i" type="enemy"/>
+                    <UnitBox :unit="i" type="enemy" :key="i.getId()"/>
                 </span>
             </div>
 

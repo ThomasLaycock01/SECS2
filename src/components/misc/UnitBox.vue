@@ -1,12 +1,10 @@
 <script setup>
-
 const props = defineProps({
     unit: Object,
     type: String
 })
 
 const unit = props.unit;
-
 </script>
 
 

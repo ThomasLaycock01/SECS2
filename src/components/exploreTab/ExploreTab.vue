@@ -107,6 +107,7 @@ function embarkCheck() {
                 <span v-if="tooltips.getActiveTooltip == 'embarkWarning' && tooltips.checkEmbarkWarning(exploreTab.selectedArea)">
                     <Tooltip class="tooltip" :tooltipType="'warning'" :warningObj="tooltips.checkEmbarkWarning(exploreTab.selectedArea)"/>
                 </span>
+                <CombatScreen :areaObject="exploreTab.selectedArea" type="explore"/>
             </div>
         </div>
     </div>
