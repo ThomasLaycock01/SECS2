@@ -65,16 +65,16 @@ function confirmButtonClick() {
 
 
 //for the perk display
-function mouseEnterPerk(e) {
-    selectedPerk.perk = e.target.value
+function mouseEnterPerk(id) {
+    selectedPerk.perk = id
 }
 
-function mouseLeavePerk(e) {
+function mouseLeavePerk() {
     selectedPerk.perk = null;
 }
 
-function assignPerk(e) {
-    activeCultist.cultist.addPerk(perks.default[e.target.value]);
+function assignPerk(perk) {
+    activeCultist.cultist.addPerk(perk);
     selectedPerk.perk = null;
 }
 </script>
@@ -138,23 +138,23 @@ function assignPerk(e) {
                         <div class="title is-6">Perks</div>
                         <div v-if="activeCultist.cultist.getPerkPoints()">
                             <div>Perk points available: {{ activeCultist.cultist.getPerkPoints() }}</div>
-                            <div class="container">
-                                <div v-for="i in perks.default">
+                            <div>
+                                <span v-for="i in perks.default">
                                     <span v-if="perkCheck(i, activeCultist.cultist)">
-                                        <button class="button is-info" @click="assignPerk" @mouseenter="mouseEnterPerk" @mouseleave="mouseLeavePerk" :value="i.id">{{ i.name }}</button>
-                                        <div v-if="i.id == selectedPerk.perk">
+                                        <button class="button is-info mr-1" @click="assignPerk(i)" @mouseenter="mouseEnterPerk(i.id)" @mouseleave="mouseLeavePerk">{{ i.name }}</button>
+                                        <span v-if="i.id == selectedPerk.perk">
                                             <PerkTooltip class="perkTooltip" :perk="i"/>
-                                        </div>
+                                        </span>
                                     </span>
-                                </div>
+                                </span>
                             </div>
                             <br>
                         </div>
                         <!--Display of unlocked perks-->
                         <div>Unlocked</div>
-                        <div class="container">
+                        <div>
                             <span v-for="i in activeCultist.cultist.getPerks()">
-                                <button  class="button is-outlined" @mouseenter="mouseEnterPerk" @mouseleave="mouseLeavePerk" :value="i.id">{{i.name}}</button>
+                                <button  class="button is-outlined" @mouseenter="mouseEnterPerk(i.id)" @mouseleave="mouseLeavePerk" :value="i.id">{{i.name}}</button>
                                 <div v-if="i.id == selectedPerk.perk">
                                     <PerkTooltip class="perkTooltip" :perk="i" :unlocked="true"/>
                                 </div>
