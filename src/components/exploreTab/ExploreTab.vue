@@ -2,7 +2,6 @@
 import { reactive } from 'vue';
 
 import { useExploreStore } from '@/stores/barracks/explore';
-import { usePartiesStore } from '@/stores/barracks/parties';
 import { useModalsStore } from '@/stores/misc/modal';
 import { useTooltipsStore } from '@/stores/misc/tooltips';
 
@@ -10,7 +9,6 @@ import CombatScreen from './CombatScreen.vue';
 import Tooltip from '../Tooltip.vue';
 
 const explore = useExploreStore();
-const parties = usePartiesStore();
 const modals = useModalsStore();
 const tooltips = useTooltipsStore();
 

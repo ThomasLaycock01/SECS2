@@ -50,6 +50,9 @@ function setSelectedParty(party) {
                             <span v-if="i.cultist">
                                 <UnitBox :unit="i.cultist" type="cultist" :key="i.cultist.getId()"/>
                             </span>
+                            <span v-else>
+                                <UnitBox :unit="null" type="empty" :key="'empty'"/>
+                            </span>
                         </span>
                     </div>
                 </div>

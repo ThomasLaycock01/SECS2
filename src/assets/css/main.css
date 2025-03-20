@@ -6,6 +6,11 @@ html {
     height: 100vh;
 }
 
+.centered {
+    margin: auto;
+    text-align: center;
+}
+
 .segment-title {
     border-bottom: 2px black solid;
 }
