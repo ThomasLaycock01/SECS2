@@ -206,6 +206,7 @@ html {
     justify-content: space-around;
 }
 
+/*party select modal*/
 
 
 /*combat screen*/
@@ -219,5 +220,6 @@ html {
 
 .unitBox {
     border: 1px solid black;
+    width: max-content;
 }
 

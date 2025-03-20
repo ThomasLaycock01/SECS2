@@ -3,6 +3,7 @@ import Tables from "./components/tables/Tables.vue";
 
 import AssignmentModal from "./components/modal/AssignmentModal.vue";
 import PartyModal from "./components/modal/PartyModal.vue";
+import PartySelectModal from "./components/modal/PartySelectModal.vue";
 
 import LairTab from "./components/lairTab/LairTab.vue";
 import HRTab from "./components/HRTab/HRTab.vue";
@@ -48,6 +49,7 @@ const progression = useProgressionStore();
 
   <AssignmentModal v-if="modals.checkModal('assignment')"/>
   <PartyModal v-if="modals.checkModal('party')"/>
+  <PartySelectModal v-if="modals.checkModal('partySelect')"/>
 </template>
 
 <script>

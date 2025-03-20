@@ -14,6 +14,10 @@ export const useModalsStore = defineStore("modals", {
                 party: {
                     isActive: false,
                     partyObj: null
+                },
+                partySelect: {
+                    isActive: false,
+                    areaObj: null
                 }
             }
         }
@@ -30,6 +34,9 @@ export const useModalsStore = defineStore("modals", {
         },
         getPartyObj(state) {
             return state.modals.party.partyObj;
+        },
+        getPartySelectAreaObj(state) {
+            return state.modals.partySelect.areaObj;
         }
     },
     actions: {
@@ -72,6 +79,14 @@ export const useModalsStore = defineStore("modals", {
             }
 
             this.toggleModal("party");
+        },
+        openPartySelect(area) {
+            this.modals.partySelect.areaObj = area;
+
+            this.toggleModal("partySelect");
+        },
+        closePartySelect() {
+            this.toggleModal("partySelect");
         }
     }
 })

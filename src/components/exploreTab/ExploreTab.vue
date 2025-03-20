@@ -3,6 +3,7 @@ import { reactive } from 'vue';
 
 import { useExploreStore } from '@/stores/barracks/explore';
 import { usePartiesStore } from '@/stores/barracks/parties';
+import { useModalsStore } from '@/stores/misc/modal';
 import { useTooltipsStore } from '@/stores/misc/tooltips';
 
 import CombatScreen from './CombatScreen.vue';
@@ -10,6 +11,7 @@ import Tooltip from '../Tooltip.vue';
 
 const explore = useExploreStore();
 const parties = usePartiesStore();
+const modals = useModalsStore();
 const tooltips = useTooltipsStore();
 
 var exploreTab = reactive({selectedArea: null, settingParty: false});
@@ -91,7 +93,7 @@ function embarkCheck() {
                 <button class="button is-dark" @click="stopSettingParty()">Back</button>
             </div>
             <div v-else>
-                <button class="button is-dark"  @click="startSettingParty()">Set Party</button>
+                <button class="button is-dark"  @click="modals.openPartySelect(exploreTab.selectedArea)">Set Party</button>
                 <div>Party: {{ exploreTab.selectedArea.getActiveParty() ? exploreTab.selectedArea.getActiveParty().getName() : "No party assigned!" }}</div>
                 <div v-if="exploreTab.selectedArea.getActiveParty()">
                     <br>
