@@ -14,7 +14,7 @@ const parties = usePartiesStore();
 const modals = useModalsStore();
 const tooltips = useTooltipsStore();
 
-var exploreTab = reactive({selectedArea: null, settingParty: false});
+var exploreTab = reactive({selectedArea: null});
 
 function setSelectedArea(obj) {
     exploreTab.selectedArea = obj;
@@ -22,24 +22,6 @@ function setSelectedArea(obj) {
 
 function deselectArea() {
     exploreTab.selectedArea = null;
-}
-
-function startSettingParty() {
-    exploreTab.settingParty = true;
-}
-
-function stopSettingParty() {
-    exploreTab.settingParty = false;
-}
-
-function setSelectedParty(party) {
-    //if the party is already assigned, remove it
-    if (exploreTab.selectedArea.getActiveParty() && exploreTab.selectedArea.getActiveParty().getId() == party.getId()) {
-        exploreTab.selectedArea.removeActiveParty();
-    }
-    else {
-        exploreTab.selectedArea.setActiveParty(party);
-    }
 }
 
 function toggleActive() {
@@ -80,35 +62,14 @@ function embarkCheck() {
         <!--If it isnt-->
         <div v-else>
             <p>{{ exploreTab.selectedArea.getDesc() }}</p>
-            <br>
-            <div v-if="exploreTab.settingParty">
-                <div v-if="Object.keys(parties.getParties).length > 0">
-                    <div v-for="i in parties.getParties">
-                        <button class="button is-dark" :class="exploreTab.selectedArea.getActiveParty() && exploreTab.selectedArea.getActiveParty().getId() == i.getId() ? 'is-info' : ''" @click="setSelectedParty(i)">{{ i.getName() }}</button>
-                    </div>
-                </div>
-                <div v-else>
-                    No parties available!
-                </div>
-                <button class="button is-dark" @click="stopSettingParty()">Back</button>
-            </div>
-            <div v-else>
-                <button class="button is-dark"  @click="modals.openPartySelect(exploreTab.selectedArea)">Set Party</button>
-                <div>Party: {{ exploreTab.selectedArea.getActiveParty() ? exploreTab.selectedArea.getActiveParty().getName() : "No party assigned!" }}</div>
-                <div v-if="exploreTab.selectedArea.getActiveParty()">
-                    <br>
-                    <span v-for="i in exploreTab.selectedArea.getActiveParty().getSlots()">
-                        <div v-if="i.cultist">
-                            {{ i.cultist.getName() }} - {{ i.cultist.getRole() ? i.cultist.getRole().getName() : "" }} - <span v-if="!i.cultist.getKnockedOut()">{{ i.cultist.getCurrentHP() }}/{{ i.cultist.getStat("HP") }}</span><span v-else>Knocked Out! {{ Math.floor(i.cultist.getKnockOutTime() / 60) }} Mins {{ i.cultist.getKnockOutTime() % 60 }} secs left</span>
-                        </div>
-                    </span>
-                </div>
-                <br>
-                <br>
+            <div>
                 <button class="button is-dark" @click="toggleActive()" :disabled="!embarkCheck()" @mouseenter="tooltips.setActiveTooltip('embarkWarning')" @mouseleave="tooltips.removeActiveTooltip()">Embark!</button>
                 <span v-if="tooltips.getActiveTooltip == 'embarkWarning' && tooltips.checkEmbarkWarning(exploreTab.selectedArea)">
                     <Tooltip class="tooltip" :tooltipType="'warning'" :warningObj="tooltips.checkEmbarkWarning(exploreTab.selectedArea)"/>
                 </span>
+                <br>
+                <br>
+                <button class="button is-dark"  @click="modals.openPartySelect(exploreTab.selectedArea)">Set Party</button>
                 <CombatScreen :areaObject="exploreTab.selectedArea" type="explore"/>
             </div>
         </div>
