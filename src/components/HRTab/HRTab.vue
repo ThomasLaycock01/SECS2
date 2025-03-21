@@ -133,10 +133,11 @@ function assignPerk(perk) {
                                 <li>{{ activeCultist.cultist.getStat("def") }} Def</li>
                                 <li>{{ activeCultist.cultist.getStat("spd") }} Spd</li>
                             </ul>
-                        </div>
-                        <!--New Perks only appear when a cultist has available perk points-->
-                        <br>
-                        <div class="title is-6">Perks</div>
+                        </div>                 
+                    </b-tab-item>
+                    <!--Perk tab-->
+                    <b-tab-item :label="activeCultist.cultist.getPerkPoints() > 0 ? 'Perks(!)' : 'Perks'">
+                        <!--New Perks only appear when a cultist has available perk points - for now-->
                         <div v-if="activeCultist.cultist.getPerkPoints()">
                             <div>Perk points available: {{ activeCultist.cultist.getPerkPoints() }}</div>
                             <div>
@@ -163,7 +164,7 @@ function assignPerk(perk) {
                         </div>
                     </b-tab-item>
                     <!--Equipment tab-->
-                    <b-tab-item label="Equipment" >
+                    <b-tab-item label="Equipment">
                         <div class="title is-6">Equipment</div>
                         <div>
                             <div v-for="value, key in activeCultist.cultist.getEquipment()">
