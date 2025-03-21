@@ -1,7 +1,7 @@
 import { getGlobalModifiers, createStatsObj, posToNeg } from "@/functions";
 
 export class Cultist {
-    constructor(id, name, raceTemplate, job, level, currentXp, xpNeeded, xpIncrement, levelLimit, perks, perkPoints, equipment) {
+    constructor(id, name, raceTemplate, job, level, currentXp, xpIncrement, levelLimit, perks, perkPoints, equipment) {
         this.id = id;
         this.name = name;
 
@@ -11,7 +11,6 @@ export class Cultist {
         //level
         this.level = level;
         this.currentXp = currentXp;
-        this.xpNeeded = xpNeeded;
         this.xpIncrement = xpIncrement;
         this.levelLimit = levelLimit;
         
@@ -68,7 +67,7 @@ export class Cultist {
     }
 
     getXpNeeded() {
-        return this.xpNeeded;
+        return 20 * (Math.pow(this.xpIncrement, this.level - 1));
     }
 
     getXpIncrement() {
@@ -273,14 +272,13 @@ export class Cultist {
     }
 
     checkLevelUp() {
-        if (this.currentXp >= this.xpNeeded && !(this.level + 1 > this.levelLimit)) {
+        if (this.currentXp >= this.getXpNeeded() && !(this.level + 1 > this.levelLimit)) {
             this.levelUp();
         }
     }
 
     levelUp() {
-        this.currentXp = this.currentXp - this.xpNeeded;
-        this.xpNeeded = Math.floor(this.xpNeeded * this.xpIncrement);
+        this.currentXp = 0;
 
         this.level += 1;
         this.incrementPerkPoint();
