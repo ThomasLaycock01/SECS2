@@ -127,7 +127,8 @@ function assignPerk(perk) {
                         <br>
                         <div>
                             <ul>
-                                <li>{{ activeCultist.cultist.getCurrentHP() }}/{{ activeCultist.cultist.getStat("HP") }} HP</li>
+                                <li v-if="activeCultist.cultist.getKnockedOut()">Knocked Out! {{ Math.floor(activeCultist.cultist.getKnockOutTime() / 60) }} Mins {{ activeCultist.cultist.getKnockOutTime() % 60 }} secs left</li>
+                                <li v-else>{{ activeCultist.cultist.getCurrentHP() }}/{{ activeCultist.cultist.getStat("HP") }} HP</li>
                                 <li>{{ activeCultist.cultist.getStat("atk") }} Atk</li>
                                 <li>{{ activeCultist.cultist.getStat("def") }} Def</li>
                                 <li>{{ activeCultist.cultist.getStat("spd") }} Spd</li>
