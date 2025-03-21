@@ -9,12 +9,9 @@ export const useResourcesStore = defineStore("resources", {
         return {
             resources: {
                 evilness: {id: "evilness", name: "Evilness", total: 0, perSec: 0},
-                gold: {id: "gold", name: "Gold", total: 0, perSec: 0},
-                grain: {id: "grain", name: "Grain", total: 0, perSec: 0}
-            },
-            locked: [
-                "grain"
-            ]
+                gold: {id: "gold", name: "Gold", total: 0, perSec: 0, unlockedAt: "10Evilness"},
+                grain: {id: "grain", name: "Grain", total: 0, perSec: 0, unlockedAt: "completedExpedition"}
+            }
         }
     },
     getters: {
@@ -44,7 +41,13 @@ export const useResourcesStore = defineStore("resources", {
         //locked/unlocked
         checkIfLocked(state) {
             return (resourceId) => {
-                return state.locked.includes(resourceId);
+                const progression = useProgressionStore();
+
+                //evilness is always unlocked
+                if (progression.checkUnlocked(state.resources[resourceId].unlockedAt) || resourceId == "evilness") {
+                    return false;
+                }
+                return true;
             }
         }
     },
@@ -52,9 +55,11 @@ export const useResourcesStore = defineStore("resources", {
         modifyResource(type, amount) {
             const progression = useProgressionStore();
 
-            this.resources[type].total += amount;
-
-            progression.updateProgression();
+            //only update if resource is unlocked
+            if(!this.checkIfLocked(type)) {
+                this.resources[type].total += amount;
+                progression.updateProgression();
+            }
         },
         setResourcePerSec(type, value) {
             this.resources[type].perSec = value;
@@ -78,10 +83,6 @@ export const useResourcesStore = defineStore("resources", {
             }
 
             return canAfford;
-        },
-        //locking
-        unlockResource(resourceId) {
-            this.locked = this.locked.filter(id => id != resourceId);
         }
     }
 })
