@@ -17,7 +17,6 @@ export class Cultist {
         this.raceName = raceTemplate.name;
         this.racialGroup = raceTemplate.racialGroup;
         this.racialModifiers = raceTemplate.racialModifiers;
-        this.type = raceTemplate.type;
 
         //stats
         this.stats = createStatsObj(raceTemplate.stats);
@@ -60,6 +59,8 @@ export class Cultist {
         return this.id;
     }
 
+
+    //levelling
     getXp() {
         return this.currentXp;
     }
@@ -90,10 +91,6 @@ export class Cultist {
 
     getRacialGroup() {
         return this.racialGroup;
-    }
-
-    getType() {
-        return this.type;
     }
 
     getPerkPoints() {
