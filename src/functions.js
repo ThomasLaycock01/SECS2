@@ -46,8 +46,8 @@ export function createStatsObj(statTemplate) {
 }
 
 //creating a cultist
-function createCultist(id, name, species, job = null, level = 1, currentXp = 0, levelLimit = 10, perks = [], perkPoints = 0, equipment = {tool: null, body: null, accessory: null}) {
-    return new Cultist(id, name, species, job, level, currentXp, levelLimit, perks, perkPoints, equipment);
+function createCultist(id, name, species, job = null, level = 1, currentXp = 0, perks = [], perkPoints = 0, equipment = {tool: null, body: null, accessory: null}) {
+    return new Cultist(id, name, species, job, level, currentXp, perks, perkPoints, equipment);
 }
 
 /*export function deserializeCultist(obj) {

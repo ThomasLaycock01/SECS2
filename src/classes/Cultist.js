@@ -1,7 +1,7 @@
 import { getGlobalModifiers, createStatsObj, posToNeg } from "@/functions";
 
 export class Cultist {
-    constructor(id, name, raceTemplate, job, level, currentXp, levelLimit, perks, perkPoints, equipment) {
+    constructor(id, name, raceTemplate, job, level, currentXp, perks, perkPoints, equipment) {
         this.id = id;
         this.name = name;
 
@@ -11,7 +11,6 @@ export class Cultist {
         //level
         this.level = level;
         this.currentXp = currentXp;
-        this.levelLimit = levelLimit;
         
         //race
         this.raceId = raceTemplate.id;
