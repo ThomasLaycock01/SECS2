@@ -81,6 +81,8 @@ export class Cultist {
         return Math.floor(10 + this.getModifiers(["levelLimit"], false) - 1);
     }
 
+
+    //racial
     getRaceId() {
         return this.raceId;
     }
@@ -93,6 +95,8 @@ export class Cultist {
         return this.racialGroup;
     }
 
+
+    //perks
     getPerkPoints() {
         return this.perkPoints;
     }

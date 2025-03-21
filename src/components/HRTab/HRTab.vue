@@ -96,7 +96,7 @@ function assignPerk(perk) {
             <div class="title is-5 mb-1 segment-title">Cultists</div>
             <div class="cultistContainer">
                 <span v-for="i in cultists.getCultists">
-                    <button  class="button is-dark is-info cultistGridItem" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
+                    <button  class="button cultistGridItem" :class="i.getPerkPoints() > 0 ? 'is-info' : 'is-dark'" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
                 </span>
                 <span v-for="i in cultists.getCultistLimit - cultists.getNumOfCultists">
                     <div class="button is-outlined cultistGridItem" disabled>Empty</div>
