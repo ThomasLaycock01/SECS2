@@ -67,7 +67,7 @@ export class Cultist {
     }
 
     getXpNeeded() {
-        return 20 * (Math.pow(this.xpIncrement, this.level - 1));
+        return Math.floor(20 * (Math.pow(this.xpIncrement, this.level - 1)));
     }
 
     getXpIncrement() {
