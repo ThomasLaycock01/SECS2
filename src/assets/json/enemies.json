@@ -1,9 +1,9 @@
 {
-    "1000": {"id": 1000, "name": "Evil Cultist", "stats": {"atk": 1, "spd": 1, "def": 0, "HP": 10}, "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 1, "mag": 1}, "xpDrop": 10, "loot": {"gold": 10}, "items": [{"id": 2000, "chance": 5}]},
-    "1001": {"id": 1001, "name": "Bandit Grunt", "stats": {"atk": 2, "spd": 2, "def": 1, "HP": 15}, "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 1, "mag": 1}, "xpDrop": 12, "loot": {"gold": 15}},
-    "1002": {"id": 1002, "name": "Scarecrow", "stats": {"atk": 2, "spd": 2, "def": 2, "HP": 20}, "atkMod": {"phys": 0.2, "mag": 0.8}, "defMod": {"phys": 1, "mag": 1}, "xpDrop": 14, "loot": {"gold": 5, "grain": 10}},
-    "1003": {"id": 1003, "name": "Bandit Sourcerer", "stats": {"atk": 4, "spd": 1, "def": 1, "HP": 13}, "atkMod": {"phys": 0, "mag": 1}, "defMod": {"phys": 1.1, "mag": 0.5}, "xpDrop": 15, "loot": {"gold": 15}},
-    "1004": {"id": 1004, "name": "Feral Dog", "stats": {"atk": 1, "spd": 4, "def": 1, "HP": 10}, "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 1, "mag": 1}, "xpDrop": 8, "loot": {"gold": 10}},
-    "1005": {"id": 1005, "name": "Bandit Underboss", "stats": {"atk": 5, "spd": 2, "def": 3, "HP": 25}, "atkMod": {"phys": 1.1, "mag": 0}, "defMod": {"phys": 0.8, "mag": 1}, "xpDrop": 24, "loot": {"gold": 30}},
-    "1006": {"id": 1006, "name": "Possessed Scarecrow", "stats": {"atk": 3, "spd": 2, "def": 3, "HP": 11}, "atkMod": {"phys": 0, "mag": 1.1}, "defMod": {"phys": 0.6, "mag": 2}, "xpDrop": 18, "loot": {"gold": 10, "grain": 20}}
+    "1000": {"id": 1000, "name": "Evil Cultist", "stats": {"atk": 1, "spd": 1, "def": 0, "HP": 10}, "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 1, "mag": 1}, "xpDrop": 3, "loot": {"gold": 10}, "items": [{"id": 2000, "chance": 5}]},
+    "1001": {"id": 1001, "name": "Bandit Grunt", "stats": {"atk": 2, "spd": 2, "def": 1, "HP": 15}, "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 1, "mag": 1}, "xpDrop": 5, "loot": {"gold": 15}},
+    "1002": {"id": 1002, "name": "Scarecrow", "stats": {"atk": 2, "spd": 2, "def": 2, "HP": 20}, "atkMod": {"phys": 0.2, "mag": 0.8}, "defMod": {"phys": 1, "mag": 1}, "xpDrop": 6, "loot": {"gold": 5, "grain": 10}},
+    "1003": {"id": 1003, "name": "Bandit Sourcerer", "stats": {"atk": 4, "spd": 1, "def": 1, "HP": 13}, "atkMod": {"phys": 0, "mag": 1}, "defMod": {"phys": 1.1, "mag": 0.5}, "xpDrop": 8, "loot": {"gold": 15}},
+    "1004": {"id": 1004, "name": "Feral Dog", "stats": {"atk": 1, "spd": 4, "def": 1, "HP": 10}, "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 1, "mag": 1}, "xpDrop": 1, "loot": {"gold": 10}},
+    "1005": {"id": 1005, "name": "Bandit Underboss", "stats": {"atk": 5, "spd": 2, "def": 3, "HP": 25}, "atkMod": {"phys": 1.1, "mag": 0}, "defMod": {"phys": 0.8, "mag": 1}, "xpDrop": 12, "loot": {"gold": 30}},
+    "1006": {"id": 1006, "name": "Possessed Scarecrow", "stats": {"atk": 3, "spd": 2, "def": 3, "HP": 11}, "atkMod": {"phys": 0, "mag": 1.1}, "defMod": {"phys": 0.6, "mag": 2}, "xpDrop": 9, "loot": {"gold": 10, "grain": 20}}
 }
