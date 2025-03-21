@@ -78,7 +78,7 @@ export class Cultist {
     }
 
     getLevelLimit() {
-        return this.levelLimit;
+        return Math.floor(10 + this.getModifiers(["levelLimit"], false) - 1);
     }
 
     getRaceId() {
