@@ -256,12 +256,11 @@ export class Cultist {
     }
 
     addXp(amount) {
-        const modifier = 1 + this.getModifiers("xpGain", false);
         if (this.level == this.levelLimit) {
             this.currentXp = 0;
         }
         else {
-            this.currentXp += Math.floor(amount * modifier);
+            this.currentXp += Math.floor(amount * this.getModifiers("xpGain", false));
             this.checkLevelUp();
         }
     }
