@@ -69,6 +69,14 @@ export const useCultistsStore = defineStore("cultists", {
         getDefaultLevelLimit(state) {
             return state.misc.defaultLevelLimit;
         },
+        checkLevelUpAvailable(state) {
+            for (var i in state.regular) {
+                if (state.regular[i].getPerkPoints() > 0) {
+                    return true;
+                }
+            }
+            return false;
+        },
         //races
         getRaceTemplate(state) {
             return (raceId) => {
