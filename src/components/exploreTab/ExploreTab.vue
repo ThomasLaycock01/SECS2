@@ -68,6 +68,9 @@ function embarkCheck() {
                 <br>
                 <br>
                 <button class="button is-dark"  @click="modals.openPartySelect(exploreTab.selectedArea)">Set Party</button>
+                <span v-if="exploreTab.selectedArea.getActiveParty()">
+                    <button class="button is-dark"  @click="modals.openParty(exploreTab.selectedArea.getActiveParty())">Edit Party</button>
+                </span>
                 <CombatScreen :areaObject="exploreTab.selectedArea" type="explore"/>
             </div>
         </div>
