@@ -142,6 +142,10 @@ export class Cultist {
         return Math.floor(this.currentHP * 100) / 100;
     }
 
+    getMissingHP() {
+        return Math.floor((this.getStat("HP") - this.getCurrentHP()) * 100) / 100;
+    }
+
     getKnockedOut() {
         return this.knockedOut;
     }
@@ -382,6 +386,9 @@ export class Cultist {
         this.modifyHP(0.1);
     }
 
+    instaHeal() {
+        this.currentHP = this.getStat("HP");
+    }
 
     setRole(role) {
         this.role = role;

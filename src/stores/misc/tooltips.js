@@ -30,6 +30,28 @@ export const useTooltipsStore = defineStore('tooltips', {
                 console.log(returnArray);
                 return returnArray;
             }
+        },
+        getInstaHealTooltip(state) {
+            return (partyObj) => {
+                if (partyObj.getGrainHealCost() > 0) {
+                    const returnObj = {
+                        name: "Insta-Heal",
+                        desc: "Spend grain to instantly heal a cultist",
+                        costs() {
+                            return { grain: partyObj.getGrainHealCost() };
+                        }
+                    }
+                    return returnObj;
+                }
+                else {
+                    const returnObj = {
+                        name: "Insta-Heal",
+                        desc: "Spend grain to instantly heal a cultist",
+                        effectDesc: "Already at full health!"
+                    }
+                    return returnObj;
+                }   
+            }
         }
     },
     actions: {

@@ -100,6 +100,18 @@ export class Party {
         return true;
     }
 
+    getGrainHealCost() {
+        var cost = 0;
+
+        for (var i in this.slots) {
+            if (this.slots[i].cultist) {
+                cost += this.slots[i].cultist.getMissingHP();
+            }
+        }
+
+        return cost * 100;
+    }
+
     //actions
     initSlots() {
         var count = 0;
@@ -169,6 +181,14 @@ export class Party {
         for (var i in this.slots) {
             if (this.slots[i].cultist) {
                 this.slots[i].cultist.heal();
+            }
+        }
+    }
+
+    instaHealCultists() {
+        for (var i in this.slots) {
+            if (this.slots[i].cultist) {
+                this.slots[i].cultist.instaHeal();
             }
         }
     }

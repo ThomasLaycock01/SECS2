@@ -79,6 +79,21 @@ export const useLairStore = defineStore("lair", {
                                 const resources = useResourcesStore();
                                 resources.modifyResource("evilness", 1000000)
                             }
+                        },
+                        debugGrain: {
+                            id: "debugGrain",
+                            name: "Debug Grain",
+                            desc: "Add a bajillion grain",
+                            condition() {
+                                return true;
+                            },
+                            showCondition() {
+                                return true;
+                            },
+                            effect() {
+                                const resources = useResourcesStore();
+                                resources.modifyResource("grain", 1000000)
+                            }
                         }
                     }
                 },
