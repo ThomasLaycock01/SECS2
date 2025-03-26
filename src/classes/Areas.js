@@ -88,10 +88,13 @@ export class Area {
         this.activeParty = null;
     }
 
-    toggleActive() {
+    toggleActive(click = false) {
         if (this.active) {
             this.active = false;
             this.activeParty.setCurrentActivity();
+            if (click) {
+                this.autoEmbark = false;
+            }
         }
         else {
             this.active = true;

@@ -22,10 +22,6 @@ function deselectArea() {
     exploreTab.selectedArea = null;
 }
 
-function toggleActive() {
-    exploreTab.selectedArea.toggleActive();
-}
-
 function embarkCheck() {
     //if theres no party
     if (!exploreTab.selectedArea.getActiveParty()) {
@@ -52,7 +48,7 @@ function embarkCheck() {
 
         <!--If the area is active-->
         <div v-if="exploreTab.selectedArea.getActive()">
-            <button class="is-dark button" @click="toggleActive()">Retreat!</button>  
+            <button class="is-dark button" @click="exploreTab.selectedArea.toggleActive(true)">Retreat!</button>  
             <br>
             <CombatScreen :areaObject="exploreTab.selectedArea" type="explore"/>     
         </div>
@@ -61,7 +57,7 @@ function embarkCheck() {
         <div v-else>
             <p>{{ exploreTab.selectedArea.getDesc() }}</p>
             <div>
-                <button class="button is-dark" @click="toggleActive()" :disabled="!embarkCheck()" @mouseenter="tooltips.setActiveTooltip('embarkWarning')" @mouseleave="tooltips.removeActiveTooltip()">Embark!</button>
+                <button class="button is-dark" @click="exploreTab.selectedArea.toggleActive(true)" :disabled="!embarkCheck()" @mouseenter="tooltips.setActiveTooltip('embarkWarning')" @mouseleave="tooltips.removeActiveTooltip()">Embark!</button>
                 <span v-if="tooltips.getActiveTooltip == 'embarkWarning' && tooltips.checkEmbarkWarning(exploreTab.selectedArea)">
                     <Tooltip class="tooltip" :tooltipType="'warning'" :warningObj="tooltips.checkEmbarkWarning(exploreTab.selectedArea)"/>
                 </span>
