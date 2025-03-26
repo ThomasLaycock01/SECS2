@@ -29,13 +29,11 @@
         "expeditions": [
             {
                 "id": "abandonedFarmhouse",
-                "unlockLevel": 5,
-                "baseChance": 10
+                "unlockLevel": 5
             },
             {
                 "id": "banditHideout",
-                "unlockLevel": 10,
-                "baseChance": 10
+                "unlockLevel": 10
             }
         ]
     }
