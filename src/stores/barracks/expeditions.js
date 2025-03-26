@@ -11,8 +11,6 @@ export const useExpeditionsStore = defineStore("expeditions", {
     state: () => {
         return {
             expeditions: {
-            },
-            activeExpedition: {
             }
         }
     },
@@ -20,12 +18,6 @@ export const useExpeditionsStore = defineStore("expeditions", {
         getAvailableExpeditions(state) {
             //just returns them all rn
             return state.expeditions;
-        },
-        getActiveExpedition(state) {
-            if (!Object.keys(state.activeExpedition).length) {
-                return null;
-            }
-            return state.activeExpedition;
         },
         checkIfExpeditionUnlocked(state) {
             return (expeditionId) => {
@@ -63,12 +55,6 @@ export const useExpeditionsStore = defineStore("expeditions", {
             this.expeditions[id].unlock();
 
             progression.updateProgression();
-        },
-        setActiveExpedition(id) {
-            this.activeExpedition = this.expeditions[id];
-        },
-        unsetActiveExpedition() {
-            this.activeExpedition = {};
         },
         instantiateExpeditions() {
             for (var i in expeditions) {
