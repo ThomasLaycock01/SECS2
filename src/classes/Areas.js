@@ -1,5 +1,6 @@
 import { useEnemiesStore } from "@/stores/barracks/enemies";
 import { useExpeditionsStore } from "@/stores/barracks/expeditions";
+import { useModalsStore } from "@/stores/misc/modal";
 
 export class Area {
     constructor(obj) {
@@ -112,7 +113,10 @@ export class Area {
     }
 
     checkAutoEmbark() {
-        if (this.autoEmbark && this.activeParty && this.activeParty.checkFullHealth()) {
+        //slightly weird, but need to make sure party select modal isnt open when the area embarks, otherwise could change party after embark
+        const modals = useModalsStore();
+
+        if (this.autoEmbark && this.activeParty && this.activeParty.checkFullHealth() && !modals.checkModal("partySelect")) {
             this.toggleActive();
         }
     }
