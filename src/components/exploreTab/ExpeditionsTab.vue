@@ -7,37 +7,21 @@ import Tooltip from '../Tooltip.vue';
 import { useExpeditionsStore } from '@/stores/barracks/expeditions';
 import { usePartiesStore } from '@/stores/barracks/parties';
 import { useTooltipsStore } from '@/stores/misc/tooltips';
+import { useModalsStore } from '@/stores/misc/modal';
 
 const expeditions = useExpeditionsStore();
 const parties = usePartiesStore();
 const tooltips = useTooltipsStore();
+const modals = useModalsStore();
 
-var expeditionsTab = reactive({selectedExpedition: null, settingParty: false});
+var expeditionsTab = reactive({selectedExpedition: null});
 
-function selectExpedition(obj) {
+function setSelectedExpedition(obj) {
     expeditionsTab.selectedExpedition = obj;
 }
 
 function deselectExpedition() {
     expeditionsTab.selectedExpedition = null;
-    expeditionsTab.settingParty = false;
-}
-
-function startSettingParty() {
-    expeditionsTab.settingParty = true;
-}
-
-function stopSettingParty() {
-    expeditionsTab.settingParty = false;
-}
-
-function setSelectedParty(party) {
-    if (expeditionsTab.selectedExpedition.getActiveParty() && expeditionsTab.selectedExpedition.getActiveParty().getId() == party.getId()) {
-        expeditionsTab.selectedExpedition.removeActiveParty();
-    }
-    else {
-        expeditionsTab.selectedExpedition.setActiveParty(party);
-    }
 }
 
 function embarkCheck() {
@@ -65,57 +49,44 @@ function retreatClick() {
 <template>
 
     <div class="title is-5 mb-1 segment-title">Expeditions</div>
-    <!--Display for chosing an expedition-->
-    
+    <!--Area view-->
     <div v-if="expeditionsTab.selectedExpedition">
-        <!--If an active expedition has been selected-->
-        <div>
-            <!--v-if for setting the party-->
-            <div v-if="expeditionsTab.settingParty">
-                <div v-if="Object.keys(parties.getParties).length > 0">
-                    <div v-for="i in parties.getParties">
-                        <button class="button is-dark" :class="expeditionsTab.selectedExpedition.getActiveParty() && expeditionsTab.selectedExpedition.getActiveParty().getId() == i.getId() ? 'is-info' : ''" @click="setSelectedParty(i)">{{ i.getName() }}</button>
-                    </div>
-                </div>
-                <div v-else>
-                    No parties available!
-                </div>
-                <button class="button is-dark" @click="stopSettingParty()">Back</button>
-            </div>
-            <div v-else>
-                <p>{{ expeditionsTab.selectedExpedition.getName() }}</p>
-                <p>Length {{ expeditionsTab.selectedExpedition.getLength() }}</p>
-                <p>{{ expeditionsTab.selectedExpedition.getDesc() }}</p>
+        <div class="inline-flexSpaceBetween">
+            <p class="title is-4 mb-1 segment-title">{{ expeditionsTab.selectedExpedition.getName() }}</p>
+            <button class="button is-small is-danger" @click="deselectExpedition()">X</button>
+        </div>
+
+        <!--If the area is active-->
+        <div v-if="expeditionsTab.selectedExpedition.getActive()">
+            <button class="is-dark button" @click="retreatClick()">Retreat!</button>  
+            <br>
+            <CombatScreen :areaObject="expeditionsTab.selectedExpedition" type="expedition"/>     
+        </div>
+
+        <!--If it isnt-->
+        <div v-else>
+            <p>{{ expeditionsTab.selectedExpedition.getDesc() }}</p>
+            <div>
+                <button class="button is-dark" @click="embarkClick()" :disabled="!embarkCheck()" @mouseenter="tooltips.setActiveTooltip('embarkWarning')" @mouseleave="tooltips.removeActiveTooltip()">Embark!</button>
+                <span v-if="tooltips.getActiveTooltip == 'embarkWarning' && tooltips.checkEmbarkWarning(expeditionsTab.selectedExpedition)">
+                    <Tooltip class="tooltip" :tooltipType="'warning'" :warningObj="tooltips.checkEmbarkWarning(expeditionsTab.selectedExpedition)"/>
+                </span>
                 <br>
-                <div v-if="expeditions.getActiveExpedition && expeditions.getActiveExpedition.getId() == expeditionsTab.selectedExpedition.getId()">
-                    <!--When  active-->
-                    <CombatScreen :areaObject="expeditions.getActiveExpedition" type="expedition"/>
-                    <button class="button is-dark" @click="retreatClick()">Retreat!</button>
-                </div>
-                <!--When inactive-->
-                <div v-else>
-                    <div>Party: </div>
-                    <div>{{ expeditionsTab.selectedExpedition.getActiveParty() ? expeditionsTab.selectedExpedition.getActiveParty().getName() : "No party assigned!" }}</div>
-                    <button class="button is-dark"  @click="startSettingParty()">Set Party</button>
-                    <br>
-                    <button class="button is-dark" :disabled="!embarkCheck()" @click="embarkClick()" @mouseenter="tooltips.setActiveTooltip('embarkWarning')" @mouseleave="tooltips.removeActiveTooltip()">Embark!</button>
-                    <span v-if="tooltips.getActiveTooltip == 'embarkWarning' && tooltips.checkEmbarkWarning(expeditionsTab.selectedExpedition)">
-                        <Tooltip class="tooltip" :tooltipType="'warning'" :warningObj="tooltips.checkEmbarkWarning(expeditionsTab.selectedExpedition)"/>
-                    </span>
-                </div>
+                <br>
+                <button class="button is-dark"  @click="modals.openPartySelect(expeditionsTab.selectedExpedition)">Set Party</button>
+                <span v-if="expeditionsTab.selectedExpedition.getActiveParty()">
+                    <button class="button is-dark"  @click="modals.openParty(expeditionsTab.selectedExpedition.getActiveParty())">Edit Party</button>
+                    <button class="button" :class="expeditionsTab.selectedExpedition.getActiveParty().getIsHealing() ? 'is-danger' : 'is-info'" :disabled="expeditionsTab.selectedExpedition.getActiveParty().getCurrentActivity() && expeditionsTab.selectedExpedition.getActiveParty().getCurrentActivity() != 'Healing'" @click=expeditionsTab.selectedExpedition.getActiveParty().toggleIsHealing()>{{expeditionsTab.selectedExpedition.getActiveParty().getIsHealing() ? 'Stop' : 'Heal'}}</button>
+                </span>
+                <CombatScreen :areaObject="expeditionsTab.selectedExpedition" type="expedition"/>
             </div>
         </div>
-        <br>
-        <button class="button is-danger" @click="deselectExpedition()">Back</button>
     </div>
-    <!--If nothing else, a list of all expeditions-->
+    <!--List pops up if no area selected-->
     <div v-else>
         <div v-for="i in expeditions.getAvailableExpeditions">
-            <div v-if="i.getUnlocked()">
-                <p>{{ i.getName() }}</p>
-                <p>Length {{ i.getLength() }}</p>
-                <button class="button is-dark" @click="selectExpedition(i)">Embark</button>
-            </div>
+            <p>{{ i.getName() }}</p>
+            <button class="button is-dark" @click="setSelectedExpedition(i)">Embark</button>
         </div>
     </div>
 

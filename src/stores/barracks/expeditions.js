@@ -40,17 +40,20 @@ export const useExpeditionsStore = defineStore("expeditions", {
     },
     actions: {
         tick() {
-            if (Object.keys(this.activeExpedition).length) {
-                //auto retreat if everyone is knocked out
-                if (this.activeExpedition.getActiveParty().checkFullKnockOut()) {
-                    this.activeExpedition.endExpedition();
-                }
-                //generate next encounter if there isnt one
-                else if (this.activeExpedition.getCurrentEncounter().length < 1) {
-                    this.activeExpedition.generateNextEncounter();
-                }
-                else {
-                    combatRound(this.activeExpedition);
+            for (var i in this.expeditions) {
+                const expedition = this.expeditions[i];
+                
+                if (expedition.getActive()) {
+                    //auto-retreat if full knock out
+                    if (expedition.getActiveParty().checkFullKnockOut()) {
+                        expedition.endExpedition();
+                    }
+                    else if (expedition.getCurrentEncounter().length < 1) {
+                        expedition.generateNextEncounter();
+                    }
+                    else {
+                        combatRound(expedition);
+                    }
                 }
             }
         },

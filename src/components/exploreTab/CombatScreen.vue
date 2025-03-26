@@ -18,7 +18,7 @@ const props = defineProps({
             <button class="button is-dark is-small" @click="areaObject.increaseCurrentLevel()" :disabled="areaObject.getCurrentLevel() + 1 > areaObject.getMaxLevel()">+</button>
             <p v-if="areaObject.checkAtMaxLevel()">{{ 10 - areaObject.getLevelProgress() }} encounters until next level!</p>
         </div>
-        <div v-else>
+        <div v-else-if="props.type == 'expedition' && areaObject.getActive()">
             <p>Encounter {{areaObject.getCurrentEncounterNum()}}/{{ areaObject.getLength() }}</p>
         </div>
         <br>
