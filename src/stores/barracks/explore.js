@@ -38,6 +38,9 @@ export const useExploreStore = defineStore("explore", {
                     combatRound(area);
                 }
             }
+            else {
+                area.checkAutoEmbark();
+            }
           }  
         },
         instantiateAreas() {

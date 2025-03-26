@@ -105,6 +105,15 @@ export class Party {
         return true;
     }
 
+    checkFullHealth() {
+        for (var i in this.slots) {
+            if (this.slots[i].cultist && this.slots[i].cultist.getMissingHP() != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     getGrainHealCost() {
         var cost = 0;
 

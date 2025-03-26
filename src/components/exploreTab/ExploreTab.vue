@@ -65,6 +65,7 @@ function embarkCheck() {
                 <span v-if="tooltips.getActiveTooltip == 'embarkWarning' && tooltips.checkEmbarkWarning(exploreTab.selectedArea)">
                     <Tooltip class="tooltip" :tooltipType="'warning'" :warningObj="tooltips.checkEmbarkWarning(exploreTab.selectedArea)"/>
                 </span>
+                <button class="button" :class="exploreTab.selectedArea.getAutoEmbark() ? 'is-success' : 'is-danger'"   @click="exploreTab.selectedArea.toggleAutoEmbark()" >Auto-Embark</button>
                 <br>
                 <br>
                 <button class="button is-dark"  @click="modals.openPartySelect(exploreTab.selectedArea)">Set Party</button>

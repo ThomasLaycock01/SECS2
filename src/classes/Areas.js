@@ -15,6 +15,7 @@ export class Area {
 
         this.activeParty = null;
         this.active = false;
+        this.autoEmbark = false;
 
         this.maxLevel = 1;
         this.currentLevel = 1;
@@ -40,6 +41,10 @@ export class Area {
 
     getActiveParty() {
         return this.activeParty;
+    }
+
+    getAutoEmbark() {
+        return this.autoEmbark;
     }
 
     getEncounters() {
@@ -91,6 +96,21 @@ export class Area {
         else {
             this.active = true;
             this.activeParty.setCurrentActivity(this.activityName);
+        }
+    }
+
+    toggleAutoEmbark() {
+        if (this.autoEmbark) {
+            this.autoEmbark = false;
+        }
+        else {
+            this.autoEmbark = true;
+        }
+    }
+
+    checkAutoEmbark() {
+        if (this.autoEmbark && this.activeParty && this.activeParty.checkFullHealth()) {
+            this.toggleActive();
         }
     }
 
