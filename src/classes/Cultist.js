@@ -1,5 +1,7 @@
 import { getGlobalModifiers, createStatsObj, posToNeg } from "@/functions";
 
+import { useResourcesStore } from "@/stores/globalPinias/resources";
+
 export class Cultist {
     constructor(id, name, raceTemplate) {
         this.id = id;
@@ -259,10 +261,6 @@ export class Cultist {
         this.party = null;
     }
 
-    removeParty() {
-        this.party = null;
-    }
-
     addXp(amount) {
         if (this.level == this.levelLimit) {
             this.currentXp = 0;
@@ -361,13 +359,35 @@ export class Cultist {
         }
 
         if (this.currentHP <= 0) {
-            this.knockOut();
+            this.currentHP = 0;
+            if (this.party.getAutoHeal()) {
+                this.attemptAutoHeal();
+            }
+            else {
+                this.knockOut();
+            }
         }
     }
 
     knockOut() {
         this.knockedOut = true;
         this.knockOutTime = this.stats.HP * 10;
+    }
+
+    attemptAutoHeal() {
+        const resources = useResourcesStore();
+
+        const costsObj = {
+            grain: this.getMissingHP() * 100
+        }
+
+        if (resources.checkIfCanAfford(costsObj)) {
+            resources.removeResources(costsObj);
+            this.instaHeal();
+        }
+        else {
+            this.knockOut();
+        }
     }
 
     revive() {

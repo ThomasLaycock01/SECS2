@@ -7,6 +7,7 @@ export class Party {
 
         this.currentActivity = null;
         this.isHealing = false;
+        this.autoHeal = false;
     }
 
     //getters
@@ -80,6 +81,10 @@ export class Party {
 
     getIsHealing() {
         return this.isHealing;
+    }
+
+    getAutoHeal() {
+        return this.autoHeal;
     }
 
     checkIfContainsCultist(cultistId) {
@@ -190,6 +195,15 @@ export class Party {
             if (this.slots[i].cultist) {
                 this.slots[i].cultist.instaHeal();
             }
+        }
+    }
+
+    toggleAutoHeal() {
+        if (this.autoHeal) {
+            this.autoHeal = false;
+        }
+        else {
+            this.autoHeal = true;
         }
     }
 }
