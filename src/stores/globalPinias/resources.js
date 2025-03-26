@@ -10,7 +10,7 @@ export const useResourcesStore = defineStore("resources", {
             resources: {
                 evilness: {id: "evilness", name: "Evilness", total: 0, perSec: 0},
                 gold: {id: "gold", name: "Gold", total: 0, perSec: 0, unlockedAt: "10Evilness"},
-                grain: {id: "grain", name: "Grain", total: 0, perSec: 0, unlockedAt: "completedExpedition"}
+                grain: {id: "grain", name: "Grain", total: 0, perSec: 0, unlockedAt: "completedAbandonedFarmhouse"}
             }
         }
     },

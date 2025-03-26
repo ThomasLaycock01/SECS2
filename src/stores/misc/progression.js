@@ -53,8 +53,8 @@ export const useProgressionStore = defineStore("progression", {
                         return expeditions.checkIfExpeditionUnlocked("abandonedFarmhouse")
                     }
                 },
-                "completedExpedition": {
-                    id:"completedExpedition",
+                "completedAbandonedFarmhouse": {
+                    id:"completedAbandonedFarmhouse",
                     TLMessage: false,
                     condition() {
                         const expeditions = useExpeditionsStore();
