@@ -94,6 +94,21 @@ export const useLairStore = defineStore("lair", {
                                 const resources = useResourcesStore();
                                 resources.modifyResource("grain", 1000000)
                             }
+                        },
+                        debugItem: {
+                            id: "debugItem",
+                            name: "Debug Item",
+                            desc: "Add an item",
+                            condition() {
+                                return true;
+                            },
+                            showCondition() {
+                                return true;
+                            },
+                            effect() {
+                                const inventory = useInventoryStore();
+                                inventory.addItem(1000);
+                            }
                         }
                     }
                 },

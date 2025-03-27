@@ -1,4 +1,4 @@
 {
-    "1000": {"itemId": 1000, "type": "tool", "name": "Rusty Shovel", "shortName": "R. Shov", "modifiers": [{"type": "mineWorker", "modifier": 0.05}], "sellValue": 10, "tier": 1, "effectDesc": "+5% output on Mine Workers"},
+    "1000": {"itemId": 1000, "type": "tool", "name": "Rusty Dagger", "shortName": "R. Dag", "modifiers": [{"type": "atk", "modifier": 0.1}], "sellValue": 10, "tier": 1, "effectDesc": "+10% Attack"},
     "2000": {"itemId": 2000, "type": "body", "name": "Evil Robe", "shortName": "E. Robe", "modifiers": [{"type": "HP", "modifier": 0.1}], "sellValue": 10, "tier": 1, "effectDesc": "+10% HP"}
 }
