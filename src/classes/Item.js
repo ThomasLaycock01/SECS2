@@ -11,9 +11,7 @@ export class Item {
         this.tier = data.tier;
         this.effectDesc = data.effectDesc;
 
-        this.equippedCultistId = null;
-
-        this.sellAvailable = true;
+        this.equippedCultist = null;
     }
 
     //getters
@@ -79,8 +77,8 @@ export class Item {
         return this.tier;
     }
 
-    getEquippedCultistId() {
-        return this.equippedCultistId;
+    getEquippedCultist() {
+        return this.equippedCultist;
     }
 
     getSellAvailable() {
@@ -88,25 +86,13 @@ export class Item {
     }
 
     //actions
-    equipItem(cultistId) {
-        this.equippedCultistId = cultistId;
-        this.toggleSellAvailable();
+    equipItem(cultist) {
+        this.equippedCultist = cultist;
     }
 
     unequipItem() {
-        this.equippedCultistId = null;
-        this.toggleSellAvailable();
+        this.equippedCultist = null;
     }
-
-    toggleSellAvailable() {
-        if (this.sellAvailable) {
-            this.sellAvailable = false;
-        }
-        else {
-            this.sellAvailable = true;
-        }
-    }
-
     //gonna finish serializing later - work on mines first
     /*serialize() {
         const serializedItem = {

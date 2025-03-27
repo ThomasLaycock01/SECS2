@@ -297,15 +297,15 @@ export class Cultist {
         this.levelLimit = cultists.getDefaultLevelLimit;
     }
 
-    equipItem(item) {
-        const type = item.getType();
+    equipItem(itemObj) {
+        const type = itemObj.getType();
 
         if (this.checkIfEquipped(type)) {
             this.unequipItem(type);
         }
 
-        this.equipment[type] = item;
-        item.equipItem(this.getId());
+        this.equipment[type] = itemObj;
+        itemObj.equipItem(this);
     }
 
     unequipItem(type) {

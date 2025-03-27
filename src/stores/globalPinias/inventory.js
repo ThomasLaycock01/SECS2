@@ -39,11 +39,11 @@ export const useInventoryStore = defineStore("inventory", {
             }
         },
         getUnequippedItems(state) {
-            return state.inventory.filter(obj => obj.getEquippedCultistId() == null)
+            return state.inventory.filter(obj => obj.getEquippedCultist() == null)
         },
         getUnequippedItemByType(state) {
             return (type) => {
-                return state.inventory.filter(obj => obj.getType() == type && obj.getEquippedCultistId() == null);
+                return state.inventory.filter(obj => obj.getType() == type && obj.getEquippedCultist() == null);
             }
         },
         getUnusedSpaces(state) {
