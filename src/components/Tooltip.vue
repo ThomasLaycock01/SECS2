@@ -18,6 +18,9 @@ const props = defineProps({
             <b class="mb-2">
                 {{props.tooltipObj.name}}
             </b>
+            <p class="mb-2" v-if="props.tooltipObj.tier">
+                Tier {{ props.tooltipObj.tier }}
+            </p>
             <p class="mb-2">
                 {{props.tooltipObj.desc}}
             </p>
