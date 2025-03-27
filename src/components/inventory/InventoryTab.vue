@@ -1,5 +1,4 @@
 <script setup>
-import InventoryPopup from './InventoryPopup.vue';
 import Tooltip from '../Tooltip.vue';
 
 import { useInventoryStore } from '@/stores/globalPinias/inventory';
