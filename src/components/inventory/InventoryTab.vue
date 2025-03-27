@@ -1,34 +1,31 @@
 <script setup>
 import InventoryPopup from './InventoryPopup.vue';
+import Tooltip from '../Tooltip.vue';
 
 import { useInventoryStore } from '@/stores/globalPinias/inventory';
+import { useTooltipsStore } from '@/stores/misc/tooltips';
 
 const inventory = useInventoryStore();
-
-function inventoryButtonClick(e) {
-  inventory.setSelectedItem(e.target.value);
-}
+const tooltips = useTooltipsStore();
 </script>
 
 
 
 <template>
 
-<div class="title is-3 mb-1 segment-title">Inventory</div>
-
-<div class="title is-4 mb-1 segment-title">Inventory</div>
-        <div class="container">
-            <span v-for="i in inventory.getInventory">
-              <div>
-                <button class="button is-dark" @click="inventoryButtonClick" :value="i.getId()">{{ i.shortName ? i.shortName : i.name }}</button>
-                <div v-if="inventory.getSelectedItem == i.getId()">
-                  <InventoryPopup class="inventoryPopup" :object="i" />
-                </div>
-              </div>
-            </span>
-            <span v-for="i in inventory.getUnusedSpaces">
-                <button class="button is-outlined">Empty</button>
-            </span>
-
+  <div class="title is-3 mb-1 segment-title">Inventory</div>
+  <div class="container">
+      <span v-for="i in inventory.getInventory">
+        <div>
+          <button class="button is-dark" @mouseover="tooltips.setActiveTooltip(`item${i.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">{{ i.getShortName() ? i.getShortName() : i.getName() }}</button>
+          <div v-if="tooltips.getActiveTooltip == `item${i.getId()}`">
+            <Tooltip class="tooltip" :tooltipObj="tooltips.getItemTooltip(i)" />
+          </div>
         </div>
+      </span>
+      <span v-for="i in inventory.getUnusedSpaces">
+          <button class="button is-outlined">Empty</button>
+      </span>
+
+  </div>
 </template>

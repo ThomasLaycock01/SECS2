@@ -62,6 +62,15 @@ export const useTooltipsStore = defineStore('tooltips', {
                 }
                 return returnObj;
             }
+        },
+        getItemTooltip() {
+            return (itemObj) => {
+                const returnObj = {
+                    name: itemObj.name,
+                    desc: itemObj.effectDesc
+                }
+                return returnObj;
+            }
         }
     },
     actions: {
