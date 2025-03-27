@@ -11,7 +11,7 @@ export const useTooltipsStore = defineStore('tooltips', {
         getActiveTooltip(state) {
             return state.activeTooltip;
         },
-        checkEmbarkWarning(state) {
+        checkEmbarkWarning() {
             return (areaObj) => {
                 var returnArray = [];
 
@@ -31,7 +31,7 @@ export const useTooltipsStore = defineStore('tooltips', {
                 return returnArray;
             }
         },
-        getInstaHealTooltip(state) {
+        getInstaHealTooltip() {
             return (partyObj) => {
                 if (partyObj.getGrainHealCost() > 0) {
                     const returnObj = {
@@ -51,6 +51,16 @@ export const useTooltipsStore = defineStore('tooltips', {
                     }
                     return returnObj;
                 }   
+            }
+        },
+        getAutoEmbarkTooltip() {
+            return (enabled) => {
+                const returnObj = {
+                    name: "Auto-Embark",
+                    desc: "Automatically Embark when all cultists in the assigned party are at full health",
+                    effectDesc: `Currently ${enabled ? "Enabled" : "Disabled"}`
+                }
+                return returnObj;
             }
         }
     },
