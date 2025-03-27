@@ -46,8 +46,8 @@ export function createStatsObj(statTemplate) {
 }
 
 //creating a cultist
-function createCultist(id, name, species) {
-    return new Cultist(id, name, species);
+function createCultist(id, name, raceTemplate) {
+    return new Cultist(id, name, raceTemplate);
 }
 
 /*export function deserializeCultist(obj) {
