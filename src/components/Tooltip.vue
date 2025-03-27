@@ -6,23 +6,7 @@ const resources = useResourcesStore();
 const props = defineProps({
     tooltipType: String,
     tooltipObj: Object,
-    warningObj: Array,
-    effectDesc: {
-        type: String,
-        default: null
-    },
-    costs: {
-        type: Function,
-        default: null
-    },
-    owned: {
-        type: Function,
-        default: null
-    },
-    limit: {
-        type: Function,
-        default: null
-    }
+    warningObj: Array
 })
 </script>
 
@@ -57,39 +41,5 @@ const props = defineProps({
                 {{ i }}
             </div>
         </div>
-        <!--Buildings
-        <span v-if="props.tooltipType==`building`">
-            <p class="mb-2">
-             {{props.effectDesc}} 
-            </p>
-            <div class="mb-2">
-                <ul v-for="value, key in props.costs()">
-                    <li>{{ resources.getName(key) }} : {{ value }}</li>
-                </ul>
-            </div>
-            <p class="mb-2">
-                Owned -  {{props.owned()}}  /  {{props.limit()}} 
-            </p>
-        </span>
-        <!--Expansions
-        <span v-if="props.tooltipType=='expansion'">
-            <div class=has-text-warning>
-                This is mutual exclusive with expansions of the same tier!
-            </div>
-
-            <div class="mb-2">
-                <ul v-for="value, key in props.costs()">
-                    <li>{{ resources.getName(key) }} : {{ value }}</li>
-                </ul>
-            </div>
-        </span>
-        <!--Recruitment
-        <span v-if="props.tooltipType=='recruitment'">
-            <div class="mb-2">
-                <ul v-for="value, key in props.costs()">
-                    <li>{{ resources.getName(key) }} : {{ value }}</li>
-                </ul>
-            </div>
-        </span>-->
     </div>
 </template>
