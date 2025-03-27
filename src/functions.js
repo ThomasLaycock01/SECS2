@@ -39,7 +39,7 @@ export function createStatsObj(statTemplate) {
     const returnObj = {};
 
     for (var i in statTemplate) {
-        returnObj[i] = Math.floor(Math.random() * (statTemplate[i].max - statTemplate[i].min) + statTemplate[i].min);
+        returnObj[i] = Math.round(Math.random() * (statTemplate[i].max - statTemplate[i].min) + statTemplate[i].min);
     }
 
     return returnObj;
