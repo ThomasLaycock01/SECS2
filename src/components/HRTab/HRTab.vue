@@ -1,6 +1,7 @@
 <script setup>
 import ActionList from '../ActionList.vue';
 import PerkTooltip from './PerkTooltip.vue';
+import Tooltip from '../Tooltip.vue';
 
 import { reactive } from 'vue';
 
@@ -8,6 +9,7 @@ import { useHRStore } from '@/stores/HR';
 import { useCultistsStore } from "@/stores/globalPinias/cultists";
 import { useInventoryStore } from '@/stores/globalPinias/inventory';
 import { useExpansionsStore } from '@/stores/globalPinias/expansions';
+import { useTooltipsStore } from '@/stores/misc/tooltips';
 
 import { perkCheck } from '@/functions';
 
@@ -17,6 +19,7 @@ const cultists = useCultistsStore();
 const HR = useHRStore();
 const inventory = useInventoryStore();
 const expansions = useExpansionsStore();
+const tooltips = useTooltipsStore();
 
 var activeCultist = reactive({cultist: null});
 var equipmentScreen = reactive({check: false, type: null, selectedItem: null});
@@ -180,7 +183,10 @@ function assignPerk(perk) {
                             <div class="container">
                                 <span v-for="i in inventory.getUnequippedItemByType(equipmentScreen.type)">
                                     <div>
-                                        <button :class="i.getId() == equipmentScreen.selectedItem ? 'button is-info' : 'button is-dark'" @click="equipmentScreenButtonClick(i.getId())">{{ i.shortName ? i.shortName : i.name }}</button>
+                                        <button :class="i.getId() == equipmentScreen.selectedItem ? 'button is-info' : 'button is-dark'" @click="equipmentScreenButtonClick(i.getId())" @mouseover="tooltips.setActiveTooltip(`item${i.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">{{ i.shortName ? i.shortName : i.name }}</button>
+                                        <span v-if="tooltips.getActiveTooltip == `item${i.getId()}`">
+                                            <Tooltip class="tooltip" :tooltipObj="tooltips.getItemTooltip(i)"/>
+                                        </span>
                                     </div>
                                 </span>
                             </div>
