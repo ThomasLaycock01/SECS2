@@ -66,8 +66,9 @@ export const useTooltipsStore = defineStore('tooltips', {
         getItemTooltip() {
             return (itemObj) => {
                 const returnObj = {
-                    name: itemObj.name,
-                    desc: itemObj.effectDesc
+                    name: itemObj.getName(),
+                    desc: itemObj.getEffectDesc(),
+                    effectDesc: itemObj.getEquippedCultist() ? `Equipped by ${itemObj.getEquippedCultist().getName()}` : "Not currently equipped"
                 }
                 return returnObj;
             }
