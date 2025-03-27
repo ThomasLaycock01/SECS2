@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 
+import { useCultistsStore } from "../globalPinias/cultists";
 
 export const useTooltipsStore = defineStore('tooltips', {
     state: () => {
@@ -71,6 +72,20 @@ export const useTooltipsStore = defineStore('tooltips', {
                     desc: itemObj.getEffectDesc(),
                     effectDesc: itemObj.getEquippedCultist() ? `Equipped by ${itemObj.getEquippedCultist().getName()}` : "Not currently equipped"
                 }
+                return returnObj;
+            }
+        },
+        getRaceTooltip() {
+            return (raceId) => {
+                const cultists = useCultistsStore();
+
+                const tooltipObj = cultists.getRaceTooltipObj(raceId);
+
+                const returnObj = {
+                    desc: tooltipObj.desc,
+                    effectDesc: tooltipObj.effectDesc
+                }
+
                 return returnObj;
             }
         }

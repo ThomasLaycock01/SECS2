@@ -80,7 +80,7 @@ export const useCultistsStore = defineStore("cultists", {
         //races
         getRaceTemplate(state) {
             return (raceId) => {
-                return state.races[raceId];
+                return state.races[raceId].template;
             }
         },
         getRaceCosts(state) {
@@ -88,9 +88,9 @@ export const useCultistsStore = defineStore("cultists", {
                 return state.races[race].costs;
             }
         },
-        getRaceSummonCost(state) {
+        getRaceTooltipObj(state) {
             return (race) => {
-                return state.races[race].summonCost;
+                return state.races[race].tooltipObj;
             }
         },
         checkIfHasRacialGroup(state) {

@@ -15,13 +15,13 @@ const props = defineProps({
     <div>
         <!--Non-warning-->
         <div v-if="props.tooltipType != 'warning'">
-            <b class="mb-2">
+            <b class="mb-2" v-if="props.tooltipObj.name">
                 {{props.tooltipObj.name}}
             </b>
             <p class="mb-2" v-if="props.tooltipObj.tier">
                 Tier {{ props.tooltipObj.tier }}
             </p>
-            <p class="mb-2">
+            <p class="mb-2" v-if="props.tooltipObj.desc">
                 {{props.tooltipObj.desc}}
             </p>
             <div v-if="props.tooltipObj.effectDesc" class="mb-2">

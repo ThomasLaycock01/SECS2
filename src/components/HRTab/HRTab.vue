@@ -123,7 +123,10 @@ function assignPerk(perk) {
                 <b-tabs v-model="activeTab">
                     <!--Stats tab-->
                     <b-tab-item label="Stats">
-                        <div>{{ activeCultist.cultist.getRaceName() }}</div>
+                        <div @mouseover="tooltips.setActiveTooltip('activeCultistRace')" @mouseleave="tooltips.removeActiveTooltip()">{{ activeCultist.cultist.getRaceName() }}</div>
+                        <span v-if="tooltips.getActiveTooltip == 'activeCultistRace'">
+                            <Tooltip class="tooltip" :tooltipObj="tooltips.getRaceTooltip(activeCultist.cultist.getRaceId())" />
+                        </span>
                         <div>{{activeCultist.cultist.getJob() ? activeCultist.cultist.getJob() : "Unemployed"}}</div>
                         <div>Level {{ activeCultist.cultist.getLevel() }} / {{ activeCultist.cultist.getLevelLimit() }}</div>
                         <div>{{ activeCultist.cultist.getXp() }} / {{ activeCultist.cultist.getXpNeeded() }} XP</div>
