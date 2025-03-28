@@ -129,10 +129,7 @@ function assignPerk(perk) {
                         </span>
                         <div >{{activeCultist.cultist.getJob() ? activeCultist.cultist.getJob() : "Unemployed"}}</div>
                         <div>Level {{ activeCultist.cultist.getLevel() }} / {{ activeCultist.cultist.getLevelLimit() }}</div>
-                        <div @mouseover="tooltips.setActiveTooltip('activeCultistXp')" @mouseleave="tooltips.removeActiveTooltip()">{{ activeCultist.cultist.getXp() }} / {{ activeCultist.cultist.getXpNeeded() }} XP</div>
-                        <span v-if="tooltips.getActiveTooltip == 'activeCultistXp'">
-                            <Tooltip class="tooltip" tooltipType="modifier" :modifierObj="activeCultist.cultist.getModifiersForDisplay(['xpGain'])" />
-                        </span>
+                        <div>{{ activeCultist.cultist.getXp() }} / {{ activeCultist.cultist.getXpNeeded() }} XP</div>
                         <br>
                         <div>
                             <ul>

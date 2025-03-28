@@ -51,8 +51,12 @@ const props = defineProps({
         <!--Modifiers-->
         <div v-else-if="props.tooltipType == 'modifier'">
             <span v-for="value, key in props.modifierObj">
-                <span v-if="value.length > 1 || !Array.isArray(value)">
+                <div v-if="!Array.isArray(value)">
                     {{ key }}: +{{ value * 100 }}%
+                </div>
+                <span v-else-if="value.length > 0">
+                    <div>{{ key }}</div>
+                    <div v-for="j in value">{{ j }}</div>
                 </span>
             </span>
         </div>
