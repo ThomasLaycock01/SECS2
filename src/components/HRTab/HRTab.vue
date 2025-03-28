@@ -175,7 +175,12 @@ function assignPerk(perk) {
                         <div>
                             <div v-for="value, key in activeCultist.cultist.getEquipment()">
                                 {{key}}:
-                                <button v-if="value" class="button is-info" @click="equipButtonClick" :value="key">{{ value.name }}</button>
+                                <span v-if="value">
+                                    <button class="button is-info" @click="equipButtonClick" :value="key" @mouseover="tooltips.setActiveTooltip(`activeCultistItem${value.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">{{ value.getName() }}</button>
+                                    <span v-if="tooltips.getActiveTooltip == `activeCultistItem${value.getId()}`">
+                                        <Tooltip class="tooltip" :tooltipObj="tooltips.getItemTooltip(value)" />
+                                    </span>
+                                </span>
                                 <button v-else class="button is-outlined" @click="equipButtonClick" :value="key">Empty</button>
                             </div>
                         </div>
