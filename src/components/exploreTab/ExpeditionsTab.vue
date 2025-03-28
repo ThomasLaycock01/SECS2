@@ -67,8 +67,8 @@ function retreatClick() {
         <div v-else>
             <p>{{ expeditionsTab.selectedExpedition.getDesc() }}</p>
             <div>
-                <button class="button is-dark" @click="embarkClick()" :disabled="!embarkCheck()" @mouseenter="tooltips.setActiveTooltip('embarkWarning')" @mouseleave="tooltips.removeActiveTooltip()">Embark!</button>
-                <span v-if="tooltips.getActiveTooltip == 'embarkWarning' && tooltips.checkEmbarkWarning(expeditionsTab.selectedExpedition)">
+                <button class="button is-dark" @click="embarkClick()" :disabled="!embarkCheck()" @mouseenter="tooltips.setActiveTooltip('expeditionEmbarkWarning')" @mouseleave="tooltips.removeActiveTooltip()">Embark!</button>
+                <span v-if="tooltips.getActiveTooltip == 'expeditionEmbarkWarning' && tooltips.checkEmbarkWarning(expeditionsTab.selectedExpedition)">
                     <Tooltip class="tooltip" :tooltipType="'warning'" :warningObj="tooltips.checkEmbarkWarning(expeditionsTab.selectedExpedition)"/>
                 </span>
                 <br>

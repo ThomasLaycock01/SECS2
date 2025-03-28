@@ -57,8 +57,8 @@ function embarkCheck() {
         <div v-else>
             <p>{{ exploreTab.selectedArea.getDesc() }}</p>
             <div>
-                <button class="button is-dark" @click="exploreTab.selectedArea.toggleActive(true)" :disabled="!embarkCheck()" @mouseenter="tooltips.setActiveTooltip('embarkWarning')" @mouseleave="tooltips.removeActiveTooltip()">Embark!</button>
-                <span v-if="tooltips.getActiveTooltip == 'embarkWarning' && tooltips.checkEmbarkWarning(exploreTab.selectedArea)">
+                <button class="button is-dark" @click="exploreTab.selectedArea.toggleActive(true)" :disabled="!embarkCheck()" @mouseenter="tooltips.setActiveTooltip('exploreEmbarkWarning')" @mouseleave="tooltips.removeActiveTooltip()">Embark!</button>
+                <span v-if="tooltips.getActiveTooltip == 'exploreEmbarkWarning' && tooltips.checkEmbarkWarning(exploreTab.selectedArea)">
                     <Tooltip class="tooltip" :tooltipType="'warning'" :warningObj="tooltips.checkEmbarkWarning(exploreTab.selectedArea)"/>
                 </span>
                 <button class="button" :class="exploreTab.selectedArea.getAutoEmbark() ? 'is-success' : 'is-danger'"   @click="exploreTab.selectedArea.toggleAutoEmbark()" @mouseenter="tooltips.setActiveTooltip('autoEmbark')" @mouseleave="tooltips.removeActiveTooltip()">Auto-Embark</button>
