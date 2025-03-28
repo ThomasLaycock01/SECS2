@@ -58,6 +58,11 @@ function equipmentScreenButtonClick(id) {
 }
 
 function confirmButtonClick() {
+    if (equipmentScreen.selectedItem == null) {
+        equipmentScreen.check = false;
+        return;
+    }
+
     const item = inventory.getItemById(equipmentScreen.selectedItem);
     activeCultist.cultist.equipItem(item);
 
