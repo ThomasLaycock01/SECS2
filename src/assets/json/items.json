@@ -1,4 +1,6 @@
 {
     "1000": {"itemId": 1000, "type": "tool", "name": "Rusty Dagger", "shortName": "R. Dag", "modifiers": [{"type": "atk", "modifier": 0.1}], "sellValue": 10, "tier": 1, "effectDesc": "+10% Attack"},
-    "2000": {"itemId": 2000, "type": "body", "name": "Evil Robe", "shortName": "E. Robe", "modifiers": [{"type": "HP", "modifier": 0.1}], "sellValue": 10, "tier": 1, "effectDesc": "+10% HP"}
+    "2000": {"itemId": 2000, "type": "tool", "name": "Plank of Wood", "shortName": "Plank", "modifiers": [{"type": "atk", "base": 1}], "sellValue": 10, "tier": 1, "effectDesc": "+1 Base Atk"},
+    "2001": {"itemId": 2001, "type": "tool", "name": "Battle Axe", "shortName": "Axe", "modifiers": [{"type": "atk", "modifier": 0.15}], "sellValue": 20, "tier": 1, "effectDesc": "+15% Atk"},
+    "2002": {"itemId": 2002, "type": "body", "name": "Hide Armour", "shortName": "H. Armour", "modifiers": [{"type": "def", "modifier": 0.1}], "sellValue": 20, "tier": 1, "effectDesc": "+10% Def"}
 }
