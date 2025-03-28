@@ -16,8 +16,13 @@ export const useExpeditionsStore = defineStore("expeditions", {
     },
     getters: {
         getAvailableExpeditions(state) {
-            //just returns them all rn
-            return state.expeditions;
+            const returnArray = [];
+            for (var i in state.expeditions) {
+                if (state.expeditions[i].getUnlocked()) {
+                    returnArray.push(state.expeditions[i]);
+                }
+            }
+            return returnArray;
         },
         checkIfExpeditionUnlocked(state) {
             return (expeditionId) => {
@@ -52,6 +57,8 @@ export const useExpeditionsStore = defineStore("expeditions", {
         unlockExpedition(id) {
             const progression = useProgressionStore();
 
+            console.log(id);
+            console.log(this.expeditions[id])
             this.expeditions[id].unlock();
 
             progression.updateProgression();
