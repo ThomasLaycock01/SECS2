@@ -18,7 +18,7 @@
             {
                 "array": [1001],
                 "maxLvl": 5,
-                "minLvl": 2
+                "minLvl": 3
             },
             {
                 "array": [1001, 1000],
@@ -28,7 +28,7 @@
             {
                 "array": [1002, 1000],
                 "maxLvl": 5,
-                "minLvl": 2
+                "minLvl": 3
             },
             {
                 "array": [1001, 1001],
