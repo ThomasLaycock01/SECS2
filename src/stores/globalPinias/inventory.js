@@ -18,7 +18,6 @@ export const useInventoryStore = defineStore("inventory", {
 
             },
             misc: {
-                inventorySize: 10,
                 selectedItem: null
             }
         }
@@ -46,12 +45,6 @@ export const useInventoryStore = defineStore("inventory", {
                 return state.inventory.filter(obj => obj.getType() == type && obj.getEquippedCultist() == null);
             }
         },
-        getUnusedSpaces(state) {
-            return state.misc.inventorySize - state.inventory.length;
-        },
-        checkFreeSpace(state) {
-            return state.inventory.length < state.misc.inventorySize;
-        },
         getSelectedItem(state) {
             return state.misc.selectedItem;
         }
@@ -74,9 +67,6 @@ export const useInventoryStore = defineStore("inventory", {
         addItem(itemId) {
             const progression = useProgressionStore();
 
-            if (!this.checkFreeSpace) {
-                return;
-            }
             const id = this.generateItemId();
             const template = this.items[itemId];
             const newItem = new Item(id, template);

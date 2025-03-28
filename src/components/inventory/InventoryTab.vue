@@ -22,9 +22,6 @@ const tooltips = useTooltipsStore();
           </div>
         </div>
       </span>
-      <span v-for="i in inventory.getUnusedSpaces">
-          <button class="button is-outlined">Empty</button>
-      </span>
 
   </div>
 </template>
