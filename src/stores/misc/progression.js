@@ -60,6 +60,14 @@ export const useProgressionStore = defineStore("progression", {
                         const expeditions = useExpeditionsStore();
                         return expeditions.checkIfExpeditionCompleted("abandonedFarmhouse");
                     }
+                },
+                "completedBanditHideout": {
+                    id:"completedBanditHideout",
+                    TLMessage: false,
+                    condition() {
+                        const expeditions = useExpeditionsStore();
+                        return expeditions.checkIfExpeditionCompleted("banditHideout");
+                    }
                 }
             }
         }

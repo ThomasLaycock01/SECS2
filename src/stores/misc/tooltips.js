@@ -54,6 +54,16 @@ export const useTooltipsStore = defineStore('tooltips', {
                 }   
             }
         },
+        getAutoHealTooltip() {
+            return (partyObj) => {
+                const returnObj = {
+                    name: "Automatic Insta-Heal",
+                    desc: "Cultists that run out of health will automatically Insta-heal, if you can afford it.",
+                    effectDesc: partyObj.getAutoHeal() ? "Enabled" : "Disabled"
+                }
+                return returnObj;
+            }
+        },
         getAutoEmbarkTooltip() {
             return (enabled) => {
                 const returnObj = {

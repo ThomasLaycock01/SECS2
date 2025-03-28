@@ -50,6 +50,12 @@ function instaHealCheck(partyObj) {
                         <Tooltip class="tooltip" :tooltipObj="tooltips.getInstaHealTooltip(i)"/>
                     </span>
                 </span>
+                <span v-if="progression.checkUnlocked('completedBanditHideout')">
+                    <button class="button" :class="i.getAutoHeal() ? 'is-success' : 'is-danger'" @click="i.toggleAutoHeal()" @mouseover="tooltips.setActiveTooltip(`autoHeal${i.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">Auto Insta-heal</button>
+                    <span v-if="tooltips.getActiveTooltip == `autoHeal${i.getId()}`">
+                        <Tooltip class="tooltip" :tooltipObj="tooltips.getAutoHealTooltip(i)"/>
+                    </span>
+                </span>
                 <br>
                 <br>
             </div>
