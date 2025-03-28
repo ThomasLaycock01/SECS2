@@ -85,7 +85,7 @@ export const useCultistsStore = defineStore("cultists", {
         },
         getRaceCosts(state) {
             return (race) => {
-                return state.races[race].costs;
+                return state.races[race].template.costs;
             }
         },
         getRaceTooltipObj(state) {

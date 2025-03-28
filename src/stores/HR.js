@@ -50,6 +50,8 @@ export const useHRStore = defineStore("HR", {
             const resources = useResourcesStore();
             const cultists = useCultistsStore();
             
+            console.log(cultists.getRaceCosts(species));
+
             resources.removeResources(cultists.getRaceCosts(species));
 
             addCultist(species);
