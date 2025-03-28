@@ -47,7 +47,7 @@ function instaHealCheck(partyObj) {
                 <span v-if="progression.checkUnlocked('completedAbandonedFarmhouse')">
                     <button class="button is-dark" @click="instaHealClick(i)" @mouseover="tooltips.setActiveTooltip(`instaHeal${i.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()" :disabled="!instaHealCheck(i)">Insta-heal</button>
                     <span v-if="tooltips.getActiveTooltip == `instaHeal${i.getId()}`">
-                        <Tooltip class="tooltip" tooltipType="regular" :tooltipObj="tooltips.getInstaHealTooltip(i)"/>
+                        <Tooltip class="tooltip" :tooltipObj="tooltips.getInstaHealTooltip(i)"/>
                     </span>
                 </span>
                 <br>

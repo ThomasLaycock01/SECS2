@@ -127,9 +127,12 @@ function assignPerk(perk) {
                         <span v-if="tooltips.getActiveTooltip == 'activeCultistRace'">
                             <Tooltip class="tooltip" :tooltipObj="tooltips.getRaceTooltip(activeCultist.cultist.getRaceId())" />
                         </span>
-                        <div>{{activeCultist.cultist.getJob() ? activeCultist.cultist.getJob() : "Unemployed"}}</div>
+                        <div >{{activeCultist.cultist.getJob() ? activeCultist.cultist.getJob() : "Unemployed"}}</div>
                         <div>Level {{ activeCultist.cultist.getLevel() }} / {{ activeCultist.cultist.getLevelLimit() }}</div>
-                        <div>{{ activeCultist.cultist.getXp() }} / {{ activeCultist.cultist.getXpNeeded() }} XP</div>
+                        <div @mouseover="tooltips.setActiveTooltip('activeCultistXp')" @mouseleave="tooltips.removeActiveTooltip()">{{ activeCultist.cultist.getXp() }} / {{ activeCultist.cultist.getXpNeeded() }} XP</div>
+                        <span v-if="tooltips.getActiveTooltip == 'activeCultistXp'">
+                            <Tooltip class="tooltip" tooltipType="modifier" :modifierObj="activeCultist.cultist.getModifiersForDisplay(['xpGain'])" />
+                        </span>
                         <br>
                         <div>
                             <ul>

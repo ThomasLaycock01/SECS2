@@ -12,7 +12,6 @@ export const useHRStore = defineStore("HR", {
                 recruitment: {
                     id: "recruitment",
                     name: "Recruitment",
-                    tooltipType: "recruitment",
                     buttons : {
                         hireHuman: {
                             id: "hireHuman",

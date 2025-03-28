@@ -17,7 +17,6 @@ export const useLairStore = defineStore("lair", {
                 actions: {
                     id: "actions",
                     name: "Actions",
-                    tooltipType: "action",
                     buttons : {
                         beEvil: {
                             id: "beEvil",
@@ -115,7 +114,6 @@ export const useLairStore = defineStore("lair", {
                 buildings: {
                     id: "buildings",
                     name: "Buildings",
-                    tooltipType: "building",
                     buttons: {
                         chambers: {
                             id: "buildChambers",
@@ -184,7 +182,6 @@ export const useLairStore = defineStore("lair", {
                 expansions: {
                     id: "expansions",
                     name: "Expansions",
-                    tooltipType: "expansion",
                     buttons: {
                         expansionFarm: {
                             id: "expansionFarm",

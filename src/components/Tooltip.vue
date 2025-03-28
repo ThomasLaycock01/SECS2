@@ -4,9 +4,13 @@ import { useResourcesStore } from '@/stores/globalPinias/resources';
 const resources = useResourcesStore();
 
 const props = defineProps({
-    tooltipType: String,
+    tooltipType: {
+        type: String,
+        default: 'regular'
+    },
     tooltipObj: Object,
-    warningObj: Array
+    warningObj: Array,
+    modifierObj: Object
 })
 </script>
 
@@ -14,7 +18,7 @@ const props = defineProps({
 
     <div>
         <!--Non-warning-->
-        <div v-if="props.tooltipType != 'warning'">
+        <div v-if="props.tooltipType == 'regular'">
             <b class="mb-2" v-if="props.tooltipObj.name">
                 {{props.tooltipObj.name}}
             </b>
@@ -39,10 +43,18 @@ const props = defineProps({
             </div>
         </div>
         <!--Warning-->
-        <div v-else>
+        <div v-else-if="props.tooltipType == 'warning'">
             <div v-for="i in props.warningObj">
                 {{ i }}
             </div>
+        </div>
+        <!--Modifiers-->
+        <div v-else-if="props.tooltipType == 'modifier'">
+            <span v-for="value, key in props.modifierObj">
+                <span v-if="value.length > 1 || !Array.isArray(value)">
+                    {{ key }}: +{{ value * 100 }}%
+                </span>
+            </span>
         </div>
     </div>
 </template>

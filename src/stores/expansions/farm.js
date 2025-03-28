@@ -9,14 +9,12 @@ export const useFarmStore = defineStore("farm", {
                 actions: {
                     id: "actions",
                     name: "Actions",
-                    tooltipType: "action",
                     buttons : {
                     }
                 },
                 buildings: {
                     id: "buildings",
                     name: "Buildings",
-                    tooltipType: "building",
                     buttons: {
 
                     }

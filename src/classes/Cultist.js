@@ -219,6 +219,40 @@ export class Cultist {
         return modVal;
     }
 
+    getModifiersForDisplay(typeArray, incLevel = true) {
+        const returnObj = {
+            Perks: [],
+            Racial: null
+        };
+
+        //perks
+        for (var i in this.perks) {
+            const perk = this.perks[i];
+            for (var j in perk.modifiers) {
+                const modObj = perk.modifiers[j];
+                if (typeArray.includes(modObj.type) && (modObj.modifier)) {
+                    const pushObj = {
+                        name: perk.name,
+                        value: modObj.modifier
+                    }
+                    returnObj.Perks.push(pushObj);
+                }
+            }
+        }
+
+        //racial
+        for (var i in this.racialModifiers) {
+            const modObj = this.racialModifiers[i];
+            if (typeArray.includes(modObj.type) && modObj.modifier) {
+                returnObj.Racial = modObj.modifier; 
+            }
+        }
+        
+        console.log(returnObj);
+
+        return returnObj;
+    }
+
     getBaseStat(stat) {
         var baseVal = this.stats[stat];
 
