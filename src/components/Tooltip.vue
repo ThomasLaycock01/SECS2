@@ -39,7 +39,7 @@ const props = defineProps({
                 </ul>
             </div>
             <div v-if="props.tooltipObj.owned">
-                Owned -  {{props.owned()}}  /  {{props.limit()}}
+                Owned -  {{props.tooltipObj.owned()}}  /  {{props.tooltipObj.limit()}}
             </div>
         </div>
         <!--Warning-->
