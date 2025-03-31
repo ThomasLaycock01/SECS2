@@ -35,7 +35,7 @@ function setSelectedParty(party) {
             <div class="column is-one-quarter">
                 <div v-if="Object.keys(parties.getParties).length > 0">
                     <div v-for="i in parties.getParties">
-                        <button class="button is-dark" :class="modals.getPartySelectAreaObj.getActiveParty() && i.getId() == modals.getPartySelectAreaObj.getActiveParty().getId() ? 'is-info' : ''"  @click="setSelectedParty(i)">{{ i.getName() }}</button>
+                        <button class="button is-dark" :class="modals.getPartySelectAreaObj.getActiveParty() && i.getId() == modals.getPartySelectAreaObj.getActiveParty().getId() ? 'is-info' : ''"  @click="setSelectedParty(i)" :disabled="i.getCurrentActivity()">{{ i.getName() }}</button>
                     </div>
                 </div>
                 <div v-else>
