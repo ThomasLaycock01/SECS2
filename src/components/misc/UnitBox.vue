@@ -22,7 +22,7 @@ const unit = props.unit;
                 <tbody>
                     <tr>
                         <th>{{ unit.getCurrentHP() }}/{{ unit.getStat("HP") }} HP</th>
-                        <th>{{ unit.getStat("spd") }} Spd</th>
+                        <th></th>
                     </tr>
                     <tr>
                         <td>{{ unit.getAtkValue("phys") }} P-Atk</td>

@@ -186,96 +186,60 @@ export function getGlobalModifiers(typeArray) {
 export function combatRound(area) {
     const party = area.getActiveParty().getSlots();
     const enemies = area.getCurrentEncounter();
-    var speedCount = 0;
 
-    //first - find highest speed
+    //party
     for (var i in party) {
-        if (!party[i].cultist) {
-            continue;
-        }
-
-        if (party[i].cultist.getStat("spd") > speedCount) {
-            speedCount = party[i].cultist.getStat("spd");
-        }
-    }
-
-    for (var i in enemies) {
-        if (enemies[i].getStat("spd") > speedCount) {
-            speedCount = enemies[i].getStat("spd");
-        }
-    }
-
-    //make sure speedcount is int
-    speedCount = Math.floor(speedCount);
-
-    //actual combat
-    //count down to 0 - that way, the fastest ones go first
-    while (speedCount > 0) {
-        //party
-        for (var i in party) {
-            //skip if no enemies OR all party members are knocked out
-            if (area.getCurrentEncounter().length < 1 || area.getActiveParty().checkFullKnockOut()) {
-                break;
-            }
-            //skip this slot if theres no cultist, they're knocked out, or the current speed count is higher than their speed
-            if (party[i].cultist == null || party[i].cultist.getKnockedOut() || !party[i].cultist.getStat("spd") >= speedCount) {
-                continue;
-            }
-
-
-            //find a target
-            var target = null;
-
-            for (var j in enemies) {
-                if (!target && enemies[j].getCurrentHP() > 0) {
-                    target = enemies[j];
-                }
-            }
-
-            const cultist = party[i].cultist;
-
-            const physDmg = cultist.getAtkValue("phys");
-            const magDmg = cultist.getAtkValue("mag");
-            
-            if (target != null) {
-                target.takeDamage(physDmg, magDmg);
-            }
-        }
-
-        //same as above, but skips enemy calculations if theyre all dead
+        //skip if no enemies OR all party members are knocked out
         if (area.getCurrentEncounter().length < 1 || area.getActiveParty().checkFullKnockOut()) {
             break;
         }
+        //skip this slot if theres no cultist, they're knocked out
+        if (party[i].cultist == null || party[i].cultist.getKnockedOut()) {
+            continue;
+        }
 
-        //enemies
-        for (var i in enemies) {
-            const enemy = enemies[i];
 
-            //skip this enemy if their speed count is too low
-            if (!enemy.getStat("spd") >= speedCount) {
-                continue;
-            }
+        //find a target
+        var target = null;
 
-            const physDmg = enemy.getAtkValue("phys");
-            const magDmg = enemy.getAtkValue("mag");
-
-            //finding a target
-            var target = null;
-            for (var j in party) {
-                if (party[j].cultist == null || target || party[j].cultist.getKnockedOut()) {
-                    continue;
-                }
-                else {
-                    target = party[j].cultist;
-                }
-
-            }
-
-            if (target != null) {
-                target.takeDamage(physDmg, magDmg);
+        for (var j in enemies) {
+            if (!target && enemies[j].getCurrentHP() > 0) {
+                target = enemies[j];
             }
         }
-        speedCount--;
+
+        const cultist = party[i].cultist;
+
+        const physDmg = cultist.getAtkValue("phys");
+        const magDmg = cultist.getAtkValue("mag");
+        
+        if (target != null) {
+            target.takeDamage(physDmg, magDmg);
+        }
+    }
+
+    //enemies
+    for (var i in enemies) {
+        const enemy = enemies[i];
+
+        const physDmg = enemy.getAtkValue("phys");
+        const magDmg = enemy.getAtkValue("mag");
+
+        //finding a target
+        var target = null;
+        for (var j in party) {
+            if (party[j].cultist == null || target || party[j].cultist.getKnockedOut()) {
+                continue;
+            }
+            else {
+                target = party[j].cultist;
+            }
+
+        }
+
+        if (target != null) {
+            target.takeDamage(physDmg, magDmg);
+        }
     }
 }
 

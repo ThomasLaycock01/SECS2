@@ -75,7 +75,6 @@ function cultistButtonClick(cultist) {
                                     <li>{{ assignmentModal.activeCultist.getCurrentHP() }}/{{ assignmentModal.activeCultist.getStat("HP") }} HP</li>
                                     <li>{{ assignmentModal.activeCultist.getStat("atk") }} Atk</li>
                                     <li>{{ assignmentModal.activeCultist.getStat("def") }} Def</li>
-                                    <li>{{ assignmentModal.activeCultist.getStat("spd") }} Spd</li>
                                 </ul>
                                 <br>
                                 <div class="title is-6">Perks</div>

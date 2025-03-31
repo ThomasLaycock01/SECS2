@@ -8,10 +8,6 @@
         "2005": {"id": "2005", "name": "Tough I", "modifiers": [{"type": "HP", "modifier": 0.2}], "level": 1, "desc": "This Cultist is TOUGH!", "effectDesc": "+20% HP"},
         "2006": {"id": "2006", "name": "Tough II", "modifiers": [{"type": "HP", "modifier": 0.3}], "level": 1, "preqs": [2005], "desc": "This Cultist is BEEFY!", "effectDesc": "+30% HP"},
         "2007": {"id": "2007", "name": "Tough III", "modifiers": [{"type": "HP", "modifier": 0.4}], "level": 1, "preqs": [2006], "desc": "This Cultist is RESILIENT!", "effectDesc": "+40% HP"},
-        "2008": {"id": "2008", "name": "Tough IV", "modifiers": [{"type": "HP", "modifier": 0.5}], "level": 1, "preqs": [2007], "desc": "This Cultist is RUGGED!", "effectDesc": "+50% HP"},
-        "2009": {"id": "2009", "name": "Fast I", "modifiers": [{"type": "spd", "base": 1}], "level": 1, "desc": "This Cultist is FAST!", "effectDesc": "+1 base Spd"},
-        "2010": {"id": "2010", "name": "Fast II", "modifiers": [{"type": "spd", "base": 1}], "level": 1, "preqs": [2009], "desc": "This Cultist is QUICK!", "effectDesc": "+1 base Spd"},
-        "2011": {"id": "2011", "name": "Fast III", "modifiers": [{"type": "spd", "base": 1}], "level": 1, "preqs": [2010], "desc": "This Cultist is SPEEDY!", "effectDesc": "+1 base Spd"},
-        "2012": {"id": "2012", "name": "Fast IV", "modifiers": [{"type": "spd", "base": 1}], "level": 1, "preqs": [2011], "desc": "This Cultist is SWIFT!", "effectDesc": "+1 base Spd"}
+        "2008": {"id": "2008", "name": "Tough IV", "modifiers": [{"type": "HP", "modifier": 0.5}], "level": 1, "preqs": [2007], "desc": "This Cultist is RUGGED!", "effectDesc": "+50% HP"}
     }
 }

@@ -1,6 +1,6 @@
 {
     "human": {
-        "template": {"id":"human", "name": "Human", "racialGroup": "humanoid", "racialModifiers": [{"type": "xpGain", "modifier": 0.5}], "type": "regular", "costs": {"gold": 20}, "stats": {"atk": {"min": 1, "max": 3}, "def": {"min": 1, "max": 3}, "spd": {"min": 1, "max": 3}, "HP": {"min": 10, "max": 15}}},
+        "template": {"id":"human", "name": "Human", "racialGroup": "humanoid", "racialModifiers": [{"type": "xpGain", "modifier": 0.5}], "type": "regular", "costs": {"gold": 20}, "stats": {"atk": {"min": 1, "max": 3}, "def": {"min": 1, "max": 3}, "HP": {"min": 10, "max": 15}}},
         "tooltipObj": {
             "desc": "Humans are, by far, the most common denizens of the World",
             "effectDesc": "+50% on all XP gain"

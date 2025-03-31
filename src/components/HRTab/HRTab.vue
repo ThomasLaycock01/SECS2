@@ -142,7 +142,6 @@ function assignPerk(perk) {
                                 <li v-else>{{ activeCultist.cultist.getCurrentHP() }}/{{ activeCultist.cultist.getStat("HP") }} HP</li>
                                 <li>{{ activeCultist.cultist.getStat("atk") }} Atk</li>
                                 <li>{{ activeCultist.cultist.getStat("def") }} Def</li>
-                                <li>{{ activeCultist.cultist.getStat("spd") }} Spd</li>
                             </ul>
                         </div>                 
                     </b-tab-item>
