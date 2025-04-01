@@ -117,9 +117,6 @@ export class Area {
         const modals = useModalsStore();
 
         if (this.autoEmbark && this.activeParty && this.activeParty.checkFullHealth() && !modals.checkModal("partySelect")) {
-            if (this.activeParty.getIsHealing()) {
-                this.activeParty.toggleIsHealing();
-            }
             this.toggleActive();
         }
     }
