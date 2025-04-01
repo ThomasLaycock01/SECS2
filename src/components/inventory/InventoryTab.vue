@@ -16,7 +16,7 @@ const tooltips = useTooltipsStore();
   <div class="container">
       <span v-for="i in inventory.getInventory">
         <div>
-          <button class="button is-dark" @mouseover="tooltips.setActiveTooltip(`item${i.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">{{ i.getShortName() ? i.getShortName() : i.getName() }}</button>
+          <button class="button" :class="i.getEquippedCultist() ? 'is-info' : 'is-dark'" @mouseover="tooltips.setActiveTooltip(`item${i.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">{{ i.getShortName() ? i.getShortName() : i.getName() }}</button>
           <div v-if="tooltips.getActiveTooltip == `item${i.getId()}`">
             <Tooltip class="tooltip" :tooltipObj="tooltips.getItemTooltip(i)" />
           </div>
