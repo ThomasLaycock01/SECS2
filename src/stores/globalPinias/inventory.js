@@ -79,17 +79,20 @@ export const useInventoryStore = defineStore("inventory", {
         },
         sellItem(id) {
             const resources = useResourcesStore();
-            const cultists = useCultistsStore();
 
             const item = this.inventory.find((obj) => obj.getId() == id);
 
             resources.modifyResource("gold", item.getSellValue());
 
-            if (item.getEquippedCultistId() != null) {
-                cultists.getCultistById(item.getEquippedCultistId()).unequipItem(item.getType());
-            }
-
             this.removeItem(item.getId());
+        },
+        sellAllUnequipped() {
+            for (var i = this.inventory.length - 1; i >=0 ; i--) {
+                const item = this.inventory[i];
+                if (!item.getEquippedCultist()) {
+                    this.sellItem(item.getId());
+                }
+            }
         },
         setSelectedItem(val) {
             this.misc.selectedItem = val;

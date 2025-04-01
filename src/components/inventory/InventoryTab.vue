@@ -13,6 +13,9 @@ const tooltips = useTooltipsStore();
 <template>
 
   <div class="title is-3 mb-1 segment-title">Inventory</div>
+  <button class="button is-dark" @click="inventory.sellAllUnequipped()">Sell All Unequpped</button>
+  <br>
+  <br>
   <div class="container">
       <span v-for="i in inventory.getInventory">
         <div>
