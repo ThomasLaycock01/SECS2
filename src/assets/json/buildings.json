@@ -1,5 +1,0 @@
-{
-        "chambers": {"id": "chambers", "modifiers": [{"type": "cultistLimit", "modifier": 1}], "costs": {"gold": 100}, "exponents": {"gold": 2}, "limit": 5},
-        "evilShrine": {"id": "evilShrine", "modifiers": [{"type": "evilness", "modifier": 0.1}], "costs": {"gold": 150}, "exponents": {"gold": 1.5}, "limit": 5},
-        "fightersGuild": {"id": "fightersGuild", "costs": {"gold": 1000}, "limit": 1}
-}

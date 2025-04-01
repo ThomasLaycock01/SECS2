@@ -10,7 +10,8 @@ export const usePartiesStore = defineStore("parties", {
     state: () => {
         return {
             parties: {},
-            roles: {}
+            roles: {},
+            unlockedRoles: ["explorer"]
         }
     },
     getters: {
@@ -20,8 +21,16 @@ export const usePartiesStore = defineStore("parties", {
         getNumOfParties(state) {
             return Object.keys(state.parties).length;
         },
-        getRoles(state) {
-            return state.roles;
+        getUnlockedRoles(state) {
+            const returnArray = [];
+
+            for (var i in state.roles) {
+                if (state.unlockedRoles.includes(state.roles[i].getId())) {
+                    returnArray.push(state.roles[i]);
+                }
+            }
+
+            return returnArray;
         }
     },
     actions: {
@@ -85,6 +94,9 @@ export const usePartiesStore = defineStore("parties", {
 
                 this.roles[role.getId()] = role;
             }
+        },
+        unlockRole(id) {
+            this.unlockedRoles.push(id);
         }
     }
 })

@@ -9,6 +9,7 @@ export class Building {
         this.reqs = obj.reqs;
         this.amount = 0;
         this.limit = obj.limit;
+        this.onBuild = obj.onBuild;
     }
 
     getId() {
@@ -57,5 +58,6 @@ export class Building {
     //actions
     build() {
         this.amount++;
+        this.onBuild();
     }
 }

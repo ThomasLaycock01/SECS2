@@ -1,20 +1,40 @@
 import {defineStore} from "pinia";
 
 import { useResourcesStore } from "./resources";
-import { useCultistsStore } from "./cultists";
-import { useExpansionsStore } from "../globalPinias/expansions";
-
-import { useLairStore } from "../lair";
+import { usePartiesStore } from "../barracks/parties";
 
 import { Building } from "@/classes/Building";
-
-import buildings from "../../assets/json/buildings.json";
 
 export const useBuildingsStore = defineStore("buildings", {
     state: () => {
         return {
             buildings: {
 
+            },
+            buildingTemplates: {
+                chambers: {
+                    id: "chambers", 
+                    modifiers: [{type: "cultistLimit", modifier: 1}], 
+                    costs: {"gold": 100}, 
+                    exponents: {"gold": 2}, 
+                    limit: 5
+                },
+                evilShrine: {
+                    id: "evilShrine",
+                     modifiers: [{type: "evilness", modifier: 0.1}], 
+                     costs: {"gold": 150}, 
+                     exponents: {"gold": 1.5}, 
+                     limit: 5
+                    },
+                fightersGuild: {
+                    id: "fightersGuild", 
+                    costs: {"gold": 1000}, 
+                    limit: 1, 
+                    onBuild() {
+                        const parties = usePartiesStore();
+                        parties.unlockRole("fighter");
+                    }
+                }
             }
         }
     },
@@ -53,8 +73,8 @@ export const useBuildingsStore = defineStore("buildings", {
     },
     actions: {
         instantiateBuildings() {
-            for (var i in buildings) {
-                const building = new Building(buildings[i]);
+            for (var i in this.buildingTemplates) {
+                const building = new Building(this.buildingTemplates[i]);
 
                 this.buildings[building.getId()] = building;
             }

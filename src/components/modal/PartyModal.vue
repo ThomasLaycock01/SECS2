@@ -91,7 +91,7 @@ function cultistButtonClick(cultist) {
                                         <!--If a slot is selected, show roles-->
                                         <div class="title is-5 mb-1 segment-title">Roles</div>
                                         <div class="cultistContainer">
-                                            <span v-for="i in parties.getRoles">
+                                            <span v-for="i in parties.getUnlockedRoles">
                                                 <button  class="button cultistGridItem" :class="partyModal.selectedSlot.cultist && partyModal.selectedSlot.cultist.getRole() && partyModal.selectedSlot.cultist.getRole().getId() == i.getId() ? 'is-info' : 'is-dark'" :disabled="!partyModal.selectedSlot.cultist" @click="roleButtonClick(i)">{{i.getName()}}</button>
                                             </span>
                                         </div>
