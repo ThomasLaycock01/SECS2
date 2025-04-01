@@ -25,12 +25,12 @@ const unit = props.unit;
                         <th></th>
                     </tr>
                     <tr>
-                        <td>{{ unit.getAtkValue("phys") }} P-Atk</td>
-                        <td>{{ unit.getAtkValue("mag") }} M-Atk</td>
+                        <td>{{ Math.round(unit.getAtkValue("phys") * 100) / 100 }} P-Atk</td>
+                        <td>{{ Math.round(unit.getAtkValue("mag") * 100) / 100 }} M-Atk</td>
                     </tr>
                     <tr>
-                        <td>{{ unit.getDefValue("phys") }} P-Def</td>
-                        <td>{{ unit.getDefValue("mag") }} M-Def</td>
+                        <td>{{ Math.round(unit.getDefValue("phys") * 100) / 100 }} P-Def</td>
+                        <td>{{ Math.round(unit.getDefValue("mag") * 100) / 100 }} M-Def</td>
                     </tr>
                 </tbody>
             </table>
