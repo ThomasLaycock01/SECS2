@@ -16,6 +16,10 @@ export class Building {
     }
 
     getCosts() {
+        if (!this.exponents) {
+            return this.costs;
+        }
+        
         const costsObj = {};
 
         for (var i in this.costs) {

@@ -21,6 +21,14 @@ export const useProgressionStore = defineStore("progression", {
                         return resources.checkIfCanAfford({"evilness": 10});
                     }
                 },
+                "1000Evilness": {
+                    id: "1000Evilness",
+                    TLMessage: false,
+                    condition() {
+                        const resources = useResourcesStore();
+                        return resources.checkIfCanAfford({"evilness": 1000});
+                    }
+                },
                 "firstCultist": {
                     id: "firstCultist",
                     TLMessage: true,

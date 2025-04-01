@@ -1,3 +1,4 @@
 {
-    "explorer": {"id": "explorer", "name": "Explorer", "desc": "A bog-standard explorer. Not particularly good at fighting, but can carry more than usual.", "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 0.9, "mag": 0.1}}
+    "explorer": {"id": "explorer", "name": "Explorer", "desc": "A bog-standard explorer. Not particularly good at fighting, but can carry more than usual.", "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 0.9, "mag": 0.1}},
+    "fighter": {"id": "fighter", "name": "Fighter", "desc": "A Fighter trained by the Fighter's Guild. Knows their way around swords, axes, spears, and various other sharp and unpleasant objects.", "atkMod": {"phys": 1.2, "mag": 0}, "defMod": {"phys": 0.8, "mag": 0.1}}
 }

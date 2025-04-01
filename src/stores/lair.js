@@ -8,8 +8,6 @@ import { useProgressionStore } from "./misc/progression";
 //teting only
 import { useInventoryStore } from "./globalPinias/inventory";
 
-import buildings from "../assets/json/buildings.json";
-
 export const useLairStore = defineStore("lair", {
     state: () => {
         return {
@@ -175,6 +173,37 @@ export const useLairStore = defineStore("lair", {
                             effect() {
                                 const buildings = useBuildingsStore();
                                 buildings.build("evilShrine");
+                            }
+                        },
+                        fightersGuild: {
+                            id: "buildFightersGuild",
+                            name: "Fighter's Guild",
+                            desc: "Establish a branch of the Fighter's Guild in your Lair - they'll help train cultists!",
+                            effectDesc: "Unlock Role - Fighter",
+                            owned() {
+                                const buildings = useBuildingsStore();
+                                return buildings.getOwned("fightersGuild");
+                            },
+                            limit() {
+                                const buildings = useBuildingsStore();
+                                return buildings.getLimit("fightersGuild");
+                            },
+                            costs() {
+                                const buildings = useBuildingsStore();
+                                return buildings.getCosts("fightersGuild");
+                            },
+                            condition() {
+                                const resources = useResourcesStore();
+                                const buildings = useBuildingsStore();
+                                return resources.checkIfCanAfford(this.costs()) && !buildings.checkIfAtLimit("fightersGuild");
+                            },
+                            showCondition() {
+                                const progression = useProgressionStore();
+                                return progression.checkUnlocked("1000Evilness");
+                            },
+                            effect() {
+                                const buildings = useBuildingsStore();
+                                buildings.build("fightersGuild");
                             }
                         }
                     }
