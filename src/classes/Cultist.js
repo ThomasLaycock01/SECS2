@@ -161,11 +161,17 @@ export class Cultist {
     }
 
     getAtkValue(type) {
-        return Math.floor((this.getStat("atk") * this.role.getAtkMod(type)) * 100) / 100;
+        const modType = type == "phys" ? "pAtk" : "mAtk";
+        const baseVal = this.getStat("atk") * this.role.getAtkMod(type)
+        const finalVal = (baseVal + this.getBaseStat(modType)) * this.getModifiers(modType)
+        return Math.round(finalVal * 100) / 100;
     }
 
     getDefValue(type) {
-        return Math.floor((this.getStat("def") * this.role.getDefMod(type)) * 100) / 100;
+        const modType = type == "phys" ? "pDef" : "mDef";
+        const baseVal = this.getStat("def") * this.role.getDefMod(type)
+        const finalVal = (baseVal + this.getBaseStat(modType)) * this.getModifiers(modType)
+        return Math.round(finalVal * 100) / 100;
     }
 
 
@@ -254,7 +260,11 @@ export class Cultist {
     }
 
     getBaseStat(stat) {
-        var baseVal = this.stats[stat];
+        var baseVal = 0;
+        if (stat == "atk" || stat == "HP" || stat == "def") {
+            baseVal = this.stats[stat];
+        }
+        
 
         //perks
         for (var i in this.perks) {
