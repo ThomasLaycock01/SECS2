@@ -70,7 +70,6 @@ function embarkCheck() {
                 <button class="button is-dark"  @click="modals.openPartySelect(exploreTab.selectedArea)">Set Party</button>
                 <span v-if="exploreTab.selectedArea.getActiveParty()">
                     <button class="button is-dark"  @click="modals.openParty(exploreTab.selectedArea.getActiveParty())">Edit Party</button>
-                    <button class="button" :class="exploreTab.selectedArea.getActiveParty().getIsHealing() ? 'is-danger' : 'is-info'" :disabled="exploreTab.selectedArea.getActiveParty().getCurrentActivity() && exploreTab.selectedArea.getActiveParty().getCurrentActivity() != 'Healing'" @click=exploreTab.selectedArea.getActiveParty().toggleIsHealing()>{{exploreTab.selectedArea.getActiveParty().getIsHealing() ? 'Stop' : 'Heal'}}</button>
                 </span>
                 <CombatScreen :areaObject="exploreTab.selectedArea" type="explore"/>
             </div>

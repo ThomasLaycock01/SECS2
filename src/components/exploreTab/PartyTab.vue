@@ -43,7 +43,6 @@ function instaHealCheck(partyObj) {
             <div v-for="i in parties.getParties">
                 {{ i.getName() }} - {{ i.getPartySize() }}/{{ i.getLimit() }} - Currently {{ i.getCurrentActivity() ? i.getCurrentActivity() : "doing nothing" }}
                 <button class="button is-dark" @click="modals.openParty(i)" :disabled="i.getCurrentActivity()">Edit</button>
-                <button class="button" :class="i.getIsHealing() ? 'is-danger' : 'is-info'" :disabled="i.getCurrentActivity() && i.getCurrentActivity() != 'Healing'" @click=i.toggleIsHealing()>{{i.getIsHealing() ? 'Stop' : 'Heal'}}</button>
                 <span v-if="progression.checkUnlocked('completedAbandonedFarmhouse')">
                     <button class="button is-dark" @click="instaHealClick(i)" @mouseover="tooltips.setActiveTooltip(`instaHeal${i.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()" :disabled="!instaHealCheck(i)">Insta-heal</button>
                     <span v-if="tooltips.getActiveTooltip == `instaHeal${i.getId()}`">

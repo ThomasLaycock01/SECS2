@@ -6,7 +6,6 @@ export class Party {
         this.limit = 3;
 
         this.currentActivity = null;
-        this.isHealing = false;
         this.autoHeal = false;
     }
 
@@ -77,10 +76,6 @@ export class Party {
 
     getCurrentActivity() {
         return this.currentActivity;
-    }
-
-    getIsHealing() {
-        return this.isHealing;
     }
 
     getAutoHeal() {
@@ -178,17 +173,6 @@ export class Party {
 
     setCurrentActivity(activity = null) {
         this.currentActivity = activity;
-    }
-
-    toggleIsHealing() {
-        if (this.isHealing) {
-            this.isHealing = false;
-            this.setCurrentActivity();
-        }
-        else {
-            this.isHealing = true;
-            this.setCurrentActivity("Healing");
-        }
     }
 
     healCultists() {

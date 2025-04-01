@@ -29,7 +29,7 @@ export const usePartiesStore = defineStore("parties", {
             //just used for parties that are healing
             for (var i in this.parties) {
                 const party = this.parties[i];
-                if (party.getIsHealing()) {
+                if (!party.getCurrentActivity()) {
                     party.healCultists();
                 }
             }

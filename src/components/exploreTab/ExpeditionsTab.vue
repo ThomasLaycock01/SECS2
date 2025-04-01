@@ -76,7 +76,6 @@ function retreatClick() {
                 <button class="button is-dark"  @click="modals.openPartySelect(expeditionsTab.selectedExpedition)">Set Party</button>
                 <span v-if="expeditionsTab.selectedExpedition.getActiveParty()">
                     <button class="button is-dark"  @click="modals.openParty(expeditionsTab.selectedExpedition.getActiveParty())">Edit Party</button>
-                    <button class="button" :class="expeditionsTab.selectedExpedition.getActiveParty().getIsHealing() ? 'is-danger' : 'is-info'" :disabled="expeditionsTab.selectedExpedition.getActiveParty().getCurrentActivity() && expeditionsTab.selectedExpedition.getActiveParty().getCurrentActivity() != 'Healing'" @click=expeditionsTab.selectedExpedition.getActiveParty().toggleIsHealing()>{{expeditionsTab.selectedExpedition.getActiveParty().getIsHealing() ? 'Stop' : 'Heal'}}</button>
                 </span>
                 <CombatScreen :areaObject="expeditionsTab.selectedExpedition" type="expedition"/>
             </div>
