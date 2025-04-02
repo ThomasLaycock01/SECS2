@@ -1,6 +1,7 @@
 import { useEnemiesStore } from "@/stores/barracks/enemies";
 import { useExpeditionsStore } from "@/stores/barracks/expeditions";
 import { useModalsStore } from "@/stores/misc/modal";
+import { useTooltipsStore } from "@/stores/misc/tooltips";
 
 export class Area {
     constructor(obj) {
@@ -115,9 +116,12 @@ export class Area {
     checkAutoEmbark() {
         //slightly weird, but need to make sure party/party select modal isnt open when the area embarks, otherwise could change party after embark
         const modals = useModalsStore();
+        const tooltips = useTooltipsStore();
 
         if (this.autoEmbark && this.activeParty && this.activeParty.checkFullHealth() && !(modals.checkModal("partySelect") || modals.checkModal("party"))) {
             this.toggleActive();
+            //weird one, but since a mouseleave is not triggered when autoembark happens, this can bug tooltips and cause them to show when they souldnt
+            tooltips.removeActiveTooltip();
         }
     }
 
