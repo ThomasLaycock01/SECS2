@@ -113,7 +113,7 @@ export const useLairStore = defineStore("lair", {
                     id: "buildings",
                     name: "Buildings",
                     buttons: {
-                        chambers: {
+                        buildChambers: {
                             id: "buildChambers",
                             name: "Chambers",
                             desc: "Some chambers for your cultists to sleep in.",
@@ -144,7 +144,7 @@ export const useLairStore = defineStore("lair", {
                                 buildings.build("chambers");
                             }
                         },
-                        evilShrine: {
+                        buildEvilShrine: {
                             id: "buildEvilShrine",
                             name: "Evil Shrine",
                             desc: "An EVIL shrine",
@@ -175,7 +175,7 @@ export const useLairStore = defineStore("lair", {
                                 buildings.build("evilShrine");
                             }
                         },
-                        fightersGuild: {
+                        buildFightersGuild: {
                             id: "buildFightersGuild",
                             name: "Fighter's Guild",
                             desc: "Establish a branch of the Fighter's Guild in your Lair - they'll help train cultists!",
@@ -204,6 +204,68 @@ export const useLairStore = defineStore("lair", {
                             effect() {
                                 const buildings = useBuildingsStore();
                                 buildings.build("fightersGuild");
+                            }
+                        },
+                        buildKnightOutreach: {
+                            id: "buildKnightOutreach",
+                            name: "Knight Outreach",
+                            desc: "Lobby the Order of Knights to take on some Squires.",
+                            effectDesc: "Unlock Role - Squire",
+                            owned() {
+                                const buildings = useBuildingsStore();
+                                return buildings.getOwned("knightOutreach");
+                            },
+                            limit() {
+                                const buildings = useBuildingsStore();
+                                return buildings.getLimit("knightOutreach");
+                            },
+                            costs() {
+                                const buildings = useBuildingsStore();
+                                return buildings.getCosts("knightOutreach");
+                            },
+                            condition() {
+                                const resources = useResourcesStore();
+                                const buildings = useBuildingsStore();
+                                return resources.checkIfCanAfford(this.costs()) && !buildings.checkIfAtLimit("knightOutreach");
+                            },
+                            showCondition() {
+                                const progression = useProgressionStore();
+                                return progression.checkUnlocked("1000Evilness");
+                            },
+                            effect() {
+                                const buildings = useBuildingsStore();
+                                buildings.build("knightOutreach");
+                            }
+                        },
+                        buildApprenticeshipProgram: {
+                            id: "buildApprenticeshipProgram",
+                            name: "Apprenticeship program",
+                            desc: "Sign some cultists up for an apprenticeship at the Mages Guild - you'll need to pay their scholarship fees.",
+                            effectDesc: "Unlock Role - Apprentice",
+                            owned() {
+                                const buildings = useBuildingsStore();
+                                return buildings.getOwned("apprenticeshipProgram");
+                            },
+                            limit() {
+                                const buildings = useBuildingsStore();
+                                return buildings.getLimit("apprenticeshipProgram");
+                            },
+                            costs() {
+                                const buildings = useBuildingsStore();
+                                return buildings.getCosts("apprenticeshipProgram");
+                            },
+                            condition() {
+                                const resources = useResourcesStore();
+                                const buildings = useBuildingsStore();
+                                return resources.checkIfCanAfford(this.costs()) && !buildings.checkIfAtLimit("apprenticeshipProgram");
+                            },
+                            showCondition() {
+                                const progression = useProgressionStore();
+                                return progression.checkUnlocked("1000Evilness");
+                            },
+                            effect() {
+                                const buildings = useBuildingsStore();
+                                buildings.build("apprenticeshipProgram");
                             }
                         }
                     }

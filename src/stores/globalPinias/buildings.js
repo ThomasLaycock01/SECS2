@@ -34,6 +34,24 @@ export const useBuildingsStore = defineStore("buildings", {
                         const parties = usePartiesStore();
                         parties.unlockRole("fighter");
                     }
+                },
+                knightOutreach: {
+                    id: "knightOutreach", 
+                    costs: {"gold": 1000}, 
+                    limit: 1, 
+                    onBuild() {
+                        const parties = usePartiesStore();
+                        parties.unlockRole("knight");
+                    }
+                },
+                apprenticeshipProgram: {
+                    id: "apprenticeshipProgram", 
+                    costs: {"gold": 1000}, 
+                    limit: 1, 
+                    onBuild() {
+                        const parties = usePartiesStore();
+                        parties.unlockRole("apprentice");
+                    }
                 }
             }
         }

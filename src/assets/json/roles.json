@@ -1,4 +1,6 @@
 {
     "explorer": {"id": "explorer", "name": "Explorer", "desc": "A bog-standard explorer. Not particularly good at fighting, but can carry more than usual.", "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 0.9, "mag": 0.1}},
-    "fighter": {"id": "fighter", "name": "Fighter", "desc": "A Fighter trained by the Fighter's Guild. Knows their way around swords, axes, spears, and various other sharp and unpleasant objects.", "atkMod": {"phys": 1.2, "mag": 0}, "defMod": {"phys": 0.8, "mag": 0.1}}
+    "fighter": {"id": "fighter", "name": "Fighter", "desc": "A Fighter trained by the Fighter's Guild. Knows their way around swords, axes, spears, and various other sharp and unpleasant objects.", "atkMod": {"phys": 1.2, "mag": 0}, "defMod": {"phys": 0.8, "mag": 0.1}},
+    "squire": {"id": "squire", "name": "Squire", "desc": "A squire to a knight. Their  armour makes them tankier than your average cultist, but it handicaps their movement somewhat.", "atkMod": {"phys": 0.8, "mag": 0}, "defMod": {"phys": 1, "mag": 0.5}},
+    "apprentice": {"id": "apprentice", "name": "Apprentice", "desc": "This cultist is a trained apprentice of the Mages Guild. They mostly just lolled about during their studies, but they've learnt a thing or two.", "atkMod": {"phys": 0.2, "mag": 0.8}, "defMod": {"phys": 0.5, "mag": 0.7}}
 }
