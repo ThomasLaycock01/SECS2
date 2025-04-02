@@ -113,10 +113,10 @@ export class Area {
     }
 
     checkAutoEmbark() {
-        //slightly weird, but need to make sure party select modal isnt open when the area embarks, otherwise could change party after embark
+        //slightly weird, but need to make sure party/party select modal isnt open when the area embarks, otherwise could change party after embark
         const modals = useModalsStore();
 
-        if (this.autoEmbark && this.activeParty && this.activeParty.checkFullHealth() && !modals.checkModal("partySelect")) {
+        if (this.autoEmbark && this.activeParty && this.activeParty.checkFullHealth() && !(modals.checkModal("partySelect") || modals.checkModal("party"))) {
             this.toggleActive();
         }
     }
