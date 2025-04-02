@@ -58,6 +58,8 @@ export class Building {
     //actions
     build() {
         this.amount++;
-        this.onBuild();
+        if (this.onBuild) {
+            this.onBuild();
+        }
     }
 }
