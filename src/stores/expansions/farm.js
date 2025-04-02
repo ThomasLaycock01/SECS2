@@ -80,8 +80,7 @@ export const useFarmStore = defineStore("farm", {
 
         },
         onBuild() {
-            const resource = useResourcesStore();
-            resource.unlockResource("grain");
+
         },
         addToJob(jobId, cultist) {
             cultist.setJob(this.jobs[jobId].name);
