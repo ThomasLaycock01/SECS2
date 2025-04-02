@@ -41,7 +41,7 @@ export const useBuildingsStore = defineStore("buildings", {
                     limit: 1, 
                     onBuild() {
                         const parties = usePartiesStore();
-                        parties.unlockRole("knight");
+                        parties.unlockRole("squire");
                     }
                 },
                 apprenticeshipProgram: {
