@@ -45,7 +45,7 @@ function cultistButtonClick(cultist) {
                 <div class="column is-half">
                     <!--Copied from the HR tab-->
                     <div class="title is-5 mb-1 segment-title">Cultists</div>
-                    <div class="cultistContainer">
+                    <div class="cultistGridContainer">
                         <span v-for="i in cultists.getCultists">
                             <span v-if="pinia.getJobArray(job).includes(i)">
                                 <button  class="button is-info cultistGridItem" @click="cultistButtonClick(i)">{{i.getName()}}</button>

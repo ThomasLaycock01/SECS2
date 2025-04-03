@@ -55,13 +55,12 @@ html {
     gap: 10px;
 }
 
-.cultistContainer {
+.cultistGridContainer {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min-content, 70px));
+    grid-template-columns: repeat(4, minmax(min-content, 70px));
     gap: 10px;
-    width: auto;
+    width: 100%;
 }
-
 
 .button_list {
     display: flex;

@@ -70,7 +70,7 @@ function cultistButtonClick(cultist) {
                                 <b-tab-item label="Cultists">
                                     <div class="partySelectorTop">
                                         <div class="title is-5 mb-1 segment-title">Cultists</div>
-                                        <div class="cultistContainer">
+                                        <div class="cultistGridContainer">
                                             <span v-for="i in cultists.getCultists">
                                                 <button  class="button is-dark cultistGridItem" :class="party.checkIfContainsCultist(i.getId()) ? 'is-info' : ''" :disabled="i.getParty() && !(partyModal.selectedSlot.cultist && partyModal.selectedSlot.cultist.getId() == i.getId())" @click="cultistButtonClick(i)">{{i.getName()}}</button>
                                             </span>
@@ -90,7 +90,7 @@ function cultistButtonClick(cultist) {
                                     <div class="partySelectorTop">
                                         <!--If a slot is selected, show roles-->
                                         <div class="title is-5 mb-1 segment-title">Roles</div>
-                                        <div class="cultistContainer">
+                                        <div class="cultistGridContainer">
                                             <span v-for="i in parties.getUnlockedRoles">
                                                 <button  class="button cultistGridItem" :class="partyModal.selectedSlot.cultist && partyModal.selectedSlot.cultist.getRole() && partyModal.selectedSlot.cultist.getRole().getId() == i.getId() ? 'is-info' : 'is-dark'" :disabled="!partyModal.selectedSlot.cultist" @click="roleButtonClick(i)">{{i.getName()}}</button>
                                             </span>

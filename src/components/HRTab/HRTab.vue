@@ -102,17 +102,17 @@ function assignPerk(perk) {
     <div class="columns">
         <div class="column is-half">
             <div class="title is-5 mb-1 segment-title">Cultists</div>
-            <div class="cultistContainer">
-                <span v-for="i in cultists.getCultists">
-                    <button  class="button cultistGridItem" :class="i.getPerkPoints() > 0 ? 'is-info' : 'is-dark'" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
+            <div class="cultistGridContainer">
+                <span v-for="i in cultists.getCultists" class="gridItem">
+                    <button  class="button" :class="i.getPerkPoints() > 0 ? 'is-info' : 'is-dark'" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
                 </span>
-                <span v-for="i in cultists.getCultistLimit - cultists.getNumOfCultists">
-                    <div class="button is-outlined cultistGridItem" disabled>Empty</div>
+                <span v-for="i in cultists.getCultistLimit - cultists.getNumOfCultists" class="gridItem">
+                    <div class="button is-outlined" disabled>Empty</div>
                 </span>
             </div>
             <div v-if="expansions.checkIfSummonAvailable">
                 <div class="title is-5 mb-1 segment-title">Summons</div>
-                <div class="cultistContainer">
+                <div class="cultistGridContainer">
                     <span v-for="i in cultists.getSummonedCultists">
                         <button  class="button is-dark is-info cultistGridItem" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
                     </span>
