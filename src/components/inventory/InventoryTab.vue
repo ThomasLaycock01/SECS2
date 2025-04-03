@@ -16,7 +16,7 @@ const tooltips = useTooltipsStore();
   <button class="button is-dark" @click="inventory.sellAllUnequipped()">Sell All Unequpped</button>
   <br>
   <br>
-  <div class="container">
+  <div class="inventoryGridContainer">
       <span v-for="i in inventory.getInventory">
         <div>
           <button class="button" :class="i.getEquippedCultist() ? 'is-info' : 'is-dark'" @mouseover="tooltips.setActiveTooltip(`item${i.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">{{ i.getShortName() ? i.getShortName() : i.getName() }}</button>

@@ -62,6 +62,13 @@ html {
     width: 100%;
 }
 
+.inventoryGridContainer {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(min-content, 70px));
+    gap: 10px;
+    width: 100%;
+}
+
 .button_list {
     display: flex;
     flex-wrap: wrap;
