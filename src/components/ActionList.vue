@@ -24,7 +24,7 @@ const tooltips = useTooltipsStore();
         <div v-if="buttonCheck(action)">
             <div class="title is-5 mb-1 segment-title">{{ action.name }}</div>
             <span v-for="button in action.buttons">
-                <button v-if="button.showCondition()" :disabled="!button.condition()" @click="button.effect" @mouseenter="tooltips.setActiveTooltip(button.id)" @mouseleave="tooltips.removeActiveTooltip()" :value="button.id" class="button is-dark mb-1 mr-2">{{ button.name }}</button>
+                <button v-if="button.showCondition()" :disabled="!button.condition()" @click="button.effect" @mouseenter="tooltips.setActiveTooltip(button.id)" @mouseleave="tooltips.removeActiveTooltip()" :value="button.id" class="button mb-1 mr-2" :class="button.owned && button.owned() == button.limit() ? 'is-light' : 'is-dark'">{{ button.name }}</button>
                 <span v-if="tooltips.getActiveTooltip == button.id">
                     <Tooltip class="tooltip" :tooltipObj="button" :effectDesc="button.effectDesc" :costs="button.costs" :owned="button.owned" :limit="button.limit"/>
                 </span>
