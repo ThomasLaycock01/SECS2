@@ -234,3 +234,17 @@ html {
     width: max-content;
 }
 
+/*Within unit box*/
+.healBtn {
+    text-align: center !important;
+    background-color: #353535;
+    color: #fff !important;
+    cursor: pointer;
+}
+
+.healBtn[disabled="true"]{
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+

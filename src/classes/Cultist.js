@@ -148,6 +148,10 @@ export class Cultist {
         return Math.floor((this.getStat("HP") - this.getCurrentHP()) * 100) / 100;
     }
 
+    getGrainHealCost() {
+        return this.getMissingHP() * 100;
+    }
+
     getKnockedOut() {
         return this.knockedOut;
     }
