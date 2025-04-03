@@ -163,7 +163,9 @@ export class Area {
 
     completeEncounter() {
         this.expeditionCheck();
-        this.addLevelProgress();
+        if (this.currentLevel == this.maxLevel && this.maxLevel < 20) {
+            this.addLevelProgress();
+        }
     }
 
     expeditionCheck() {
