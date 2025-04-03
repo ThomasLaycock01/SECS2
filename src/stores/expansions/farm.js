@@ -26,7 +26,7 @@ export const useFarmStore = defineStore("farm", {
                     cultistArray: [],
                     limit: 4,
                     name: "Farmer",
-                    xpOutput: 20
+                    xpOutput: 1
                 }
             }
         }    
