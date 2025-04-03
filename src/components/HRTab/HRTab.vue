@@ -29,6 +29,7 @@ var selectedPerk = reactive({perk: null});
 function setNewActiveCultist(cultist) {
     activeCultist.cultist = cultist;
     equipmentScreen.check = false;
+    equipmentScreen.selectedItem = null;
 }
 
 
