@@ -71,7 +71,7 @@ html {
 
 .equipmentGridContainer {
     display: grid;
-    grid-template-columns: repeat(5, minmax(min-content, 70px));
+    grid-template-columns: repeat(4, minmax(min-content, 70px));
     gap: 10px;
     width: 100%;
 }

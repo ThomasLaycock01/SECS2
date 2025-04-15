@@ -22,7 +22,6 @@ export const useModalsStore = defineStore("modals", {
                 equipment: {
                     isActive: false,
                     cultist: null,
-                    type: null
                 }
             }
         }
@@ -99,15 +98,13 @@ export const useModalsStore = defineStore("modals", {
         closePartySelect() {
             this.toggleModal("partySelect");
         },
-        openEquipment(cultist, type) {
+        openEquipment(cultist) {
             this.modals.equipment.cultist = cultist;
-            this.modals.equipment.type = type;
 
             this.toggleModal("equipment");
         },
         closeEquipment() {
             this.modals.equipment.cultist = null;
-            this.modals.equipment.type = null;
 
             this.toggleModal("equipment");
         }

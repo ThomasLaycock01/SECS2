@@ -29,14 +29,6 @@ function setNewActiveCultist(cultist) {
     activeCultist.cultist = cultist;
 }
 
-
-
-//for the display half of the screen
-function equipButtonClick(type) {
-    modals.openEquipment(activeCultist.cultist, type);
-}
-
-
 //for the perk display
 function mouseEnterPerk(id) {
     selectedPerk.perk = id
@@ -134,13 +126,15 @@ function assignPerk(perk) {
                             <div v-for="value, key in activeCultist.cultist.getEquipment()">
                                 {{key}}:
                                 <span v-if="value">
-                                    <button class="button is-info" @click="equipButtonClick(key)" @mouseover="tooltips.setActiveTooltip(`activeCultistItem${value.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">{{ value.getName() }}</button>
+                                    <button class="button is-info" @mouseover="tooltips.setActiveTooltip(`activeCultistItem${value.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">{{ value.getName() }}</button>
                                     <span v-if="tooltips.getActiveTooltip == `activeCultistItem${value.getId()}`">
                                         <Tooltip class="tooltip" :tooltipObj="tooltips.getItemTooltip(value)" />
                                     </span>
                                 </span>
-                                <button v-else class="button is-outlined" @click="equipButtonClick(key)">Empty</button>
+                                <button v-else class="button is-outlined">Empty</button>
                             </div>
+                            <br>
+                            <button class="button is-outlined" @click="modals.openEquipment(activeCultist.cultist)">Change Equipment</button>
                         </div>
                     </b-tab-item>
                 </b-tabs>
