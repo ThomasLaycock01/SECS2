@@ -46,7 +46,7 @@ export const useLairStore = defineStore("lair", {
                                 const resources = useResourcesStore();
                                 resources.modifyResource("gold", 1)
                             }
-                        },
+                        }/*,
                         debugGold: {
                             id: "debugGold",
                             name: "Debug Gold",
@@ -106,7 +106,7 @@ export const useLairStore = defineStore("lair", {
                                 const inventory = useInventoryStore();
                                 inventory.addItem(1000);
                             }
-                        }
+                        }*/
                     }
                 },
                 buildings: {
