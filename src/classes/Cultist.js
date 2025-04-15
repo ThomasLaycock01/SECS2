@@ -17,7 +17,6 @@ export class Cultist {
         //race
         this.raceId = raceTemplate.id;
         this.raceName = raceTemplate.name;
-        this.racialGroup = raceTemplate.racialGroup;
         this.racialModifiers = raceTemplate.racialModifiers;
 
         //stats
@@ -90,10 +89,6 @@ export class Cultist {
 
     getRaceName() {
         return this.raceName;
-    }
-
-    getRacialGroup() {
-        return this.racialGroup;
     }
 
 

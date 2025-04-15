@@ -32,17 +32,6 @@ export const useCultistsStore = defineStore("cultists", {
                 return state.regular.find(cultist => cultist.getId() == cultistId);
             }
         },
-        getCultistsByRacialGroup(state) {
-            return (racialGroup) => {
-                var returnArray = [];
-                for (var i in state.regular) {
-                    if (state.regular[i].getRacialGroup() == racialGroup) {
-                        returnArray.push(state.regular[i]);
-                    }
-                }
-                return returnArray;
-            }
-        },
         getUnemployed(state) {
             return state.regular.filter((cultist) => cultist.getJob() == null);
         },
@@ -88,17 +77,6 @@ export const useCultistsStore = defineStore("cultists", {
         getRaceTooltipObj(state) {
             return (race) => {
                 return state.races[race].tooltipObj;
-            }
-        },
-        checkIfHasRacialGroup(state) {
-            return (racialGroup) => {
-                for (var i in state.regular) {
-                    if (state.regular[i].getRacialGroup() == racialGroup) {
-                        return true;
-                    }
-                }
-
-                return false;
             }
         }
     },
@@ -160,15 +138,6 @@ export const useCultistsStore = defineStore("cultists", {
         //races
         instantiateRaces() {
             this.races = races;
-        },
-        getRacesByRacialGroup(racialGroup) {
-            const returnArray = [];
-            for (var i in this.races) {
-                if (this.races[i].racialGroup == racialGroup) {
-                    returnArray.push(this.races[i]);
-                }
-            }
-            return returnArray;
         }
     }
 });
