@@ -10,6 +10,7 @@ import { useCultistsStore } from "@/stores/globalPinias/cultists";
 import { useInventoryStore } from '@/stores/globalPinias/inventory';
 import { useExpansionsStore } from '@/stores/globalPinias/expansions';
 import { useTooltipsStore } from '@/stores/misc/tooltips';
+import { useModalsStore } from '@/stores/misc/modal';
 
 import { perkCheck } from '@/functions';
 
@@ -20,6 +21,7 @@ const HR = useHRStore();
 const inventory = useInventoryStore();
 const expansions = useExpansionsStore();
 const tooltips = useTooltipsStore();
+const modals = useModalsStore();
 
 var activeCultist = reactive({cultist: null});
 var equipmentScreen = reactive({check: false, type: null, selectedItem: null});
@@ -35,9 +37,8 @@ function setNewActiveCultist(cultist) {
 
 
 //for the display half of the screen
-function equipButtonClick(e) {
-    equipmentScreen.check = true;
-    equipmentScreen.type = e.target.value;
+function equipButtonClick(type) {
+    modals.openEquipment(activeCultist.cultist, type);
 }
 
 
@@ -181,12 +182,12 @@ function assignPerk(perk) {
                             <div v-for="value, key in activeCultist.cultist.getEquipment()">
                                 {{key}}:
                                 <span v-if="value">
-                                    <button class="button is-info" @click="equipButtonClick" :value="key" @mouseover="tooltips.setActiveTooltip(`activeCultistItem${value.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">{{ value.getName() }}</button>
+                                    <button class="button is-info" @click="equipButtonClick(key)" @mouseover="tooltips.setActiveTooltip(`activeCultistItem${value.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">{{ value.getName() }}</button>
                                     <span v-if="tooltips.getActiveTooltip == `activeCultistItem${value.getId()}`">
                                         <Tooltip class="tooltip" :tooltipObj="tooltips.getItemTooltip(value)" />
                                     </span>
                                 </span>
-                                <button v-else class="button is-outlined" @click="equipButtonClick" :value="key">Empty</button>
+                                <button v-else class="button is-outlined" @click="equipButtonClick(key)">Empty</button>
                             </div>
                         </div>
                         <!--Inventory screen - appears when selecting new item for cultist to equip-->

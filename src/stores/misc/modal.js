@@ -18,6 +18,11 @@ export const useModalsStore = defineStore("modals", {
                 partySelect: {
                     isActive: false,
                     areaObj: null
+                },
+                equipment: {
+                    isActive: false,
+                    cultist: null,
+                    type: null
                 }
             }
         }
@@ -37,6 +42,12 @@ export const useModalsStore = defineStore("modals", {
         },
         getPartySelectAreaObj(state) {
             return state.modals.partySelect.areaObj;
+        },
+        getEquipmentCultist(state) {
+            return state.modals.equipment.cultist;
+        },
+        getEquipmentType(state) {
+            return state.modals.equipment.type;
         }
     },
     actions: {
@@ -87,6 +98,18 @@ export const useModalsStore = defineStore("modals", {
         },
         closePartySelect() {
             this.toggleModal("partySelect");
+        },
+        openEquipment(cultist, type) {
+            this.modals.equipment.cultist = cultist;
+            this.modals.equipment.type = type;
+
+            this.toggleModal("equipment");
+        },
+        closeEquipment() {
+            this.modals.equipment.cultist = null;
+            this.modals.equipment.type = null;
+
+            this.toggleModal("equipment");
         }
     }
 })

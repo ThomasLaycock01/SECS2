@@ -120,6 +120,7 @@ export class Cultist {
         return false;
     }
 
+
     getMisc(miscType = null) {
         if (miscType) {
             if (this.misc[miscType]) {
@@ -184,7 +185,10 @@ export class Cultist {
         return this.perks;
     }
 
-    getEquipment() {
+    getEquipment(type = null) {
+        if (type) {
+            return this.equipment[type];
+        }
         return this.equipment;
     }
 
