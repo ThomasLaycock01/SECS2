@@ -27,9 +27,6 @@ export const useCultistsStore = defineStore("cultists", {
         getCultists(state) {
             return state.regular;
         },
-        getSummonedCultists(state) {
-            return state.summoned;
-        },
         getCultistById: (state) => {
             return (cultistId) => {
                 return state.regular.find(cultist => cultist.getId() == cultistId);

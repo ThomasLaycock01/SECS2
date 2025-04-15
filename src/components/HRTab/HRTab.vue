@@ -75,17 +75,6 @@ function assignPerk(perk) {
                     <div class="button is-outlined" disabled>Empty</div>
                 </span>
             </div>
-            <div v-if="expansions.checkIfSummonAvailable">
-                <div class="title is-5 mb-1 segment-title">Summons</div>
-                <div class="cultistGridContainer">
-                    <span v-for="i in cultists.getSummonedCultists">
-                        <button  class="button is-dark is-info cultistGridItem" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
-                    </span>
-                    <span v-for="i in cultists.getSummonLimit - cultists.getNumOfSummoned">
-                        <div class="button is-outlined cultistGridItem" disabled>Empty</div>
-                    </span>
-                </div>
-            </div>
         </div>
         <div class="column is-half">
             <div v-if="activeCultist.cultist">
