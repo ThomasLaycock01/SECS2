@@ -30,7 +30,6 @@ export class Cultist {
         this.perks = [];
         this.perkPoints = 0;
         this.equipment = {tool: null, body: null, accessory: null};
-        this.misc = {}
 
         //role
         this.role = null;
@@ -118,19 +117,6 @@ export class Cultist {
             return true;
         }
         return false;
-    }
-
-
-    getMisc(miscType = null) {
-        if (miscType) {
-            if (this.misc[miscType]) {
-                return this.misc[miscType];
-            }
-            return false;
-        }
-        else {
-            return this.misc;
-        }
     }
 
     getStatObj() {
@@ -376,14 +362,6 @@ export class Cultist {
 
     getRacialModifiers() {
         return this.racialModifiers;
-    }
-
-    feedItem(item) {
-        this.addXp(item.getSellValue() / 10, true);
-    }
-
-    setMisc(key, value) {
-        this.misc[key] = value;
     }
 
 
