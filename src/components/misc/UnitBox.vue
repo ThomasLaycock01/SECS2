@@ -41,7 +41,7 @@ function instaHealClick(cultistObj) {
                 <tbody>
                     <tr v-if="props.type == 'cultist'">
                         <th>{{ unit.getCurrentHP() }}/{{ unit.getStat("HP") }} HP</th>
-                        <th class="healBtn" @mouseover="tooltips.setActiveTooltip(`instaHeal${unit.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()" @click="instaHealClick(unit)" :disabled="!resources.checkIfCanAfford({grain:unit.getGrainHealCost()}) || unit.getGrainHealCost() < 1">Heal</th>
+                        <th v-if="progression.checkUnlocked('completedAbandonedFarmhouse')" class="healBtn" @mouseover="tooltips.setActiveTooltip(`instaHeal${unit.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()" @click="instaHealClick(unit)" :disabled="!resources.checkIfCanAfford({grain:unit.getGrainHealCost()}) || unit.getGrainHealCost() < 1">Heal</th>
                         <span v-if="tooltips.getActiveTooltip == `instaHeal${unit.getId()}`">
                                 <Tooltip class="tooltip" :tooltipObj="tooltips.getInstaHealTooltip(unit)"/>
                         </span>
