@@ -1,8 +1,8 @@
 {
-    "1000": {"itemId": 1000, "type": "tool", "name": "Rusty Dagger", "shortName": "R. Dag", "modifiers": [{"type": "atk", "modifier": 0.1}], "sellValue": 10, "tier": 1, "effectDesc": "+10% Attack"},
+    "1000": {"itemId": 1000, "type": "tool", "name": "Rusty Dagger", "shortName": "R. Dag.", "modifiers": [{"type": "atk", "modifier": 0.1}], "sellValue": 10, "tier": 1, "effectDesc": "+10% Attack"},
     "2000": {"itemId": 2000, "type": "tool", "name": "Plank of Wood", "shortName": "Plank", "modifiers": [{"type": "atk", "base": 1}], "sellValue": 10, "tier": 1, "effectDesc": "+1 Base Atk"},
     "2001": {"itemId": 2001, "type": "tool", "name": "Battle Axe", "shortName": "Axe", "modifiers": [{"type": "atk", "base": 1.5}], "sellValue": 20, "tier": 1, "effectDesc": "+1.5 Base Atk"},
-    "2002": {"itemId": 2002, "type": "body", "name": "Hide Armour", "shortName": "H. Armour", "modifiers": [{"type": "def", "modifier": 0.1}], "sellValue": 20, "tier": 1, "effectDesc": "+10% Def"},
+    "2002": {"itemId": 2002, "type": "body", "name": "Hide Armour", "shortName": "H. Arm.", "modifiers": [{"type": "def", "modifier": 0.1}], "sellValue": 20, "tier": 1, "effectDesc": "+10% Def"},
     "2003": {"itemId": 2003, "type": "tool", "name": "Magic Staff", "shortName": "M. Staff", "modifiers": [{"type": "atk", "base": 2}], "sellValue": 20, "tier": 1, "effectDesc": "+2 Base Def"},
     "2004": {"itemId": 2004, "type": "body", "name": "Hide Robe", "shortName": "H. Robe", "modifiers": [{"type": "def", "modifier": 0.2}], "sellValue": 20, "tier": 1, "effectDesc": "+20% Def"},
     "2005": {"itemId": 2005, "type": "accessory", "name": "Dog Tooth", "shortName": "D. Tooth", "modifiers": [{"type": "atk", "modifier": 0.5}], "sellValue": 20, "tier": 1, "effectDesc": "+50% Atk"},
