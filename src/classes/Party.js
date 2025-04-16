@@ -151,6 +151,15 @@ export class Party {
         }
     }
 
+    //called when a party is not saved - this is called before it is deleted
+    removeCultistsForNoSave() {
+        for (var i in this.slots) {
+            if (this.slots[i].cultist) {
+                this.slots[i].cultist.removeParty();
+            }
+        }
+    }
+
     addXp(amount) {
         
         var numOfCultists  = 0;

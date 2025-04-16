@@ -87,6 +87,10 @@ export const useModalsStore = defineStore("modals", {
             if (save) {
                 parties.saveParty(partyObj);
             }
+            else {
+                //if cultists were added, but its not being saved, make sure those cultists dont have a party assigned
+                partyObj.removeCultistsForNoSave();
+            }
 
             this.toggleModal("party");
         },
