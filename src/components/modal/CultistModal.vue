@@ -7,6 +7,8 @@ import PerkTooltip from '../HRTab/PerkTooltip.vue';
 import { useModalsStore } from '@/stores/misc/modal';
 import { useTooltipsStore } from '@/stores/misc/tooltips';
 
+import { perkCheck } from '@/functions';
+
 import perks from "@/assets/json/perks.json";
 
 const modals = useModalsStore();
