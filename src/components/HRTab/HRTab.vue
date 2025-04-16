@@ -7,7 +7,6 @@ import { reactive } from 'vue';
 
 import { useHRStore } from '@/stores/HR';
 import { useCultistsStore } from "@/stores/globalPinias/cultists";
-import { useExpansionsStore } from '@/stores/globalPinias/expansions';
 import { useTooltipsStore } from '@/stores/misc/tooltips';
 import { useModalsStore } from '@/stores/misc/modal';
 
@@ -17,7 +16,6 @@ import perks from "@/assets/json/perks.json";
 
 const cultists = useCultistsStore();
 const HR = useHRStore();
-const expansions = useExpansionsStore();
 const tooltips = useTooltipsStore();
 const modals = useModalsStore();
 
@@ -25,8 +23,8 @@ var activeCultist = reactive({cultist: null});
 var selectedPerk = reactive({perk: null});
 
 //for the cultist half of the screen
-function setNewActiveCultist(cultist) {
-    activeCultist.cultist = cultist;
+function cultistClick(cultist) {
+    modals.openCultist(cultist);
 }
 
 //for the perk display
@@ -61,7 +59,7 @@ function assignPerk(perk) {
             <div class="title is-5 mb-1 segment-title">Cultists</div>
             <div class="cultistGridContainer">
                 <span v-for="i in cultists.getCultists" class="gridItem">
-                    <button  class="button" :class="i.getPerkPoints() > 0 ? 'is-info' : 'is-dark'" @click="setNewActiveCultist(i)">{{i.getName()}}</button>
+                    <button  class="button" :class="i.getPerkPoints() > 0 ? 'is-info' : 'is-dark'" @click="cultistClick(i)">{{i.getName()}}</button>
                 </span>
                 <span v-for="i in cultists.getCultistLimit - cultists.getNumOfCultists" class="gridItem">
                     <div class="button is-outlined" disabled>Empty</div>

@@ -1,6 +1,7 @@
 <script setup>
 import Tables from "./components/tables/Tables.vue";
 
+import CultistModal from "./components/modal/CultistModal.vue";
 import AssignmentModal from "./components/modal/AssignmentModal.vue";
 import PartyModal from "./components/modal/PartyModal.vue";
 import PartySelectModal from "./components/modal/PartySelectModal.vue";
@@ -48,6 +49,7 @@ const progression = useProgressionStore();
     <TextLog class="column is-one-quarter"/>
   </div>
 
+  <CultistModal v-if="modals.checkModal('cultist')"/>
   <AssignmentModal v-if="modals.checkModal('assignment')"/>
   <PartyModal v-if="modals.checkModal('party')"/>
   <PartySelectModal v-if="modals.checkModal('partySelect')"/>

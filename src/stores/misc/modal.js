@@ -6,6 +6,10 @@ export const useModalsStore = defineStore("modals", {
     state: () => {
         return {
             modals: {
+                cultist: {
+                    isActive: false,
+                    cultist: null
+                },
                 assignment: {
                     isActive: false,
                     activePinia: null,
@@ -29,6 +33,9 @@ export const useModalsStore = defineStore("modals", {
     getters: {
         checkModal(state) {
             return (modal) => state.modals[modal].isActive;
+        },
+        getCultistCultist(state) {
+            return state.modals.cultist.cultist;
         },
         getAssignmentPinia(state) {
             return state.modals.assignment.activePinia;
@@ -58,15 +65,23 @@ export const useModalsStore = defineStore("modals", {
                 this.modals[modal].isActive = true;
             }
         },
+        openCultist(cultistObj) {
+            this.modals.cultist.cultist = cultistObj;
+            this.toggleModal("cultist");
+        },
+        closeCultist() {
+            this.toggleModal('cultist');
+            this.modals.cultist.cultist = null;
+        },
         openAssignment(pinia, job) {
             this.modals.assignment.activePinia = pinia;
             this.modals.assignment.activeJob = job;
             this.toggleModal('assignment');
         },
         closeAssignment() {
+            this.toggleModal('assignment');
             this.modals.assignment.activePinia = null;
             this.modals.assignment.activeJob = null;
-            this.toggleModal('assignment');
         },
         openParty(partyObj = null) {
             const parties = usePartiesStore();
@@ -93,6 +108,7 @@ export const useModalsStore = defineStore("modals", {
             }
 
             this.toggleModal("party");
+            this.modals.party.partyObj = null;
         },
         openPartySelect(area) {
             this.modals.partySelect.areaObj = area;
@@ -101,6 +117,8 @@ export const useModalsStore = defineStore("modals", {
         },
         closePartySelect() {
             this.toggleModal("partySelect");
+
+            this.modals.partySelect.areaObj = null;
         },
         openEquipment(cultist) {
             this.modals.equipment.cultist = cultist;
@@ -108,9 +126,9 @@ export const useModalsStore = defineStore("modals", {
             this.toggleModal("equipment");
         },
         closeEquipment() {
-            this.modals.equipment.cultist = null;
-
             this.toggleModal("equipment");
+
+            this.modals.equipment.cultist = null;
         }
     }
 })
