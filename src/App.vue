@@ -49,10 +49,10 @@ const progression = useProgressionStore();
     <TextLog class="column is-one-quarter"/>
   </div>
 
-  <CultistModal v-if="modals.checkModal('cultist')"/>
   <AssignmentModal v-if="modals.checkModal('assignment')"/>
   <PartyModal v-if="modals.checkModal('party')"/>
   <PartySelectModal v-if="modals.checkModal('partySelect')"/>
+  <CultistModal v-if="modals.checkModal('cultist')"/>
   <EquipmentModal v-if="modals.checkModal('equipment')"/>
 </template>
 

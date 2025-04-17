@@ -4,6 +4,7 @@ import Tooltip from '../Tooltip.vue';
 import { useTooltipsStore } from '@/stores/misc/tooltips';
 import { useProgressionStore } from '@/stores/misc/progression';
 import { useResourcesStore } from '@/stores/globalPinias/resources';
+import { useModalsStore } from '@/stores/misc/modal';
 
 const props = defineProps({
     unit: Object,
@@ -15,6 +16,7 @@ const unit = props.unit;
 const tooltips = useTooltipsStore();
 const progression = useProgressionStore();
 const resources = useResourcesStore();
+const modals = useModalsStore();
 
 function instaHealClick(cultistObj) {
     const costObj = {grain:cultistObj.getGrainHealCost()}
@@ -34,7 +36,10 @@ function instaHealClick(cultistObj) {
         <div class="centered">Empty slot</div>
     </div>
     <div v-else>
-        <div v-if="props.type == 'cultist'">{{ unit.getName() }} - {{ unit.getRole().getName() }}</div>
+        <div v-if="props.type == 'cultist'" class="inline-blockContainer">
+            <div class="mr-1">{{ unit.getName() }} - {{ unit.getRole().getName() }}</div>
+            <button class="button is-dark is-small" @click="modals.openCultist(unit)">Edit</button>
+        </div>
         <div v-else>{{ unit.getName() }}</div>
         <div>
             <table class="table is-bordered is-narrow" v-if="props.type != 'cultist' || !unit.getKnockedOut()">
