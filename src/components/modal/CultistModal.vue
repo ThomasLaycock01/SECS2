@@ -22,16 +22,16 @@ var selected = reactive({perk: null});
 
 //for the perk display
 function mouseEnterPerk(id) {
-    selectedPerk.perk = id
+    selected.perk = id
 }
 
 function mouseLeavePerk() {
-    selectedPerk.perk = null;
+    selected.perk = null;
 }
 
 function assignPerk(perk) {
     activeCultist.cultist.addPerk(perk);
-    selectedPerk.perk = null;
+    selected.perk = null;
 }
 
 function roleClick(role) {
