@@ -208,7 +208,7 @@ export function combatRound(area) {
             }
         }
 
-        const cultist = party[i].cultist;
+        const cultist = party[i];
 
         const physDmg = cultist.getAtkValue("phys");
         const magDmg = cultist.getAtkValue("mag");
@@ -228,11 +228,11 @@ export function combatRound(area) {
         //finding a target
         var target = null;
         for (var j in party) {
-            if (party[j].cultist == null || target || party[j].cultist.getKnockedOut()) {
+            if (target || party[j].getKnockedOut()) {
                 continue;
             }
             else {
-                target = party[j].cultist;
+                target = party[j];
             }
 
         }
