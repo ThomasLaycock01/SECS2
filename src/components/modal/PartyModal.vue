@@ -17,22 +17,21 @@ function setSelectedSlot(slot) {
 
 function cultistButtonClick(cultist) {
 
-    party.setCultist(partyModal.selectedSlot, cultist);
-    cultist.setParty(party);
-
-    /*if (partyModal.selectedSlot.cultist && cultist.getId() == partyModal.selectedSlot.cultist.getId()) {
-        partyModal.selectedSlot.cultist = null;
+    if (party.getCultistBySlot(partyModal.selectedSlot) && cultist.getId() == party.getCultistBySlot(partyModal.selectedSlot).getId()) {
+        //theres a cultist there, and it was the one that was clicked
         cultist.removeParty();
-        cultist.removeRole();
-    } 
+        party.removeCultist(partyModal.selectedSlot);
+    }
     else {
-        if (partyModal.selectedSlot.cultist) {
-            partyModal.selectedSlot.cultist.removeParty();
+        if (party.getCultistBySlot(partyModal.selectedSlot)) {
+            //theres a cultist there, and it wasnt the one that was clicked
+            party.getCultistBySlot(partyModal.selectedSlot).removeParty();
         }
-        partyModal.selectedSlot.cultist = cultist;
 
+        //runs if replacing a cultist, or if there wasnt one there
+        party.setCultist(partyModal.selectedSlot, cultist);
         cultist.setParty(party);
-    }*/
+    }
 
 }
 </script>
