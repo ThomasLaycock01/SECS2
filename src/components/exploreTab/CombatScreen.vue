@@ -31,9 +31,7 @@ const props = defineProps({
                 <span v-if="areaObject.getActiveParty()">
                     <span v-for="i in areaObject.getActiveParty().getSlots()">
                         <br>
-                        <div>
-                            <UnitBox :unit="i" type="cultist" :key="i.getId()"/>
-                        </div>
+                        <UnitBox :unit="i" type="cultist" :key="i.getId()"/>
                     </span>
                 </span>
             </div>
