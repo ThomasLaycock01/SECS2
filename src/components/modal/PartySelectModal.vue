@@ -47,12 +47,10 @@ function setSelectedParty(party) {
                     <div class="title is-5 mb-1 segment-title">{{modals.getPartySelectAreaObj.getActiveParty().getName()}}</div>
                     <div class="inline-blockContainer">
                         <span v-for="i in modals.getPartySelectAreaObj.getActiveParty().getSlots()" class="mr-1">
-                            <span v-if="i.cultist">
-                                <UnitBox :unit="i.cultist" type="cultist" :key="i.cultist.getId()"/>
-                            </span>
-                            <span v-else>
-                                <UnitBox :unit="null" type="empty" :key="'empty'"/>
-                            </span>
+                            <UnitBox :unit="i" type="cultist" :key="i.getId()"/>
+                        </span>
+                        <span v-for="i in modals.getPartySelectAreaObj.getActiveParty().getFreeSlots()" class="mr-1">
+                            <UnitBox :unit="null" type="empty" :key="'empty'"/>
                         </span>
                     </div>
                 </div>

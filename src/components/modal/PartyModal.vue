@@ -17,7 +17,9 @@ function setSelectedSlot(slot) {
 
 function cultistButtonClick(cultist) {
 
-    if (partyModal.selectedSlot.cultist && cultist.getId() == partyModal.selectedSlot.cultist.getId()) {
+    party.setCultist(partyModal.selectedSlot, cultist);
+
+    /*if (partyModal.selectedSlot.cultist && cultist.getId() == partyModal.selectedSlot.cultist.getId()) {
         partyModal.selectedSlot.cultist = null;
         cultist.removeParty();
         cultist.removeRole();
@@ -29,7 +31,7 @@ function cultistButtonClick(cultist) {
         partyModal.selectedSlot.cultist = cultist;
 
         cultist.setParty(party);
-    }
+    }*/
 
 }
 </script>
@@ -47,10 +49,10 @@ function cultistButtonClick(cultist) {
         <div class="modalBody">
             <div class="columns partyColumns">
                 <div class="column is-half">
-                    <div v-for="i in party.getSlots()" :class="partyModal.selectedSlot && partyModal.selectedSlot.id == i.id ? 'selectedPartySlot mb-2' : 'partySlot mb-2'" @click="setSelectedSlot(i)">
-                        <div>Slot {{ i.id + 1 }}</div>
-                        <div>Cultist: {{ i.cultist ? i.cultist.getName() : "None" }}</div>
-                        <div>Role: {{ i.cultist && i.cultist.getRole() ? i.cultist.getRole().getName() : "None" }}</div>
+                    <div v-for="i in party.getLimit()" class="mb-2" :class="partyModal.selectedSlot == i ? 'selectedPartySlot' : 'partySlot'" @click="setSelectedSlot(i)">
+                        <div>Slot {{ i }}</div>
+                        <div>Cultist: {{ party.getSlots()[i] ? party.getSlots()[i].getName() : "None" }}</div>
+                        <div>Role: {{ party.getSlots()[i] && party.getSlots()[i].getRole() ? party.getSlots()[i].getRole().getName() : "None" }}</div>
                     </div>
                 </div>
                 <div class="column is-half">

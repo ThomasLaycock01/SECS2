@@ -1,9 +1,10 @@
+import { getGlobalModifiers } from "@/functions";
+
 export class Party {
     constructor(id) {
         this.id = id;
         this.name = "Party " + id;
         this.slots = {};
-        this.limit = 3;
 
         this.currentActivity = null;
         this.autoHeal = false;
@@ -19,51 +20,27 @@ export class Party {
     }
 
     getLimit() {
-        return this.limit;
+        return Math.floor(3 + (getGlobalModifiers(['slotLimit'])));
     }
 
     getSlots() {
         return this.slots;
     }
 
+    getFreeSlots() {
+        const numSlots = Object.keys(this.slots).length;
+
+        return this.getLimit() - numSlots;
+    }
+
     getPartySize() {
         var count = 0;
 
         for (var i in this.slots) {
-            if (this.slots[i].cultist && this.slots[i].cultist.getRole()) {
-                count++;
-            }
+            count++;
         }
 
         return count;
-    }
-
-    getPartyCultistCount() {
-        var count = 0;
-        for (var i in this.slots) {
-            if (this.slots[i].cultist) {
-                count++;
-            }
-        }
-        console.log(count);
-        return count;
-    }
-
-    getCultistBySlot(slotId) {
-        if (this.slots[slotId].cultist) {
-            return this.slots[slotId].cultist;
-        }
-        return null;
-    }
-
-    getSlotByCultist(cultistId) {
-        console.log(cultistId)
-        for (var i in this.slots) {
-            if (this.slots[i].cultist && this.slots[i].cultist.getId() == cultistId) {
-                return i;
-            }
-        }
-        console.log("error in getSlotsByCultist method")
     }
 
 
@@ -115,33 +92,14 @@ export class Party {
     }
 
     //actions
-    initSlots() {
-        var count = 0;
-
-        while (count < this.limit) {
-            this.slots[count] = {
-                id: count,
-                cultist: null
-            }
-            count++;
-        }
-    }
 
     setCultist(slotId, cultistObj) {
-        this.slots[slotId].cultist = cultistObj;
+        this.slots[slotId] = cultistObj;
     }
 
     removeCultist(slotId) {
-        this.slots[slotId].cultist = null;
-    }
-
-    removeNoRoleCultists() {
-        for (var i in this.slots) {
-            if (this.slots[i].cultist && !this.slots[i].cultist.getRole()) {
-                this.slots[i].cultist.removeParty();
-                this.removeCultist(i);
-            }
-        }
+        this.slots[slotId] = null;
+        delete this.slots[slotId];
     }
 
     //called when a party is not saved - this is called before it is deleted

@@ -31,8 +31,8 @@ const props = defineProps({
                 <span v-if="areaObject.getActiveParty()">
                     <span v-for="i in areaObject.getActiveParty().getSlots()">
                         <br>
-                        <div v-if="i.cultist && i.cultist.getRole()">
-                            <UnitBox :unit="i.cultist" type="cultist" :key="i.cultist.getId()"/>
+                        <div>
+                            <UnitBox :unit="i" type="cultist" :key="i.getId()"/>
                         </div>
                     </span>
                 </span>
@@ -41,7 +41,7 @@ const props = defineProps({
             <!--Displaying enemies-->
             <div v-if="areaObject.getCurrentEncounter().length > 0">
                 Enemies:
-                <span v-for="i, index in areaObject.getCurrentEncounter()">
+                <span v-for="i in areaObject.getCurrentEncounter()">
                     <br>
                     <UnitBox :unit="i" type="enemy" :key="i.getId()"/>
                 </span>

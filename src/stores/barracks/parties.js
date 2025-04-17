@@ -61,16 +61,14 @@ export const usePartiesStore = defineStore("parties", {
         },
         createNewParty() {
             const party = new Party(this.generatePartyId());
-            party.initSlots();
 
             return party;
         },
         saveParty(party) {
             const progression = useProgressionStore();
 
-            party.removeNoRoleCultists();
             //only parties with at least 1 cultist and role are saved
-            if (party.getPartyCultistCount() > 0) {
+            if (party.getPartySize() > 0) {
                 const id = party.getId();
                 this.parties[id] = party;
             }
@@ -78,7 +76,7 @@ export const usePartiesStore = defineStore("parties", {
             //check for parties with no cultists and delete them
             for (var i in this.parties) {
                 const party = this.parties[i];
-                if (party.getPartyCultistCount() == 0) {
+                if (party.getPartySize() == 0) {
                     const id = party.getId();
                     delete this.parties[id];
                 }
