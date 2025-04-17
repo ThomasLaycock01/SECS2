@@ -49,13 +49,6 @@ export class Party {
         return count;
     }
 
-    getRoleBySlot(slotId) {
-        if (this.slots[slotId].role) {
-            return this.slots[slotId].role;
-        }
-        return null;
-    }
-
     getCultistBySlot(slotId) {
         if (this.slots[slotId].cultist) {
             return this.slots[slotId].cultist;

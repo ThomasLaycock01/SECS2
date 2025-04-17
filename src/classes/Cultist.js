@@ -30,9 +30,6 @@ export class Cultist {
         this.perks = [];
         this.perkPoints = 0;
         this.equipment = {tool: null, body: null, accessory: null};
-
-        //role
-        this.role = null;
     }
 
     //getters
@@ -145,10 +142,6 @@ export class Cultist {
 
     getKnockOutTime() {
         return this.knockOutTime;
-    }
-
-    getRole() {
-        return this.role;
     }
 
     getAtkValue(type) {
@@ -446,13 +439,5 @@ export class Cultist {
 
     instaHeal() {
         this.currentHP = this.getStat("HP");
-    }
-
-    setRole(role) {
-        this.role = role;
-    }
-
-    removeRole() {
-        this.role = null;
     }
 }
