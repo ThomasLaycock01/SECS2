@@ -2,11 +2,9 @@
 import { reactive } from 'vue';
 
 import { useModalsStore } from '@/stores/misc/modal';
-import { usePartiesStore } from '@/stores/barracks/parties';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
 
 const modals = useModalsStore();
-const parties = usePartiesStore();
 const cultists = useCultistsStore();
 
 const party = modals.getPartyObj;
@@ -61,7 +59,7 @@ function cultistButtonClick(cultist) {
                             <div class="title is-5 mb-1 segment-title">Cultists</div>
                             <div class="cultistGridContainer">
                                 <span v-for="i in cultists.getCultists">
-                                    <button  class="button is-dark cultistGridItem" :class="party.checkIfContainsCultist(i.getId()) ? 'is-info' : ''" :disabled="i.getParty() && !(partyModal.selectedSlot.cultist && partyModal.selectedSlot.cultist.getId() == i.getId())" @click="cultistButtonClick(i)">{{i.getName()}}</button>
+                                    <button  class="button is-dark cultistGridItem" :class="party.checkIfContainsCultist(i.getId()) ? 'is-info' : ''" :disabled="(i.getParty() && !(partyModal.selectedSlot.cultist && partyModal.selectedSlot.cultist.getId() == i.getId())) || !i.getRole()" @click="cultistButtonClick(i)">{{i.getName()}}</button>
                                 </span>
                             </div>
                         </div>
