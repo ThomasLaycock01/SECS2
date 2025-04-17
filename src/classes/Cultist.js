@@ -1,4 +1,4 @@
-import { getGlobalModifiers, createStatsObj, posToNeg } from "@/functions";
+import { getGlobalModifiers, createStatsObj, createLevelUpObj, posToNeg } from "@/functions";
 
 import { useResourcesStore } from "@/stores/globalPinias/resources";
 
@@ -14,6 +14,7 @@ export class Cultist {
         //level
         this.level = 1;
         this.currentXp = 0;
+        this.levelUps = [];
         
         //race
         this.raceId = raceTemplate.id;
@@ -81,6 +82,14 @@ export class Cultist {
 
     getLevelLimit() {
         return Math.floor(10 + this.getModifiers(["levelLimit"]) - 1);
+    }
+
+    checkLevelUpAvailable() {
+        return this.levelUps.length > 0;
+    }
+
+    getLevelUp(stat) {
+        return this.levelUps[0][stat];
     }
 
 
@@ -316,6 +325,16 @@ export class Cultist {
 
         this.level += 1;
         this.incrementPerkPoint();
+
+        const LU = createLevelUpObj(this.raceId);
+        this.levelUps.push(LU);
+
+        this.revive();
+    }
+
+    useLevelUp(stat) {
+        this.stats[stat] += this.levelUps[0][stat];
+        this.levelUps.shift();
     }
 
     incrementPerkPoint() {

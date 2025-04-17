@@ -78,6 +78,11 @@ export const useCultistsStore = defineStore("cultists", {
             return (race) => {
                 return state.races[race].tooltipObj;
             }
+        },
+        getRaceLevelUp(state) {
+            return (race) => {
+                return state.races[race].levelUpStats;
+            }
         }
     },
     actions: {

@@ -42,6 +42,10 @@ function roleClick(role) {
         cultist.setRole(role);
     }
 }
+
+function levelUpClick(stat) {
+    cultist.useLevelUp(stat);
+}
 </script>
 
 
@@ -73,11 +77,23 @@ function roleClick(role) {
                             <br>
                             <div>
                                 <ul>
-                                    <li v-if="cultist.getKnockedOut()">Knocked Out! {{ Math.floor(cultist.getKnockOutTime() / 60) }} Mins {{ cultist.getKnockOutTime() % 60 }} secs left</li>
-                                    <li v-else>{{ cultist.getCurrentHP() }}/{{ cultist.getStat("HP") }} HP</li>
-                                    <li>{{ cultist.getStat("atk") }} Atk</li>
-                                    <li>{{ cultist.getStat("def") }} Def</li>
-                                </ul>
+                                    <li class="inline-blockContainer">
+                                        <div v-if="cultist.getKnockedOut()" class="mr-2">
+                                            Knocked Out! {{ Math.floor(cultist.getKnockOutTime() / 60) }} Mins {{ cultist.getKnockOutTime() % 60 }} secs left
+                                        </div>
+                                        <div v-else class="mr-2">
+                                            {{ cultist.getCurrentHP() }}/{{ cultist.getStat("HP") }} HP
+                                        </div>
+                                        <button v-if="cultist.checkLevelUpAvailable()" class="button is-dark is-small" @click="levelUpClick('HP')">+{{ cultist.getLevelUp("HP") }}</button>
+                                    </li>
+                                    <li class="inline-blockContainer">
+                                        <div class="mr-2">{{ cultist.getStat("atk") }} Atk</div>
+                                        <button v-if="cultist.checkLevelUpAvailable()" class="button is-dark is-small" @click="levelUpClick('atk')">+{{ cultist.getLevelUp("atk") }}</button>
+                                    </li> 
+                                    <li class="inline-blockContainer">
+                                        <div class="mr-2">{{ cultist.getStat("def") }} Def</div>
+                                        <button v-if="cultist.checkLevelUpAvailable()" class="button is-dark is-small" @click="levelUpClick('def')">+{{ cultist.getLevelUp("def") }}</button>
+                                    </li>                                 </ul>
                             </div>           
                         </div>
                         <!--Equipment Column-->

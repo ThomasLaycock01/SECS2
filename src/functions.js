@@ -45,6 +45,20 @@ export function createStatsObj(statTemplate) {
     return returnObj;
 }
 
+export function createLevelUpObj(raceId) {
+    const cultists = useCultistsStore();
+
+    const template = cultists.getRaceLevelUp(raceId);
+
+    const returnObj = {};
+
+    for (var i in template) {
+        returnObj[i] = Math.round(Math.random() * (template[i].max - template[i].min) + template[i].min);
+    }
+
+    return returnObj;
+}
+
 //creating a cultist
 function createCultist(id, name, raceTemplate) {
     return new Cultist(id, name, raceTemplate);
