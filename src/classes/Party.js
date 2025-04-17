@@ -63,7 +63,7 @@ export class Party {
 
     checkFullKnockOut() {
         for (var i in this.slots) {
-            if (this.slots[i].cultist && this.slots[i].cultist.getKnockedOut() == false) {
+            if (this.slots[i].getKnockedOut() == false) {
                 return false;
             }
         }
@@ -72,7 +72,7 @@ export class Party {
 
     checkFullHealth() {
         for (var i in this.slots) {
-            if (this.slots[i].cultist && this.slots[i].cultist.getMissingHP() != 0) {
+            if (this.slots[i].getMissingHP() != 0) {
                 return false;
             }
         }
@@ -83,9 +83,7 @@ export class Party {
         var cost = 0;
 
         for (var i in this.slots) {
-            if (this.slots[i].cultist) {
-                cost += this.slots[i].cultist.getMissingHP();
-            }
+            cost += this.slots[i].cultist.getMissingHP();
         }
 
         return cost * 100;
@@ -105,29 +103,17 @@ export class Party {
     //called when a party is not saved - this is called before it is deleted
     removeCultistsForNoSave() {
         for (var i in this.slots) {
-            if (this.slots[i].cultist) {
-                this.slots[i].cultist.removeParty();
-            }
+            this.slots[i].removeParty();
         }
     }
 
     addXp(amount) {
         
-        var numOfCultists  = 0;
-
-        for (var i in this.slots) {
-            if (this.slots[i].cultist) {
-                numOfCultists++;
-            }
-        }
-
-        const xpShare = Math.floor(amount / numOfCultists);
+        const xpShare = Math.floor(amount / this.getPartySize());
 
 
         for (var i in this.slots) {
-            if (this.slots[i].cultist) {
-                this.slots[i].cultist.addXp(xpShare)
-            }
+            this.slots[i].cultist.addXp(xpShare)
         }
     }
 
@@ -137,17 +123,13 @@ export class Party {
 
     healCultists() {
         for (var i in this.slots) {
-            if (this.slots[i].cultist) {
-                this.slots[i].cultist.heal();
-            }
+            this.slots[i].cultist.heal();
         }
     }
 
     instaHealCultists() {
         for (var i in this.slots) {
-            if (this.slots[i].cultist) {
-                this.slots[i].cultist.instaHeal();
-            }
+            this.slots[i].cultist.instaHeal();
         }
     }
 
