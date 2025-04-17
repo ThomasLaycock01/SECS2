@@ -35,7 +35,7 @@ function assignPerk(perk) {
 }
 
 function roleClick(role) {
-    if (cultist.getRole() && cultist.getRole().getId() == role.getId()) {
+    if (cultist.getRole() && cultist.getRole().getId() == role.getId() && !cultist.getParty()) {
         cultist.removeRole();
     }
     else {
@@ -105,6 +105,7 @@ function roleClick(role) {
                         <div class="columns">
                             <div class="column is-half">
                                 <div class="title is-5 mb-1 segment-title">Roles</div>
+                                <div v-if="cultist.getParty()">Note: Cultists must have a role whilst in a party</div>
                                 <div class="cultistGridContainer">
                                     <span v-for="i in parties.getUnlockedRoles">
                                         <button  class="button cultistGridItem" :class="cultist.getRole() && cultist.getRole().getId() == i.getId() ? 'is-info' : 'is-dark'" @click="roleClick(i)">{{i.getName()}}</button>
