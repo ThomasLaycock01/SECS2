@@ -112,9 +112,9 @@ function assignPerk(perk) {
                         <div>
                             <span v-for="i in cultist.getPerks()">
                                 <button  class="button is-outlined" @mouseenter="mouseEnterPerk(i.id)" @mouseleave="mouseLeavePerk" :value="i.id">{{i.name}}</button>
-                                <div v-if="i.id == selectedPerk.perk">
+                                <span v-if="i.id == selectedPerk.perk">
                                     <PerkTooltip class="perkTooltip" :perk="i" :unlocked="true"/>
-                                </div>
+                                </span>
                             </span>
                         </div>
                     </b-tab-item>
