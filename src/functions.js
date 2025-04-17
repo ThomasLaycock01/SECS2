@@ -193,8 +193,8 @@ export function combatRound(area) {
         if (area.getCurrentEncounter().length < 1 || area.getActiveParty().checkFullKnockOut()) {
             break;
         }
-        //skip this slot if theres no cultist, they're knocked out
-        if (party[i].cultist == null || party[i].cultist.getKnockedOut()) {
+        //skip this slot if the cultis is knocked out
+        if (party[i].getKnockedOut()) {
             continue;
         }
 
