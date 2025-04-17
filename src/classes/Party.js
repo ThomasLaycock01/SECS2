@@ -33,6 +33,13 @@ export class Party {
         return this.getLimit() - numSlots;
     }
 
+    getCultistBySlot(slot) {
+        if (this.slots[slot]) {
+            return this.slots[slot]
+        }
+        return null;
+    }
+
     getPartySize() {
         var count = 0;
 
@@ -83,7 +90,7 @@ export class Party {
         var cost = 0;
 
         for (var i in this.slots) {
-            cost += this.slots[i].cultist.getMissingHP();
+            cost += this.slots[i].getMissingHP();
         }
 
         return cost * 100;
@@ -113,7 +120,7 @@ export class Party {
 
 
         for (var i in this.slots) {
-            this.slots[i].cultist.addXp(xpShare)
+            this.slots[i].addXp(xpShare)
         }
     }
 
@@ -123,13 +130,13 @@ export class Party {
 
     healCultists() {
         for (var i in this.slots) {
-            this.slots[i].cultist.heal();
+            this.slots[i].heal();
         }
     }
 
     instaHealCultists() {
         for (var i in this.slots) {
-            this.slots[i].cultist.instaHeal();
+            this.slots[i].instaHeal();
         }
     }
 
