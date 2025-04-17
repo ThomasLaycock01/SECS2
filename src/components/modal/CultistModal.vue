@@ -46,23 +46,47 @@ function assignPerk(perk) {
         <div class="modalBody">
             <b-tabs v-model="activeTab">
                 <!--Stats tab-->
-                <b-tab-item label="Stats">
-                        <div @mouseover="tooltips.setActiveTooltip('activeCultistRace')" @mouseleave="tooltips.removeActiveTooltip()">{{ cultist.getRaceName() }}</div>
-                        <span v-if="tooltips.getActiveTooltip == 'activeCultistRace'">
-                            <Tooltip class="tooltip" :tooltipObj="tooltips.getRaceTooltip(cultist.getRaceId())" />
-                        </span>
-                        <div >{{cultist.getJob() ? cultist.getJob() : "Unemployed"}}</div>
-                        <div>Level {{ cultist.getLevel() }} / {{ cultist.getLevelLimit() }}</div>
-                        <div>{{ cultist.getXp() }} / {{ cultist.getXpNeeded() }} XP</div>
-                        <br>
-                        <div>
-                            <ul>
-                                <li v-if="cultist.getKnockedOut()">Knocked Out! {{ Math.floor(cultist.getKnockOutTime() / 60) }} Mins {{ cultist.getKnockOutTime() % 60 }} secs left</li>
-                                <li v-else>{{ cultist.getCurrentHP() }}/{{ cultist.getStat("HP") }} HP</li>
-                                <li>{{ cultist.getStat("atk") }} Atk</li>
-                                <li>{{ cultist.getStat("def") }} Def</li>
-                            </ul>
-                        </div>                 
+                <b-tab-item label="Overview">
+                    <div class="columns">
+                        <!--Stats column-->
+                        <div class="column is-one-quarter">
+                            <div class="title is-6">Stats</div>
+                            <div @mouseover="tooltips.setActiveTooltip('activeCultistRace')" @mouseleave="tooltips.removeActiveTooltip()">{{ cultist.getRaceName() }}</div>
+                            <span v-if="tooltips.getActiveTooltip == 'activeCultistRace'">
+                                <Tooltip class="tooltip" :tooltipObj="tooltips.getRaceTooltip(cultist.getRaceId())" />
+                            </span>
+                            <div >{{cultist.getJob() ? cultist.getJob() : "Unemployed"}}</div>
+                            <div>Level {{ cultist.getLevel() }} / {{ cultist.getLevelLimit() }}</div>
+                            <div>{{ cultist.getXp() }} / {{ cultist.getXpNeeded() }} XP</div>
+                            <br>
+                            <div>
+                                <ul>
+                                    <li v-if="cultist.getKnockedOut()">Knocked Out! {{ Math.floor(cultist.getKnockOutTime() / 60) }} Mins {{ cultist.getKnockOutTime() % 60 }} secs left</li>
+                                    <li v-else>{{ cultist.getCurrentHP() }}/{{ cultist.getStat("HP") }} HP</li>
+                                    <li>{{ cultist.getStat("atk") }} Atk</li>
+                                    <li>{{ cultist.getStat("def") }} Def</li>
+                                </ul>
+                            </div>           
+                        </div>
+                        <!--Equipment Column-->
+                        <div class="column is-one-quarter">
+                            <div class="title is-6">Equipment</div>
+                            <div>
+                                <div v-for="value, key in cultist.getEquipment()">
+                                    {{key}}:
+                                    <span v-if="value">
+                                        <button class="button is-info" @mouseover="tooltips.setActiveTooltip(`activeCultistItem${value.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">{{ value.getName() }}</button>
+                                        <span v-if="tooltips.getActiveTooltip == `activeCultistItem${value.getId()}`">
+                                            <Tooltip class="tooltip" :tooltipObj="tooltips.getItemTooltip(value)" />
+                                        </span>
+                                    </span>
+                                    <button v-else class="button is-outlined">Empty</button>
+                                </div>
+                                <br>
+                                <button class="button is-outlined" @click="modals.openEquipment(cultist)">Change Equipment</button>
+                            </div>
+                        </div>
+                    </div>      
                     </b-tab-item>
                     <!--Perk tab-->
                     <b-tab-item :label="cultist.getPerkPoints() > 0 ? 'Perks(!)' : 'Perks'">
@@ -92,24 +116,6 @@ function assignPerk(perk) {
                                     <PerkTooltip class="perkTooltip" :perk="i" :unlocked="true"/>
                                 </div>
                             </span>
-                        </div>
-                    </b-tab-item>
-                    <!--Equipment tab-->
-                    <b-tab-item label="Equipment">
-                        <div class="title is-6">Equipment</div>
-                        <div>
-                            <div v-for="value, key in cultist.getEquipment()">
-                                {{key}}:
-                                <span v-if="value">
-                                    <button class="button is-info" @mouseover="tooltips.setActiveTooltip(`activeCultistItem${value.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">{{ value.getName() }}</button>
-                                    <span v-if="tooltips.getActiveTooltip == `activeCultistItem${value.getId()}`">
-                                        <Tooltip class="tooltip" :tooltipObj="tooltips.getItemTooltip(value)" />
-                                    </span>
-                                </span>
-                                <button v-else class="button is-outlined">Empty</button>
-                            </div>
-                            <br>
-                            <button class="button is-outlined" @click="modals.openEquipment(cultist)">Change Equipment</button>
                         </div>
                     </b-tab-item>
             </b-tabs>
