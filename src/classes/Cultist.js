@@ -9,6 +9,7 @@ export class Cultist {
 
         this.job = null;
         this.party = null;
+        this.role = null;
 
         //level
         this.level = 1;
@@ -49,6 +50,10 @@ export class Cultist {
 
     getParty() {
         return this.party;
+    }
+
+    getRole() {
+        return this.role;
     }
 
     getPartyId() {
@@ -292,6 +297,14 @@ export class Cultist {
 
     removeParty() {
         this.party = null;
+    }
+
+    setRole(roleObj) {
+        this.role = roleObj;
+    }
+
+    removeRole() {
+        this.role = null;
     }
 
     addXp(amount) {
