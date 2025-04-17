@@ -72,7 +72,7 @@ export class Cultist {
     }
 
     getXpIncrement() {
-        return 1.5 * this.getModifiers(["xpIncrement"], false);
+        return 1.5 * this.getModifiers(["xpIncrement"]);
     }
 
     getLevel() {
@@ -80,7 +80,7 @@ export class Cultist {
     }
 
     getLevelLimit() {
-        return Math.floor(10 + this.getModifiers(["levelLimit"], false) - 1);
+        return Math.floor(10 + this.getModifiers(["levelLimit"]) - 1);
     }
 
 
@@ -171,7 +171,7 @@ export class Cultist {
         return this.equipment;
     }
 
-    getModifiers(typeArray, incLevel = true) {
+    getModifiers(typeArray) {
         var modVal = 1;
 
 
@@ -201,18 +201,13 @@ export class Cultist {
             }
         }
 
-        //levels - not added for XP gain
-        if (incLevel) {
-            modVal += (this.level - 1) * 0.01;
-        }
-
         //global
         modVal += getGlobalModifiers(typeArray);
 
         return modVal;
     }
 
-    getModifiersForDisplay(typeArray, incLevel = true) {
+    getModifiersForDisplay(typeArray) {
         const returnObj = {
             Perks: [],
             Racial: null
@@ -305,7 +300,7 @@ export class Cultist {
             this.currentXp = 0;
         }
         else {
-            this.currentXp += Math.floor(amount * this.getModifiers("xpGain", false));
+            this.currentXp += Math.floor(amount * this.getModifiers("xpGain"));
             this.checkLevelUp();
         }
     }
