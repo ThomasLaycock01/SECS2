@@ -15,11 +15,9 @@ import MainExploreTab from "./components/exploreTab/MainExploreTab.vue";
 
 import TextLog from "./components/textLog/TextLog.vue";
 
-import { useCultistsStore } from "./stores/globalPinias/cultists";
 import { useModalsStore } from "./stores/misc/modal";
 import { useProgressionStore } from "./stores/misc/progression";
 
-const cultists = useCultistsStore();
 const modals = useModalsStore();
 const progression = useProgressionStore();
 </script>
@@ -34,7 +32,7 @@ const progression = useProgressionStore();
         <b-tab-item label="Lair">
           <LairTab/>
         </b-tab-item>
-        <b-tab-item :label="cultists.checkLevelUpAvailable ? 'HR(!)' : 'HR'" v-if="progression.checkUnlocked('10Evilness')">
+        <b-tab-item label="HR" v-if="progression.checkUnlocked('10Evilness')">
             <HRTab/>
         </b-tab-item>
         <b-tab-item label="Explore" v-if="progression.checkUnlocked('firstCultist')">

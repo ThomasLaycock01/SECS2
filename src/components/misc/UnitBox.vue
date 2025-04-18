@@ -38,7 +38,7 @@ function instaHealClick(cultistObj) {
     <div v-else>
         <div v-if="props.type == 'cultist'" class="inline-blockContainer">
             <div class="mr-1">{{ unit.getName() }} - {{ unit.getRole().getName() }}</div>
-            <button class="button is-dark is-small" @click="modals.openCultist(unit)">Edit</button>
+            <button class="button is-small" :class="unit.checkNotif() ? 'is-info' : 'is-dark'"   @click="modals.openCultist(unit)">Edit</button>
         </div>
         <div v-else>{{ unit.getName() }}</div>
         <div>

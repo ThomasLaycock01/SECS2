@@ -61,7 +61,7 @@ function levelUpClick(stat) {
         <div class="modalBody">
             <b-tabs v-model="activeTab">
                 <!--Stats tab-->
-                <b-tab-item label="Overview">
+                <b-tab-item :label="cultist.checkLevelUpAvailable() ? 'Overview(!)' : 'Overview'">
                     <div class="columns">
                         <!--Stats column-->
                         <div class="column is-one-quarter">

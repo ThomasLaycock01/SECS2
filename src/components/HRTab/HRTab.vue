@@ -14,6 +14,16 @@ const modals = useModalsStore();
 function cultistClick(cultist) {
     modals.openCultist(cultist);
 }
+
+function cultistColourCheck(cultist) {
+    if (!cultist.getRole()) {
+        return 'is-danger';
+    }
+    if (cultist.getPerkPoints() > 0) {
+        return 'is-info';
+    }
+    return 'is-dark';
+}
 </script>
 
 
@@ -30,7 +40,7 @@ function cultistClick(cultist) {
         <div class="title is-5 mb-1 segment-title">Cultists</div>
         <div class="cultistGridContainer">
             <span v-for="i in cultists.getCultists" class="gridItem">
-                <button  class="button" :class="i.getPerkPoints() > 0 ? 'is-info' : 'is-dark'" @click="cultistClick(i)">{{i.getName()}}</button>
+                <button  class="button" :class="cultistColourCheck(i)" @click="cultistClick(i)">{{i.getName()}}</button>
             </span>
             <span v-for="i in cultists.getCultistLimit - cultists.getNumOfCultists" class="gridItem">
                 <div class="button is-outlined" disabled>Empty</div>

@@ -108,6 +108,13 @@ export class Cultist {
         return this.perkPoints;
     }
 
+    checkNotif() {
+        if (this.getPerkPoints() > 1 || this.checkLevelUpAvailable()) {
+            return true;
+        }
+        return false;
+    }
+
     checkIfHasPerk(perkId) {
         for (var i in this.getPerks()) {
             if (this.getPerks()[i].id == perkId) {
