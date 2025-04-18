@@ -93,7 +93,8 @@ function levelUpClick(stat) {
                                     <li class="inline-blockContainer">
                                         <div class="mr-2">{{ cultist.getStat("def") }} Def</div>
                                         <button v-if="cultist.checkLevelUpAvailable()" class="button is-dark is-small" @click="levelUpClick('def')">+{{ cultist.getLevelUp("def") }}</button>
-                                    </li>                                 </ul>
+                                    </li>                                 
+                                </ul>
                             </div>           
                         </div>
                         <!--Equipment Column-->
@@ -114,6 +115,38 @@ function levelUpClick(stat) {
                                 <button class="button is-outlined" @click="modals.openEquipment(cultist)">Change Equipment</button>
                             </div>
                         </div>
+                        <!--Atk/Def breakdown column-->
+                        <div class="column is-half">
+                            <div class="title is-6">Atk/Def breakdown</div>
+                            <div v-if="cultist.getRole()">
+                                <div>Current role: {{ cultist.getRole().getName() }}</div>
+                                <div class="partySelectorTableLine">
+                                    <div>
+                                        <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Physical</th>
+                                                <th>Magical</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Atk</td>
+                                                <td>{{ cultist.getAtkValue("phys") }}</td>
+                                                <td>{{ cultist.getAtkValue("mag") }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Def</td>
+                                                <td>{{ cultist.getDefValue("phys") }}</td>
+                                                <td>{{ cultist.getDefValue("mag") }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>      
                     </b-tab-item>
                     <!--Role tab-->
@@ -130,10 +163,35 @@ function levelUpClick(stat) {
                             </div>
                             <div class="column is-half">
                                 <div v-if="cultist.getRole()">
-                                <div class="title is-5 mb-1 segment-title">{{cultist.getRole().getName()}}</div>
-                                <div>{{ cultist.getRole().getDesc() }}</div>
-                                <br>
-                                <div class="partySelectorTableLine">
+                                    <div class="title is-5 mb-1 segment-title">{{cultist.getRole().getName()}}</div>
+                                    <div>{{ cultist.getRole().getDesc() }}</div>
+                                    <br>
+                                    <div class="partySelectorTableLine">
+                                        <div>
+                                            <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Physical</th>
+                                                    <th>Magical</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Atk</td>
+                                                    <td>{{ cultist.getRole().getAtkMod("phys") * 100 }}%</td>
+                                                    <td>{{ cultist.getRole().getAtkMod("mag") * 100 }}%</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Def</td>
+                                                    <td>{{ cultist.getRole().getDefMod("phys") * 100 }}%</td>
+                                                    <td>{{ cultist.getRole().getDefMod("mag") * 100 }}%</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                    </div>
+                                    <div class="partySelectorTableLine">
                                     <div>
                                         <table class="table">
                                         <thead>
@@ -146,19 +204,19 @@ function levelUpClick(stat) {
                                         <tbody>
                                             <tr>
                                                 <td>Atk</td>
-                                                <td>{{ cultist.getRole().getAtkMod("phys") * 100 }}%</td>
-                                                <td>{{ cultist.getRole().getAtkMod("mag") * 100 }}%</td>
+                                                <td>{{ cultist.getAtkValue("phys") }}</td>
+                                                <td>{{ cultist.getAtkValue("mag") }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Def</td>
-                                                <td>{{ cultist.getRole().getDefMod("phys") * 100 }}%</td>
-                                                <td>{{ cultist.getRole().getDefMod("mag") * 100 }}%</td>
+                                                <td>{{ cultist.getDefValue("phys") }}</td>
+                                                <td>{{ cultist.getDefValue("mag") }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                     </div>
                                 </div>
-                            </div>
+                                </div>
                             </div>
                         </div>
                     </b-tab-item>
