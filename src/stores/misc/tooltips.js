@@ -28,7 +28,21 @@ export const useTooltipsStore = defineStore('tooltips', {
                     return false;
                 }
 
-                console.log(returnArray);
+                return returnArray;
+            }
+        },
+        checkAssignWarning() {
+            return(cultistObj) => {
+                var returnArray = [];
+
+                if (!cultistObj.getRole()) {
+                    returnArray.push("This cultist does not have a role!");
+                }
+
+                if (returnArray.length == 0) {
+                    return false;
+                }
+
                 return returnArray;
             }
         },

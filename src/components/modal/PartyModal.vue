@@ -1,11 +1,15 @@
 <script setup>
 import { reactive } from 'vue';
 
+import Tooltip from '../Tooltip.vue';
+
 import { useModalsStore } from '@/stores/misc/modal';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
+import { useTooltipsStore } from '@/stores/misc/tooltips';
 
 const modals = useModalsStore();
 const cultists = useCultistsStore();
+const tooltips = useTooltipsStore();
 
 const party = modals.getPartyObj;
 
@@ -61,7 +65,10 @@ function cultistButtonClick(cultist) {
                             <div class="title is-5 mb-1 segment-title">Cultists</div>
                             <div class="cultistGridContainer">
                                 <span v-for="i in cultists.getCultists">
-                                    <button  class="button cultistGridItem" :class="party.checkIfContainsCultist(i.getId()) ? 'is-info' : 'is-dark'" :disabled="(i.getParty() && !(selected.slot && party.getCultistBySlot(selected.slot) && party.getCultistBySlot(selected.slot).getId() == i.getId())) || !i.getRole()" @click="cultistButtonClick(i)">{{i.getName()}}</button>
+                                    <button  class="button cultistGridItem" :class="party.checkIfContainsCultist(i.getId()) ? 'is-info' : 'is-dark'" :disabled="(i.getParty() && !(selected.slot && party.getCultistBySlot(selected.slot) && party.getCultistBySlot(selected.slot).getId() == i.getId())) || !i.getRole()" @click="cultistButtonClick(i)" @mouseenter="tooltips.setActiveTooltip(`assignWarning${i.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">{{i.getName()}}</button>
+                                    <span v-if="tooltips.getActiveTooltip == `assignWarning${i.getId()}` && tooltips.checkAssignWarning(i)">
+                                        <Tooltip class="tooltip" :tooltipType="'warning'" :warningObj="tooltips.checkAssignWarning(i)"/>
+                                    </span>
                                 </span>
                             </div>
                         </div>
