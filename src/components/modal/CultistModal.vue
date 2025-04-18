@@ -30,7 +30,7 @@ function mouseLeavePerk() {
 }
 
 function assignPerk(perk) {
-    activeCultist.cultist.addPerk(perk);
+    cultist.addPerk(perk);
     selected.perk = null;
 }
 
