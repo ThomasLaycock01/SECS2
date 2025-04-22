@@ -1,3 +1,4 @@
+import { useBuildingsStore } from "@/stores/globalPinias/buildings";
 import { useEnemiesStore } from "@/stores/barracks/enemies";
 import { useExpeditionsStore } from "@/stores/barracks/expeditions";
 import { useModalsStore } from "@/stores/misc/modal";
@@ -22,6 +23,7 @@ export class Area {
         this.maxLevel = 1;
         this.currentLevel = 1;
         this.levelProgress = 0;
+        this.hardCapId = obj.hardCapId;
     }
 
     //getters
@@ -69,6 +71,22 @@ export class Area {
         return this.levelProgress
     }
 
+    getHardCap() {
+        const buildings = useBuildingsStore();
+
+        var cap = 10;
+
+        if (buildings.getOwned(`cartographer${this.hardCapId}`)) {
+            cap += 10;
+        }
+
+        return cap;
+    }
+
+    checkAtHardCap() {
+        return this.maxLevel == this.getHardCap();
+    }
+
     checkAtMaxLevel() {
         return this.currentLevel == this.maxLevel;
     }
@@ -80,6 +98,8 @@ export class Area {
     getActivityName() {
         return this.activityName;
     }
+
+
 
     //actions
     setActiveParty(partyObj) {
@@ -163,7 +183,7 @@ export class Area {
 
     completeEncounter() {
         this.expeditionCheck();
-        if (this.currentLevel == this.maxLevel && this.maxLevel < 20) {
+        if (this.currentLevel == this.maxLevel && this.maxLevel < this.getHardCap()) {
             this.addLevelProgress();
         }
     }

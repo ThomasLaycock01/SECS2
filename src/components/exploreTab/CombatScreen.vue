@@ -16,7 +16,8 @@ const props = defineProps({
             <p>Level {{ areaObject.getCurrentLevel() }}/{{ areaObject.getMaxLevel() }}</p>
             <button class="button is-dark is-small" @click="areaObject.decreaseCurrentLevel()" :disabled="areaObject.getCurrentLevel() - 1 < 1">-</button>
             <button class="button is-dark is-small" @click="areaObject.increaseCurrentLevel()" :disabled="areaObject.getCurrentLevel() + 1 > areaObject.getMaxLevel()">+</button>
-            <p v-if="areaObject.checkAtMaxLevel()">{{ 10 - areaObject.getLevelProgress() }} encounters until next level!</p>
+            <p v-if="areaObject.checkAtMaxLevel() && !areaObject.checkAtHardCap()">{{ 10 - areaObject.getLevelProgress() }} encounters until next level!</p>
+            <p v-else-if="areaObject.checkAtMaxLevel() && areaObject.checkAtHardCap()">Hardcap reached! You cannot unlock any furthur levels!</p>
         </div>
         <div v-else-if="props.type == 'expedition' && areaObject.getActive()">
             <p>Encounter {{areaObject.getCurrentEncounterNum()}}/{{ areaObject.getLength() }}</p>

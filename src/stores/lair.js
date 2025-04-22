@@ -267,6 +267,37 @@ export const useLairStore = defineStore("lair", {
                                 const buildings = useBuildingsStore();
                                 buildings.build("apprenticeshipProgram");
                             }
+                        },
+                        buildCartographerPlains: {
+                            id: "buildCartographerPlains",
+                            name: "Cartographer - Plains",
+                            desc: "Hire some cartographers to make a proper map of the Plains - so you actually know where you're going.",
+                            effectDesc: "Increase Plains hardcap to Level 20",
+                            owned() {
+                                const buildings = useBuildingsStore();
+                                return buildings.getOwned("cartographerPlains");
+                            },
+                            limit() {
+                                const buildings = useBuildingsStore();
+                                return buildings.getLimit("cartographerPlains");
+                            },
+                            costs() {
+                                const buildings = useBuildingsStore();
+                                return buildings.getCosts("cartographerPlains");
+                            },
+                            condition() {
+                                const resources = useResourcesStore();
+                                const buildings = useBuildingsStore();
+                                return resources.checkIfCanAfford(this.costs()) && !buildings.checkIfAtLimit("cartographerPlains");
+                            },
+                            showCondition() {
+                                const progression = useProgressionStore();
+                                return progression.checkUnlocked("1000Evilness");
+                            },
+                            effect() {
+                                const buildings = useBuildingsStore();
+                                buildings.build("cartographerPlains");
+                            }
                         }
                     }
                 },

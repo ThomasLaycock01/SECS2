@@ -4,6 +4,7 @@
         "name": "Open Plains", 
         "desc": "A series of open, green plains surrounding your lair.",
         "activityName": "exploring the Open Plains",
+        "hardCapId": "Plains",
         "encounters": [
             {
                 "array": [1000],
