@@ -25,9 +25,9 @@ const progression = useProgressionStore();
 <template>
   
   <div class="columns mt-1">
-    <Tables class="column is-one-quarter"/>
+    <Tables class="column is-one-fifth"/>
 
-    <section class="column is-half" @openModal="openModal()" @closeModal="closeModal()">
+    <section class="column is-three-fifths" @openModal="openModal()" @closeModal="closeModal()">
       <b-tabs v-model="activeTab">
         <b-tab-item label="Lair">
           <LairTab/>
@@ -44,7 +44,7 @@ const progression = useProgressionStore();
       </b-tabs>
     </section>
 
-    <TextLog class="column is-one-quarter"/>
+    <TextLog class="column is-one-fifth"/>
   </div>
 
   <AssignmentModal v-if="modals.checkModal('assignment')"/>
