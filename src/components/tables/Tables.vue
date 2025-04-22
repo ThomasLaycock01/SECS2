@@ -12,7 +12,7 @@ const expansions = useExpansionsStore();
 
 <template>
     <div class="tables" >
-        <table class="table">
+        <table class="table is-striped">
             <thead>
                 <tr>
                     <th>Resources</th>
