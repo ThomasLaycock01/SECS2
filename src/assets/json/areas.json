@@ -55,6 +55,56 @@
                 "array": [1006, 1002],
                 "maxLvl": 10,
                 "minLvl": 6
+            },
+            {
+                "array": [1005, 1007, 1007],
+                "maxLvl": 11,
+                "minLvl": 8
+            },
+            {
+                "array": [1009, 1008],
+                "maxLvl": 12,
+                "minLvl": 10
+            },
+            {
+                "array": [1010, 1009, 1009],
+                "maxLvl": 13,
+                "minLvl": 11
+            },
+            {
+                "array": [1011, 1011],
+                "maxLvl": 14,
+                "minLvl": 12
+            },
+            {
+                "array": [1012, 1011],
+                "maxLvl": 15,
+                "minLvl": 12
+            },
+            {
+                "array": [1011, 1013],
+                "maxLvl": 16,
+                "minLvl": 13
+            },
+            {
+                "array": [1011, 1011, 1011],
+                "maxLvl": 18,
+                "minLvl": 14
+            },
+            {
+                "array": [1012, 1013, 1014],
+                "maxLvl": 17,
+                "minLvl": 14
+            },
+            {
+                "array": [1012, 1014, 1014],
+                "maxLvl": 19,
+                "minLvl": 15
+            },
+            {
+                "array": [1014, 1014, 1014],
+                "maxLvl": 20,
+                "minLvl": 17
             }
         ],
         "expeditions": [

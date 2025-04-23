@@ -8,5 +8,10 @@
     "1006": {"id": 1006, "name": "Possessed Scarecrow", "stats": {"atk": 7, "def": 5, "HP": 21}, "atkMod": {"phys": 0, "mag": 1.1}, "defMod": {"phys": 0.6, "mag": 2}, "xpDrop": 9, "loot": {"gold": 15, "grain": 20}},
     "1007": {"id": 1007, "name": "Bandit Archer", "stats": {"atk": 6, "def": 3, "HP": 18}, "atkMod": {"phys": 1.1, "mag": 0}, "defMod": {"phys": 0.5, "mag": 0.5}, "xpDrop": 11, "loot": {"gold": 20}},
     "1008": {"id": 1008, "name": "Bandit Arch-Sorcerer", "stats": {"atk": 11, "def": 7, "HP": 20}, "atkMod": {"phys": 0.1, "mag": 2}, "defMod": {"phys": 0.5, "mag": 5}, "xpDrop": 15, "loot": {"gold": 25}},
-    "1009": {"id": 1009, "name": "Bandit Leader", "stats": {"atk": 12, "def": 11, "HP": 75}, "atkMod": {"phys": 1.5, "mag": 0.5}, "defMod": {"phys": 1.5, "mag": 0.5}, "xpDrop": 25, "loot": {"gold": 500}}
+    "1009": {"id": 1009, "name": "Bandit Leader", "stats": {"atk": 12, "def": 11, "HP": 75}, "atkMod": {"phys": 1.5, "mag": 0.5}, "defMod": {"phys": 1.5, "mag": 0.5}, "xpDrop": 25, "loot": {"gold": 500}},
+    "1010": {"id": 1010, "name": "Direwolf", "stats": {"atk": 13, "def": 4, "HP": 25}, "atkMod": {"phys": 1.75, "mag": 0}, "defMod": {"phys": 1.2, "mag": 1.1}, "xpDrop": 16, "loot": {"gold": 40}},
+    "1011": {"id": 1011, "name": "Goblin Skirmisher", "stats": {"atk": 19, "def": 6, "HP": 8}, "atkMod": {"phys": 1.5, "mag": 0}, "defMod": {"phys": 1.5, "mag": 0.5}, "xpDrop": 30, "loot": {"gold": 45}},
+    "1012": {"id": 1012, "name": "Goblin Pikeman", "stats": {"atk": 6, "def": 24, "HP": 15}, "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 1.5, "mag": 0.2}, "xpDrop": 32, "loot": {"gold": 50}},
+    "1013": {"id": 1013, "name": "Goblin Warlock", "stats": {"atk": 18, "def": 9, "HP": 11}, "atkMod": {"phys": 1.5, "mag": 0.5}, "defMod": {"phys": 0.8, "mag": 2}, "xpDrop": 28, "loot": {"gold": 50}},
+    "1014": {"id": 1014, "name": "Goblin Assassin", "stats": {"atk": 24, "def": 2, "HP": 8}, "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 1, "mag": 1}, "xpDrop": 27, "loot": {"gold": 45}}
 }
