@@ -379,8 +379,8 @@ export class Cultist {
     addPerk(perkObject) {
         this.perks.push(perkObject);
 
-        if (perkObject.onAdopt) {
-            perkObject.onAdopt(this);
+        if (perkObject.onAdd) {
+            perkObject.onAdd(this);
         }
 
         this.decrementPerkPoint();
