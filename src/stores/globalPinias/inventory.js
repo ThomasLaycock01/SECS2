@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 
 import { useResourcesStore } from "./resources";
-import { useCultistsStore } from "./cultists";
 
 import { Item } from "@/classes/Item";
 

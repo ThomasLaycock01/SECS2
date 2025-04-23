@@ -227,8 +227,5 @@ export const usePerkStore = defineStore('perks',{
                 return returnArray;
             }
         }
-    },
-    actions: {
-
     }
 })
