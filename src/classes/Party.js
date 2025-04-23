@@ -5,6 +5,7 @@ export class Party {
         this.id = id;
         this.name = "Party " + id;
         this.slots = {};
+        this.area = null;
 
         this.currentActivity = null;
         this.autoHeal = false;
@@ -17,6 +18,10 @@ export class Party {
 
     getName() {
         return this.name;
+    }
+
+    getArea() {
+        return this.area;
     }
 
     getLimit() {
@@ -105,6 +110,14 @@ export class Party {
     removeCultist(slotId) {
         this.slots[slotId] = null;
         delete this.slots[slotId];
+    }
+
+    setArea(areaObj) {
+        this.area = areaObj;
+    }
+
+    removeArea() {
+        this.area = null;
     }
 
     //called when a party is not saved - this is called before it is deleted

@@ -104,9 +104,11 @@ export class Area {
     //actions
     setActiveParty(partyObj) {
         this.activeParty = partyObj;
+        partyObj.setArea(this);
     }
 
     removeActiveParty() {
+        this.activeParty.removeArea();
         this.activeParty = null;
     }
 
