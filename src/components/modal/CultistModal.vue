@@ -7,14 +7,12 @@ import PerkTooltip from '../HRTab/PerkTooltip.vue';
 import { useModalsStore } from '@/stores/misc/modal';
 import { useTooltipsStore } from '@/stores/misc/tooltips';
 import { usePartiesStore } from '@/stores/barracks/parties';
-
-import { perkCheck } from '@/functions';
-
-import perks from "@/assets/json/perks.json";
+import { usePerkStore } from '@/stores/globalPinias/Perks';
 
 const modals = useModalsStore();
 const tooltips = useTooltipsStore();
 const parties = usePartiesStore();
+const perks = usePerkStore();
 
 const cultist = modals.getCultistCultist;
 
@@ -228,12 +226,10 @@ function levelUpClick(stat) {
                         <div v-if="cultist.getPerkPoints()">
                             <div>Perk points available: {{ cultist.getPerkPoints() }}</div>
                             <div>
-                                <span v-for="i in perks.default">
-                                    <span v-if="perkCheck(i, cultist)">
-                                        <button class="button is-info mr-1" @click="assignPerk(i)" @mouseenter="mouseEnterPerk(i.id)" @mouseleave="mouseLeavePerk">{{ i.name }}</button>
-                                        <span v-if="i.id == selected.perk">
-                                            <PerkTooltip class="perkTooltip" :perk="i"/>
-                                        </span>
+                                <span v-for="i in perks.getAvailable(cultist)">
+                                    <button class="button is-info mr-1" @click="assignPerk(i)" @mouseenter="mouseEnterPerk(i.id)" @mouseleave="mouseLeavePerk">{{ i.name }}</button>
+                                    <span v-if="i.id == selected.perk">
+                                        <PerkTooltip class="perkTooltip" :perk="i"/>
                                     </span>
                                 </span>
                             </div>
