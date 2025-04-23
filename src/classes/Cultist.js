@@ -92,6 +92,9 @@ export class Cultist {
         return this.levelUps[0][stat];
     }
 
+    getNumOfLevelUps() {
+        return this.levelUps.length;
+    }
 
     //racial
     getRaceId() {

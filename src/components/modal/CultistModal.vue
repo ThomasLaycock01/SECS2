@@ -70,9 +70,11 @@ function levelUpClick(stat) {
                             </span>
                             <div>{{cultist.getJob() ? cultist.getJob() : "Unemployed"}}</div>
                             <div>{{ cultist.getRole() ? cultist.getRole().getName() : "No Role" }}</div>
+                            <br>
                             <div>Level {{ cultist.getLevel() }} / {{ cultist.getLevelLimit() }}</div>
                             <div>{{ cultist.getXp() }} / {{ cultist.getXpNeeded() }} XP</div>
                             <br>
+                            <p v-if="cultist.checkLevelUpAvailable()">{{ cultist.getNumOfLevelUps() }} Level Ups remaining</p>
                             <div>
                                 <ul>
                                     <li class="inline-blockContainer">
@@ -80,7 +82,13 @@ function levelUpClick(stat) {
                                             Knocked Out! {{ Math.floor(cultist.getKnockOutTime() / 60) }} Mins {{ cultist.getKnockOutTime() % 60 }} secs left
                                         </div>
                                         <div v-else class="mr-2">
-                                            {{ cultist.getCurrentHP() }}/{{ cultist.getStat("HP") }} HP
+                                            {{cultist.getCurrentHP()}}/{{ cultist.getStat("HP") }} HP
+                                        </div>
+                                    </li>
+                                    <br>
+                                    <li class="inline-blockContainer">
+                                        <div class="mr-2">
+                                            {{ cultist.getStat("HP") }} Max HP
                                         </div>
                                         <button v-if="cultist.checkLevelUpAvailable()" class="button is-dark is-small" @click="levelUpClick('HP')">+{{ cultist.getLevelUp("HP") }}</button>
                                     </li>
