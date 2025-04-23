@@ -197,7 +197,7 @@ export class Cultist {
             for (var j in perk.modifiers) {
                 const modObj = perk.modifiers[j];
                 if (typeArray.includes(modObj.type) && modObj.modifier) {
-                    modVal += modObj.modifier;
+                    modVal += modObj.modifier(this);
                 }
             }
         }
@@ -270,7 +270,7 @@ export class Cultist {
             for (var j in perk.modifiers) {
                 const modObj = perk.modifiers[j];
                 if (modObj.type == stat  && modObj.base) {
-                    baseVal += modObj.base;
+                    baseVal += modObj.base();
                 }
             }
         }
