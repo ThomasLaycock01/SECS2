@@ -134,8 +134,8 @@ export const usePerkStore = defineStore('perks',{
                     effectDesc: "+20% HP"
                 },
                 //exchange perks
-                2009: {
-                    id: 2009, 
+                3001: {
+                    id: 3001, 
                     name: "Headstrong", 
                     modifiers: [
                         {
@@ -156,8 +156,8 @@ export const usePerkStore = defineStore('perks',{
                     desc: "There is a fine line between bravery and recklessness.", 
                     effectDesc: "+25% Physical Atk, but -10% Def"
                 },
-                2010: {
-                    id: 2010, 
+                3002: {
+                    id: 3002, 
                     name: "Shield-Bearer", 
                     modifiers: [
                         {
@@ -183,7 +183,46 @@ export const usePerkStore = defineStore('perks',{
                     preqs: [2005], 
                     desc: "This Cultist traded their standard-issue weapon for another shield.", 
                     effectDesc: "+25% Physical Def, +1 base Magic Def, but -30% Atk"
-                }
+                },
+                //area perks
+                4001: {
+                    id: 4001, 
+                    name: "Plains novice", 
+                    modifiers: [
+                        {
+                            type: "atk", 
+                            modifier(cultist) {
+                                if (cultist.getParty().getArea().getId() == 'level1') {
+                                    return 0.25;
+                                }
+                                return 0;
+                            }
+                        },
+                        {
+                            type: "def",
+                            modifier(cultist) {
+                                if (cultist.getParty().getArea().getId() == 'level1') {
+                                    return 0.25;
+                                }
+                                return 0;
+                            }
+                        }
+                    ], 
+                    level: 5, 
+                    desc: "This Cultist is used to traversing the flat and nondescript plains.", 
+                    effectDesc: "+25% Atk, +25% Def, but only when exploring the Open Plains"
+                },
+                //misc
+                5001: {
+                    id: 5001, 
+                    name: "Gifted",  
+                    level: 3,
+                    onAdd(cultist) {
+                        cultist.addLevelUp();
+                    },
+                    desc: "Check out this Clever Clogs.", 
+                    effectDesc: "Immediately gain an extra level up"
+                },
             }
         }
     },

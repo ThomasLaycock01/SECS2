@@ -333,10 +333,13 @@ export class Cultist {
         this.level += 1;
         this.incrementPerkPoint();
 
-        const LU = createLevelUpObj(this.raceId);
-        this.levelUps.push(LU);
+        this.addLevelUp();
 
         this.revive();
+    }
+
+    addLevelUp() {
+        this.levelUps.push(createLevelUpObj(this.raceId));
     }
 
     useLevelUp(stat) {
@@ -375,6 +378,11 @@ export class Cultist {
 
     addPerk(perkObject) {
         this.perks.push(perkObject);
+
+        if (perkObject.onAdopt) {
+            perkObject.onAdopt(this);
+        }
+
         this.decrementPerkPoint();
     }
 
