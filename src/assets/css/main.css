@@ -81,6 +81,11 @@ html {
     flex-wrap: wrap;
 }
 
+.button:not(.is-small) {
+    width: 10rem;
+    height: 2.5rem !important;
+}
+
 /*Tables*/
 .tables {
     display: flex;
@@ -108,7 +113,9 @@ html {
     color: firebrick;
 }
 
-/*rename this*/
+
+
+
 /*inventory popup*/
 .inventoryPopup {
     position: absolute;
@@ -223,8 +230,6 @@ html {
     display: flex;
     justify-content: space-around;
 }
-
-/*party select modal*/
 
 
 /*combat screen*/

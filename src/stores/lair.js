@@ -239,7 +239,7 @@ export const useLairStore = defineStore("lair", {
                         },
                         buildApprenticeshipProgram: {
                             id: "buildApprenticeshipProgram",
-                            name: "Apprenticeship program",
+                            name: "Apprenticeships",
                             desc: "Sign some cultists up for an apprenticeship at the Mages Guild - you'll need to pay their scholarship fees.",
                             effectDesc: "Unlock Role - Apprentice",
                             owned() {
