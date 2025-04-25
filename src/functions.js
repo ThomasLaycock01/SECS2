@@ -14,6 +14,9 @@ import { useTextLogStore } from "./stores/misc/textLog";
 //classes
 import { Cultist } from "./classes/Cultist";
 
+import { useTemplateRef } from "vue";
+import { useTooltipsStore } from "./stores/misc/tooltips";
+
 
 //tick system
 export function tick() {
@@ -229,6 +232,20 @@ export function combatRound(area) {
     }
 }
 
+
+//tooltip
+export function tooltip(e) {
+    const tooltips = useTooltipsStore();
+    const target = e.target;
+
+    const centerPoint = target.getBoundingClientRect().width / 2;
+    const relativeCenterPoint = target.getBoundingClientRect().left + centerPoint;
+
+    const bottom = e.target.getBoundingClientRect().bottom;
+    
+    //-125 for the width of the tooltip
+    tooltips.showTooltip(bottom, relativeCenterPoint - 125);
+}
 
 
 //load function

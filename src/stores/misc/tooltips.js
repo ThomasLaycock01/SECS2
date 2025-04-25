@@ -5,12 +5,23 @@ import { useCultistsStore } from "../globalPinias/cultists";
 export const useTooltipsStore = defineStore('tooltips', {
     state: () => {
         return {
-            activeTooltip: null
+            activeTooltip: null,
+            currentlyShowing: false,
+            currentPos: {
+                top: null,
+                left: null
+            }
         }
     },
     getters: {
         getActiveTooltip(state) {
             return state.activeTooltip;
+        },
+        getCurrentlyShowing(state) {
+            return state.currentlyShowing;
+        },
+        getCurrentPos(state) {
+            return state.currentPos;
         },
         checkEmbarkWarning() {
             return (areaObj) => {
@@ -120,6 +131,22 @@ export const useTooltipsStore = defineStore('tooltips', {
         },
         removeActiveTooltip() {
             this.activeTooltip = null;
+        },
+        showTooltip(t, l) {
+            this.currentPos = {
+                top: t,
+                left: l
+            }
+
+            this.currentlyShowing = true;
+        },
+        hideTooltip() {
+            this.currentPos = {
+                top: null,
+                left: null
+            }
+
+            this.currentlyShowing =false;
         }
     }
 })

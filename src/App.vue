@@ -15,11 +15,15 @@ import MainExploreTab from "./components/exploreTab/MainExploreTab.vue";
 
 import TextLog from "./components/textLog/TextLog.vue";
 
+import Tooltip from "./components/Tooltip.vue";
+
 import { useModalsStore } from "./stores/misc/modal";
 import { useProgressionStore } from "./stores/misc/progression";
+import { useTooltipsStore } from "./stores/misc/tooltips";
 
 const modals = useModalsStore();
 const progression = useProgressionStore();
+const tooltips = useTooltipsStore();
 </script>
 
 <template>
@@ -52,6 +56,8 @@ const progression = useProgressionStore();
   <PartySelectModal v-if="modals.checkModal('partySelect')"/>
   <CultistModal v-if="modals.checkModal('cultist')"/>
   <EquipmentModal v-if="modals.checkModal('equipment')"/>
+
+  <Tooltip class="tooltip" :tooltipObj="{name: 'yes'}" :effectDesc="'na'" :costs="{gold: 10}" :owned="1" :limit="1" ref="test" v-show="tooltips.getCurrentlyShowing"/>
 </template>
 
 <script>

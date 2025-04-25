@@ -1,11 +1,11 @@
 <script setup>
-import { reactive } from 'vue';
+import { onMounted, useTemplateRef } from 'vue';
 
 import Tooltip from './Tooltip.vue';
 
 import { useTooltipsStore } from '@/stores/misc/tooltips';
 
-import { buttonCheck } from '@/functions';
+import { buttonCheck, tooltip } from '@/functions';
 
 
 const props = defineProps({
@@ -14,7 +14,18 @@ const props = defineProps({
 
 const tooltips = useTooltipsStore();
 
-//var tooltip = reactive({id: null});
+const test = useTemplateRef('test');
+
+function mouveOverTest(e) {{
+    const centerPoint = e.target.getBoundingClientRect().width / 2;
+    const relativeCenterPoint = e.target.getBoundingClientRect().left + centerPoint;
+
+    const bottom = e.target.getBoundingClientRect().bottom;
+    
+    tooltips.toggleShowing();
+
+    test.value.place(bottom, relativeCenterPoint);
+}}
 </script>
 
 
@@ -24,10 +35,7 @@ const tooltips = useTooltipsStore();
         <div v-if="buttonCheck(action)">
             <div class="title is-5 mb-1 segment-title">{{ action.name }}</div>
             <span v-for="button in action.buttons">
-                <button v-if="button.showCondition()" :disabled="!button.condition()" @click="button.effect" @mouseenter="tooltips.setActiveTooltip(button.id)" @mouseleave="tooltips.removeActiveTooltip()" :value="button.id" class="button mb-1 mr-2" :class="button.owned && button.owned() == button.limit() ? 'is-light' : 'is-dark'">{{ button.name }}</button>
-                <span v-if="tooltips.getActiveTooltip == button.id">
-                    <Tooltip class="tooltip" :tooltipObj="button" :effectDesc="button.effectDesc" :costs="button.costs" :owned="button.owned" :limit="button.limit"/>
-                </span>
+                <button v-if="button.showCondition()" :disabled="!button.condition()" @click="button.effect" class="button mb-1 mr-2" :class="button.owned && button.owned() == button.limit() ? 'is-light' : 'is-dark'" @mouseenter="tooltip" @mouseleave="tooltips.hideTooltip()">{{ button.name }}</button>
             </span>
         </div>
     </span>
