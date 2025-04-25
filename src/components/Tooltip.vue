@@ -1,6 +1,4 @@
 <script setup>
-import { useTemplateRef, ref } from 'vue';
-
 import { useResourcesStore } from '@/stores/globalPinias/resources';
 import { useTooltipsStore } from '@/stores/misc/tooltips';
 
@@ -17,19 +15,6 @@ const props = defineProps({
 })
 
 const tooltips = useTooltipsStore();
-const pos = tooltips.getCurrentPos;
-
-
-const tooltip = useTemplateRef('tooltip');
-
-const place = function(b, cenP) {
-    tooltip.value.style.top = `${b}px`;
-    tooltip.value.style.left = `${cenP - 125}px`;
-}
-
-defineExpose({
-    place
-})
 </script>
 
 <template>

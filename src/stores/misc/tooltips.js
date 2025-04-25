@@ -5,7 +5,6 @@ import { useCultistsStore } from "../globalPinias/cultists";
 export const useTooltipsStore = defineStore('tooltips', {
     state: () => {
         return {
-            activeTooltip: null,
             currentlyShowing: false,
             currentPos: {
                 top: null,
@@ -14,9 +13,6 @@ export const useTooltipsStore = defineStore('tooltips', {
         }
     },
     getters: {
-        getActiveTooltip(state) {
-            return state.activeTooltip;
-        },
         getCurrentlyShowing(state) {
             return state.currentlyShowing;
         },
@@ -126,12 +122,6 @@ export const useTooltipsStore = defineStore('tooltips', {
         }
     },
     actions: {
-        setActiveTooltip(id) {
-            this.activeTooltip = id;
-        },
-        removeActiveTooltip() {
-            this.activeTooltip = null;
-        },
         showTooltip(t, l) {
             this.currentPos = {
                 top: t,

@@ -1,8 +1,4 @@
 <script setup>
-import { onMounted, useTemplateRef } from 'vue';
-
-import Tooltip from './Tooltip.vue';
-
 import { useTooltipsStore } from '@/stores/misc/tooltips';
 
 import { buttonCheck, tooltip } from '@/functions';
@@ -13,19 +9,6 @@ const props = defineProps({
 })
 
 const tooltips = useTooltipsStore();
-
-const test = useTemplateRef('test');
-
-function mouveOverTest(e) {{
-    const centerPoint = e.target.getBoundingClientRect().width / 2;
-    const relativeCenterPoint = e.target.getBoundingClientRect().left + centerPoint;
-
-    const bottom = e.target.getBoundingClientRect().bottom;
-    
-    tooltips.toggleShowing();
-
-    test.value.place(bottom, relativeCenterPoint);
-}}
 </script>
 
 
