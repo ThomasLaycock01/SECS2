@@ -148,14 +148,10 @@ export const useLairStore = defineStore("lair", {
                                 effectDesc: "+1 cultist limit",
                                 buildingId: "chambers"
                             },
-                            costs() {
-                                const buildings = useBuildingsStore();
-                                return buildings.getCosts("chambers");
-                            },
                             condition() {
                                 const resources = useResourcesStore();
                                 const buildings = useBuildingsStore();
-                                return resources.checkIfCanAfford(this.costs()) && !buildings.checkIfAtLimit("chambers");
+                                return resources.checkIfCanAfford(buildings.getCosts("chambers")) && !buildings.checkIfAtLimit("chambers");
                             },
                             showCondition() {
                                 const progression = useProgressionStore();
@@ -177,14 +173,10 @@ export const useLairStore = defineStore("lair", {
                                 effectDesc: "+10% evilness output on all cultists",
                                 buildingId: "evilShrine"
                             },
-                            costs() {
-                                const buildings = useBuildingsStore();
-                                return buildings.getCosts("evilShrine");
-                            },
                             condition() {
                                 const resources = useResourcesStore();
                                 const buildings = useBuildingsStore();
-                                return resources.checkIfCanAfford(this.costs()) && !buildings.checkIfAtLimit("evilShrine");
+                                return resources.checkIfCanAfford(buildings.getCosts("evilShrine")) && !buildings.checkIfAtLimit("evilShrine");
                             },
                             showCondition() {
                                 const progression = useProgressionStore();
@@ -206,14 +198,10 @@ export const useLairStore = defineStore("lair", {
                                 effectDesc: "Unlock Role - Fighter",
                                 buildingId: "fightersGuild"
                             },
-                            costs() {
-                                const buildings = useBuildingsStore();
-                                return buildings.getCosts("fightersGuild");
-                            },
                             condition() {
                                 const resources = useResourcesStore();
                                 const buildings = useBuildingsStore();
-                                return resources.checkIfCanAfford(this.costs()) && !buildings.checkIfAtLimit("fightersGuild");
+                                return resources.checkIfCanAfford(buildings.getCosts("fightersGuild")) && !buildings.checkIfAtLimit("fightersGuild");
                             },
                             showCondition() {
                                 const progression = useProgressionStore();
@@ -235,14 +223,10 @@ export const useLairStore = defineStore("lair", {
                                 effectDesc: "Unlock Role - Squire",
                                 buildingId: "knightOutreach"
                             },
-                            costs() {
-                                const buildings = useBuildingsStore();
-                                return buildings.getCosts("knightOutreach");
-                            },
                             condition() {
                                 const resources = useResourcesStore();
                                 const buildings = useBuildingsStore();
-                                return resources.checkIfCanAfford(this.costs()) && !buildings.checkIfAtLimit("knightOutreach");
+                                return resources.checkIfCanAfford(buildings.getCosts("knightOutreach")) && !buildings.checkIfAtLimit("knightOutreach");
                             },
                             showCondition() {
                                 const progression = useProgressionStore();
@@ -264,14 +248,10 @@ export const useLairStore = defineStore("lair", {
                                 effectDesc: "Unlock Role - Apprentice",
                                 buildingId: "apprenticeshipProgram"
                             },
-                            costs() {
-                                const buildings = useBuildingsStore();
-                                return buildings.getCosts("apprenticeshipProgram");
-                            },
                             condition() {
                                 const resources = useResourcesStore();
                                 const buildings = useBuildingsStore();
-                                return resources.checkIfCanAfford(this.costs()) && !buildings.checkIfAtLimit("apprenticeshipProgram");
+                                return resources.checkIfCanAfford(buildings.getCosts("apprenticeshipProgram")) && !buildings.checkIfAtLimit("apprenticeshipProgram");
                             },
                             showCondition() {
                                 const progression = useProgressionStore();
@@ -293,14 +273,10 @@ export const useLairStore = defineStore("lair", {
                                 effectDesc: "Increase Plains hardcap to Level 20",
                                 buildingId: "cartographerPlains"
                             },
-                            costs() {
-                                const buildings = useBuildingsStore();
-                                return buildings.getCosts("cartographerPlains");
-                            },
                             condition() {
                                 const resources = useResourcesStore();
                                 const buildings = useBuildingsStore();
-                                return resources.checkIfCanAfford(this.costs()) && !buildings.checkIfAtLimit("cartographerPlains");
+                                return resources.checkIfCanAfford(buildings.getCosts("cartographerPlains")) && !buildings.checkIfAtLimit("cartographerPlains");
                             },
                             showCondition() {
                                 const progression = useProgressionStore();
@@ -327,13 +303,10 @@ export const useLairStore = defineStore("lair", {
                                 effectDesc: "Unlocks the Farm",
                                 expansionId: "farm"
                             },
-                            costs() {
-                                const expansions = useExpansionsStore();
-                                return expansions.getCosts("farm");
-                            },
                             condition() {
                                 const resources = useResourcesStore();
-                                return resources.checkIfCanAfford(this.costs());
+                                const expansions = useExpansionsStore();
+                                return resources.checkIfCanAfford(expansions.getCosts("farm"));
                             },
                             showCondition() {
                                 const progression = useProgressionStore();
