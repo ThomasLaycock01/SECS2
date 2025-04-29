@@ -14,7 +14,6 @@ import { useTextLogStore } from "./stores/misc/textLog";
 //classes
 import { Cultist } from "./classes/Cultist";
 
-import { useTemplateRef } from "vue";
 import { useTooltipsStore } from "./stores/misc/tooltips";
 
 

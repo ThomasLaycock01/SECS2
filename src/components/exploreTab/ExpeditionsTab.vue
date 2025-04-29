@@ -2,7 +2,8 @@
 import { reactive } from 'vue';
 
 import CombatScreen from './CombatScreen.vue';
-import Tooltip from '../Tooltip.vue';
+
+import { tooltip } from '@/functions';
 
 import { useExpeditionsStore } from '@/stores/barracks/expeditions';
 import { usePartiesStore } from '@/stores/barracks/parties';
@@ -43,6 +44,19 @@ function embarkClick() {
 function retreatClick() {
     expeditionsTab.selectedExpedition.endExpedition();
 }
+
+function mouseoverEmbark(e, expeditionObj) {
+    const warnings = tooltips.checkEmbarkWarning(expeditionObj);
+
+    const obj = {
+        type: "warn",
+        array: warnings
+    }
+
+    if (warnings) {
+        tooltip(e, obj);
+    }
+}
 </script>
 
 
@@ -67,10 +81,7 @@ function retreatClick() {
         <div v-else>
             <p>{{ expeditionsTab.selectedExpedition.getDesc() }}</p>
             <div>
-                <button class="button is-dark" @click="embarkClick()" :disabled="!embarkCheck()" @mouseenter="tooltips.setActiveTooltip('expeditionEmbarkWarning')" @mouseleave="tooltips.removeActiveTooltip()">Embark!</button>
-                <span v-if="tooltips.getActiveTooltip == 'expeditionEmbarkWarning' && tooltips.checkEmbarkWarning(expeditionsTab.selectedExpedition)">
-                    <Tooltip class="tooltip" :tooltipType="'warning'" :warningObj="tooltips.checkEmbarkWarning(expeditionsTab.selectedExpedition)"/>
-                </span>
+                <button class="button is-dark" @click="embarkClick()" :disabled="!embarkCheck()" @mouseenter="mouseoverEmbark($event, expeditionsTab.selectedExpedition)" @mouseleave="tooltips.hideTooltip()">Embark!</button>
                 <br>
                 <br>
                 <button class="button is-dark"  @click="modals.openPartySelect(expeditionsTab.selectedExpedition)">Set Party</button>
