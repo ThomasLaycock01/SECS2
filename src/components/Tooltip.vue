@@ -1,25 +1,18 @@
 <script setup>
 import { useResourcesStore } from '@/stores/globalPinias/resources';
 import { useTooltipsStore } from '@/stores/misc/tooltips';
+import { useBuildingsStore } from '@/stores/globalPinias/buildings';
+import { useExpansionsStore } from '@/stores/globalPinias/expansions';
 
 const resources = useResourcesStore();
-
-const props = defineProps({
-    tooltipType: {
-        type: String,
-        default: 'regular'
-    },
-    tooltipObj: Object,
-    warningObj: Array,
-    modifierObj: Object
-})
-
 const tooltips = useTooltipsStore();
+const buildings = useBuildingsStore();
+const expansions = useExpansionsStore();
 </script>
 
 <template>
 
-    <div ref="tooltip" :style="`top:${tooltips.getCurrentPos.top}px;left:${tooltips.getCurrentPos.left}px;`">
+    <div :style="`top:${tooltips.getCurrentPos.top}px;left:${tooltips.getCurrentPos.left}px;`">
         <!--Non-warning-->
         <div v-if=" tooltips.getCurrentData && tooltips.getCurrentData.type == 'reg'">
             <b class="mb-2" v-if="tooltips.getCurrentData.name">
@@ -31,24 +24,38 @@ const tooltips = useTooltipsStore();
             <div v-if="tooltips.getCurrentData.effectDesc" class="mb-2">
                 {{ tooltips.getCurrentData.effectDesc }}
             </div>
-            <div v-if="tooltips.getCurrentData.costs && (!tooltips.getCurrentData.owned || !(tooltips.getCurrentData.owned() == tooltips.getCurrentData.limit()))" class="mb-2">
-                <ul>
-                    <li v-for="value, key in tooltips.getCurrentData.costs()" :class="resources.checkIfCanAfford({[key]: value}) ? '' : 'redCost'">
-                        {{ resources.getName(key) }}: {{ value }}
-                    </li>
-                </ul>
+            <div v-if="tooltips.getCurrentData.buildingId">
+                <div v-if="!buildings.getOwned(tooltips.getCurrentData.buildingId) || !(buildings.getOwned(tooltips.getCurrentData.buildingId) == buildings.getLimit(tooltips.getCurrentData.buildingId))" class="mb-2">
+                    <ul>
+                        <li v-for="value, key in buildings.getCosts(tooltips.getCurrentData.buildingId)" :class="resources.checkIfCanAfford({[key]: value}) ? '' : 'redCost'">
+                            {{ resources.getName(key) }}: {{ value }}
+                        </li>
+                    </ul>
+                </div>
+                <div v-if="buildings.getOwned(tooltips.getCurrentData.buildingId)">
+                    Owned -  {{buildings.getOwned(tooltips.getCurrentData.buildingId)}}  /  {{buildings.getLimit(tooltips.getCurrentData.buildingId)}}
+                </div>
             </div>
-            <div v-if="tooltips.getCurrentData.owned">
-                Owned -  {{tooltips.getCurrentData.owned()}}  /  {{tooltips.getCurrentData.limit()}}
+            <div v-else-if="tooltips.getCurrentData.expansionId">
+                <div v-if="!expansions.checkIfBuilt(tooltips.getCurrentData.expansionId)" class="mb-2">
+                    <ul>
+                        <li v-for="value, key in expansions.getCosts(tooltips.getCurrentData.expansionId)" :class="resources.checkIfCanAfford({[key]: value}) ? '' : 'redCost'">
+                            {{ resources.getName(key) }}: {{ value }}
+                        </li>
+                    </ul>
+                </div>
+                <div v-if="expansions.checkIfBuilt(tooltips.getCurrentData.expansionId)">
+                    Unlocked!
+                </div>
             </div>
         </div>
-        <!--Warning-->
+        <!--Warning
         <div v-else-if="tooltipType == 'warning'">
             <div v-for="i in warningObj">
                 {{ i }}
             </div>
         </div>
-        <!--Modifiers-->
+        <!--Modifiers
         <div v-else-if="tooltipType == 'modifier'">
             <span v-for="value, key in modifierObj">
                 <div v-if="!Array.isArray(value)">
@@ -59,6 +66,6 @@ const tooltips = useTooltipsStore();
                     <div v-for="j in value">{{ j }}</div>
                 </span>
             </span>
-        </div>
+        </div>-->
     </div>
 </template>

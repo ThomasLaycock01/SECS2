@@ -140,19 +140,13 @@ export const useLairStore = defineStore("lair", {
                         buildChambers: {
                             id: "buildChambers",
                             name: "Chambers",
+                            buildingId: "chambers",
                             tooltip: {
                                 type: "reg",
                                 name: "Chambers",
                                 desc: "Some chambers for your cultists to sleep in.",
                                 effectDesc: "+1 cultist limit",
-                                owned() {
-                                    const buildings = useBuildingsStore();
-                                    return buildings.getOwned("chambers");
-                                },
-                                limit() {
-                                    const buildings = useBuildingsStore();
-                                    return buildings.getLimit("chambers");
-                                }
+                                buildingId: "chambers"
                             },
                             costs() {
                                 const buildings = useBuildingsStore();
@@ -175,15 +169,13 @@ export const useLairStore = defineStore("lair", {
                         buildEvilShrine: {
                             id: "buildEvilShrine",
                             name: "Evil Shrine",
-                            desc: "An EVIL shrine",
-                            effectDesc: "+10% evilness output on all cultists",
-                            owned() {
-                                const buildings = useBuildingsStore();
-                                return buildings.getOwned("evilShrine");
-                            },
-                            limit() {
-                                const buildings = useBuildingsStore();
-                                return buildings.getLimit("evilShrine");
+                            buildingId: "evilShrine",
+                            tooltip: {
+                                type: "reg",
+                                name: "Evil Shrine",
+                                desc: "An EVIL shrine",
+                                effectDesc: "+10% evilness output on all cultists",
+                                buildingId: "evilShrine"
                             },
                             costs() {
                                 const buildings = useBuildingsStore();
@@ -206,15 +198,13 @@ export const useLairStore = defineStore("lair", {
                         buildFightersGuild: {
                             id: "buildFightersGuild",
                             name: "Fighter's Guild",
-                            desc: "Establish a branch of the Fighter's Guild in your Lair - they'll help train cultists!",
-                            effectDesc: "Unlock Role - Fighter",
-                            owned() {
-                                const buildings = useBuildingsStore();
-                                return buildings.getOwned("fightersGuild");
-                            },
-                            limit() {
-                                const buildings = useBuildingsStore();
-                                return buildings.getLimit("fightersGuild");
+                            buildingId: "fightersGuild",
+                            tooltip: {
+                                type: "reg",
+                                name: "Fighter's Guild",
+                                desc: "Establish a branch of the Fighter's Guild in your Lair - they'll help train cultists!",
+                                effectDesc: "Unlock Role - Fighter",
+                                buildingId: "fightersGuild"
                             },
                             costs() {
                                 const buildings = useBuildingsStore();
@@ -237,15 +227,13 @@ export const useLairStore = defineStore("lair", {
                         buildKnightOutreach: {
                             id: "buildKnightOutreach",
                             name: "Knight Outreach",
-                            desc: "Lobby the Order of Knights to take on some Squires.",
-                            effectDesc: "Unlock Role - Squire",
-                            owned() {
-                                const buildings = useBuildingsStore();
-                                return buildings.getOwned("knightOutreach");
-                            },
-                            limit() {
-                                const buildings = useBuildingsStore();
-                                return buildings.getLimit("knightOutreach");
+                            buildingId: "knightOutreach",
+                            tooltip: {
+                                type: "reg",
+                                name: "Knight Outreach",
+                                desc: "Lobby the Order of Knights to take on some Squires.",
+                                effectDesc: "Unlock Role - Squire",
+                                buildingId: "knightOutreach"
                             },
                             costs() {
                                 const buildings = useBuildingsStore();
@@ -268,15 +256,13 @@ export const useLairStore = defineStore("lair", {
                         buildApprenticeshipProgram: {
                             id: "buildApprenticeshipProgram",
                             name: "Apprenticeships",
-                            desc: "Sign some cultists up for an apprenticeship at the Mages Guild - you'll need to pay their scholarship fees.",
-                            effectDesc: "Unlock Role - Apprentice",
-                            owned() {
-                                const buildings = useBuildingsStore();
-                                return buildings.getOwned("apprenticeshipProgram");
-                            },
-                            limit() {
-                                const buildings = useBuildingsStore();
-                                return buildings.getLimit("apprenticeshipProgram");
+                            buildingId: "apprenticeshipProgram",
+                            tooltip: {
+                                type: "reg",
+                                name: "Apprenticeships",
+                                desc: "Sign some cultists up for an apprenticeship at the Mages Guild - you'll need to pay their scholarship fees.",
+                                effectDesc: "Unlock Role - Apprentice",
+                                buildingId: "apprenticeshipProgram"
                             },
                             costs() {
                                 const buildings = useBuildingsStore();
@@ -299,15 +285,13 @@ export const useLairStore = defineStore("lair", {
                         buildCartographerPlains: {
                             id: "buildCartographerPlains",
                             name: "Cartographer - Plains",
-                            desc: "Hire some cartographers to make a proper map of the Plains - so you actually know where you're going.",
-                            effectDesc: "Increase Plains hardcap to Level 20",
-                            owned() {
-                                const buildings = useBuildingsStore();
-                                return buildings.getOwned("cartographerPlains");
-                            },
-                            limit() {
-                                const buildings = useBuildingsStore();
-                                return buildings.getLimit("cartographerPlains");
+                            buildingId: "cartographerPlains",
+                            tooltip: {
+                                type: "reg",
+                                name: "Cartographer - Plains",
+                                desc: "Hire some cartographers to make a proper map of the Plains - so you actually know where you're going.",
+                                effectDesc: "Increase Plains hardcap to Level 20",
+                                buildingId: "cartographerPlains"
                             },
                             costs() {
                                 const buildings = useBuildingsStore();
@@ -336,7 +320,13 @@ export const useLairStore = defineStore("lair", {
                         expansionFarm: {
                             id: "expansionFarm",
                             name: "Expansion: Farm",
-                            desc: "Repurpose this old farm and start growing food - no-one can become Super Evil on an empty stomach!",
+                            tooltip: {
+                                type: "reg",
+                                name: "Expansion: Farm",
+                                desc: "Repurpose this old farm and start growing food - no-one can become Super Evil on an empty stomach!",
+                                effectDesc: "Unlocks the Farm",
+                                expansionId: "farm"
+                            },
                             costs() {
                                 const expansions = useExpansionsStore();
                                 return expansions.getCosts("farm");
