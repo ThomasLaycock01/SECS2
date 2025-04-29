@@ -233,7 +233,7 @@ export function combatRound(area) {
 }
 
 
-//tooltip
+//tooltip - takes element that needs tooltip appending + tooltip data
 export function tooltip(e, data) {
     const tooltips = useTooltipsStore();
     const target = e.target;

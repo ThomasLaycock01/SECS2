@@ -49,9 +49,9 @@ const expansions = useExpansionsStore();
                 </div>
             </div>
         </div>
-        <!--Warning
-        <div v-else-if="tooltipType == 'warning'">
-            <div v-for="i in warningObj">
+        <!--Warning-->
+        <div v-else-if="tooltips.getCurrentData && tooltips.getCurrentData.type == 'warn'">
+            <div v-for="i in tooltips.getCurrentData.array">
                 {{ i }}
             </div>
         </div>

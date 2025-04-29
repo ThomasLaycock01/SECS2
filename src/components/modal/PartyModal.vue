@@ -1,7 +1,7 @@
 <script setup>
 import { reactive } from 'vue';
 
-import Tooltip from '../Tooltip.vue';
+import { tooltip } from '@/functions';
 
 import { useModalsStore } from '@/stores/misc/modal';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
@@ -17,6 +17,19 @@ const selected = reactive({slot: null});
 
 function setSelectedSlot(slot) {
     selected.slot = slot;
+}
+
+function mouseoverCultist(e, cultist) {
+    const warnings = tooltips.checkAssignWarning(cultist);
+
+    const obj = {
+        type: "warn",
+        array: warnings
+    }
+
+    if (warnings) {
+        tooltip(e, obj)
+    }
 }
 
 function cultistButtonClick(cultist) {
@@ -65,10 +78,7 @@ function cultistButtonClick(cultist) {
                             <div class="title is-5 mb-1 segment-title">Cultists</div>
                             <div class="cultistGridContainer">
                                 <span v-for="i in cultists.getCultists">
-                                    <button  class="button cultistGridItem" :class="party.checkIfContainsCultist(i.getId()) ? 'is-info' : 'is-dark'" :disabled="(i.getParty() && !(selected.slot && party.getCultistBySlot(selected.slot) && party.getCultistBySlot(selected.slot).getId() == i.getId())) || !i.getRole()" @click="cultistButtonClick(i)" @mouseenter="tooltips.setActiveTooltip(`assignWarning${i.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">{{i.getName()}}</button>
-                                    <span v-if="tooltips.getActiveTooltip == `assignWarning${i.getId()}` && tooltips.checkAssignWarning(i)">
-                                        <Tooltip class="tooltip" :tooltipType="'warning'" :warningObj="tooltips.checkAssignWarning(i)"/>
-                                    </span>
+                                    <button  class="button cultistGridItem" :class="party.checkIfContainsCultist(i.getId()) ? 'is-info' : 'is-dark'" :disabled="(i.getParty() && !(selected.slot && party.getCultistBySlot(selected.slot) && party.getCultistBySlot(selected.slot).getId() == i.getId())) || !i.getRole()" @click="cultistButtonClick(i)" @mouseenter="mouseoverCultist($event, i)" @mouseleave="tooltips.hideTooltip()">{{i.getName()}}</button>
                                 </span>
                             </div>
                         </div>
