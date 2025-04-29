@@ -234,7 +234,7 @@ export function combatRound(area) {
 
 
 //tooltip
-export function tooltip(e) {
+export function tooltip(e, data) {
     const tooltips = useTooltipsStore();
     const target = e.target;
 
@@ -244,7 +244,7 @@ export function tooltip(e) {
     const bottom = e.target.getBoundingClientRect().bottom;
     
     //-125 for the width of the tooltip
-    tooltips.showTooltip(bottom, relativeCenterPoint - 125);
+    tooltips.showTooltip(bottom, relativeCenterPoint - 125, data);
 }
 
 

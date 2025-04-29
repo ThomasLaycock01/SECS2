@@ -19,7 +19,11 @@ export const useLairStore = defineStore("lair", {
                         beEvil: {
                             id: "beEvil",
                             name: "Be Evil >:)",
-                            desc: "Be Evil - and Gain 1 Evilness",
+                            tooltip: {
+                                type: "reg",
+                                name: "Be Evil >:)",
+                                desc: "Be Evil - and Gain 1 Evilness"
+                            },
                             condition() {
                                 return true;
                             },
@@ -34,7 +38,11 @@ export const useLairStore = defineStore("lair", {
                         acquireGold: {
                             id: "acquireGold",
                             name: "Acquire Gold",
-                            desc: "Acquire 1 Gold",
+                            tooltip: {
+                                type: "reg",
+                                name: "Acquire Gold",
+                                desc: "Acquire 1 Gold"
+                            },
                             condition() {
                                 return true;
                             },
@@ -50,7 +58,11 @@ export const useLairStore = defineStore("lair", {
                         debugGold: {
                             id: "debugGold",
                             name: "Debug Gold",
-                            desc: "Add a bajillion gold",
+                            tooltip: {
+                                type: "reg",
+                                name: "Debug Gold",
+                                desc: "Add a bajillion gold"
+                            },
                             condition() {
                                 return true;
                             },
@@ -65,7 +77,11 @@ export const useLairStore = defineStore("lair", {
                         debugEvilness: {
                             id: "debugEvilness",
                             name: "Debug Evilness",
-                            desc: "Add a bajillion evilness",
+                            tooltip: {
+                                type: "reg",
+                                name: "Debug Evilness",
+                                desc: "Add a bajillion evilness"
+                            },
                             condition() {
                                 return true;
                             },
@@ -80,7 +96,11 @@ export const useLairStore = defineStore("lair", {
                         debugGrain: {
                             id: "debugGrain",
                             name: "Debug Grain",
-                            desc: "Add a bajillion grain",
+                            tooltip: {
+                                type: "reg",
+                                name: "Debug Grain",
+                                desc: "Add a bajillion grain"
+                            },
                             condition() {
                                 return true;
                             },
@@ -95,7 +115,11 @@ export const useLairStore = defineStore("lair", {
                         debugItem: {
                             id: "debugItem",
                             name: "Debug Item",
-                            desc: "Add an item",
+                            tooltip: {
+                                type: "reg",
+                                name: "Debug Item",
+                                desc: "Add an item"
+                            },
                             condition() {
                                 return true;
                             },
@@ -116,15 +140,19 @@ export const useLairStore = defineStore("lair", {
                         buildChambers: {
                             id: "buildChambers",
                             name: "Chambers",
-                            desc: "Some chambers for your cultists to sleep in.",
-                            effectDesc: "+1 cultist limit",
-                            owned() {
-                                const buildings = useBuildingsStore();
-                                return buildings.getOwned("chambers");
-                            },
-                            limit() {
-                                const buildings = useBuildingsStore();
-                                return buildings.getLimit("chambers");
+                            tooltip: {
+                                type: "reg",
+                                name: "Chambers",
+                                desc: "Some chambers for your cultists to sleep in.",
+                                effectDesc: "+1 cultist limit",
+                                owned() {
+                                    const buildings = useBuildingsStore();
+                                    return buildings.getOwned("chambers");
+                                },
+                                limit() {
+                                    const buildings = useBuildingsStore();
+                                    return buildings.getLimit("chambers");
+                                }
                             },
                             costs() {
                                 const buildings = useBuildingsStore();

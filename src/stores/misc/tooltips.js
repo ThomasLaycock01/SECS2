@@ -9,7 +9,8 @@ export const useTooltipsStore = defineStore('tooltips', {
             currentPos: {
                 top: null,
                 left: null
-            }
+            },
+            currentData: null
         }
     },
     getters: {
@@ -18,6 +19,9 @@ export const useTooltipsStore = defineStore('tooltips', {
         },
         getCurrentPos(state) {
             return state.currentPos;
+        },
+        getCurrentData(state) {
+            return state.currentData;
         },
         checkEmbarkWarning() {
             return (areaObj) => {
@@ -122,11 +126,13 @@ export const useTooltipsStore = defineStore('tooltips', {
         }
     },
     actions: {
-        showTooltip(t, l) {
+        showTooltip(t, l, data) {
             this.currentPos = {
                 top: t,
                 left: l
             }
+
+            this.currentData = data;
 
             this.currentlyShowing = true;
         },
@@ -135,6 +141,8 @@ export const useTooltipsStore = defineStore('tooltips', {
                 top: null,
                 left: null
             }
+
+            this.currentData = null;
 
             this.currentlyShowing =false;
         }

@@ -21,39 +21,36 @@ const tooltips = useTooltipsStore();
 
     <div ref="tooltip" :style="`top:${tooltips.getCurrentPos.top}px;left:${tooltips.getCurrentPos.left}px;`">
         <!--Non-warning-->
-        <div v-if="props.tooltipType == 'regular'">
-            <b class="mb-2" v-if="props.tooltipObj.name">
-                {{props.tooltipObj.name}}
+        <div v-if=" tooltips.getCurrentData && tooltips.getCurrentData.type == 'reg'">
+            <b class="mb-2" v-if="tooltips.getCurrentData.name">
+                {{tooltips.getCurrentData.name}}
             </b>
-            <p class="mb-2" v-if="props.tooltipObj.tier">
-                Tier {{ props.tooltipObj.tier }}
+            <p class="mb-2" v-if="tooltips.getCurrentData.desc">
+                {{tooltips.getCurrentData.desc}}
             </p>
-            <p class="mb-2" v-if="props.tooltipObj.desc">
-                {{props.tooltipObj.desc}}
-            </p>
-            <div v-if="props.tooltipObj.effectDesc" class="mb-2">
-                {{ props.tooltipObj.effectDesc }}
+            <div v-if="tooltips.getCurrentData.effectDesc" class="mb-2">
+                {{ tooltips.getCurrentData.effectDesc }}
             </div>
-            <div v-if="props.tooltipObj.costs && (!props.tooltipObj.owned || !(props.tooltipObj.owned() == props.tooltipObj.limit()))" class="mb-2">
+            <div v-if="tooltips.getCurrentData.costs && (!tooltips.getCurrentData.owned || !(tooltips.getCurrentData.owned() == tooltips.getCurrentData.limit()))" class="mb-2">
                 <ul>
-                    <li v-for="value, key in props.tooltipObj.costs()" :class="resources.checkIfCanAfford({[key]: value}) ? '' : 'redCost'">
+                    <li v-for="value, key in tooltips.getCurrentData.costs()" :class="resources.checkIfCanAfford({[key]: value}) ? '' : 'redCost'">
                         {{ resources.getName(key) }}: {{ value }}
                     </li>
                 </ul>
             </div>
-            <div v-if="props.tooltipObj.owned">
-                Owned -  {{props.tooltipObj.owned()}}  /  {{props.tooltipObj.limit()}}
+            <div v-if="tooltips.getCurrentData.owned">
+                Owned -  {{tooltips.getCurrentData.owned()}}  /  {{tooltips.getCurrentData.limit()}}
             </div>
         </div>
         <!--Warning-->
-        <div v-else-if="props.tooltipType == 'warning'">
-            <div v-for="i in props.warningObj">
+        <div v-else-if="tooltipType == 'warning'">
+            <div v-for="i in warningObj">
                 {{ i }}
             </div>
         </div>
         <!--Modifiers-->
-        <div v-else-if="props.tooltipType == 'modifier'">
-            <span v-for="value, key in props.modifierObj">
+        <div v-else-if="tooltipType == 'modifier'">
+            <span v-for="value, key in modifierObj">
                 <div v-if="!Array.isArray(value)">
                     {{ key }}: +{{ value * 100 }}%
                 </div>
