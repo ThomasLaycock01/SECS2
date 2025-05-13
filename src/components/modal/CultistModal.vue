@@ -1,9 +1,5 @@
 <script setup>
-import { reactive } from 'vue';
-
 import { tooltip, mouseoverItem } from '@/functions';
-
-import PerkTooltip from '../HRTab/PerkTooltip.vue';
 
 import { useModalsStore } from '@/stores/misc/modal';
 import { useTooltipsStore } from '@/stores/misc/tooltips';
@@ -19,20 +15,9 @@ const cultists = useCultistsStore();
 
 const cultist = modals.getCultistCultist;
 
-var selected = reactive({perk: null});
-
-//for the perk display
-function mouseEnterPerk(id) {
-    selected.perk = id
-}
-
-function mouseLeavePerk() {
-    selected.perk = null;
-}
 
 function assignPerk(perk) {
     cultist.addPerk(perk);
-    selected.perk = null;
 }
 
 function roleClick(role) {
@@ -54,6 +39,17 @@ function mouseoverRace(e, raceId) {
         desc: cultists.getRaceTooltipObj(raceId).desc,
         effectDesc: cultists.getRaceTooltipObj(raceId).effectDesc
     }
+
+    tooltip(e, obj);
+}
+
+function mouseoverPerk(e, perk) {
+    const obj = {
+        type: "perk",
+        perk: perk,
+        cultist: cultist
+    }
+
 
     tooltip(e, obj);
 }
@@ -242,10 +238,7 @@ function mouseoverRace(e, raceId) {
                             <div>Perk points available: {{ cultist.getPerkPoints() }}</div>
                             <div>
                                 <span v-for="i in perks.getAvailable(cultist)">
-                                    <button class="button is-info mr-1" @click="assignPerk(i)" @mouseenter="mouseEnterPerk(i.id)" @mouseleave="mouseLeavePerk">{{ i.name }}</button>
-                                    <span v-if="i.id == selected.perk">
-                                        <PerkTooltip class="perkTooltip" :perk="i"/>
-                                    </span>
+                                    <button class="button is-info mr-1" @click="assignPerk(i)" @mouseenter="mouseoverPerk($event, i)" @mouseleave="tooltips.hideTooltip()">{{ i.name }}</button>
                                 </span>
                             </div>
                             <br>
@@ -254,10 +247,7 @@ function mouseoverRace(e, raceId) {
                         <div>Unlocked</div>
                         <div>
                             <span v-for="i in cultist.getPerks()">
-                                <button  class="button is-outlined" @mouseenter="mouseEnterPerk(i.id)" @mouseleave="mouseLeavePerk" :value="i.id">{{i.name}}</button>
-                                <span v-if="i.id == selected.perk">
-                                    <PerkTooltip class="perkTooltip" :perk="i" :unlocked="true"/>
-                                </span>
+                                <button  class="button is-outlined" @mouseenter="mouseoverPerk($event, i)" @mouseleave="tooltips.hideTooltip()">{{i.name}}</button>
                             </span>
                         </div>
                     </b-tab-item>

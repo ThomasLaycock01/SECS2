@@ -1,26 +1,18 @@
 <script setup>
 const props = defineProps({
     perk: Object,
-    unlocked: {
-        type: Boolean,
-        default: false
-    }
-});
+    cultist: Object
+})
 </script>
-
-
-
 
 <template>
 
     <div>
-        <h6 v-if="unlocked">{{props.perk.name}} [UNLOCKED]</h6>
-        <h6 v-else>{{props.perk.name}}</h6>
+        <b>{{props.perk.name}}<span v-if="props.cultist.checkIfHasPerk(props.perk.id)"> [UNLOCKED]</span></b>
 
         <p>{{ props.perk.desc }}</p>
 
         <p>{{ props.perk.effectDesc }}</p>
-
     </div>
 
 </template>
