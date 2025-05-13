@@ -37,6 +37,19 @@ export const useProgressionStore = defineStore("progression", {
                         return cultists.getNumOfCultists > 0;
                     }
                 },
+                "firstRole": {
+                    id: "firstRole",
+                    TLMessage: false,
+                    condition() {
+                        const cultists = useCultistsStore();
+                        for (var i in cultists.getCultists) {
+                            if (cultists.getCultists[i].getRole()) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                },
                 "firstParty": {
                     id: "firstParty",
                     TLMessage: true,

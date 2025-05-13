@@ -1,6 +1,7 @@
 import { getGlobalModifiers, createStatsObj, createLevelUpObj, posToNeg } from "@/functions";
 
 import { useResourcesStore } from "@/stores/globalPinias/resources";
+import { useProgressionStore } from "@/stores/misc/progression";
 
 export class Cultist {
     constructor(id, name, raceTemplate) {
@@ -307,7 +308,11 @@ export class Cultist {
     }
 
     setRole(roleObj) {
+        //just here for the 'firstRole' checkpoint
+        const progression = useProgressionStore();
+
         this.role = roleObj;
+        progression.updateProgression();
     }
 
     removeRole() {

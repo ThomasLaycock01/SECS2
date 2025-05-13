@@ -39,7 +39,7 @@ const tooltips = useTooltipsStore();
         <b-tab-item label="HR" v-if="progression.checkUnlocked('10Evilness')">
             <HRTab/>
         </b-tab-item>
-        <b-tab-item label="Explore" v-if="progression.checkUnlocked('firstCultist')">
+        <b-tab-item label="Explore" v-if="progression.checkUnlocked('firstRole')">
           <MainExploreTab/>
         </b-tab-item>
         <b-tab-item label="Inventory" v-if="progression.checkUnlocked('firstItem')">
