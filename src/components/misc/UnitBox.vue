@@ -1,5 +1,5 @@
 <script setup>
-import Tooltip from '../Tooltip.vue';
+import Tooltip from '../tooltips/Tooltip.vue';
 
 import { useTooltipsStore } from '@/stores/misc/tooltips';
 import { useProgressionStore } from '@/stores/misc/progression';

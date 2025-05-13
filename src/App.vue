@@ -15,7 +15,7 @@ import MainExploreTab from "./components/exploreTab/MainExploreTab.vue";
 
 import TextLog from "./components/textLog/TextLog.vue";
 
-import Tooltip from "./components/Tooltip.vue";
+import Tooltip from "./components/tooltips/Tooltip.vue";
 
 import { useModalsStore } from "./stores/misc/modal";
 import { useProgressionStore } from "./stores/misc/progression";

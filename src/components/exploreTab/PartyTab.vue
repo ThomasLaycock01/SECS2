@@ -1,5 +1,5 @@
 <script setup>
-import Tooltip from '../Tooltip.vue';
+import Tooltip from '../tooltips/Tooltip.vue';
 
 import { usePartiesStore } from '@/stores/barracks/parties';
 import { useModalsStore } from '@/stores/misc/modal';

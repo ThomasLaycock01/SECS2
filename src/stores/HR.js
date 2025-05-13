@@ -15,8 +15,14 @@ export const useHRStore = defineStore("HR", {
                     buttons : {
                         hireHuman: {
                             id: "hireHuman",
-                            name: "Hire Human Cultist",
-                            desc: "Hire a Human Cultist",
+                            name: "Recruit: Human",
+                            tooltip: {
+                                type: "reg",
+                                name: "Recruit: Human",
+                                desc: "Hire a Human Cultist",
+                                raceId: "human"
+                            },
+                            
                             costs() {
                                 const cultists = useCultistsStore();
                                 return cultists.getRaceCosts("human");

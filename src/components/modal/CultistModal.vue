@@ -1,7 +1,7 @@
 <script setup>
 import { reactive } from 'vue';
 
-import Tooltip from '../Tooltip.vue';
+import Tooltip from '../tooltips/Tooltip.vue';
 import PerkTooltip from '../HRTab/PerkTooltip.vue';
 
 import { useModalsStore } from '@/stores/misc/modal';

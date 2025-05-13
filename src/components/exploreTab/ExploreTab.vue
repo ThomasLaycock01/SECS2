@@ -1,6 +1,8 @@
 <script setup>
 import { reactive } from 'vue';
 
+import { tooltip } from '@/functions';
+
 import { useExploreStore } from '@/stores/barracks/explore';
 import { useModalsStore } from '@/stores/misc/modal';
 import { useTooltipsStore } from '@/stores/misc/tooltips';
@@ -8,7 +10,7 @@ import { useProgressionStore } from '@/stores/misc/progression';
 import { useResourcesStore } from '@/stores/globalPinias/resources';
 
 import CombatScreen from './CombatScreen.vue';
-import Tooltip from '../Tooltip.vue';
+import Tooltip from '../tooltips/Tooltip.vue';
 
 const explore = useExploreStore();
 const modals = useModalsStore();
@@ -54,6 +56,50 @@ function instaHealCheck(partyObj) {
 
     return true;
 }
+
+function mouseoverHealTooltip(e, healObj) {
+    const obj = {
+        type: "reg",
+        desc: "Spend Grain to instantly heal a party",
+        healCost(){return healObj.getGrainHealCost();} 
+    }
+
+    tooltip(e, obj);
+    //v-if="progression.checkUnlocked('completedAbandonedFarmhouse')"
+}
+
+function mouseoverAutoHealTooltip(e, partyObj) {
+    const obj = {
+        type: "reg",
+        desc: "If enabled, and you can afford it, cultists in this party will automatically consume grain to auto heal when their HP reaches 0",
+        effectDesc: partyObj.getAutoHeal() ? "Currently Enabled" : "Currently Disabled"
+    }
+
+    tooltip(e, obj);
+}
+
+function mouseoverEmbark(e) {
+    if(!tooltips.checkEmbarkWarning(exploreTab.selectedArea)) {
+        return;
+    }
+
+    const obj = {
+        type: "warn",
+        array: tooltips.checkEmbarkWarning(exploreTab.selectedArea)
+    }
+
+    tooltip(e, obj);
+}
+
+function mouseoverAutoEmbark(e) {
+    const obj = {
+        type: "reg",
+        desc: "If enabled, this area will automatically embark when every cultist is at full health",
+        effectDesc: exploreTab.selectedArea.getAutoEmbark() ? "Currently Enabled" : "Currently Disabled"
+    }
+
+    tooltip(e, obj)
+}
 </script>
 
 
@@ -70,17 +116,11 @@ function instaHealCheck(partyObj) {
         <!--If the area is active-->
         <div v-if="exploreTab.selectedArea.getActive()">
             <button class="is-dark button" @click="exploreTab.selectedArea.toggleActive(true)">Retreat!</button>
-            <span v-if="progression.checkUnlocked('completedAbandonedFarmhouse')">
-                <button class="button is-dark" @click="instaHealClick(exploreTab.selectedArea.getActiveParty())" @mouseover="tooltips.setActiveTooltip(`partyInstaHeal${exploreTab.selectedArea.getActiveParty().getId()}`)" @mouseleave="tooltips.removeActiveTooltip()" :disabled="!instaHealCheck(exploreTab.selectedArea.getActiveParty())">Insta-heal</button>
-                <span v-if="tooltips.getActiveTooltip == `partyInstaHeal${exploreTab.selectedArea.getActiveParty().getId()}`">
-                    <Tooltip class="tooltip" :tooltipObj="tooltips.getInstaHealTooltip(exploreTab.selectedArea.getActiveParty())"/>
-                </span>
+            <span >
+                <button class="button is-dark" @click="instaHealClick(exploreTab.selectedArea.getActiveParty())" @mouseover="mouseoverHealTooltip($event, exploreTab.selectedArea.getActiveParty())" @mouseleave="tooltips.hideTooltip()" :disabled="!instaHealCheck(exploreTab.selectedArea.getActiveParty())">Insta-heal</button>
             </span>
-            <span v-if="progression.checkUnlocked('completedBanditHideout')">
-                <button class="button" :class="exploreTab.selectedArea.getActiveParty().getAutoHeal() ? 'is-success' : 'is-danger'" @click="exploreTab.selectedArea.getActiveParty().toggleAutoHeal()" @mouseover="tooltips.setActiveTooltip(`autoHeal${exploreTab.selectedArea.getActiveParty().getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">Auto Insta-heal</button>
-                <span v-if="tooltips.getActiveTooltip == `autoHeal${exploreTab.selectedArea.getActiveParty().getId()}`">
-                    <Tooltip class="tooltip" :tooltipObj="tooltips.getAutoHealTooltip(exploreTab.selectedArea.getActiveParty())"/>
-                </span>
+            <span> <!--v-if="progression.checkUnlocked('completedBanditHideout')"-->
+                <button class="button" :class="exploreTab.selectedArea.getActiveParty().getAutoHeal() ? 'is-success' : 'is-danger'" @click="exploreTab.selectedArea.getActiveParty().toggleAutoHeal()" @mouseover="mouseoverAutoHealTooltip($event, exploreTab.selectedArea.getActiveParty())" @mouseleave="tooltips.hideTooltip()">Auto Insta-heal</button>
             </span>
             <CombatScreen :areaObject="exploreTab.selectedArea" type="explore"/>     
         </div>
@@ -89,30 +129,18 @@ function instaHealCheck(partyObj) {
         <div v-else>
             <p>{{ exploreTab.selectedArea.getDesc() }}</p>
             <div>
-                <button class="button is-dark" @click="exploreTab.selectedArea.toggleActive(true)" :disabled="!embarkCheck()" @mouseenter="tooltips.setActiveTooltip('exploreEmbarkWarning')" @mouseleave="tooltips.removeActiveTooltip()">Embark!</button>
-                <span v-if="tooltips.getActiveTooltip == 'exploreEmbarkWarning' && tooltips.checkEmbarkWarning(exploreTab.selectedArea)">
-                    <Tooltip class="tooltip" :tooltipType="'warning'" :warningObj="tooltips.checkEmbarkWarning(exploreTab.selectedArea)"/>
-                </span>
-                <button class="button" :class="exploreTab.selectedArea.getAutoEmbark() ? 'is-success' : 'is-danger'"   @click="exploreTab.selectedArea.toggleAutoEmbark()" @mouseenter="tooltips.setActiveTooltip('autoEmbark')" @mouseleave="tooltips.removeActiveTooltip()">Auto-Embark</button>
-                <span v-if="tooltips.getActiveTooltip == 'autoEmbark'">
-                    <Tooltip class="tooltip" :tooltipObj="tooltips.getAutoEmbarkTooltip(exploreTab.selectedArea.getAutoEmbark())"/>
-                </span>
+                <button class="button is-dark" @click="exploreTab.selectedArea.toggleActive(true)" :disabled="!embarkCheck()" @mouseenter="mouseoverEmbark" @mouseleave="tooltips.hideTooltip()">Embark!</button>
+                <button class="button" :class="exploreTab.selectedArea.getAutoEmbark() ? 'is-success' : 'is-danger'"   @click="exploreTab.selectedArea.toggleAutoEmbark()" @mouseenter="mouseoverAutoEmbark" @mouseleave="tooltips.hideTooltip()">Auto-Embark</button>
                 <br>
                 <br>
                 <button class="button is-dark"  @click="modals.openPartySelect(exploreTab.selectedArea)">Set Party</button>
                 <span v-if="exploreTab.selectedArea.getActiveParty()">
                     <button class="button is-dark"  @click="modals.openParty(exploreTab.selectedArea.getActiveParty())">Edit Party</button>
-                    <span v-if="progression.checkUnlocked('completedAbandonedFarmhouse')">
-                        <button class="button is-dark" @click="instaHealClick(exploreTab.selectedArea.getActiveParty())" @mouseover="tooltips.setActiveTooltip(`partyInstaHeal${exploreTab.selectedArea.getActiveParty().getId()}`)" @mouseleave="tooltips.removeActiveTooltip()" :disabled="!instaHealCheck(exploreTab.selectedArea.getActiveParty())">Insta-heal</button>
-                        <span v-if="tooltips.getActiveTooltip == `partyInstaHeal${exploreTab.selectedArea.getActiveParty().getId()}`">
-                            <Tooltip class="tooltip" :tooltipObj="tooltips.getInstaHealTooltip(exploreTab.selectedArea.getActiveParty())"/>
-                        </span>
+                    <span > <!--v-if="progression.checkUnlocked('completedAbandonedFarmhouse')"-->
+                        <button class="button is-dark" @click="instaHealClick(exploreTab.selectedArea.getActiveParty())" @mouseover="mouseoverHealTooltip($event, exploreTab.selectedArea.getActiveParty())" @mouseleave="tooltips.hideTooltip()" :disabled="!instaHealCheck(exploreTab.selectedArea.getActiveParty())">Insta-heal</button>
                     </span>
                     <span v-if="progression.checkUnlocked('completedBanditHideout')">
-                        <button class="button" :class="exploreTab.selectedArea.getActiveParty().getAutoHeal() ? 'is-success' : 'is-danger'" @click="exploreTab.selectedArea.getActiveParty().toggleAutoHeal()" @mouseover="tooltips.setActiveTooltip(`autoHeal${exploreTab.selectedArea.getActiveParty().getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">Auto Insta-heal</button>
-                        <span v-if="tooltips.getActiveTooltip == `autoHeal${exploreTab.selectedArea.getActiveParty().getId()}`">
-                            <Tooltip class="tooltip" :tooltipObj="tooltips.getAutoHealTooltip(exploreTab.selectedArea.getActiveParty())"/>
-                        </span>
+                        <button class="button" :class="exploreTab.selectedArea.getActiveParty().getAutoHeal() ? 'is-success' : 'is-danger'" @click="exploreTab.selectedArea.getActiveParty().toggleAutoHeal()" @mouseover="mouseoverAutoHealTooltip($event, exploreTab.selectedArea.getActiveParty())" @mouseleave="tooltips.hideTooltip()">Auto Insta-heal</button>
                     </span>
                 </span>
                 <CombatScreen :areaObject="exploreTab.selectedArea" type="explore"/>
