@@ -1,18 +1,21 @@
 <script setup>
 import { reactive } from 'vue';
 
-import Tooltip from '../tooltips/Tooltip.vue';
+import { tooltip, mouseoverItem } from '@/functions';
+
 import PerkTooltip from '../HRTab/PerkTooltip.vue';
 
 import { useModalsStore } from '@/stores/misc/modal';
 import { useTooltipsStore } from '@/stores/misc/tooltips';
 import { usePartiesStore } from '@/stores/barracks/parties';
 import { usePerkStore } from '@/stores/globalPinias/Perks';
+import { useCultistsStore } from '@/stores/globalPinias/cultists';
 
 const modals = useModalsStore();
 const tooltips = useTooltipsStore();
 const parties = usePartiesStore();
 const perks = usePerkStore();
+const cultists = useCultistsStore();
 
 const cultist = modals.getCultistCultist;
 
@@ -44,6 +47,16 @@ function roleClick(role) {
 function levelUpClick(stat) {
     cultist.useLevelUp(stat);
 }
+
+function mouseoverRace(e, raceId) {
+    const obj = {
+        type: "reg",
+        desc: cultists.getRaceTooltipObj(raceId).desc,
+        effectDesc: cultists.getRaceTooltipObj(raceId).effectDesc
+    }
+
+    tooltip(e, obj);
+}
 </script>
 
 
@@ -64,10 +77,7 @@ function levelUpClick(stat) {
                         <!--Stats column-->
                         <div class="column is-one-quarter">
                             <div class="title is-6">Stats</div>
-                            <div @mouseover="tooltips.setActiveTooltip('activeCultistRace')" @mouseleave="tooltips.removeActiveTooltip()">{{ cultist.getRaceName() }}</div>
-                            <span v-if="tooltips.getActiveTooltip == 'activeCultistRace'">
-                                <Tooltip class="tooltip" :tooltipObj="tooltips.getRaceTooltip(cultist.getRaceId())" />
-                            </span>
+                            <div @mouseover="mouseoverRace($event, cultist.getRaceId())" @mouseleave="tooltips.hideTooltip()">{{ cultist.getRaceName() }}</div>
                             <div>{{cultist.getJob() ? cultist.getJob() : "Unemployed"}}</div>
                             <div>{{ cultist.getRole() ? cultist.getRole().getName() : "No Role" }}</div>
                             <br>
@@ -110,10 +120,7 @@ function levelUpClick(stat) {
                                 <div v-for="value, key in cultist.getEquipment()">
                                     {{key}}:
                                     <span v-if="value">
-                                        <button class="button is-info" @mouseover="tooltips.setActiveTooltip(`activeCultistItem${value.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">{{ value.getName() }}</button>
-                                        <span v-if="tooltips.getActiveTooltip == `activeCultistItem${value.getId()}`">
-                                            <Tooltip class="tooltip" :tooltipObj="tooltips.getItemTooltip(value)" />
-                                        </span>
+                                        <button class="button is-info" @mouseover="mouseoverItem($event, value)" @mouseleave="tooltips.hideTooltip()">{{ value.getName() }}</button>
                                     </span>
                                     <button v-else class="button is-outlined">Empty</button>
                                 </div>

@@ -247,6 +247,38 @@ export function tooltip(e, data) {
 }
 
 
+
+//tooltip functions - these ones are used by more than one component - otherwise, they're just written in the local file
+export function mouseoverHealTooltip(e, healObj) {
+    const obj = {
+        type: "reg",
+        desc: "Spend Grain to instantly heal every Cultist in a Party",
+        healCost(){return healObj.getGrainHealCost();} 
+    }
+
+    tooltip(e, obj);
+}
+
+export function mouseoverAutoHealTooltip(e, partyObj) {
+    const obj = {
+        type: "reg",
+        desc: "If enabled, and you can afford it, cultists in this party will automatically consume grain to auto heal when their HP reaches 0",
+        effectDesc: partyObj.getAutoHeal() ? "Currently Enabled" : "Currently Disabled"
+    }
+
+    tooltip(e, obj);
+}
+
+export function mouseoverItem(e, item) {
+    const obj = {
+      type: "item",
+      itemObj: item
+    }
+  
+    tooltip(e, obj);
+  }
+
+
 //load function
 export function instantiateGame() {
     const cultists = useCultistsStore();

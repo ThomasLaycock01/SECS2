@@ -1,4 +1,6 @@
 <script setup>
+import { tooltip } from '@/functions';
+
 import Tooltip from '../tooltips/Tooltip.vue';
 
 import { useTooltipsStore } from '@/stores/misc/tooltips';
@@ -26,6 +28,16 @@ function instaHealClick(cultistObj) {
         cultistObj.instaHeal();
     }
 }
+
+function mouseoverInstaHeal(e, healObj) {
+    const obj = {
+        type: "reg",
+        desc: "Spend Grain to instantly heal a Cultist",
+        healCost(){return healObj.getGrainHealCost();} 
+    }
+
+    tooltip(e, obj);
+}
 </script>
 
 
@@ -46,10 +58,7 @@ function instaHealClick(cultistObj) {
                 <tbody>
                     <tr v-if="props.type == 'cultist'">
                         <th>{{ unit.getCurrentHP() }}/{{ unit.getStat("HP") }} HP</th>
-                        <th v-if="progression.checkUnlocked('completedAbandonedFarmhouse')" class="healBtn" @mouseover="tooltips.setActiveTooltip(`instaHeal${unit.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()" @click="instaHealClick(unit)" :disabled="!resources.checkIfCanAfford({grain:unit.getGrainHealCost()}) || unit.getGrainHealCost() < 1">Heal</th>
-                        <span v-if="tooltips.getActiveTooltip == `instaHeal${unit.getId()}`">
-                                <Tooltip class="tooltip" :tooltipObj="tooltips.getInstaHealTooltip(unit)"/>
-                        </span>
+                        <th v-if="progression.checkUnlocked('completedAbandonedFarmhouse')" class="healBtn" @mouseover="mouseoverInstaHeal($event, unit)" @mouseleave="tooltips.hideTooltip()" @click="instaHealClick(unit)" :disabled="!resources.checkIfCanAfford({grain:unit.getGrainHealCost()}) || unit.getGrainHealCost() < 1">Heal</th>
                     </tr>
                     <tr v-else>
                         <th>{{ unit.getCurrentHP() }}/{{ unit.getStat("HP") }} HP</th>

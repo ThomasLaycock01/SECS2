@@ -2,6 +2,7 @@
 import BuildingTooltip from './BuildingTooltip.vue';
 import ExpansionTooltip from './ExpansionTooltip.vue';
 import HealTooltip from './HealTooltip.vue';
+import ItemTooltip from './ItemTooltip.vue';
 import RecruitTooltip from './RecruitTooltip.vue';
 
 import { useTooltipsStore } from '@/stores/misc/tooltips';
@@ -12,40 +13,47 @@ const tooltips = useTooltipsStore();
 <template>
 
     <div :style="`top:${tooltips.getCurrentPos.top}px;left:${tooltips.getCurrentPos.left}px;`">
-        <!--Non-warning-->
-        <div v-if=" tooltips.getCurrentData && tooltips.getCurrentData.type == 'reg'">
-            <b class="mb-2" v-if="tooltips.getCurrentData.name">
-                {{tooltips.getCurrentData.name}}
-            </b>
-            <p class="mb-2" v-if="tooltips.getCurrentData.desc">
-                {{tooltips.getCurrentData.desc}}
-            </p>
-            <div v-if="tooltips.getCurrentData.effectDesc" class="mb-2">
-                {{ tooltips.getCurrentData.effectDesc }}
+        <div v-if="tooltips.getCurrentData">
+            <!--Non-warning-->
+            <div v-if="tooltips.getCurrentData.type == 'reg'">
+                <b v-if="tooltips.getCurrentData.name" class="mb-2">
+                    {{tooltips.getCurrentData.name}}
+                </b>
+                <p v-if="tooltips.getCurrentData.desc" class="mb-2">
+                    {{tooltips.getCurrentData.desc}}
+                </p>
+                <p v-if="tooltips.getCurrentData.effectDesc" class="mb-2">
+                    {{ tooltips.getCurrentData.effectDesc }}
+                </p>
+                <!--Recruitment-->
+                <div v-if="tooltips.getCurrentData.raceId">
+                    <RecruitTooltip :raceId="tooltips.getCurrentData.raceId"/>
+                </div>
+                <!--Buildings-->
+                <div v-if="tooltips.getCurrentData.buildingId">
+                    <BuildingTooltip :buildingId="tooltips.getCurrentData.buildingId"/>
+                </div>
+                <!--Expansions-->
+                <div v-else-if="tooltips.getCurrentData.expansionId">
+                    <ExpansionTooltip :expansionId="tooltips.getCurrentData.expansionId"/>
+                </div>
+                <!--Healing-->
+                <div v-else-if="tooltips.getCurrentData.healCost">
+                    <HealTooltip :healCost="tooltips.getCurrentData.healCost"/>
+                </div>
             </div>
-            <!--Recruitment-->
-            <div v-if="tooltips.getCurrentData.raceId">
-                <RecruitTooltip :raceId="tooltips.getCurrentData.raceId"/>
+            <!--Warning-->
+            <div v-else-if="tooltips.getCurrentData.type == 'warn'">
+                <div v-for="i in tooltips.getCurrentData.array">
+                    {{ i }}
+                </div>
             </div>
-            <!--Buildings-->
-            <div v-if="tooltips.getCurrentData.buildingId">
-                <BuildingTooltip :buildingId="tooltips.getCurrentData.buildingId"/>
-            </div>
-            <!--Expansions-->
-            <div v-else-if="tooltips.getCurrentData.expansionId">
-                <ExpansionTooltip :expansionId="tooltips.getCurrentData.expansionId"/>
-            </div>
-            <!--Healing-->
-            <div v-else-if="tooltips.getCurrentData.healCost">
-                <HealTooltip :healCost="tooltips.getCurrentData.healCost"/>
+            <!--Item-->
+            <div v-else-if="tooltips.getCurrentData.type == 'item'">
+                <ItemTooltip :item="tooltips.getCurrentData.itemObj"/>
             </div>
         </div>
-        <!--Warning-->
-        <div v-else-if="tooltips.getCurrentData && tooltips.getCurrentData.type == 'warn'">
-            <div v-for="i in tooltips.getCurrentData.array">
-                {{ i }}
-            </div>
-        </div>
+
         <!--Modifiers
         <div v-else-if="tooltipType == 'modifier'">
             <span v-for="value, key in modifierObj">

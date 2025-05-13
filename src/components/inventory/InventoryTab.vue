@@ -1,5 +1,5 @@
 <script setup>
-import Tooltip from '../tooltips/Tooltip.vue';
+import { mouseoverItem } from '@/functions';
 
 import { useInventoryStore } from '@/stores/globalPinias/inventory';
 import { useTooltipsStore } from '@/stores/misc/tooltips';
@@ -19,10 +19,7 @@ const tooltips = useTooltipsStore();
   <div class="inventoryGridContainer">
       <span v-for="i in inventory.getInventory">
         <div>
-          <button class="button" :class="i.getEquippedCultist() ? 'is-info' : 'is-dark'" @mouseover="tooltips.setActiveTooltip(`item${i.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">{{ i.getShortName() ? i.getShortName() : i.getName() }}</button>
-          <div v-if="tooltips.getActiveTooltip == `item${i.getId()}`">
-            <Tooltip class="tooltip" :tooltipObj="tooltips.getItemTooltip(i)" />
-          </div>
+          <button class="button" :class="i.getEquippedCultist() ? 'is-info' : 'is-dark'" @mouseover="mouseoverItem($event, i)" @mouseleave="tooltips.hideTooltip()">{{ i.getShortName() ? i.getShortName() : i.getName() }}</button>
         </div>
       </span>
 

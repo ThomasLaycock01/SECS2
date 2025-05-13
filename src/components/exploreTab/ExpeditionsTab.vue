@@ -6,12 +6,10 @@ import CombatScreen from './CombatScreen.vue';
 import { tooltip } from '@/functions';
 
 import { useExpeditionsStore } from '@/stores/barracks/expeditions';
-import { usePartiesStore } from '@/stores/barracks/parties';
 import { useTooltipsStore } from '@/stores/misc/tooltips';
 import { useModalsStore } from '@/stores/misc/modal';
 
 const expeditions = useExpeditionsStore();
-const parties = usePartiesStore();
 const tooltips = useTooltipsStore();
 const modals = useModalsStore();
 

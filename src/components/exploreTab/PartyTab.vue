@@ -1,5 +1,5 @@
 <script setup>
-import Tooltip from '../tooltips/Tooltip.vue';
+import { mouseoverAutoHealTooltip, mouseoverHealTooltip } from '@/functions';
 
 import { usePartiesStore } from '@/stores/barracks/parties';
 import { useModalsStore } from '@/stores/misc/modal';
@@ -44,16 +44,10 @@ function instaHealCheck(partyObj) {
                 {{ i.getName() }} - {{ i.getPartySize() }}/{{ i.getLimit() }} - Currently {{ i.getCurrentActivity() ? i.getCurrentActivity() : "doing nothing" }}
                 <button class="button is-dark" @click="modals.openParty(i)" :disabled="i.getCurrentActivity()">Edit</button>
                 <span v-if="progression.checkUnlocked('completedAbandonedFarmhouse')">
-                    <button class="button is-dark" @click="instaHealClick(i)" @mouseover="tooltips.setActiveTooltip(`instaHeal${i.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()" :disabled="!instaHealCheck(i)">Insta-heal</button>
-                    <span v-if="tooltips.getActiveTooltip == `instaHeal${i.getId()}`">
-                        <Tooltip class="tooltip" :tooltipObj="tooltips.getInstaHealTooltip(i)"/>
-                    </span>
+                    <button class="button is-dark" @click="instaHealClick(i)" @mouseover="mouseoverHealTooltip($event, i)" @mouseleave="tooltips.hideTooltip()" :disabled="!instaHealCheck(i)">Insta-heal</button>
                 </span>
                 <span v-if="progression.checkUnlocked('completedBanditHideout')">
-                    <button class="button" :class="i.getAutoHeal() ? 'is-success' : 'is-danger'" @click="i.toggleAutoHeal()" @mouseover="tooltips.setActiveTooltip(`autoHeal${i.getId()}`)" @mouseleave="tooltips.removeActiveTooltip()">Auto Insta-heal</button>
-                    <span v-if="tooltips.getActiveTooltip == `autoHeal${i.getId()}`">
-                        <Tooltip class="tooltip" :tooltipObj="tooltips.getAutoHealTooltip(i)"/>
-                    </span>
+                    <button class="button" :class="i.getAutoHeal() ? 'is-success' : 'is-danger'" @click="i.toggleAutoHeal()" @mouseover="mouseoverAutoHealTooltip($event, i)" @mouseleave="tooltips.hideTooltip()">Auto Insta-heal</button>
                 </span>
                 <br>
                 <br>
