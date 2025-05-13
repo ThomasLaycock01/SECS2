@@ -57,18 +57,5 @@ const tooltips = useTooltipsStore();
                 <PerkTooltip :perk="tooltips.getCurrentData.perk" :cultist="tooltips.getCurrentData.cultist"/>
             </div>
         </div>
-
-        <!--Modifiers
-        <div v-else-if="tooltipType == 'modifier'">
-            <span v-for="value, key in modifierObj">
-                <div v-if="!Array.isArray(value)">
-                    {{ key }}: +{{ value * 100 }}%
-                </div>
-                <span v-else-if="value.length > 0">
-                    <div>{{ key }}</div>
-                    <div v-for="j in value">{{ j }}</div>
-                </span>
-            </span>
-        </div>-->
     </div>
 </template>
