@@ -19,7 +19,7 @@ export const useExploreStore = defineStore("explore", {
         }
     },
     actions: {
-        tick() {
+        tick(combat = false) {
           for (var i in this.areas) {
             const area = this.areas[i];
 
@@ -34,7 +34,7 @@ export const useExploreStore = defineStore("explore", {
                 if (area.getCurrentEncounter().length < 1) {
                     area.generateEncounter();
                 }
-                else {
+                else if (combat) {
                     combatRound(area);
                 }
             }

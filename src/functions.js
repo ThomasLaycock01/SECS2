@@ -11,6 +11,7 @@ import { useExpeditionsStore } from "./stores/barracks/expeditions";
 import { usePartiesStore } from "./stores/barracks/parties";
 import { useEnemiesStore } from "./stores/barracks/enemies";
 import { useTextLogStore } from "./stores/misc/textLog";
+import { useStatsStore } from "./stores/misc/stats";
 //classes
 import { Cultist } from "./classes/Cultist";
 
@@ -25,12 +26,25 @@ export function tick() {
     const expeditions = useExpeditionsStore();
     const parties = usePartiesStore();
     const resources = useResourcesStore();
+    const stats = useStatsStore();
+
+    //this just increments the tick count by 1
+    stats.tick();
 
     expansions.expansionTicks();
     cultists.tick();
-    explore.tick();
-    expeditions.tick();
     parties.tick();
+
+    //to make sure combat happens every other tick
+    if (stats.getTickCount % 2 == 0) {
+        explore.tick(true);
+        expeditions.tick(true);
+    }
+    else {
+        explore.tick();
+        expeditions.tick();
+    }
+    
 
     resources.updateResources();
 }

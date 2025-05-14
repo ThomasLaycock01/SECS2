@@ -143,7 +143,7 @@ export class Area {
         if (this.autoEmbark && this.activeParty && this.activeParty.checkFullHealth() && !(modals.checkModal("partySelect") || modals.checkModal("party"))) {
             this.toggleActive();
             //weird one, but since a mouseleave is not triggered when autoembark happens, this can bug tooltips and cause them to show when they souldnt
-            tooltips.removeActiveTooltip();
+            tooltips.hideTooltip();
         }
     }
 

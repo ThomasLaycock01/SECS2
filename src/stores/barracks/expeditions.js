@@ -36,7 +36,7 @@ export const useExpeditionsStore = defineStore("expeditions", {
         }
     },
     actions: {
-        tick() {
+        tick(combat = false) {
             for (var i in this.expeditions) {
                 const expedition = this.expeditions[i];
                 
@@ -48,7 +48,7 @@ export const useExpeditionsStore = defineStore("expeditions", {
                     else if (expedition.getCurrentEncounter().length < 1) {
                         expedition.generateNextEncounter();
                     }
-                    else {
+                    else if (combat) {
                         combatRound(expedition);
                     }
                 }
