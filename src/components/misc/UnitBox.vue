@@ -1,8 +1,6 @@
 <script setup>
 import { tooltip } from '@/functions';
 
-import Tooltip from '../tooltips/Tooltip.vue';
-
 import { useTooltipsStore } from '@/stores/misc/tooltips';
 import { useProgressionStore } from '@/stores/misc/progression';
 import { useResourcesStore } from '@/stores/globalPinias/resources';

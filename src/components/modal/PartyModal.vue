@@ -1,6 +1,8 @@
 <script setup>
 import { reactive } from 'vue';
 
+import UnitBox from '../misc/UnitBox.vue';
+
 import { tooltip } from '@/functions';
 
 import { useModalsStore } from '@/stores/misc/modal';
@@ -82,13 +84,10 @@ function cultistButtonClick(cultist) {
                                 </span>
                             </div>
                         </div>
+                        <br>
                         <div class="partySelectorBottom">
                             <div v-if="party.getCultistBySlot(selected.slot)">
-                                <div class="title is-5 mb-1 segment-title">{{party.getCultistBySlot(selected.slot).getName()}}</div>
-                                <div>Stats:</div>
-                                <ul>
-                                    <li v-for="key, value in party.getCultistBySlot(selected.slot).getStatObj()">{{ key }} {{ value }}</li>
-                                </ul>
+                                <UnitBox :unit="party.getCultistBySlot(selected.slot)" type="cultist"/>
                             </div>
                         </div>
                         </div>
