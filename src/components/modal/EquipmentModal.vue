@@ -72,7 +72,7 @@ function setSelectedSlot(slot) {
     </div>
 
     <div class="modalFooter">
-        <button class="button is-dark" @click="modals.closeEquipment()">Close</button>
+        <button class="button wideBtn is-dark" @click="modals.closeEquipment()">Close</button>
     </div>
 
 </div>

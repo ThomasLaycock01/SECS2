@@ -20,7 +20,7 @@ const buildings = useBuildingsStore();
         <div v-if="buttonCheck(action)">
             <div class="title is-5 mb-1 segment-title">{{ action.name }}</div>
             <span v-for="button in action.buttons">
-                <button v-if="button.showCondition()" :disabled="!button.condition()" @click="button.effect" class="button mb-1 mr-2" :class="button.buildingId && buildings.getOwned(button.buildingId) == buildings.getLimit(button.buildingId) ? 'is-light' : 'is-dark'" @mouseenter="tooltip($event, button.tooltip)" @mouseleave="tooltips.hideTooltip()">{{ button.name }}</button>
+                <button v-if="button.showCondition()" :disabled="!button.condition()" @click="button.effect" class="button wideBtn  mb-1 mr-2" :class="button.buildingId && buildings.getOwned(button.buildingId) == buildings.getLimit(button.buildingId) ? 'is-light' : 'is-dark'" @mouseenter="tooltip($event, button.tooltip)" @mouseleave="tooltips.hideTooltip()">{{ button.name }}</button>
             </span>
         </div>
     </span>

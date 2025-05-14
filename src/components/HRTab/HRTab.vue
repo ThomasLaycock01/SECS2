@@ -40,10 +40,10 @@ function cultistColourCheck(cultist) {
         <div class="title is-5 mb-1 segment-title">Cultists</div>
         <div class="cultistGridContainer">
             <span v-for="i in cultists.getCultists" class="gridItem">
-                <button  class="button" :class="cultistColourCheck(i)" @click="cultistClick(i)">{{i.getName()}}</button>
+                <button  class="button wideBtn" :class="cultistColourCheck(i)" @click="cultistClick(i)">{{i.getName()}}</button>
             </span>
             <span v-for="i in cultists.getCultistLimit - cultists.getNumOfCultists" class="gridItem">
-                <div class="button is-outlined" disabled>Empty</div>
+                <div class="button is-outlined wideBtn" disabled>Empty</div>
             </span>
         </div>
     </div>

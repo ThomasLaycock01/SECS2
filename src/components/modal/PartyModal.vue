@@ -98,8 +98,8 @@ function cultistButtonClick(cultist) {
         </div>
 
         <div class="modalFooter">
-            <button class="button is-dark" @click="modals.closeParty(party)">Confirm</button>
-            <button class="button is-danger" @click="modals.closeParty(party, false)">Cancel</button>
+            <button class="button is-dark wideBtn" @click="modals.closeParty(party)">Confirm</button>
+            <button class="button is-danger wideBtn" @click="modals.closeParty(party, false)">Cancel</button>
         </div>
 
     </div>

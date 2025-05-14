@@ -257,7 +257,7 @@ function mouseoverPerk(e, perk) {
         </div>
 
         <div class="modalFooter">
-            <button class="button is-dark" @click="modals.closeCultist()">Close</button>
+            <button class="button wideBtn is-dark" @click="modals.closeCultist()">Close</button>
         </div>
 
     </div>

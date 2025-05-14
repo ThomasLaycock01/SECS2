@@ -59,7 +59,7 @@ function setSelectedParty(party) {
     </div>
 
     <div class="modalFooter">
-        <button class="button is-danger" @click="modals.closePartySelect()">Close</button>
+        <button class="button is-danger wideBtn" @click="modals.closePartySelect()">Close</button>
     </div>
 
 </div>

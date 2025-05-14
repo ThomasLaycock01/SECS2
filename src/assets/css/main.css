@@ -81,7 +81,7 @@ html {
     flex-wrap: wrap;
 }
 
-.button:not(.is-small) {
+.wideBtn {
     width: 10rem;
     height: 2.5rem !important;
 }
