@@ -161,7 +161,7 @@ function mouseoverPerk(e, perk) {
                     </div>      
                     </b-tab-item>
                     <!--Role tab-->
-                    <b-tab-item label="Role">
+                    <b-tab-item :label="cultist.getRole() ? 'Role' : 'Role(!)'">
                         <div class="columns">
                             <div class="column is-half">
                                 <div class="title is-5 mb-1 segment-title">Roles</div>
