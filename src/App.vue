@@ -1,4 +1,7 @@
 <script setup>
+import { onMounted } from "vue";
+import { instantiateGame, tick } from "./functions";
+
 import Tables from "./components/tables/Tables.vue";
 
 import CultistModal from "./components/modal/CultistModal.vue";
@@ -24,6 +27,12 @@ import { useTooltipsStore } from "./stores/misc/tooltips";
 const modals = useModalsStore();
 const progression = useProgressionStore();
 const tooltips = useTooltipsStore();
+
+instantiateGame();
+
+onMounted(() => {
+  setInterval(tick, 1000);
+})
 </script>
 
 <template>
@@ -61,18 +70,9 @@ const tooltips = useTooltipsStore();
 </template>
 
 <script>
-import { tick, instantiateGame } from "./functions";
-
 export default {
   data() {
     return {activeTab: 0}
-  },
-  beforeCreate() {
-    instantiateGame();
-  },
-  mounted() {
-    setInterval(tick, 1000);
   }
 }
-
 </script>
