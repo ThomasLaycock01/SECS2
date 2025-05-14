@@ -20,6 +20,8 @@ const cultist = modals.getCultistCultist;
 
 function assignPerk(perk) {
     cultist.addPerk(perk);
+    //can result in floating tooltips if not removed
+    tooltips.hideTooltip();
 }
 
 function roleClick(role) {
