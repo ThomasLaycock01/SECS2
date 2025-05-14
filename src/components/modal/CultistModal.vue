@@ -6,12 +6,14 @@ import { useTooltipsStore } from '@/stores/misc/tooltips';
 import { usePartiesStore } from '@/stores/barracks/parties';
 import { usePerkStore } from '@/stores/globalPinias/Perks';
 import { useCultistsStore } from '@/stores/globalPinias/cultists';
+import { useProgressionStore } from '@/stores/misc/progression';
 
 const modals = useModalsStore();
 const tooltips = useTooltipsStore();
 const parties = usePartiesStore();
 const perks = usePerkStore();
 const cultists = useCultistsStore();
+const progression = useProgressionStore();
 
 const cultist = modals.getCultistCultist;
 
@@ -110,7 +112,7 @@ function mouseoverPerk(e, perk) {
                             </div>           
                         </div>
                         <!--Equipment Column-->
-                        <div class="column is-one-quarter">
+                        <div class="column is-one-quarter" v-if="progression.checkUnlocked('firstItem')">
                             <div class="title is-6">Equipment</div>
                             <div>
                                 <div v-for="value, key in cultist.getEquipment()">
@@ -125,7 +127,7 @@ function mouseoverPerk(e, perk) {
                             </div>
                         </div>
                         <!--Atk/Def breakdown column-->
-                        <div class="column is-half">
+                        <div class="column is-half" v-if="progression.checkUnlocked('firstItem')">
                             <div class="title is-6">Atk/Def breakdown</div>
                             <div v-if="cultist.getRole()">
                                 <div>Current role: {{ cultist.getRole().getName() }}</div>
