@@ -24,6 +24,8 @@ export class Area {
         this.maxLevel = 1;
         this.currentLevel = 1;
         this.levelProgress = 0;
+
+        this.preReq = obj.preReq ? obj.preReq : null;
     }
 
     //getters
@@ -100,7 +102,9 @@ export class Area {
         return this.activityName;
     }
 
-
+    getPreReq() {
+        return this.preReq
+    }
 
     //actions
     setActiveParty(partyObj) {

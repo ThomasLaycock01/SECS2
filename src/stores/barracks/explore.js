@@ -2,6 +2,8 @@ import { defineStore } from "pinia";
 
 import { Area } from "@/classes/Areas";
 
+import { useProgressionStore } from "../misc/progression";
+
 import { combatRound } from "@/functions";
 
 import areas from "@/assets/json/areas.json"
@@ -16,6 +18,18 @@ export const useExploreStore = defineStore("explore", {
     getters: {
         getAreas(state) {
             return state.areas;
+        },
+        getUnlockedAreas(state) {
+            const progression = useProgressionStore();
+
+            const rArray = [];
+            for (var i in state.areas) {
+                if (!state.areas[i].getPreReq() || progression.checkUnlocked(state.areas[i].getPreReq())) {
+                    rArray.push(state.areas[i]);
+                }
+            }
+
+            return rArray;
         },
         getAreaLevel(state) {
             return (levelId) => {

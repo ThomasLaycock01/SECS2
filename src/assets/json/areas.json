@@ -122,6 +122,7 @@
         "name": "Red Mountains", 
         "desc": "A tall, and rocky mountain range. It was stained red after the Death of the Mountain King.",
         "activityName": "traversing the Red Mountains",
+        "preReq": "level1-10",
         "encounters": [
             {
                 "array": [2000],

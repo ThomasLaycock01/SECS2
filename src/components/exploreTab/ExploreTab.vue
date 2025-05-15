@@ -127,7 +127,7 @@ function mouseoverAutoEmbark(e) {
     </div>
     <!--List pops up if no area selected-->
     <div v-else>
-        <div v-for="i in explore.getAreas">
+        <div v-for="i in explore.getUnlockedAreas">
             <p>{{ i.getName() }}</p>
             <button class="button is-dark" @click="setSelectedArea(i)">Embark</button>
         </div>
