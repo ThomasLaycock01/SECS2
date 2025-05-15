@@ -75,9 +75,10 @@ export class Area {
         const buildings = useBuildingsStore();
 
         var cap = 10;
-
-        if (buildings.getOwned(`cartographer${this.id}`)) {
+        if (this.id == "level1") {
+            if (buildings.getOwned(`cartographer${this.id}`)) {
             cap += 10;
+        }
         }
 
         return cap;

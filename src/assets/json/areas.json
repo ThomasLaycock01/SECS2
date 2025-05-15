@@ -116,5 +116,81 @@
                 "unlockLevel": 15
             }
         ]
+    },
+    "level2": {
+        "id": "level2",
+        "name": "Red Mountains", 
+        "desc": "A tall, and rocky mountain range. It was stained red after the Death of the Mountain King.",
+        "activityName": "traversing the Red Mountains",
+        "encounters": [
+            {
+                "array": [2000],
+                "maxLvl": 1,
+                "minLvl": 1
+            },
+            {
+                "array": [2000, 2000],
+                "maxLvl": 2,
+                "minLvl": 1
+            },
+            {
+                "array": [2001],
+                "maxLvl": 3,
+                "minLvl": 2
+            },
+            {
+                "array": [2001, 2000],
+                "maxLvl": 3,
+                "minLvl": 2
+            },
+            {
+                "array": [2001, 2001],
+                "maxLvl": 4,
+                "minLvl": 3
+            },
+            {
+                "array": [2002],
+                "maxLvl": 4,
+                "minLvl": 4
+            },
+            {
+                "array": [2001, 2003],
+                "maxLvl": 5,
+                "minLvl": 4
+            },
+            {
+                "array": [2000, 2000, 2001],
+                "maxLvl": 7,
+                "minLvl": 5
+            },
+            {
+                "array": [2003, 2003],
+                "maxLvl": 7,
+                "minLvl": 6
+            },
+            {
+                "array": [2002, 2000, 2000],
+                "maxLvl": 8,
+                "minLvl": 7
+            },
+            {
+                "array": [2002, 2002],
+                "maxLvl": 8,
+                "minLvl": 8
+            },
+            {
+                "array": [2004],
+                "maxLvl": 9,
+                "minLvl": 8
+            },
+            {
+                "array": [2002, 2004],
+                "maxLvl": 10,
+                "minLvl": 9
+            }
+        ],
+        "expeditions": [
+
+        ]
     }
 }

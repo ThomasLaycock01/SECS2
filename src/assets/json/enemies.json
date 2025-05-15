@@ -13,5 +13,10 @@
     "1011": {"id": 1011, "name": "Goblin Skirmisher", "stats": {"atk": 19, "def": 6, "HP": 8}, "atkMod": {"phys": 1.5, "mag": 0}, "defMod": {"phys": 1.5, "mag": 0.5}, "xpDrop": 30, "loot": {"gold": 45}},
     "1012": {"id": 1012, "name": "Goblin Pikeman", "stats": {"atk": 6, "def": 24, "HP": 15}, "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 1.5, "mag": 0.2}, "xpDrop": 32, "loot": {"gold": 50}},
     "1013": {"id": 1013, "name": "Goblin Warlock", "stats": {"atk": 18, "def": 9, "HP": 11}, "atkMod": {"phys": 1.5, "mag": 0.5}, "defMod": {"phys": 0.8, "mag": 2}, "xpDrop": 28, "loot": {"gold": 50}},
-    "1014": {"id": 1014, "name": "Goblin Assassin", "stats": {"atk": 24, "def": 2, "HP": 8}, "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 1, "mag": 1}, "xpDrop": 27, "loot": {"gold": 45}}
+    "1014": {"id": 1014, "name": "Goblin Assassin", "stats": {"atk": 24, "def": 2, "HP": 8}, "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 1, "mag": 1}, "xpDrop": 27, "loot": {"gold": 45}},
+    "2000": {"id": 2000, "name": "Mountain Wolf", "stats": {"atk": 12, "def": 3, "HP": 14}, "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 1, "mag": 1}, "xpDrop": 15, "loot": {"gold": 40}},
+    "2001": {"id": 2001, "name": "Madman", "stats": {"atk": 15, "def": 3, "HP": 45}, "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 1, "mag": 1}, "xpDrop": 25, "loot": {"gold":55}},
+    "2002": {"id": 2002, "name": "Minor Golem", "stats": {"atk": 9, "def": 22, "HP": 50}, "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 1, "mag": 0.5}, "xpDrop": 32, "loot": {"gold": 60}},
+    "2003": {"id": 2003, "name": "Red Servant", "stats": {"atk": 19, "def": 12, "HP": 25}, "atkMod": {"phys": 0.8, "mag": 0.4}, "defMod": {"phys": 1, "mag": 1.2}, "xpDrop": 32, "loot": {"gold": 50}},
+    "2004": {"id": 2004, "name": "Stone Golem", "stats": {"atk": 10, "def": 24, "HP": 120}, "atkMod": {"phys": 1, "mag": 0}, "defMod": {"phys": 1, "mag": 0.6}, "xpDrop": 40, "loot": {"gold": 70}}
 }
