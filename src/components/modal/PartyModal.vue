@@ -87,7 +87,7 @@ function cultistButtonClick(cultist) {
                         <br>
                         <div class="partySelectorBottom">
                             <div v-if="party.getCultistBySlot(selected.slot)">
-                                <UnitBox :unit="party.getCultistBySlot(selected.slot)" type="cultist"/>
+                                <UnitBox :unit="party.getCultistBySlot(selected.slot)" type="cultist" :key="party.getCultistBySlot(selected.slot).getId()"/>
                             </div>
                         </div>
                         </div>
