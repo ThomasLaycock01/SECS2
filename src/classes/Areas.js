@@ -3,6 +3,7 @@ import { useEnemiesStore } from "@/stores/barracks/enemies";
 import { useExpeditionsStore } from "@/stores/barracks/expeditions";
 import { useModalsStore } from "@/stores/misc/modal";
 import { useTooltipsStore } from "@/stores/misc/tooltips";
+import { useProgressionStore } from "@/stores/misc/progression";
 
 export class Area {
     constructor(obj) {
@@ -219,6 +220,8 @@ export class Area {
     }
 
     checkLevelUp() {
+        const progression = useProgressionStore();
+
         if (this.levelProgress >= 10) {
             this.levelProgress = 0;
             this.maxLevel++;
@@ -226,6 +229,8 @@ export class Area {
             if (this.currentLevel == this.maxLevel - 1) {
                 this.increaseCurrentLevel();
             }
+
+            progression.updateProgression();
         }
     }
 

@@ -4,6 +4,7 @@ import { useResourcesStore } from "../globalPinias/resources";
 import { useCultistsStore } from "../globalPinias/cultists";
 import { useExpeditionsStore } from "../barracks/expeditions";
 import { usePartiesStore } from "../barracks/parties";
+import { useExploreStore } from "../barracks/explore";
 
 import { useTextLogStore } from "./textLog";
 import { useInventoryStore } from "../globalPinias/inventory";
@@ -72,6 +73,14 @@ export const useProgressionStore = defineStore("progression", {
                     condition() {
                         const expeditions = useExpeditionsStore();
                         return expeditions.checkIfExpeditionUnlocked("abandonedFarmhouse")
+                    }
+                },
+                "level1-10": {
+                    id: "level1-10",
+                    TLMessage: true,
+                    condition() {
+                        const explore = useExploreStore();
+                        return explore.getAreaLevel("level1") >= 10;
                     }
                 },
                 "completedAbandonedFarmhouse": {

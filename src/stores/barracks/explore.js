@@ -16,6 +16,11 @@ export const useExploreStore = defineStore("explore", {
     getters: {
         getAreas(state) {
             return state.areas;
+        },
+        getAreaLevel(state) {
+            return (levelId) => {
+                return state.areas[levelId].getMaxLevel();
+            }
         }
     },
     actions: {

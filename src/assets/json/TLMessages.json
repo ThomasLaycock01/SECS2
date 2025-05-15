@@ -3,5 +3,6 @@
     "10Evilness": {"text": "Okay, no-one can stop you, but they won't need to at this rate. A cult with only one member is just an unusual habit, so you'd better hire some help to speed things up a bit."},
     "firstCultist": {"text": "Congratulations! You have officially started your evil cult. Give them a role, and assign them to a party, so they actually know what they're doing."},
     "firstParty": {"text": "Excellent! Now - send them to explore and commit evil deeds on your behalf... and also fight enemies, I guess."},
-    "abandondedFarmhouseUnlocked": {"text": "You find an abandonded farmhouse in the middle of the plains... if you could clear out the bandits inside, your cultists could (reluctantly) use it!"}
+    "abandondedFarmhouseUnlocked": {"text": "You find an abandonded farmhouse in the middle of the plains... if you could clear out the bandits inside, your cultists could (reluctantly) use it!"},
+    "level1-10": {"text": "The Plains are frighteningly huge and unremarkable - they're almost remarkable in their unremarkableness. It'd probably be best to get a profession to make you a map."}
 }
