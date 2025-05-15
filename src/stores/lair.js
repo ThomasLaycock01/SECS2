@@ -265,18 +265,18 @@ export const useLairStore = defineStore("lair", {
                         buildCartographerPlains: {
                             id: "buildCartographerPlains",
                             name: "Cartographer - Plains",
-                            buildingId: "cartographerPlains",
+                            buildingId: "cartographerlevel1",
                             tooltip: {
                                 type: "reg",
                                 name: "Cartographer - Plains",
                                 desc: "Hire some cartographers to make a proper map of the Plains - so you actually know where you're going.",
                                 effectDesc: "Increase Plains hardcap to Level 20",
-                                buildingId: "cartographerPlains"
+                                buildingId: "cartographerlevel1"
                             },
                             condition() {
                                 const resources = useResourcesStore();
                                 const buildings = useBuildingsStore();
-                                return resources.checkIfCanAfford(buildings.getCosts("cartographerPlains")) && !buildings.checkIfAtLimit("cartographerPlains");
+                                return resources.checkIfCanAfford(buildings.getCosts("cartographerlevel1")) && !buildings.checkIfAtLimit("cartographerlevel1");
                             },
                             showCondition() {
                                 const progression = useProgressionStore();
@@ -284,7 +284,7 @@ export const useLairStore = defineStore("lair", {
                             },
                             effect() {
                                 const buildings = useBuildingsStore();
-                                buildings.build("cartographerPlains");
+                                buildings.build("cartographerlevel1");
                             }
                         }
                     }

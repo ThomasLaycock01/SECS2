@@ -23,7 +23,6 @@ export class Area {
         this.maxLevel = 1;
         this.currentLevel = 1;
         this.levelProgress = 0;
-        this.hardCapId = obj.hardCapId;
     }
 
     //getters
@@ -76,7 +75,7 @@ export class Area {
 
         var cap = 10;
 
-        if (buildings.getOwned(`cartographer${this.hardCapId}`)) {
+        if (buildings.getOwned(`cartographer${this.id}`)) {
             cap += 10;
         }
 

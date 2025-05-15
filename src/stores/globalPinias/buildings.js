@@ -53,8 +53,8 @@ export const useBuildingsStore = defineStore("buildings", {
                         parties.unlockRole("apprentice");
                     }
                 },
-                cartographerPlains: {
-                    id: "cartographerPlains",
+                cartographerlevel1: {
+                    id: "cartographerlevel1",
                     costs: {"gold": 4000},
                     limit: 1
                 }
