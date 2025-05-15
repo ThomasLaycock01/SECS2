@@ -17,6 +17,7 @@ function setSelectedItem(item) {
 
 function setSelectedSlot(slot) {
     equipmentModal.selectedSlot = slot;
+    equipmentModal.selectedItem = null;
 }
 </script>
 
